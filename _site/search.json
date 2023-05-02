@@ -32,6 +32,41 @@
     "href": "schedule.html",
     "title": "Schedule",
     "section": "",
-    "text": "DATE \n    SESSION \n    TITLE \n    CONTENT \n    ASSIGNMENT \n  \n \n\n  \n    DAY 1 \n    Morning \n    Introduction and Set Up \n     \n     \n  \n  \n    DAY 1 \n    Afternoon \n    Data Visualisation \n     \n     \n  \n  \n    DAY 2 \n    Morning \n    Data Transformation \n     \n     \n  \n  \n    DAY 2 \n    Afternoon \n    Exploratory Data Analysis"
+    "text": "DATE \n    TITLE \n    CLASS SLIDES \n    SESSION SCRIPTS \n    ASSIGNMENTS \n  \n \n\n  \n    1 \n    Course Introduction \n     \n     \n     \n  \n  \n    2 \n    Descriptive Statistics"
+  },
+  {
+    "objectID": "content/01-content.html#class-slides",
+    "href": "content/01-content.html#class-slides",
+    "title": "Course Introduction",
+    "section": "Class slides",
+    "text": "Class slides"
+  },
+  {
+    "objectID": "content/01-content.html#session-scipts",
+    "href": "content/01-content.html#session-scipts",
+    "title": "Course Introduction",
+    "section": "Session scipts",
+    "text": "Session scipts"
+  },
+  {
+    "objectID": "content/02-content.html#class-slides",
+    "href": "content/02-content.html#class-slides",
+    "title": "Descriptive Statistics",
+    "section": "Class slides",
+    "text": "Class slides"
+  },
+  {
+    "objectID": "content/02-content.html#session-scripts",
+    "href": "content/02-content.html#session-scripts",
+    "title": "Descriptive Statistics",
+    "section": "Session scripts",
+    "text": "Session scripts"
+  },
+  {
+    "objectID": "content/01-content.html#session-scripts",
+    "href": "content/01-content.html#session-scripts",
+    "title": "Course Introduction",
+    "section": "Session scripts",
+    "text": "Session scripts"
   }
 ]

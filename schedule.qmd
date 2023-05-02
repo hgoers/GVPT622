@@ -13,30 +13,33 @@ library(fontawesome)
 
 ```{r, include = FALSE}
 schedule <- tibble(
-  DATE = c("DAY 1", "DAY 1", "DAY 2", "DAY 2"),
-  SESSION = c("Morning", "Afternoon", "Morning", "Afternoon"),
-  TITLE = c("Introduction and Set Up", "Data Visualisation", "Data Transformation", "Exploratory Data Analysis"),
-  CONTENT = c("index.html"),
-  ASSIGNMENT = c("")
+  DATE = c("1", "2"),
+  TITLE = c("Course Introduction", "Descriptive Statistics"),
+  `CLASS SLIDES` = c("index.html"),
+  `SESSION SCRIPTS` = c(""),
+  ASSIGNMENTS = c("")
 ) |> 
   mutate(
-    CONTENT = if_else(CONTENT != "", 
-                      paste0("<a href=\"http://localhost:3933/content/", CONTENT, "\">", as.character(fa("book")), "</a>"),
+    `CLASS SLIDES` = if_else(`CLASS SLIDES` != "", 
+                      paste0("<a href=\"http://localhost:3933/content/", `CLASS SLIDES`, "\">", as.character(fa("book")), "</a>"),
                       as.character(fa("book"))),
-    ASSIGNMENT = if_else(ASSIGNMENT != "",
-                         paste0("<a href=\"http://localhost:3933/content/", ASSIGNMENT, "\">", as.character(fa("pen-ruler")), "</a>"),
+    `SESSION SCRIPTS` = if_else(`SESSION SCRIPTS` != "", 
+                      paste0("<a href=\"http://localhost:3933/content/", `SESSION SCRIPTS`, "\">", as.character(fa("gears")), "</a>"),
+                      as.character(fa("gears"))),
+    ASSIGNMENTS = if_else(ASSIGNMENTS != "",
+                         paste0("<a href=\"http://localhost:3933/content/", ASSIGNMENTS, "\">", as.character(fa("pen-ruler")), "</a>"),
                          as.character(fa("pen-ruler")))
   )
 ```
 
 ```{r schedule, echo = FALSE, results = "asis"}
 schedule |>
-  kbl(escape = FALSE, align = "lllcc") |>
+  kbl(escape = FALSE, align = "llccc") |>
   kable_styling(bootstrap_options = c("hover", "responsive"),
                 fixed_thead = T) |> 
-  column_spec(1, width = "10%", extra_css = "padding-right: 20px;") |> 
-  column_spec(2, width = "10%") |> 
-  column_spec(3, width = "60%") |> 
-  column_spec(4, width = "10%") |> 
-  column_spec(5, width = "10%")
+  column_spec(1, width = "12%", extra_css = "padding-right: 20px;") |> 
+  column_spec(2, width = "52%") |> 
+  column_spec(3, width = "12%") |> 
+  column_spec(4, width = "12%") |> 
+  column_spec(5, width = "12%")
 ```
