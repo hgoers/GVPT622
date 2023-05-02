@@ -1,0 +1,42 @@
+---
+title: "Schedule"
+sidebar: false
+toc: false
+page-layout: full
+---
+
+```{r packages, include = FALSE}
+library(tidyverse)
+library(kableExtra)
+library(fontawesome)
+```
+
+```{r, include = FALSE}
+schedule <- tibble(
+  DATE = c("DAY 1", "DAY 1", "DAY 2", "DAY 2"),
+  SESSION = c("Morning", "Afternoon", "Morning", "Afternoon"),
+  TITLE = c("Introduction and Set Up", "Data Visualisation", "Data Transformation", "Exploratory Data Analysis"),
+  CONTENT = c("index.html"),
+  ASSIGNMENT = c("")
+) |> 
+  mutate(
+    CONTENT = if_else(CONTENT != "", 
+                      paste0("<a href=\"http://localhost:3933/content/", CONTENT, "\">", as.character(fa("book")), "</a>"),
+                      as.character(fa("book"))),
+    ASSIGNMENT = if_else(ASSIGNMENT != "",
+                         paste0("<a href=\"http://localhost:3933/content/", ASSIGNMENT, "\">", as.character(fa("pen-ruler")), "</a>"),
+                         as.character(fa("pen-ruler")))
+  )
+```
+
+```{r schedule, echo = FALSE, results = "asis"}
+schedule |>
+  kbl(escape = FALSE, align = "lllcc") |>
+  kable_styling(bootstrap_options = c("hover", "responsive"),
+                fixed_thead = T) |> 
+  column_spec(1, width = "10%", extra_css = "padding-right: 20px;") |> 
+  column_spec(2, width = "10%") |> 
+  column_spec(3, width = "60%") |> 
+  column_spec(4, width = "10%") |> 
+  column_spec(5, width = "10%")
+```

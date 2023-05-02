@@ -1,0 +1,31 @@
+author: Harriet Goers
+
+instructor:
+  name: Harriet Goers
+  name_no_title: Harriet Goers
+  email: hgoers@umd.edu
+  url: "https://www.harrietgoers.com"
+  twitter: harrietgoers
+  github: hgoers
+  office: "Chincoteague Building"
+  contact_policy: >-
+    E-mail and Slack are the best ways to get in contact with me. I will try to respond to all course-related e-mails and Slack messages within 24 hours.
+
+course:
+  number: "GVPT622"
+  semester: "Fall 2023"
+  time: "7:15–9:45 PM"
+  location: "Tydings Building"
+  dates: "January 9–May 2, 2023"
+  github: "https://www.github.com/andrewheiss/evalsp23.classes.andrewheiss.com"
+  url: "https://evalsp23.classes.andrewheiss.com"
+  copyright_year: "2023"
+  slack: "https://gsuevalsp2023.slack.com"
+
+university:
+  name: University of Maryland, College Park
+  url: "https://www.umd.edu/"
+
+school:
+  name: Department of Government and Politics
+  url: "https://gvpt.umd.edu/"

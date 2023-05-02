@@ -1,0 +1,28 @@
+---
+title: "Introduction and Set Up"
+date: "2023-01-12"
+---
+
+## Readings
+
+### Setting up your computer (sorry for the macOS bias!)
+
+{{< fa arrow-up-right-from-square >}} Garrick Aden-Buie's [macOS set up blogpost](https://www.garrickadenbuie.com/blog/setting-up-a-new-macbook-pro/)
+
+{{< fa arrow-up-right-from-square >}} Matti Vuorre's [macOS set up blogpost](https://vuorre.netlify.app/posts/computer-setup-dotfiles/)
+
+### Setting up Git and GitHub
+
+{{< fa book >}} **Installation** and **Connect Git, GitHub, RStudio** sections in Jennifer Bryan's [*Happy Git and GitHub for the useR*](https://happygitwithr.com/index.html)
+
+### Setting up R and RStudio
+
+{{< fa book >}} **Install or upgrade R and RStudio** chapter in Jennifer Bryan's [*Happy Git and GitHub for the useR*](https://happygitwithr.com/install-r-rstudio.html)
+
+## Slides
+
+```{=html}
+<iframe class="slide-deck" src="../_site/slides/01-class.html" width = "100%" height = 600px></iframe>
+```
+
+## In-class

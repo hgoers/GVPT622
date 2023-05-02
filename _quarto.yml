@@ -3,17 +3,32 @@ project:
 
 website:
   title: "GVPT622"
+
+  favicon: "/files/img/hex-testudo.png"
+
   navbar:
-    left:
+    pinned: true
+    background: "#C31832"
+    right:
       - href: index.qmd
         text: Home
-      - about.qmd
+      - href: schedule.qmd
+        text: Schedule
+      - href: content/01-content.qmd
+        text: Content
+
+  sidebar:
+    - title: "Content"
+      style: "docked"
+      contents:
+        - content/01-content.qmd
 
 format:
   html:
-    theme: cosmo
-    css: styles.css
+    theme: litera
+    css: html/custom.css
     toc: true
+    highlight-style: monokai
 
 editor: visual
 
