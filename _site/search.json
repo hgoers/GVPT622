@@ -1,0 +1,37 @@
+[
+  {
+    "objectID": "content/01-content.html",
+    "href": "content/01-content.html",
+    "title": "Introduction and Set Up",
+    "section": "",
+    "text": "Garrick Aden-Buie’s macOS set up blogpost\n Matti Vuorre’s macOS set up blogpost\n\n\n\n Installation and Connect Git, GitHub, RStudio sections in Jennifer Bryan’s Happy Git and GitHub for the useR\n\n\n\n Install or upgrade R and RStudio chapter in Jennifer Bryan’s Happy Git and GitHub for the useR"
+  },
+  {
+    "objectID": "content/01-content.html#slides",
+    "href": "content/01-content.html#slides",
+    "title": "Introduction and Set Up",
+    "section": "Slides",
+    "text": "Slides"
+  },
+  {
+    "objectID": "content/01-content.html#in-class",
+    "href": "content/01-content.html#in-class",
+    "title": "Introduction and Set Up",
+    "section": "In-class",
+    "text": "In-class"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "GVPT622",
+    "section": "",
+    "text": "Quantitative Methods for Political Science\n        \n        \n            An introduction to research methods and quantitative research in political science.\n        \n        \n            Fall 2023Department of Government and PoliticsUniversity of Maryland, College Park\n        \n    \n    \n      \n        \n        \n        \n      \n    \n\n\n\n\n\nTeaching Assistant\n\n   Harriet Goers\n   Chincoteague Building\n   hgoers@umd.edu\n   harrietgoers\n\n\n\nCourse details\n\n   January 9–May 2, 2023\n   7:15–9:45 PM\n   Tydings Building\n   Slack\n\n\n\nContacting me\nE-mail and Slack are the best ways to get in contact with me. I will try to respond to all course-related e-mails and Slack messages within 24 hours."
+  },
+  {
+    "objectID": "schedule.html",
+    "href": "schedule.html",
+    "title": "Schedule",
+    "section": "",
+    "text": "DATE \n    SESSION \n    TITLE \n    CONTENT \n    ASSIGNMENT \n  \n \n\n  \n    DAY 1 \n    Morning \n    Introduction and Set Up \n     \n     \n  \n  \n    DAY 1 \n    Afternoon \n    Data Visualisation \n     \n     \n  \n  \n    DAY 2 \n    Morning \n    Data Transformation \n     \n     \n  \n  \n    DAY 2 \n    Afternoon \n    Exploratory Data Analysis"
+  }
+]

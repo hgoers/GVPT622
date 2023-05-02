@@ -1,6 +1,6 @@
 ---
-title: "GVPT622: Quantitative Methods for Political Science"
-subtitle: "Learn to use data science tools to support your research"
+title: "Quantitative Methods for Political Science"
+subtitle: "An introduction to research methods and quantitative research in political science."
 details: |
   Fall 2023<br>{{< var school.name >}}<br>{{< var university.name >}}
 sidebar: false
@@ -16,7 +16,7 @@ course-logo: /files/img/hex-testudo.png
 ::: home
 ::: {.grid .course-details}
 ::: {.g-col-12 .g-col-sm-6 .g-col-md-4}
-### Instructor
+### Teaching Assistant
 
 -   {{< fa user >}}   [{{< var instructor.name >}}](%7B%7B%3C%20var%20instructor.url%20%3E%7D%7D)
 -   {{< fa university >}}   {{< var instructor.office >}}
