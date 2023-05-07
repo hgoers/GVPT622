@@ -1,9 +1,369 @@
 ---
 title: "Descriptive Statistics"
+execute: 
+  warning: false
+  message: false
+  echo: true
+  fig-width: 10
 ---
 
 ## Readings
 
 ## Class slides
 
-## Session scripts
+## Session
+
+```{r}
+library(tidyverse)
+library(janitor)
+library(skimr)
+library(patchwork)
+```
+
+### Describing categorical variables
+
+Imagine that we have completed a survey of 10,000 individuals. We asked them their age and level of satisfaction with their job.
+
+```{r}
+#| echo: false
+
+survey_df <- tibble(
+  id = 1:10000,
+  age = sample(15:65, 10000, replace = T),
+  sat = sample(c("Very unsatisfied", "Unsatisfied", "Satisfied", "Very satisfied"), 10000, replace = T)
+)
+```
+
+We store their responses in a data frame called `survey_df`. It has 100 observations (one for each respondent) and three variables: a unique id (`id`); their age in years (`age`); and their level of satisfaction (`sat`), which can take one of four values: very unsatisfied, unsatisfied, satisfied, and very satisfied.
+
+```{r}
+survey_df
+```
+
+#### Frequency distribution
+
+We can take advantage of `janitor::tabyl()` to quickly calculate the number and proportion of respondents who provided each level of satisfaction.
+
+```{r}
+tabyl(survey_df, sat)
+```
+
+Alternatively, we can use `skimr::skim()` to get a useful summary of this categorical variable.
+
+```{r}
+skim(survey_df$sat)
+```
+
+#### Visualizing this frequency
+
+We can easily visualize this using a bar chart.
+
+```{r}
+p1 <- survey_df |> 
+  tabyl(sat) |> 
+  ggplot(aes(x = n, y = sat)) + 
+  geom_col() + 
+  theme_minimal()
+
+p2 <- survey_df |> 
+  tabyl(sat) |> 
+  ggplot(aes(x = percent, y = sat)) + 
+  geom_col() + 
+  theme_minimal()
+
+p1 | p2
+```
+
+#### Working with factors
+
+Notice how our categories are ordered: very satisfied sits above satisfied. We can tell R this information `factor()`.
+
+```{r}
+survey_df <- survey_df |> 
+  mutate(
+    sat = factor(sat, levels = c("Very unsatisfied", 
+                                 "Unsatisfied", 
+                                 "Satisfied", 
+                                 "Very satisfied"))
+  )
+```
+
+Now when we work with our categorical variables, they will be ordered.
+
+```{r}
+survey_df |> 
+  tabyl(sat) |> 
+  ggplot(aes(x = n, y = sat)) + 
+  geom_col() + 
+  theme_minimal()
+```
+
+### Describing continuous variables
+
+We can also get a good sense of our continuous variable `age` by looking at the **center**, **spread**, and **shape** of its distribution.
+
+#### Five number summary
+
+We can use `skimr::skim()` to quickly get useful information on our continuous variable.
+
+```{r}
+skim(survey_df$age)
+```
+
+#### Histogram
+
+```{r}
+ggplot(survey_df, aes(x = age)) + 
+  geom_histogram() + 
+  theme_minimal()
+```
+
+```{r}
+ggplot(survey_df, aes(x = age)) + 
+  geom_histogram(binwidth = 5) + 
+  theme_minimal()
+```
+
+#### Density curves
+
+```{r}
+ggplot(survey_df, aes(x = age)) + 
+  geom_density() + 
+  theme_minimal()
+```
+
+#### Box and whisker plots
+
+```{r}
+ggplot(survey_df, aes(x = age)) + 
+  geom_boxplot() + 
+  theme_minimal()
+```
+
+#### Looking for patterns in our groups
+
+```{r}
+ggplot(survey_df, aes(x = age, y = sat)) + 
+  geom_boxplot() + 
+  theme_minimal()
+```
+
+```{r}
+ggplot(survey_df, aes(x = age, y = sat)) + 
+  geom_violin() + 
+  theme_minimal()
+```
+
+### Understanding distributions
+
+#### Normal distribution
+
+```{r}
+tibble(z = rnorm(n = 1000)) |> 
+  ggplot(aes(x = z)) + 
+  geom_histogram() + 
+  theme_minimal()
+```
+
+```{r}
+tibble(z = rnorm(n = 1e6)) |> 
+  ggplot(aes(x = z)) + 
+  geom_histogram() + 
+  theme_minimal()
+```
+
+#### Right skewed distribution
+
+```{r}
+tibble(z = rbeta(10000, 2, 10)) |> 
+  ggplot(aes(x = z)) + 
+  geom_histogram() + 
+  theme_minimal()
+```
+
+#### Left skewed distribution
+
+```{r}
+tibble(z = rbeta(10000, 10, 2)) |> 
+  ggplot(aes(x = z)) + 
+  geom_histogram() + 
+  theme_minimal()
+```
+
+### Measures of central tendency: mean, median, and mode
+
+#### Mean
+
+The **mean** is the average of all values. 
+
+#### Median
+
+The **median** is the mid-point of all values. 
+
+#### Mode
+
+The **mode** is the most frequent of all values. 
+
+#### Using central tendency to describe and understand distributions
+
+Normally distributed vectors share their mean and medians. 
+
+```{r}
+norm_dist <- tibble(z = rnorm(n = 1000))
+
+ggplot(norm_dist, aes(x = z)) + 
+  geom_histogram() + 
+  geom_vline(xintercept = mean(norm_dist$z), colour = "red") + 
+  geom_vline(xintercept = median(norm_dist$z), colour = "blue") + 
+  theme_minimal()
+```
+
+For right skewed data, the mean is greater than the median. 
+
+```{r}
+right_dist <- tibble(z = rbeta(10000, 2, 10))
+
+ggplot(right_dist, aes(x = z)) + 
+  geom_histogram() + 
+  geom_vline(xintercept = mean(right_dist$z), colour = "red") + 
+  geom_vline(xintercept = median(right_dist$z), colour = "blue") + 
+  theme_minimal()
+```
+
+For left skewed data, the mean is smaller than the median. 
+
+```{r}
+left_dist <- tibble(z = rbeta(10000, 10, 2))
+
+ggplot(left_dist, aes(x = z)) + 
+  geom_histogram() + 
+  geom_vline(xintercept = mean(left_dist$z), colour = "red") + 
+  geom_vline(xintercept = median(left_dist$z), colour = "blue") + 
+  theme_minimal()
+```
+
+### Measures of spread: range, variance, and standard deviation
+
+#### Range
+
+The **range** is the difference between the largest and smallest value.
+
+```{r}
+max(survey_df$age) - min(survey_df$age)
+```
+
+#### Variance
+
+The **variance** measures how spread out your values are. Take a look at these two plots. Both have the same center point (0) and number of observations (1,000,000). However, the data are much more spread out around that center point in the top graph. 
+
+```{r}
+wide_dist <- tibble(z = rnorm(1e6, sd = 2))
+
+p1 <- ggplot(wide_dist, aes(x = z)) + 
+  geom_histogram() + 
+  geom_vline(xintercept = 0) + 
+  theme_minimal() + 
+  scale_x_continuous(limits = c(-4, 4))
+
+narrow_dist <- tibble(z = rnorm(1e6, sd = 1))
+
+p2 <- ggplot(narrow_dist, aes(x = z)) + 
+  geom_histogram() + 
+  geom_vline(xintercept = 0) + 
+  theme_minimal() + 
+  scale_x_continuous(limits = c(-4, 4))
+
+p1 / p2
+```
+
+The data in the top graph have far more variance than those in the bottom graph. We measure this by calculating the *average of the squares of the deviations of the observations from their mean*.
+
+$$
+s^2 = \frac{\Sigma(x_i - \bar{x})^2}{n - 1}
+$$
+
+Let's step through this. We will first calculate the variance for `wide_dist`, or the top graph. 
+
+```{r}
+wide_var_calc <- wide_dist |> 
+  mutate(
+    mean = mean(wide_dist$z),
+    diff = z - mean,
+    diff_2 = diff^2
+  )
+
+wide_var_calc
+```
+
+We take the sum of square of the difference between each observation and the mean of our whole sample. We then divide that by one less than our number of observations.
+
+```{r}
+wide_var <- sum(wide_var_calc$diff_2) / (nrow(wide_var_calc) - 1)
+
+wide_var
+```
+
+We can compare this to the variance for our narrower distribution. 
+
+```{r}
+narrow_var_calc <- narrow_dist |> 
+  mutate(
+    mean = mean(narrow_dist$z),
+    diff = z - mean,
+    diff_2 = diff^2
+  )
+
+narrow_var <- sum(narrow_var_calc$diff_2) / (nrow(narrow_var_calc) - 1)
+
+narrow_var
+```
+
+It is, in fact, smaller!
+
+We can use `var()` to do this in one step: 
+
+```{r}
+var(wide_dist)
+```
+
+```{r}
+var(narrow_dist)
+```
+
+#### Standard deviation
+
+A simpler measure of spread is the **standard deviation**. It is simply the square root of the variance. 
+
+```{r}
+sqrt(wide_var)
+```
+
+```{r}
+sqrt(narrow_var)
+```
+
+If you look back to our graphs, you will see that I set the standard deviations explicitly when I generated the data. `rnorm()` takes an `sd` argument. This is great because we can confirm that the standard deviations for the wide and narrow distributions are 2 and 1 respectively (with a little bit of noise). 
+
+```{r}
+tibble(
+  n = rnorm(1e6, sd = 1),
+  w = rnorm(1e6, sd = 2)
+) |> 
+  ggplot() + 
+  geom_density(aes(x = n), colour = "green") + 
+  geom_density(aes(x = w), colour = "lightblue") + 
+  theme_minimal()
+```
+
+### Standardization
+
+Notice how our description of each variable depends on its units of measurement. What do we do if we want to compare across different measurements that have different units? 
+
+#### Z scores
+
+For normal distributions, we can use the *z score*. This gives us a standard way of understanding how many standard deviations from the mean of a normally distributed variable a value is. 
+
+$$
+z_i = \frac{x_i - \mu_x}{\sigma_x}
+$$
+
