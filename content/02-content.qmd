@@ -13,6 +13,8 @@ execute:
 
 ## Session
 
+### Prerequisites
+
 ```{r}
 library(tidyverse)
 library(janitor)
@@ -34,7 +36,7 @@ survey_df <- tibble(
 )
 ```
 
-We store their responses in a data frame called `survey_df`. It has 100 observations (one for each respondent) and three variables: a unique id (`id`); their age in years (`age`); and their level of satisfaction (`sat`), which can take one of four values: very unsatisfied, unsatisfied, satisfied, and very satisfied.
+We store their responses in a data frame called `survey_df`. It has 10,000 observations (one for each respondent) and three variables: a unique id (`id`); their age in years (`age`); and their level of satisfaction (`sat`), which can take one of four values: very unsatisfied, unsatisfied, satisfied, and very satisfied.
 
 ```{r}
 survey_df
