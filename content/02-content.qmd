@@ -11,7 +11,7 @@ execute:
 
 ## Class slides
 
-## Session
+## Section
 
 ### Prerequisites
 

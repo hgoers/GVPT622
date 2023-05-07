@@ -1,0 +1,249 @@
+---
+title: "Bivariate Relationships"
+execute: 
+  warning: false
+  message: false
+  echo: true
+  fig-width: 10
+---
+
+## Readings
+
+## Class slides
+
+## Section
+
+### Prerequisites
+
+```{r}
+library(tidyverse)
+library(wbstats)
+library(countrycode)
+library(broom)
+library(janitor)
+library(ggridges)
+```
+
+Today, we will explore the relationship between wealth and health. This question was made popular by Hans Rosling's Gapminder project.
+
+First, we need to collect our data. We will use `wbstats::wb_data()` to pull these data directly from the World Bank.
+
+```{r}
+
+gapminder_df <- wb_data(
+  indicator = c("SP.DYN.LE00.IN", "NY.GDP.PCAP.CD"),
+  start_date = 2016,
+  end_date = 2016
+) |> 
+  rename(
+    life_exp = SP.DYN.LE00.IN,
+    gdp_per_cap = NY.GDP.PCAP.CD
+  ) |> 
+  mutate(
+    log_gdp_per_cap = log(gdp_per_cap),
+    region = countrycode(country, "country.name", "region", custom_match = c("Turkiye" = "Europe & Central Asia"))
+  ) |> 
+  relocate(region, .after = country)
+
+gapminder_df
+```
+
+### Visualizing bivariate relationships: two continuous variables
+
+```{r}
+ggplot(gapminder_df, aes(x = gdp_per_cap, y = life_exp)) + 
+  geom_point() + 
+  theme_minimal()
+```
+
+There seems to be a very strong case that there is a relationship between a country's GDP per capita (wealth) and its average life expectancy (health).
+
+Because we want to explore linear relationships at this stage of the course, we will look at the logged GDP per capita variable:
+
+```{r}
+ggplot(gapminder_df, aes(x = log_gdp_per_cap, y = life_exp)) + 
+  geom_point() + 
+  theme_minimal()
+```
+
+### Visualizing the linear relationship between two continuous variables
+
+```{r}
+ggplot(gapminder_df, aes(x = log_gdp_per_cap, y = life_exp)) + 
+  geom_point() + 
+  geom_smooth(method = "lm", se = F) + 
+  theme_minimal()
+```
+
+We have started to unpack our estimated model for the linear relationship between a country's (logged) GDP per capita and its average life expectancy. 
+
+$$
+life Exp_x = \beta_0 + \beta_1 logGdpPerCap_x + \epsilon
+$$
+
+Read this as: the life expectancy of some country, $x$, is a function of some constant ($\beta_0$) and its logged GDP per capita transformed by some value $\beta_1$ with some random error ($\epsilon$). 
+
+How do we calculate the constant ($\beta_0$) and $\beta_1$?
+
+### Estimating a linear model in R
+
+```{r}
+m <- lm(life_exp ~ log_gdp_per_cap, data = gapminder_df)
+
+tidy(m)
+```
+
+It's all about the error! What line can I draw through all of my data points that minimizes the distance between the line and every data point? R has done this work for us. 
+
+### Prediction
+
+We can use this model to predict a country's life expectancy given its GDP per capita. 
+
+What is the life expectancy for a country with a GDP per capita of \$10,000? First, let's find the estimated constant (or intercept or $\beta_0$). 
+
+```{r}
+
+m_res <- tidy(m)
+
+beta_0 <- m_res |> 
+  filter(term == "(Intercept)") |> 
+  pull(estimate)
+
+beta_0
+```
+
+Then we need to find the estimated coefficient for (logged) GDP per capita: 
+
+```{r}
+beta_1 <- m_res |> 
+  filter(term == "log_gdp_per_cap") |> 
+  pull(estimate)
+
+beta_1
+```
+
+Finally, we can plug this in to our model: 
+
+```{r}
+life_exp_10000 <- beta_0 + beta_1 * log(10000)
+life_exp_10000
+```
+
+A country with a GDP per capita of \$10,000 is predicted to have an average life expectancy of `r round(life_exp_10000)` years. Does this make sense with our data?
+
+```{r}
+ggplot(gapminder_df, aes(x = log_gdp_per_cap, y = life_exp)) + 
+  geom_point() + 
+  geom_vline(xintercept = log(10000)) + 
+  geom_hline(yintercept = life_exp_10000) + 
+  geom_smooth(method = "lm", se = F) + 
+  theme_minimal()
+```
+
+We can predict values from a model using `broom::augment()`:
+
+```{r}
+augment(m, newdata = tibble(log_gdp_per_cap = log(10000)))
+```
+
+We can do this across a number of different values for GDP per capita: 
+
+```{r}
+new_data <- tibble(
+  gdp_per_cap = seq(from = 10000, to = 50000, by = 1000),
+  log_gdp_per_cap = log(gdp_per_cap)
+)
+
+augment(m, newdata = new_data)
+```
+
+We can also use this function to see how well our model predicts for our own data: 
+
+```{r}
+augment(m)
+```
+
+Here, we have the predicted values for life expectancy for all of our countries in our sample. Compare `.fitted` (the predicted life expectancy) to `life_exp` (the actual observed average life expectancy). 
+
+```{r}
+m_eval <- augment(m) |> 
+  transmute(
+    life_exp, 
+    .fitted,
+    diff = life_exp - .fitted
+  )
+
+m_eval
+```
+
+Note that `broom::augment()` does this calculation and stores it in the `.resid` variable. 
+
+```{r}
+augment(m) |> 
+  transmute(
+    life_exp, 
+    .fitted,
+    diff = life_exp - .fitted,
+    .resid
+  )
+```
+
+### Performance
+
+Is this the best model we can produce to predict life expectancy? 
+
+```{r}
+ggplot(augment(m), aes(x = .resid)) + 
+  geom_density() +
+  geom_vline(xintercept = 0) + 
+  theme_minimal()
+```
+
+Our model appears to be doing mildly well, with most predictions within one or two years of the observed value. However, some are as far away as `r abs(m_eval$diff) |> max() |> round()` years! That's quite a lot. 
+
+> Can you see for which points these large differences exist? 
+
+```{r}
+ggplot(gapminder_df, aes(x = log_gdp_per_cap, y = life_exp)) + 
+  geom_point() + 
+  geom_smooth(method = "lm", se = F) + 
+  theme_minimal()
+```
+
+Does this model perform well? This depends a lot on the question you are asking. 
+
+### Modelling the relationship between many variables
+
+```{r}
+ggplot(gapminder_df, aes(x = log_gdp_per_cap, y = life_exp, colour = region)) + 
+  geom_point()
+```
+
+### Cross tabs
+
+Does the average life expectancy vary by region? 
+
+```{r}
+xtabs(life_exp ~ region, data = gapminder_df)
+```
+
+This is nice to visualise: 
+
+```{r}
+gapminder_df |> 
+  group_by(region) |> 
+  summarise(avg = mean(life_exp, na.rm = T)) |> 
+  ggplot(aes(x = avg, y = reorder(region, avg))) + 
+  geom_col() + 
+  theme_minimal()
+```
+
+Or even better: 
+
+```{r}
+ggplot(gapminder_df, aes(x = life_exp, y = region)) + 
+  stat_density_ridges(quantile_lines = T, quantiles = 2) + 
+  theme_minimal()
+```
+
+Are these differences meaningful or significant? We will chat about that next week.

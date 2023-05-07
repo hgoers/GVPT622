@@ -23,6 +23,7 @@ website:
       contents:
         - content/01-content.qmd
         - content/02-content.qmd
+        - content/03-content.qmd
 
 format:
   html:
