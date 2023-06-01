@@ -21,7 +21,7 @@ course-logo: /files/img/hex-testudo.png
 -   {{< fa user >}}   [{{< var instructor.name >}}](%7B%7B%3C%20var%20instructor.url%20%3E%7D%7D)
 -   {{< fa university >}}   {{< var instructor.office >}}
 -   {{< fa envelope >}}   <a href="mailto:{{< var instructor.email >}}">{{< var instructor.email >}}</a>
--   {{< fa brands twitter >}}   [{{< var instructor.twitter >}}](https://www.twitter.com/%7B%7B%3C%20var%20instructor.twitter%20%3E%7D%7D)
+-   {{< fa brands github >}}   [{{< var instructor.github >}}](https://github.com/hgoers)
 :::
 
 ::: {.g-col-12 .g-col-sm-6 .g-col-md-4}

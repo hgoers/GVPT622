@@ -18,6 +18,7 @@ execute:
 ```{r}
 library(tidyverse)
 library(wbstats)
+library(poliscidata)
 library(countrycode)
 library(broom)
 library(janitor)
@@ -66,7 +67,51 @@ ggplot(gapminder_df, aes(x = log_gdp_per_cap, y = life_exp)) +
   theme_minimal()
 ```
 
+I can imagine drawing a straight line between these points that roughly explains how they vary with each other. It appears that as a country's logged GDP per capita increases, so too does the life expectancy for its population.
+
+### Correlations
+
+We can measure the strength of this association using correlations. The **correlation coefficient** tells us how closely variables relate to one another. It tells us both the strength and direction of the association. 
+
+-   Strength: how closely are these values tied to one another. Measured from 0 to |1|, with values closer to 0 indicating a very weak relationship and values closer to |1| indicating a very strong relationship. 
+
+-   Direction: do both $X$ and $Y$ change in the same direction? Positive correlations show that when $X$ increases (decreases), so too does $Y$. Negative correlations show that when $X$ increases (decreases), $Y$ decreases (increases). In other words, the move in different directions. 
+
+What is the correlation between logged GDP per capita and life expectancy? 
+
+```{r}
+cor(gapminder_df$log_gdp_per_cap, gapminder_df$life_exp, use = "complete.obs")
+```
+
+As expected, the relationship is positive and strong. 
+
 ### Visualizing the linear relationship between two continuous variables
+
+Let's draw a line across all of these data points and try to understand how life expectancy increases with logged GDP per capita. 
+
+```{r}
+ggplot(gapminder_df, aes(x = log_gdp_per_cap, y = life_exp)) + 
+  geom_point() + 
+  theme_minimal()
+```
+
+We can, of course, draw many different lines across these points. Which is the best line to draw? 
+
+This course focuses on **ordinary least squares (OLS) regression**. Simply put, OLS regression draws the line that minimizes the distance between itself and all of the dots. 
+
+Let's step through this. Look at the graph above. 
+
+1.    Draw a line through those dots. 
+
+2.    Calculate the distance between each dot and the line. 
+
+3.    Sum up the absolute values of those distances. Remember, we just care about the distance, so we don't need to worry about whether or not the dots are above or below the line. 
+
+4.    Repeat steps 1 - 3 many, many, many times. 
+
+5.    Pick the line with the **smallest** sum of distances. 
+
+Phew, this seems tedious and imprecise. Happily, maths and R are to the rescue. Here is the line that minimizes those distances (all with the addition of one extra line of code). 
 
 ```{r}
 ggplot(gapminder_df, aes(x = log_gdp_per_cap, y = life_exp)) + 
@@ -75,7 +120,42 @@ ggplot(gapminder_df, aes(x = log_gdp_per_cap, y = life_exp)) +
   theme_minimal()
 ```
 
-We have started to unpack our estimated model for the linear relationship between a country's (logged) GDP per capita and its average life expectancy. 
+### Estimating a linear model in R
+
+How can we find this line? To answer this, we will first do some review.  
+
+Remember the general equation for a line: 
+
+$$
+y = a + mx
+$$
+
+Read this as: the value of $y$ is the sum of some constant, $a$, and some $x$ variable that has been transformed by some slope value $m$. 
+
+> Remember that the slope constant, $m$, tells you how much $y$ changes for every one unit increase in $x$. 
+
+So, if: 
+
+$$
+y = 10 + 2x
+$$
+
+Then, when $x = 20$:
+
+$$
+y = 10 + 2*20 = 50
+$$
+
+For many values of $x$: 
+
+```{r}
+ggplot(tibble(x = 1:50, y = 10 + 2*x), aes(x = x, y = y)) + 
+  geom_line(colour = "lightgrey", size = 3) + 
+  geom_point() + 
+  theme_minimal()
+```
+
+Well, let's substitute in our variables of interest. Our $y$ variable is the life expectancy and our $x$ variable is the logged GDP per capita.  
 
 $$
 life Exp_x = \beta_0 + \beta_1 logGdpPerCap_x + \epsilon
@@ -83,26 +163,97 @@ $$
 
 Read this as: the life expectancy of some country, $x$, is a function of some constant ($\beta_0$) and its logged GDP per capita transformed by some value $\beta_1$ with some random error ($\epsilon$). 
 
-How do we calculate the constant ($\beta_0$) and $\beta_1$?
+Let's imagine that this relationship is accurately described by the following formula: 
 
-### Estimating a linear model in R
+$$
+life Exp_x = 30 + 4 * logGdpPerCap_x
+$$
+
+> We will get to that pesky error term in a bit. 
+
+Then, our model would predict the following average life expectancy for countries with log GDPs per capita between 0 and 20:
+
+```{r}
+ggplot(
+  tibble(log_gdp_per_cap = 1:20, life_exp = 30 + 4*log_gdp_per_cap), 
+  aes(x = log_gdp_per_cap, y = life_exp)
+) + 
+  geom_point() + 
+  theme_minimal()
+```
+
+A country with a logged GDP per capita of 5 (the equivalent of a GDP per capita of `r exp(5) |> scales::dollar()`) has a predicted average life expectancy of 50 years, or $30 + 4*5$. 
+
+A country with a logged GDP per capita of 10 (the equivalent of a GDP per capita of `r exp(10) |> scales::dollar()`) has a predicted average life expectancy of 70 years, or $30 + 4*10$. 
+
+Does this accurately describe what we see in our data? What is the average life expectancy for countries with roughly $22,000 GDP per capita?
+
+```{r}
+countries_10 <- gapminder_df |> 
+  filter(gdp_per_cap > 21000 & gdp_per_cap < 23000)
+
+countries_10
+```
+
+We predicted 70 years, but our data suggest that these countries have closer to an average of `r round(mean(countries_10$life_exp))` years. Why do we have this difference? 
+
+Well, we probably haven't produced the best model we can. We just picked those numbers out of thin air. We will find the OLS regression model shortly. We might get closer to the observed value with that model. Let's see. 
+
+#### How do we calculate the constant ($\beta_0$) using OLS regression?
+
+Remember, OLS regression simply finds the line that minimizes the distance between itself and all the data points. 
+
+It turns out that the constant that minimizes this distance is the mean of $Y$ minus $\beta_1$ times the mean of $X$. 
+
+So, the constant that best predicts the life expectancy of a country based on its logged GDP per capita is equal to the average life expectancy across our sample minus the average logged GDP per capita transformed by $\beta_1$. 
+
+So...  
+
+#### How do we calculate the coefficient $\beta_1$?
+
+The regression slope is the correlation coefficient between $X$ and $Y$ multiplied by the standard deviation of $Y$ divided by the standard deviation of $X$. 
+
+Ew... Let's step through that. 
+
+Remember, the correlation coefficient simply measures how $X$ and $Y$ change together. Does $Y$ increase when $X$ increases? How strong is this relationship? 
+
+The standard deviations of $X$ and $Y$ just measure how spread out they are. 
+
+Bringing these together, we are interested in how much $X$ and $Y$ change together moderated by how much they change independently. 
+
+Formally: 
+
+$$
+\beta_1 = (\frac{\Sigma(\frac{x_i - \bar{x}}{s_X})(\frac{y_i - \bar{y}}{s_Y})}{n - 1})(\frac{s_Y}{s_X}) = \frac{\Sigma(x_i - \bar{x})(y_i - \bar{y})}{\Sigma(x_i - \bar{x})^2}
+$$
+
+Happily R does all of this for us: 
 
 ```{r}
 m <- lm(life_exp ~ log_gdp_per_cap, data = gapminder_df)
 
-tidy(m)
+m
 ```
 
-It's all about the error! What line can I draw through all of my data points that minimizes the distance between the line and every data point? R has done this work for us. 
+Okay, so the line of best fit describing the relationship between life expectancy and logged GDP per capita is: 
 
-### Prediction
+$$
+life Exp_x = 32.9 + 4.5 * logGdpPerCap_x + \epsilon
+$$
+
+### Prediction and performance
 
 We can use this model to predict a country's life expectancy given its GDP per capita. 
+
+`broom::tidy(m)` makes this model object a lot easier to work with. 
+
+```{r}
+tidy(m)
+```
 
 What is the life expectancy for a country with a GDP per capita of \$10,000? First, let's find the estimated constant (or intercept or $\beta_0$). 
 
 ```{r}
-
 m_res <- tidy(m)
 
 beta_0 <- m_res |> 
@@ -150,18 +301,31 @@ We can do this across a number of different values for GDP per capita:
 
 ```{r}
 new_data <- tibble(
-  gdp_per_cap = seq(from = 10000, to = 50000, by = 1000),
+  gdp_per_cap = seq(from = 1000, to = 50000, by = 1000),
   log_gdp_per_cap = log(gdp_per_cap)
 )
 
 augment(m, newdata = new_data)
 ```
 
-We can also use this function to see how well our model predicts for our own data: 
+Let's look at that line: 
+
+```{r}
+ggplot(augment(m, newdata = new_data), aes(x = log_gdp_per_cap, y = .fitted)) + 
+  geom_line(colour = "lightgrey", size = 2) + 
+  geom_point() + 
+  theme_minimal()
+```
+
+But how well does this model fit our observed data? 
+
+Let's fit it with our observed values of each country's logged GDP per capita, instead of the ones we provided above. 
 
 ```{r}
 augment(m)
 ```
+
+How did it do? What is the difference between what our model predicted and the country's observed life expectancy? 
 
 Here, we have the predicted values for life expectancy for all of our countries in our sample. Compare `.fitted` (the predicted life expectancy) to `life_exp` (the actual observed average life expectancy). 
 
@@ -176,7 +340,7 @@ m_eval <- augment(m) |>
 m_eval
 ```
 
-Note that `broom::augment()` does this calculation and stores it in the `.resid` variable. 
+Note that `broom::augment()` already did this calculation and stored it in the `.resid` variable. 
 
 ```{r}
 augment(m) |> 
@@ -188,18 +352,18 @@ augment(m) |>
   )
 ```
 
-### Performance
-
-Is this the best model we can produce to predict life expectancy? 
+Okay, so there are some differences. Let's look at those difference a bit more closely: 
 
 ```{r}
 ggplot(augment(m), aes(x = .resid)) + 
-  geom_density() +
+  geom_density() + 
   geom_vline(xintercept = 0) + 
   theme_minimal()
 ```
 
-Our model appears to be doing mildly well, with most predictions within one or two years of the observed value. However, some are as far away as `r abs(m_eval$diff) |> max() |> round()` years! That's quite a lot. 
+If our model perfectly predicted each country's life expectancy, we would see no difference between the predicted and observed values. There would just be a very tall straight line at 0 on the graph above. 
+
+Our model hasn't predicted life expectancy perfectly. Whilst most predictions are within a couple of years of the country's true life expectancy, there are some that are very different (up to 10 or 15 years!). Where the model has got it wrong, it has tended to overestimate life expectancy (note that the peak of the density curve sits above 0).
 
 > Can you see for which points these large differences exist? 
 
@@ -210,40 +374,46 @@ ggplot(gapminder_df, aes(x = log_gdp_per_cap, y = life_exp)) +
   theme_minimal()
 ```
 
-Does this model perform well? This depends a lot on the question you are asking. 
+What is causing these differences? A lot of your work as a political scientist is trying to answer this very question!
 
-### Modelling the relationship between many variables
+### (Random) error
 
-```{r}
-ggplot(gapminder_df, aes(x = log_gdp_per_cap, y = life_exp, colour = region)) + 
-  geom_point()
+The world is a messy and complicated place. Things often vary in completely random ways. That's okay! It means that your observational data are going to move in funny and random ways that you cannot capture. That's okay too! As long as your model includes all those systematic drivers of the thing you are interested in measuring (such as life expectancy), we can accept a bit of random error. 
+
+In fact, we have already accounted for this. Remember that error term? 
+
+$$
+life Exp_x = \beta_0 + \beta_1 logGdpPerCap_x + \epsilon
+$$
+
+We run into issues when this isn't the case. We will discuss this more in later classes. 
+
+### Modelling relationships among categorical variables
+
+Sometimes we want to know whether our outcome of interest changes based where our observation sits within a categorical variable. For example, do levels of support for abortion access differ between Democrats, Republicans, and Independents? Do the number of women elected to parliament change based on whether or not the country has a formal quota? 
+
+Let's return to the [American National Election Survey](https://electionstudies.org/) first explored last week. We will focus on that first question: do levels of support for abortion access differ between Democrats, Republicans, and Independents?
+
+We can easily access the 2012 survey through R using the `poliscidata` package. 
+
+```
+poliscidata::nes
 ```
 
-### Cross tabs
+#### Cross tabs
 
-Does the average life expectancy vary by region? 
+A simple cross tab can provide a nice summary of differences in your outcome of interest across your categories. 
+
+For example, let's look at differences in the number of individuals who identified as Democrat, Republican, or Independent and whether they do not support access to abortions, support access with some conditions, with more conditions, or always. 
 
 ```{r}
-xtabs(life_exp ~ region, data = gapminder_df)
+tabyl(nes, abort4, pid_3)
 ```
 
-This is nice to visualise: 
+We can visualise this: 
 
 ```{r}
-gapminder_df |> 
-  group_by(region) |> 
-  summarise(avg = mean(life_exp, na.rm = T)) |> 
-  ggplot(aes(x = avg, y = reorder(region, avg))) + 
-  geom_col() + 
-  theme_minimal()
-```
 
-Or even better: 
-
-```{r}
-ggplot(gapminder_df, aes(x = life_exp, y = region)) + 
-  stat_density_ridges(quantile_lines = T, quantiles = 2) + 
-  theme_minimal()
 ```
 
 Are these differences meaningful or significant? We will chat about that next week.

@@ -24,6 +24,16 @@ website:
         - content/01-content.qmd
         - content/02-content.qmd
         - content/03-content.qmd
+        
+  page-footer:
+    left: |
+      Content {{< fa brands creative-commons >}} {{< var course.copyright_year >}} by [{{< var instructor.name_no_title >}}]({{< var instructor.url >}}) <br>
+      All content licensed under a {{< fa brands creative-commons >}}
+      {{< fa brands creative-commons-by >}} {{< fa brands creative-commons-nc >}}
+      [Creative Commons Attribution-Non Commercial 4.0 International license (CC BY-NC 4.0)](https://creativecommons.org/licenses/by-nc/4.0/)
+    right: |
+      Made with {{< fa brands r-project >}} and [Quarto](https://quarto.org/)<br>
+      [Heavily inspired by course websites built by Dr Andrew Heiss](https://www.andrewheiss.com/teaching/)
 
 format:
   html:

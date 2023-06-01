@@ -1,5 +1,6 @@
 ---
 title: "Descriptive Statistics"
+toc-depth: 4
 execute: 
   warning: false
   message: false
@@ -17,119 +18,102 @@ execute:
 
 ```{r}
 library(tidyverse)
+library(poliscidata)
+library(wbstats)
 library(janitor)
 library(skimr)
+library(countrycode)
+library(ggridges)
+library(ggdist)
+library(MetBrewer)
 library(patchwork)
 ```
 
 ### Describing categorical variables
 
-Imagine that we have completed a survey of 10,000 individuals. We asked them their age and level of satisfaction with their job.
+For this section, we will be working with the [American National Election Survey](https://electionstudies.org/) to explore how to produce useful descriptive statistics for categorical variables using R. The ANES polls annually individual Americans about their political beliefs and behavior. 
 
-```{r}
-#| echo: false
+We can access the 2012 survey using the `poliscidata` package:
 
-survey_df <- tibble(
-  id = 1:10000,
-  age = sample(15:65, 10000, replace = T),
-  sat = sample(c("Very unsatisfied", "Unsatisfied", "Satisfied", "Very satisfied"), 10000, replace = T)
-)
+```
+poliscidata::nes
 ```
 
-We store their responses in a data frame called `survey_df`. It has 10,000 observations (one for each respondent) and three variables: a unique id (`id`); their age in years (`age`); and their level of satisfaction (`sat`), which can take one of four values: very unsatisfied, unsatisfied, satisfied, and very satisfied.
+> Take a look at the many different pieces of information collected via the survey at `?nes`. 
 
-```{r}
-survey_df
-```
+We are interested in understanding how many individuals of different ages took part in the survey. The survey records the age of each respondent within six different brackets in the `dem_age6` variable. 
 
 #### Frequency distribution
 
-We can take advantage of `janitor::tabyl()` to quickly calculate the number and proportion of respondents who provided each level of satisfaction.
+We can take advantage of `janitor::tabyl()` to quickly calculate the number and proportion of respondents in each age bracket.
 
 ```{r}
-tabyl(survey_df, sat)
-```
-
-Alternatively, we can use `skimr::skim()` to get a useful summary of this categorical variable.
-
-```{r}
-skim(survey_df$sat)
+tabyl(nes, dem_age6)
 ```
 
 #### Visualizing this frequency
 
-We can easily visualize this using a bar chart.
+It is a bit difficult to quickly determine relative counts. Which age bracket has the most respondents? Which has the least? Are these counts very different from each other. 
+
+I highly recommend visualizing your data. You will get a much better sense of it. We can easily visualize this frequency table. I recommend using a bar chart to clearly show relative counts.
 
 ```{r}
-p1 <- survey_df |> 
-  tabyl(sat) |> 
-  ggplot(aes(x = n, y = sat)) + 
-  geom_col() + 
-  theme_minimal()
-
-p2 <- survey_df |> 
-  tabyl(sat) |> 
-  ggplot(aes(x = percent, y = sat)) + 
-  geom_col() + 
-  theme_minimal()
-
-p1 | p2
-```
-
-#### Working with factors
-
-Notice how our categories are ordered: very satisfied sits above satisfied. We can tell R this information `factor()`.
-
-```{r}
-survey_df <- survey_df |> 
-  mutate(
-    sat = factor(sat, levels = c("Very unsatisfied", 
-                                 "Unsatisfied", 
-                                 "Satisfied", 
-                                 "Very satisfied"))
+nes |> 
+  tabyl(dem_age6) |> 
+  ggplot(aes(x = n, y = dem_age6)) + 
+  geom_col() +
+  theme_minimal() + 
+  labs(
+    x = "Count of respondents",
+    y = "Age bracket"
   )
-```
-
-Now when we work with our categorical variables, they will be ordered.
-
-```{r}
-survey_df |> 
-  tabyl(sat) |> 
-  ggplot(aes(x = n, y = sat)) + 
-  geom_col() + 
-  theme_minimal()
 ```
 
 ### Describing continuous variables
 
-We can also get a good sense of our continuous variable `age` by looking at the **center**, **spread**, and **shape** of its distribution.
+For this section, we will be looking at each country's expenditure on education, as a percent of their gross domestic product. We will use the `wbstats::wb_data()` function to collect these data. 
+
+```{r}
+perc_edu <- wb_data(
+  "SE.XPD.TOTL.GD.ZS", start_date = 2020, end_date = 2020, return_wide = F
+) |> 
+  mutate(
+    value = value / 100,
+    region = countrycode(country, "country.name", "region", 
+                         custom_match = c("Turkiye" = "Europe & Central Asia"))
+  )
+```
+
+I have converted these percentages (0 - 100) to proportions (0 - 1) for ease of interpretation. I have also added each country's region (using `countrycode::countrycode()`) so that we can explore regional trends in our data. 
+
+We can get a good sense of how expenditure varied by country looking at the **center**, **spread**, and **shape** of the distribution.
 
 #### Five number summary
 
 We can use `skimr::skim()` to quickly get useful information on our continuous variable.
 
 ```{r}
-skim(survey_df$age)
+skim(perc_edu$value)
 ```
+
+The country that spent the least on education as a percent of its GDP in 2020 was `r perc_edu |> slice_min(value) |> pull(country)`, which spent `r perc_edu |> slice_min(value) |> pull(value) |> scales::percent(accuracy = 0.001)`. The country that spent the most in 2020 was the `r perc_edu |> slice_max(value) |> pull(country)`, which spent `r perc_edu |> slice_max(value) |> pull(value) |> scales::percent()`. The average percent of GDP spent on education in 2020 was `r perc_edu |> summarise(avg = mean(value, na.rm = T)) |> pull(avg) |> scales::percent()`. 
+
+This description was a bit unwieldy. To get a better sense of our data, we can visualize it. 
 
 #### Histogram
 
 ```{r}
-ggplot(survey_df, aes(x = age)) + 
+ggplot(perc_edu, aes(x = value)) + 
   geom_histogram() + 
   theme_minimal()
 ```
 
-```{r}
-ggplot(survey_df, aes(x = age)) + 
-  geom_histogram(binwidth = 5) + 
-  theme_minimal()
-```
+> Take a look at `?geom_histogram` to find the arguments needed to change the bin width of your histograms. 
 
 #### Density curves
 
 ```{r}
-ggplot(survey_df, aes(x = age)) + 
+ggplot(perc_edu, aes(x = value)) + 
   geom_density() + 
   theme_minimal()
 ```
@@ -137,7 +121,7 @@ ggplot(survey_df, aes(x = age)) +
 #### Box and whisker plots
 
 ```{r}
-ggplot(survey_df, aes(x = age)) + 
+ggplot(perc_edu, aes(x = value)) + 
   geom_boxplot() + 
   theme_minimal()
 ```
@@ -145,20 +129,24 @@ ggplot(survey_df, aes(x = age)) +
 #### Looking for patterns in our groups
 
 ```{r}
-ggplot(survey_df, aes(x = age, y = sat)) + 
+ggplot(perc_edu, aes(x = value, y = region)) + 
   geom_boxplot() + 
   theme_minimal()
 ```
 
+Let's make a very cool grouped density plot using `ggridges::geom_density_ridges()`. 
+
 ```{r}
-ggplot(survey_df, aes(x = age, y = sat)) + 
-  geom_violin() + 
-  theme_minimal()
+ggplot(perc_edu, aes(x = value, y = region, fill = region)) + 
+  geom_density_ridges(jittered_points = T, point_shape = "|", position = position_points_jitter(height = 0)) + 
+  scale_fill_brewer(palette = 4) + 
+  theme_minimal() + 
+  theme(legend.position = "none")
 ```
 
-### Understanding distributions
+#### Understanding distributions
 
-#### Normal distribution
+##### Normal distribution
 
 ```{r}
 tibble(z = rnorm(n = 1000)) |> 
@@ -174,7 +162,7 @@ tibble(z = rnorm(n = 1e6)) |>
   theme_minimal()
 ```
 
-#### Right skewed distribution
+##### Right skewed distribution
 
 ```{r}
 tibble(z = rbeta(10000, 2, 10)) |> 
@@ -183,7 +171,7 @@ tibble(z = rbeta(10000, 2, 10)) |>
   theme_minimal()
 ```
 
-#### Left skewed distribution
+##### Left skewed distribution
 
 ```{r}
 tibble(z = rbeta(10000, 10, 2)) |> 
@@ -192,21 +180,21 @@ tibble(z = rbeta(10000, 10, 2)) |>
   theme_minimal()
 ```
 
-### Measures of central tendency: mean, median, and mode
+#### Measures of central tendency: mean, median, and mode
 
-#### Mean
+##### Mean
 
 The **mean** is the average of all values. 
 
-#### Median
+##### Median
 
 The **median** is the mid-point of all values. 
 
-#### Mode
+##### Mode
 
 The **mode** is the most frequent of all values. 
 
-#### Using central tendency to describe and understand distributions
+##### Using central tendency to describe and understand distributions
 
 Normally distributed vectors share their mean and medians. 
 
@@ -244,17 +232,17 @@ ggplot(left_dist, aes(x = z)) +
   theme_minimal()
 ```
 
-### Measures of spread: range, variance, and standard deviation
+#### Measures of spread: range, variance, and standard deviation
 
-#### Range
+##### Range
 
 The **range** is the difference between the largest and smallest value.
 
 ```{r}
-max(survey_df$age) - min(survey_df$age)
+max(perc_edu$value, na.rm = T) - min(perc_edu$value, na.rm = T)
 ```
 
-#### Variance
+##### Variance
 
 The **variance** measures how spread out your values are. Take a look at these two plots. Both have the same center point (0) and number of observations (1,000,000). However, the data are much more spread out around that center point in the top graph. 
 
@@ -332,7 +320,7 @@ var(wide_dist)
 var(narrow_dist)
 ```
 
-#### Standard deviation
+##### Standard deviation
 
 A simpler measure of spread is the **standard deviation**. It is simply the square root of the variance. 
 
@@ -342,6 +330,16 @@ sqrt(wide_var)
 
 ```{r}
 sqrt(narrow_var)
+```
+
+You can get this directly using `sd()`: 
+
+```{r}
+sd(wide_dist$z)
+```
+
+```{r}
+sd(narrow_dist$z)
 ```
 
 If you look back to our graphs, you will see that I set the standard deviations explicitly when I generated the data. `rnorm()` takes an `sd` argument. This is great because we can confirm that the standard deviations for the wide and narrow distributions are 2 and 1 respectively (with a little bit of noise). 
@@ -357,15 +355,59 @@ tibble(
   theme_minimal()
 ```
 
-### Standardization
+#### Normal distributions
+
+Remember that normal distributions share a mean and median. This has very cool and useful consequences. 
+
+```{r}
+norm_5_2 <- tibble(x = rnorm(n = 1e6, mean = 5, sd = 2))
+
+ggplot(norm_5_2, aes(x = x)) + 
+  stat_slab(
+    aes(fill_ramp = after_stat(cut_cdf_qi(cdf))), fill = met.brewer("Egypt")[2]
+  ) + 
+  scale_fill_ramp_discrete(range = c(1, 0.2), guide = "none") + 
+  theme_minimal()
+```
+
+-   Approximately 68% of the data fall within one standard deviation of the mean. 
+
+-   Approximately 95% of the data fall within two standard deviations of the mean. 
+
+-   Approximately 99.7% of the data fall within three standard deviations of the mean. 
+
+#### Standardization
 
 Notice how our description of each variable depends on its units of measurement. What do we do if we want to compare across different measurements that have different units? 
 
-#### Z scores
+##### Z scores
 
-For normal distributions, we can use the *z score*. This gives us a standard way of understanding how many standard deviations from the mean of a normally distributed variable a value is. 
+For normal distributions, we can use the *z score*. This gives us a standard way of understanding **how many standard deviations from the mean of a normally distributed variable a value is**. 
 
 $$
 z_i = \frac{x_i - \mu_x}{\sigma_x}
 $$
 
+We are just transforming our data. We want to center it around 0 and reshape it so that roughly 68% of the data fall within one standard deviation of the mean, 95% of the data fall within two standard deviations of the mean, and 99.7% of the data fall within three standard deviations of the mean.
+
+Let's standardize our data from above. 
+
+```{r}
+standard_5_2 <- norm_5_2 |> 
+  mutate(mean = mean(x),
+         sd = sd(x),
+         z_score = (x - mean) / sd)
+
+head(standard_5_2)
+```
+
+We can confirm this: 
+
+```{r}
+ggplot(standard_5_2, aes(x = z_score)) + 
+  stat_slab(
+    aes(fill_ramp = after_stat(cut_cdf_qi(cdf))), fill = met.brewer("Egypt")[2]
+  ) + 
+  scale_fill_ramp_discrete(range = c(1, 0.2), guide = "none") + 
+  theme_minimal()
+```
