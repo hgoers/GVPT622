@@ -123,7 +123,7 @@ nes |>
 
 ### Describing continuous variables
 
-We need to treat continuous variables differently from categorical ones because they cannot meaningfully be bounded together and compared. For example, imagine making a frequency table or bar chart that counts the number of countries with each observed GDP. You would have 193 different counts of one. Useless!
+We need to treat continuous variables differently from categorical ones because they cannot meaningfully be bounded together and compared. For example, imagine making a frequency table or bar chart that counts the number of countries with each observed GDP. You would have 193 different counts of one. Not very helpful!
 
 We can get a much better sense of our continuous variables by looking at characteristics of the **distribution** of these variables across the range of all possible values they could take on. Phew! Let's make sense of this using some real-world data.
 
