@@ -16,6 +16,11 @@ course-logo: /files/img/hex-testudo.png
 ::: home
 ::: {.grid .course-details}
 ::: {.g-col-12 .g-col-sm-6 .g-col-md-4}
+### Professor
+
+-   {{< fa user >}}   [{{< var professor.name >}}](%7B%7B%3C%20var%20instructor.url%20%3E%7D%7D)
+-   {{< fa envelope >}}   <a href="mailto:{{< var professor.email >}}">{{< var professor.email >}}</a>
+
 ### Teaching Assistant
 
 -   {{< fa user >}}   [{{< var instructor.name >}}](%7B%7B%3C%20var%20instructor.url%20%3E%7D%7D)
@@ -30,7 +35,12 @@ course-logo: /files/img/hex-testudo.png
 -   {{< fa calendar-alt >}}   {{< var course.dates >}}
 -   {{< fa clock >}}   {{< var course.time >}}
 -   {{< fa location-dot >}}   {{< var course.location >}}
--   {{< fa brands slack >}}   [Slack](%7B%7B%3C%20var%20course.slack%20%3E%7D%7D)
+
+### Lab details
+
+-   {{< fa clock >}}   {{< var lab.time >}}
+-   {{< fa location-dot >}}   {{< var lab.location >}}
+
 :::
 
 ::: {.g-col-12 .g-col-md-4 .contact-policy}

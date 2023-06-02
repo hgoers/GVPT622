@@ -1,26 +1,33 @@
 author: Harriet Goers
 
+professor: 
+  name: Dr David Cunningham
+  email: dacunnin@umd.edu
+  url: "http://www.davidcunninghampolisci.com/"
+
 instructor:
   name: Harriet Goers
   name_no_title: Harriet Goers
   email: hgoers@umd.edu
   url: "https://www.harrietgoers.com"
-  twitter: harrietgoers
   github: hgoers
   office: "Chincoteague Building"
   contact_policy: >-
-    E-mail and Slack are the best ways to get in contact with me. I will try to respond to all course-related e-mails and Slack messages within 24 hours.
+    E-mail is the best ways to get in contact with me. I will try to respond to all course-related e-mails within 24 hours.
 
 course:
   number: "GVPT622"
   semester: "Fall 2023"
-  time: "7:15–9:45 PM"
-  location: "Tydings Building"
-  dates: "January 9–May 2, 2023"
-  github: "https://www.github.com/andrewheiss/evalsp23.classes.andrewheiss.com"
+  time: "Monday, 12:30 - 3:15 PM"
+  location: "Tydings Building, Room 1111"
+  dates: "August 28 - 11 December"
+  github: "https://github.com/hgoers/GVPT622"
   url: "https://evalsp23.classes.andrewheiss.com"
   copyright_year: "2023"
-  slack: "https://gsuevalsp2023.slack.com"
+  
+lab:
+  time: "Friday, 3:00 - 5:00 PM"
+  location: "LeFrak Hall, Room 0227"
 
 university:
   name: University of Maryland, College Park

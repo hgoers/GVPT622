@@ -13,15 +13,15 @@ library(fontawesome)
 
 ```{r, include = FALSE}
 schedule <- tibble(
-  DATE = c("1", "2"),
+  DATE = c("X", "Y"),
   TITLE = c("Course Introduction", "Descriptive Statistics"),
-  `CLASS SLIDES` = c("index.html"),
+  `CLASS NOTES` = c("index.html"),
   `SESSION SCRIPTS` = c(""),
   ASSIGNMENTS = c("")
 ) |> 
   mutate(
-    `CLASS SLIDES` = if_else(`CLASS SLIDES` != "", 
-                      paste0("<a href=\"http://localhost:3933/content/", `CLASS SLIDES`, "\">", as.character(fa("book")), "</a>"),
+    `CLASS NOTES` = if_else(`CLASS NOTES` != "", 
+                      paste0("<a href=\"http://localhost:3933/content/", `CLASS NOTES`, "\">", as.character(fa("book")), "</a>"),
                       as.character(fa("book"))),
     `SESSION SCRIPTS` = if_else(`SESSION SCRIPTS` != "", 
                       paste0("<a href=\"http://localhost:3933/content/", `SESSION SCRIPTS`, "\">", as.character(fa("gears")), "</a>"),
