@@ -15,7 +15,7 @@ website:
         text: Home
       - href: schedule.qmd
         text: Schedule
-      - href: content/01-content.qmd
+      - href: content/01-introduction.qmd
         text: Content
 
   sidebar:
