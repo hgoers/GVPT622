@@ -22,8 +22,9 @@ website:
     - title: "Content"
       style: "docked"
       contents:
-        - content/01-content.qmd
-        - content/02-content.qmd
+        - content/01-introduction.qmd
+        - content/02-descriptive_statistics.qmd
+        - content/03-bivariate_relationships.qmd
         
   page-footer:
     left: |
