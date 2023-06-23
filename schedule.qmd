@@ -13,9 +13,37 @@ library(fontawesome)
 
 ```{r, include = FALSE}
 schedule <- tibble(
-  DATE = c("X", "X", "X"),
-  TITLE = c("Course Introduction", "Descriptive Statistics", "Bivariate Relationships"),
-  `CLASS NOTES` = c("01-introduction.html", "02-descriptive_statistics.html", "03-bivariate_relationships.html"),
+  DATE = "X",
+  TITLE = c(
+    "Course Introduction", 
+    "Descriptive Statistics", 
+    "Bivariate Relationships", 
+    "Research Design", 
+    "Applications", 
+    "Probability Theory",
+    "Statistical Inference",
+    "Hypothesis Testing",
+    "Hypothesis Testing II",
+    "Applications II", 
+    "Regression", 
+    "Multiple Regression", 
+    "Conclusion"
+  ),
+  `CLASS NOTES` = c(
+    "01-introduction.html", 
+    "02-descriptive_statistics.html", 
+    "03-bivariate_relationships.html", 
+    "04-research_design.html", 
+    "05-applications.html", 
+    "06-probability_theory.html", 
+    "07-statistical_inference.html",
+    "08_hypothesis_testing.html",
+    "09-hypothesis_testing.html",
+    "10-applications.html",
+    "11-regression.html",
+    "12-multiple_regression.html",
+    "13-conclusion.html"
+  ),
   `SESSION SCRIPTS` = c(""),
   ASSIGNMENTS = c("")
 ) |> 

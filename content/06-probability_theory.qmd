@@ -1,0 +1,209 @@
+---
+title: "Probability Theory"
+toc-depth: 4
+execute: 
+  warning: false
+  message: false
+  echo: true
+  fig-width: 10
+---
+
+## Readings
+
+## Class slides
+
+```{=html}
+<iframe class="slide-deck" src="../files/slides/Lecture 6 - Probability Theory.pdf" width = "100%" height = 600px></iframe>
+```
+## Section
+
+### Prerequisites
+
+```{r}
+#| echo: false
+
+library(scales)
+```
+
+```{r}
+
+library(tidyverse)
+library(janitor)
+
+set.seed(1234)
+```
+
+> Today, we are working with randomness and chance. To make sure we are all working with the same randomness and chance, you need to set your seed! `set.seed()` sets the random number generator state in which R will operate for this session. The draws we make in the session are still random, but they will be the same random draw each time we take it. This is important for replication, so you will use it outside of class.
+
+### How will what you learn this week help your research?
+
+### Probability theory
+
+### Randomness and avoiding doing the dishes
+
+Imagine you and a friend are trying to decide who will do the dishes after you have both cooked a very large and very messy meal. You agree to flip a coin. Should you pick heads or tails?
+
+You really don't want to do the dishes. Therefore, you want to maximize your chances of winning the coin flip. If you could predict the outcome of the coin flip with certainty, you would simply pick the winning side. Even if you don't know for certain which side will land on top, you want to pick the side that has the highest chance of winning. How can you work this out?
+
+First, you need to work out all the possible outcomes. This task is simple for a coin flip: heads or tails.
+
+```{r}
+
+possible_outcomes <- c("HEADS", "TAILS")
+possible_outcomes
+```
+
+Then, you need to work out how likely each of those outcomes are to eventuate. How can we do this? One option available to us here is repeated trials. Flip your coin many times and record how many heads and tails you get. This provides you with a rough understanding of the chance that your coin will land on heads or tails for any given flip.
+
+For example, you can flip the coin 10 times and record the results of each flip.
+
+```{r}
+
+repeat_trials <- sample(possible_outcomes, size = 10, replace = T, prob = c(0.5, 0.5))
+repeat_trials
+```
+
+> We want to sample with replacement, so we include the argument `replace = T`. This just means that we include all possible outcomes in every draw. If we sampled without replacement, we would remove each outcome from the sample after it has been selected in a previous draw.
+>
+> For example, imagine you have 10 different colored marbles in a bag. You pull out a marble and record its color. If you want to sample with replacement, you put the marble you just pulled out back into the bag before you take your next draw. This means that you can draw that same marble out again in the subsequent draws.
+
+You can then tally up those results to get your baseline understanding of the chances of heads vs tails.
+
+```{r}
+
+table(repeat_trials)
+```
+
+Given the results of this trial, I would expect that for every 10 coin flips, I should get `r table(repeat_trials)["HEADS"]` heads and `r table(repeat_trials)["TAILS"]` tails. If I want to use this information to determine the chance that the coin will land on its head after one flip, I can convert this to percentages. There is a `r percent(table(repeat_trials)["HEADS"] / 10)` chance that the coin will land on heads. Therefore, based solely on the 10 flip trial, you should pick `r case_when(table(repeat_trials)["HEADS"] / 10 > 0.5 ~ "heads", table(repeat_trials)["HEADS"] / 10 < 0.5 ~ "tails", table(repeat_trials)["HEADS"] / 10 == 0.5 ~ "either heads or tails, because they are equally likely to win")`.
+
+Hmm... but aren't fair coins meant to land on heads or tails with equal probability? In fact, if you look at our `sample()` you will see that I explicitly set the probability of landing on heads and tails to be an even 0.5 and 0.5 each (using the `prob` argument). Why then, are we getting `r percent(table(repeat_trials)["HEADS"] / 10)` for heads and `r percent(table(repeat_trials)["TAILS"] / 10)` for tails instead of 50% and 50%?
+
+To answer this question, we need to build up some foundations in probability theory. Let's start with **independence**.
+
+### Independence
+
+You want to maximize my chances of not doing the dishes (i.e. picking the winning side of the coin). To do this, you need to know all possible outcomes (heads and tails) and the probability that each of those outcomes will eventuate. To learn this, you ran a trial in which you flipped the coin 10 times and recorded the outcome of each flip. How can you trust that this trial is revealing the true underlying probabilities of heads vs. tails?
+
+Each time you flipped that coin, you undertook the very process you will eventually take to decide who has to do the dishes. You will only flip that deciding coin once, so you need to know what the chances are that the coin will land on heads or tails that one time. You can't ever observe that. If you flip a coin once, you will either see heads or tails. But we know that if we flip it again we might get a different outcome. In other words, if you flip a coin once and it lands on heads, this does not necessarily mean that the probability of heads is 1 and the probability of tails is 0 (or that you will always get heads). We use trials to try to observe the underlying probabilities of each single coin flip.
+
+To make sure that we can infer from our many observed flips the underlying and unobservable probability of heads vs. tails of one coin flip, we need to make sure that our trials meet certain conditions. The first is **independence**:the outcome of any other flips cannot impact the outcome of the current flip.
+
+If your draws are independent of one another, you can infer from the results of the trial the underlying probability of each outcome eventuating.
+
+But if we do that, we will infer that this coin is not fair (even though it is). We still have uneven results:
+
+```{r}
+
+table(repeat_trials)
+```
+
+### The law of large numbers
+
+In sort, our trial was too small.
+
+Even if our underlying probability is `{0.5, 0.5}` (which it is: remember that `prob = c(0.5, 0.5)` argument), we may observe a set of outcomes in our trial that do not reflect this true distribution.
+
+To illustrate, think of the outcome you could observe from only one draw: heads or tails. If you draw a heads and then use that trial to infer the underlying probability of drawing heads vs. tails, you will state that your probabilities are `{1, 0}`. You will be very surprised if you subsequently flip a tail.
+
+Now, what if you run a trial of two flips?
+
+```{r}
+sample(possible_outcomes, 2, replace = T, prob = c(0.5, 0.5))
+```
+
+Both heads!
+
+In fact, if we flip a coin twice many times (say, 10 times), we will probably get a couple of trials in which we flip two heads or two tails:
+
+```{r}
+
+trial_two_flips <- tibble(trial = 1:10) |> 
+  rowwise() |> 
+  mutate(outcome = list(sample(possible_outcomes, 2, replace = T, prob = c(0.5, 0.5)))) |> 
+  unnest_wider(outcome) |> 
+  rename("flip_1" = `...1`, "flip_2" = `...2`)
+
+trial_two_flips
+```
+
+`r trial_two_flips |> filter(flip_1 == flip_2) |> nrow()` or `r percent(trial_two_flips |> filter(flip_1 == flip_2) |> nrow() / 10)` of our 10 trials resulted in two of the same outcomes. How can we be confident that our trials are good reflections of the actual distribution of probabilities?
+
+The law of large numbers suggests that when your population of independent observations has a finite mean, as the number of observations drawn increases, the mean of the observed values) in the sample approaches the mean of the population.
+
+In other words, the more flips you do, the closer you will get to the true underlying distribution of probabilities. Cool!
+
+Let's try this out.
+
+First, let's flip the coin 10 times:
+
+```{r}
+tibble(outcome = sample(possible_outcomes, 10, replace = T, prob = c(0.5, 0.5))) |> 
+  tabyl(outcome) |> 
+  ggplot(aes(y = outcome, x = percent)) + 
+  geom_col() + 
+  geom_point(aes(x = c(0.5, 0.5)), size = 3, colour = "red") + 
+  theme_minimal() + 
+  scale_x_continuous(limits = c(0, 1))
+```
+
+Now, let's flip it 100 times:
+
+```{r}
+tibble(outcome = sample(possible_outcomes, 100, replace = T, prob = c(0.5, 0.5))) |> 
+  tabyl(outcome) |> 
+  ggplot(aes(y = outcome, x = percent)) + 
+  geom_col() + 
+  geom_point(aes(x = c(0.5, 0.5)), size = 3, colour = "red") + 
+  theme_minimal() + 
+  scale_x_continuous(limits = c(0, 1))
+```
+
+Now, let's flip it 1,000 times:
+
+```{r}
+tibble(outcome = sample(possible_outcomes, 1000, replace = T, prob = c(0.5, 0.5))) |> 
+  tabyl(outcome) |> 
+  ggplot(aes(y = outcome, x = percent)) + 
+  geom_col() + 
+  geom_point(aes(x = c(0.5, 0.5)), size = 3, colour = "red") + 
+  theme_minimal() + 
+  scale_x_continuous(limits = c(0, 1))
+```
+
+Now, let's flip it 10,000 times:
+
+```{r}
+tibble(outcome = sample(possible_outcomes, 10000, replace = T, prob = c(0.5, 0.5))) |> 
+  tabyl(outcome) |> 
+  ggplot(aes(y = outcome, x = percent)) + 
+  geom_col() + 
+  geom_point(aes(x = c(0.5, 0.5)), size = 3, colour = "red") + 
+  theme_minimal() + 
+  scale_x_continuous(limits = c(0, 1))
+```
+
+Finally, let's flip it 100,000 times:
+
+```{r}
+tibble(outcome = sample(possible_outcomes, 100000, replace = T, prob = c(0.5, 0.5))) |> 
+  tabyl(outcome) |> 
+  ggplot(aes(y = outcome, x = percent)) + 
+  geom_col() + 
+  geom_point(aes(x = c(0.5, 0.5)), size = 3, colour = "red") + 
+  theme_minimal() + 
+  scale_x_continuous(limits = c(0, 1))
+```
+
+Each time we increase the number of draws we make, we get closer to the true underlying distribution of probabilities (as coded in our `sample()` function).
+
+So, after all of that how can you avoid doing the dishes? Sadly (and as expected) whatever you pick (heads or tails) will not give you an edge over your friend. Both heads and tails are equally likely to come up in a fair coin toss.
+
+### What does this all have to do with political science? 
+
+Fair question.
+
+Quantitative social science involves statistical inference. We start with a parameter of interest. For example, what proportion of US voters approve of Joe Biden's work as president? It would be very nice if we could go and ask all US voters what they think and if we could be confident that they are giving us their true opinions. However, this is simply not possible (even the census misses some people!). Instead, we rely on surveys. These surveys (if done well) will take a representative sample of the population of US voters and ask their opinion of Biden. We can then use that sample to infer the overall level of support for Joe Biden among the population (of US voters).
+
+We can even use this sample to answer interesting questions about groups within the population. What do Republicans think about Joe Biden's work as president? What about women? Or people of color?
+
+This is all statistical inference. Probability theory undergrids our ability to observe or measure variables of interest and use these variables to strengthen our arguments in support of our theory. We will discuss this in more detail next week.

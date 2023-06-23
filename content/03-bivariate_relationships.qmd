@@ -11,6 +11,9 @@ execute:
 
 ## Class slides
 
+```{=html}
+<iframe class="slide-deck" src="../files/slides/Lecture 3- Relationships between Variables.pdf" width = "100%" height = 600px></iframe>
+```
 ## Section
 
 ### Prerequisites
@@ -29,29 +32,32 @@ library(countrycode)
 library(broom)
 library(janitor)
 library(ggridges)
+library(modelsummary)
 ```
 
 ### How will what you learn this week help your research?
 
-As usual, we start with an interesting question. You have some outcome of interest and you think that there is an important determinant of that outcome that no has yet identified. Or perhaps that the relationship between some heavily chewed over determinant and the outcome of interest is misunderstood. We are steadily building up your ability to determine empirically the relationship between that determinant and the outcome of interest.
+As usual, we start with an interesting question. You have some outcome of interest and you think that there is an important determinant of that outcome that no has yet identified. Or perhaps the relationship between some heavily chewed over determinant and the outcome of interest is misunderstood. We are steadily building up your ability to determine empirically the relationship between that determinant and the outcome of interest.
 
-Last week, we discussed various tools that you can use to explore your data. You can develop a very good understanding of each of the individual variables, both dependent and independent. This exploration is very important for building your intuition and, by extension, your expertise in the question at hand. These tools also allow you to identify and deal with unusual data points (or outliers).
+Simply put (and there really is no need to over-complicate this), we have two or more variables: an outcome of interest (the dependent variable) and a set of independent variables that we theorize are important determinants of that outcome. We can use empirical analysis to understand 1) how the dependent and independent variables change in relation to one another, and 2) whether this relationship is strong enough that we should declare (though 12,000-word journal articles or by shouting from rooftops) that whenever we want to change or understand that outcome, we *must* consider these important independent variables.
 
-This week, we will start to get to the heart of empirical analysis: understanding the relationships between variables. We have an outcome of interest (the dependent variable) and we have a theory about how a factor or set of factors (independent variables) related to that outcome. Simply put (and there really is no need to over-complicate this), we want to understand 1) how these variables change in relation to one another and 2) whether this relationship is strong enough that we should declare (though 8,000 word journal articles or by shouting from rooftops) that whenever we want to change or understand that outcome, we *must* consider these important independent variables.
+Last week, we discussed various tools that you can use to explore your data. You can develop a very good understanding of each of the individual variables. This exploration is very important for building your intuition and, by extension, your expertise in the question at hand. These tools also allow you to identify unusual data points (or outliers).
 
-We will start small, looking at how we can measure the relationship between two variables. Later, we will explore how we can measure the relationship between many variables. Rarely are the complex outcomes that concern us as political scientists determined by only one factor. In your research you will need to consider the many important determinants of the outcome. However, it is very important to consider the relationship between each of these individual independent variables and your dependent variable. How do they move with each other: when one goes up, does the other go down, up, or not really move? How strong is this association?
+This week, we will make the next step. We will explore how two variables relate to each other. How do they move with each other: when one goes up, does the other go down, up, or not really move? How strong is this association?
 
-This exploration is particularly important for you to do with regard to the independent variable(s) that are the focal point of your theory and, therefore, your contribution to our understanding of the spaghetti bowl of things that determine your outcome of interest. Just as it is important for you to spend some time understanding the shape of your variables (using the tools we discussed last week), you must start to understand the shape of the relationship between your dependent variable and independent variables.
+This exploration is particularly important for you to do with regard to the independent variable(s) that are the focal point of your theory and, therefore, your contribution to our understanding of the messy spaghetti bowl of things that determine your outcome of interest. Just as it is important for you to spend some time understanding the shape of your variables (using the tools we discussed last week), you must start to understand the shape of the relationship between the outcome you are trying to understand or predict and the factors you think are important determinants of that outcome.
 
 Let's begin!
 
 ### Bivariate relationships
 
-How do two variables move with one another? When when goes up, does the other go down, up, or not really move at all? How dramatic is this shift? The type of variables we have determines how we can answer this question. To begin, we will explore the relationship between two continuous variables. Later in the class, we will look at how to explore the relationship between a continuous and categorical variable.
+How do two variables move with one another? When when goes up, does the other go down, up, or not really move at all? How dramatic is this shift?
+
+The type of variables we have determines how we can answer this question. To begin, we will explore the relationship between two continuous variables. Later in the class, we will look at how to explore the relationship between a continuous and categorical variable.
 
 To start, we will explore the relationship between wealth and health. This question was made popular by Hans Rosling's Gapminder project.
 
-> TODO: Include an explanation of the Gapminder research question.
+{{< video https://www.youtube.com/embed/jbkSRLYSojo >}}
 
 ### Collecting our data
 
@@ -97,7 +103,7 @@ ggplot(gapminder_df, aes(x = log_gdp_per_cap, y = life_exp)) +
   theme_minimal()
 ```
 
-> You can transform your data to make it easier to work with. Just remember that you now need to talk in terms of logged GDP per capita instead of GDP per capita. You can, of course, transform you logged variable back to its raw values to ease your interpretation (I cannot, for the life of me, understand logs and I exert a lot of effort towards spending as little time with them as possible).
+> You can transform your data to make it easier to work with. Just remember that you now need to talk in terms of logged GDP per capita instead of GDP per capita.
 
 I can imagine drawing a straight line among these points that summarises how they vary with each other. It appears that as a country's logged GDP per capita increases, so too does the average life expectancy of its population. As wealth increases, so too does health.
 
@@ -137,11 +143,9 @@ ggplot(gapminder_df, aes(x = log_gdp_per_cap, y = life_exp)) +
 
 We can, of course, draw many different lines through these points. Each of us has probably drawn a slightly different line in our heads. Which is the best line? **Ordinary least squares (OLS) regression** provides an answer. Simply put, OLS regression draws the line that minimizes the distance between itself and all of the data points. That line can take many shapes, including a straight line, an S, a frowney face, and smiley face, etc.
 
-Looking at our data above, it appears that a straight line is the best line to draw (perhaps because that's the type of line I asked you to consider).
+Looking at our data above, it appears that a straight line is the best line to draw.
 
-> **Overfitting** involves fitting a model (or drawing a line through our data) that misses the forest for the trees. You can draw all kinds of shapes through those data that perhaps result in a smaller distance between itself and each dot. In fact, if you draw a line that connects all of those dots like some kind of spaghetti bowl there will be no difference between your line and the data points. However, this model may be too focused on the data we have at hand. Introduce a new data point, and our model has no idea what to do with it. This is bad! Your aim here is to produce a generalizable model of the relationship between these two variables, not to draw a line that connects this particular constellation of dots.
->
-> We will talk more about overfitting later in the semester.
+> **Overfitting** involves fitting a model (or drawing a line through our data) that misses the forest for the trees. You can draw all kinds of shapes through those data that perhaps result in a smaller distance between itself and each dot. In fact, if you draw a line that connects all of those dots there will be no difference between your line and the data points. However, this model will be too focused on the data we have at hand. Our model will have no idea what to do with any new data points we introduce. This is bad! Your aim here is to produce a generalizable model of the relationship between these two variables, not to draw a line that connects this particular constellation of dots.
 
 Okay, so a straight line in the best type of line to draw. But there are still many, many different straight lines that we can draw. Which straight line is best? Remember, OLS regression finds the line that minimizes the distance between itself and all of the data points. Let's step through this. Look at the graph above.
 
@@ -246,7 +250,7 @@ Well, we probably haven't produced the best model we can (this isn't the best li
 
 Remember, OLS regression simply finds the line that minimizes the distance between itself and all the data points. The constant that minimizes this distance is the mean of $Y$ minus $\beta_1$ times the mean of $X$.
 
-So, the constant that best predicts a country's average life expectancy based on its logged GDP per capita is equal to the average life expectancy across our sample (`r mean(gapminder_df$life_exp) |> round(2)` years) minus the average logged GDP per capita (`r mean(gapminder_df$log_gdp_per_cap) |> dollar()`) transformed by $\beta_1$.
+So, the constant that best predicts a country's average life expectancy based on its logged GDP per capita is equal to the average life expectancy across our sample (`r mean(gapminder_df$life_exp, na.rm = T) |> round(2)` years) minus the average logged GDP per capita (`r mean(gapminder_df$log_gdp_per_cap, na.rm = T) |> dollar()`, or `r mean(gapminder_df$log_gdp_per_cap, na.rm = T) |> exp() |> dollar()` GDP per capita) transformed by $\beta_1$.
 
 So...
 
@@ -284,11 +288,21 @@ $$
 life Exp_x = 32.9 + 4.5 * logGdpPerCap_x + \epsilon
 $$
 
-That's it! We now have a generalized model of the relationship between a country's average life expectancy and its logged GDP per capita. This model is informed by what we actually observed in the world. It carefully balances our need to accurately describe what we have observed whilst still remaining generalizable.
+That's it! We now have a generalized model of the relationship between a country's average life expectancy and its logged GDP per capita. This model is informed by what we actually observed in the world. It carefully balances our need to accurately describe what we have observed and the need to develop something that is generalizable.
 
-> Note that OLS regression, particularly linear regression, involves a lot of important assumptions. These were discussed in detail in the lecture. For example, we assume that the best line to fit is straight. We also assume that the best way to generate and describe the relationship across all countries is to fit that line in such a way that minimizes the distance between itself and the observed values or dots.
->
-> There are other approaches to determining the "best" line. These include maximum likelihood estimation (discussed in detail in GVPT729) and Bayesian statistics. We won't discuss these approaches in this class or in GVPT722. It's worth noting here; however, that OLS regression requires a whole bunch of assumptions that may or may not be appropriate to your research question. This class prepares you to grapple with those questions and appropriately use these tools in your own research.
+The above model output is difficult to read. It will not be accepted by any journal or professor. Luckily, we can use `modelsummary::modelsummary()` to easily generate a professionally formatted table.
+
+```{r}
+modelsummary(
+  m, 
+  statistic = NULL,
+  coef_rename = c("log_gdp_per_cap" = "GDP per capita (logged)")
+)
+```
+
+Note that OLS regression, particularly linear regression, involves a lot of important assumptions. These were discussed in detail in the lecture. For example, we assume that the best line to fit is straight. We also assume that the best way to generate and describe the relationship across all observations is to fit the line that minimizes the distance between itself and the observed values or dots.
+
+> There are other approaches to determining the "best" line. These include maximum likelihood estimation (discussed in detail in GVPT729) and Bayesian statistics. We won't discuss these approaches in this class or in GVPT722. It's worth noting here; however, that OLS regression requires a whole bunch of assumptions that may or may not be appropriate to your research question or theory. This class prepares you to grapple with those questions and appropriately use these tools in your own research.
 
 ### Prediction and performance
 
@@ -326,12 +340,23 @@ beta_1
 
 Finally, we can plug this in to our model:
 
+$$
+life Exp_x = \beta_0 + \beta_1 logGdpPerCap_x
+$$
+
 ```{r}
 life_exp_10000 <- beta_0 + beta_1 * log(10000)
 life_exp_10000
 ```
 
-A country with a GDP per capita of \$10,000 is predicted to have an average life expectancy of `r round(life_exp_10000)` years. Let's take a look back at our data. Remember, these data describe what the World Bank actually observed for each country in 2016. How close is our predicted value to our observed value?
+A country with a GDP per capita of \$10,000 is predicted to have an average life expectancy of `r round(life_exp_10000)` years. Let's take a look back at our data. Remember, these data describe what the World Bank actually observed for each country in 2016. How close is our predicted value to our observed values?
+
+```{r}
+
+countries_10
+```
+
+As above, our data suggest that these countries have closer to an average of `r round(mean(countries_10$life_exp))` years. Although our model predicted an average life expectancy closer to this than our guess above (which predicted 70 years), we still have a gap. Why?
 
 ```{r}
 ggplot(gapminder_df, aes(x = log_gdp_per_cap, y = life_exp)) + 
@@ -342,17 +367,25 @@ ggplot(gapminder_df, aes(x = log_gdp_per_cap, y = life_exp)) +
   theme_minimal()
 ```
 
-This line looks good! Of course, not all the dots line up. That's okay. We want something generalizable. A bit of noise (error) is expected. How much error is okay? This is a complicated question that has contested answers. Let's start with actually measuring that error. Then we can chat about whether or not it's small enough to allow us to be confident in our model.
+Our model is an attempt to solidify our understanding of the general relationship between a country's wealth and health. Mapping our model against the observed values we used to generate it illustrates this point well.
+
+The world is a complicated and messy place. There are many countries that have a GDP per capita of around \$10,000 (those dots sitting around the vertical black line). They have a wide range of average life expectancy. Also, there are several countries with a wide range of logged GDP per capita that have an average life expectancy of `r round(life_exp_10000)` years (those sitting at or around the horizontal black line).
+
+Our model is our best attempt at accounting for that diversity whilst still producing a useful summary of the relationship between health and wealth for those countries and all other countries with all observed values of GDP per capita.
+
+A bit of noise (error) is expected. How much error is okay? This is a complicated question that has contested answers. Let's start with actually measuring that error. Then we can chat about whether or not it's small enough to allow us to be confident in our model.
 
 ### Measuring error in our model
 
 Returning to our question above, how close are our predicted values to our observed values? For example, how far from the observed average life expectancy of countries with a GDP per capita of or close to \$10,000 is `r round(life_exp_10000)` years?
 
-Start by working out the average life expectancy predicted by our model for the logged GDP per capita of all of our countries. We can then compare this the average life expectancy actually observed in all these countries. We can predict values from a model using `broom::augment()`:
+Start by working out the average life expectancy predicted by our model for the logged GDP per capita of all of our countries. We can then compare this to the average life expectancy actually observed in all these countries. We can predict values from a model using `broom::augment()`:
 
 ```{r}
 augment(m)
 ```
+
+This function is simply fitting our model ($life Exp_x = 32.9 + 4.5 * logGdpPerCap_x$) to each country's logged GDP per capita.
 
 How did the model do? What is the difference between what it predicted and the country's observed average life expectancy? Compare `.fitted` (the predicted average life expectancy) to `life_exp` (the actual observed average life expectancy).
 
@@ -392,7 +425,7 @@ If our model perfectly predicted each country's life expectancy, we would see no
 
 Our model hasn't predicted life expectancy perfectly. Whilst most predictions are within a couple of years of the country's true life expectancy, there are some that are very different (up to 10 or 15 years!). Where the model has got it wrong, it has tended to overestimate life expectancy (note that the peak of the density curve sits above 0).
 
-> Can you see for which points these large differences exist?
+Can you see for which points these large differences exist?
 
 ```{r}
 ggplot(gapminder_df, aes(x = log_gdp_per_cap, y = life_exp)) + 
@@ -405,9 +438,9 @@ What is causing these differences? A lot of your work as a political scientist i
 
 #### (Random) error
 
-The world is a messy and complicated place. Things often vary in completely random ways. That's okay! It means that your observational data are going to move in funny and random ways. That's okay too! As long as your model includes all those systematic drivers of the thing you are interested in measuring (such as average life expectancy), we can accept a bit of random error.
+The world is a messy and complicated place. Things often vary in random ways. That's okay! It means that your observational data are going to move in funny and random ways. That's okay too! As long as your model includes all those systematic drivers of the thing you are interested in measuring (such as average life expectancy), we can accept a bit of random error.
 
-In fact, we have already accounted for this. Remember that error term?
+In fact, we have already accounted for this. Remember that error term:
 
 $$
 life Exp_x = \beta_0 + \beta_1 logGdpPerCap_x + \epsilon
@@ -433,7 +466,7 @@ We just add those all up to get a single measure of the model's overall performa
 
 > Remember that we tend to square things when we don't care about the direction. We don't care that the predicted value is less or more than the observed value, just about how far they are from each other.
 
-This is useful, but influenced by the units by which we measure our variables. What if we want to compare model performance?
+This is useful, but influenced by the units by which we measure our variables. If one model includes something like GDP which is measured in terms of billions of dollars, we will get a very large sum of squared residuals. If another model includes something like percentage of as state's citizens who will vote for Donald Trump, we will get a relatively small sum of squared residuals. What if we want to compare model performance in a meaningful way?
 
 #### $R^2$
 
@@ -465,6 +498,13 @@ $$
 R^2 = \frac{ESS}{TSS} = \frac{\Sigma(\hat{y}_i - \bar{y})^2}{\Sigma(y_i - \bar{y})^2}
 $$
 
+Our model's $R^2$ was one of the many values provided at the bottom of our nicely formatted regression table above. We can access it (and other general model statistics) directly using `broom::glance()`:
+
+```{r}
+
+glance(m)
+```
+
 ### Modelling relationships among categorical variables
 
 Sometimes we want to know whether our outcome of interest changes based on the category in which it sits. For example, do levels of support for abortion access differ between Democrats, Republicans, and Independents? Do the number of women elected to parliament change based on whether or not the country has a formal quota? Do the number of civilians targeted in war change based on whether the war is intra- or inter-state?
@@ -483,8 +523,25 @@ A simple cross tab can provide a nice summary of differences in your outcome of 
 
 For example, let's look at differences in the number of individuals who identified as Democrat, Republican, or Independent who do not support access to abortions, support access with some conditions, with more conditions, or always.
 
+We can use `modelsummary::datasummary_crosstab()` to produce a nicely formatted cross tab of our variables:
+
 ```{r}
-tabyl(nes, abort4, pid_3)
+datasummary_crosstab(abort4 ~ pid_3, data = nes)
 ```
 
-Are these differences meaningful or significant? We will chat about that next week.
+#### Mean comparison table
+
+We can use mean comparison tables to, well, compare means (in a table). Let's compare the average response to the feeling thermometer (scale from 0 to 100) for the Republican party across parties:
+
+```{r}
+
+nes |>
+  group_by(pid_3) |> 
+  summarise(
+    mean = mean(ft_rep, na.rm = T),
+    sd = sd(ft_rep, na.rm = T),
+    freq = n()
+  )
+```
+
+Are these counts or averages meaningfully different from one another? We need some additional tools to answer that question. We will discuss those in the coming weeks.

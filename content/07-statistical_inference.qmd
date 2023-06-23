@@ -1,0 +1,294 @@
+---
+title: "Statistical Inference"
+toc-depth: 4
+execute: 
+  warning: false
+  message: false
+  echo: true
+  fig-width: 10
+---
+
+## Readings
+
+## Class slides
+
+```{=html}
+<iframe class="slide-deck" src="../files/slides/Lecture 7 - Statistical Inference.pdf" width = "100%" height = 600px></iframe>
+```
+## Section
+
+### Prerequisites
+
+```{r}
+#| echo: false
+
+library(scales)
+```
+
+```{r}
+
+library(tidyverse)
+library(janitor)
+library(poliscidata)
+library(ggdist)
+library(MetBrewer)
+
+set.seed(1234)
+```
+
+### How will what you learn this week help your research?
+
+### Population and sample
+
+We can use a representative sample of our population to make inferences about interesting characteristics of that population.
+
+Say we are interested in the proportion of US voters who will vote for Joe Biden in the 2024 general election. We cannot ask all US voters of their intentions. Instead, we ask a sample of the US voting population and infer from that sample the population's intentions.
+
+> The data point of interest among the population is referred to as the **parameter**. Here, it is the proportion of *US voters* who will vote for Joe Biden in the 2024 general election.
+>
+> The data point of interest among the sample is referred to as the **statistic**. Here, it is the proportion of *survey respondents* who will vote for Joe Biden in the 2024 general election.
+>
+> We aim to have a statistic that accurately represents the parameter.
+
+When we generalize from the sample statistic to the parameter we are engaging in statistical inference.
+
+How can we be confident that our statistic represents the parameter? Generally speaking, the more our sample "looks like" our population, the more confident we can be that we have a good statistic. Drawing on probability theory, our sample is increasingly likely to resemble our population with its randomness and size.
+
+Let's break this down. You should strive for a **pure random sample**. This means that every individual within your population is equally likely to be drawn. This is really hard to achieve! Think about normal election surveys. Many are conducted over the phone. There are plenty of people who do not have a landline phone, or do not pick up calls from unknown numbers, or who keep their phones on do not disturb during the day. These people will be harder to contact than those who are sitting by the phone waiting eagerly for a call. Even if you have access to all US voters' phone numbers (never mind that some voters do not have phone numbers)and you took a random sample of those phone numbers and started calling, you still will not get a hold of them all with equal probability.
+
+You should also strive for as large a sample as you can possibly get. More is always better in terms of statistical inference (if not your research budget). Remember back to our coin flips last week. The more coin flips we did, the closer we got to the true probability distribution between heads and tails. This principle also holds here.
+
+### Sampling error
+
+Imagine you have a large and representative sample. You are still going to have some error. This is because your sample varies in all the normal ways events with uncertainty vary. To illustrate, let's return to our coin flips.
+
+We state our possible outcomes:
+
+```{r}
+
+possible_outcomes <- c("HEADS", "TAILS")
+possible_outcomes
+```
+
+We flip our coin 100 times:
+
+```{r}
+
+sample(possible_outcomes, 100, replace = T, prob = c(0.5, 0.5))
+```
+
+We know that the true probability of the coin landing on heads is 0.5. If we flip a fair coin 100 times, we should get 50 heads. We also know that these random draws are a bit noisy: we can get proportions that do not reflect the underlying probability of 0.5. However, the more flips we do, the closer we will get to that true probability distribution.
+
+Let's do 100,000 100-coin flip trials and record the number of heads we get each time:
+
+```{r}
+
+coin_flip <- function(possible_outcomes, n) {
+  
+  outcomes <- sample(possible_outcomes, size = n, replace = T, prob = c(0.5, 0.5))
+  
+  return(table(outcomes)["HEADS"])
+  
+}
+
+results <- tibble(trial = 1:100000) |> 
+  rowwise() |> 
+  mutate(n_heads = coin_flip(possible_outcomes, 100))
+
+results
+```
+
+What are the results of these repeated trials?
+
+```{r}
+
+ggplot(results, aes(x = n_heads)) + 
+  geom_histogram() + 
+  geom_vline(xintercept = 50)
+```
+
+So we know that each time we flip that coin, there is a 50% chance that it will land on heads. We know this because we programmed it in to our sample (`sample(c("HEADS", "TAILS"), prob = c(0.5, 0.5))`). We don't usually have this luxury of knowing the parameter, so let's take advantage of this to build up our confidence around good samples and their relationship to the population.
+
+Even though every time we flip the coin there is a 50% chance it lands on heads, we still get some trials in which we draw many more or far fewer than our expected 50 heads. We have some as low as `r min(results$n_heads)` and some as large as `r max(results$n_heads)`. But notice how the number of heads recorded in most of our trials are clustered around our expected 50. The mean of our results is `r mean(results$n_heads)` which is really, really close to our known parameter of 0.5 or 50%. Yay!
+
+So, even with representative and large samples you will get some error. That's okay. We can still use that sample to confidently infer what the parameter looks like.
+
+Let's extend this a little further. What happens if we conduct less trials? Let's try with only 100 trials.
+
+```{r}
+results_100 <- tibble(trial = 1:100) |> 
+  rowwise() |> 
+  mutate(n_heads = coin_flip(possible_outcomes, 100))
+
+ggplot(results_100, aes(x = n_heads)) + 
+  geom_histogram() + 
+  geom_vline(xintercept = 50)
+```
+
+Not as clean as we would like. The average number of heads drawn in each of these 100 trials is `r mean(results_100$n_heads)`, which is `r mean(results_100$n_heads) - 50` points away from the parameter (compared to `r mean(results$n_heads) - 50` for our 100,000 trials).
+
+What about if we decrease the number of draws we make in each trial? Let's only take 10 draws in our original 100,000 trials.
+
+```{r}
+results_10 <- tibble(trial = 1:100000) |> 
+  rowwise() |> 
+  mutate(n_heads = coin_flip(possible_outcomes, 10))
+
+ggplot(results_10, aes(x = n_heads)) + 
+  geom_histogram() + 
+  geom_vline(xintercept = 5)
+```
+
+The average number of heads drawn in each of these 100,000 trials is `r mean(results_10$n_heads, na.rm = T)`, which is `r mean(results_10$n_heads, na.rm = T) - 5` points away from the parameter (compared to `r mean(results$n_heads) - 50` for our 100,000 trials).
+
+The lessons we can take from this is that more is better. The more times you flip that coin, the closer you will get to the true underlying probability of a fair coin landing on heads.
+
+> You will need to make important decisions in your own research regarding the number of samples with which you are comfortable. This will be constrained by your budget, time, and population. You will get a more accurate picture of the parameter with more data points. However, adding another 1,000,000 responses to your survey may result in a change so small it has no material impact what you infer from your analysis. If this is the case and you have a representative sample, you are well justified in not running yourself dry trying to get those extra observations.
+
+### Sampling distributions
+
+Let's move on from coin flips. Suppose that we want to know how many Americans identify as Democrats. We will return to the American National Election Survey to answer this question.
+
+This survey asks respondents whether they identify as a Democrat (this binary variable takes on 0 if not and 1 if they do).
+
+```{r}
+
+nes |> 
+  select(caseid, dem) |> 
+  head()
+```
+
+Let's very cheekily pretend that this is a complete survey of the entire voting population of America. That way, we can pretend that we know the proportion of US voters who identify as Democrats.
+
+```{r}
+
+tabyl(nes, dem)
+```
+
+Okay, so let's pretend that `r tabyl(nes, dem) |> filter(dem == 1) |> pull(percent) |> percent()` of US voters identify as Democrats.
+
+We can't survey all voters, so instead we take a representative and large sample from this population:
+
+```{r}
+
+nes_sample <- nes |> 
+  select(caseid, dem) |> 
+  slice_sample(n = 3000)
+```
+
+We have taken a sample of 3,000 (or `r percent(3000 / nrow(nes))` of our population of `r comma(nrow(nes))` voters).
+
+What proportion of this sample identify as Democrats?
+
+```{r}
+
+tabyl(nes_sample, dem)
+```
+
+Nice! But what if we took a different sample of 3,000?
+
+```{r}
+
+nes_sample_2 <- nes |> 
+  select(caseid, dem) |> 
+  slice_sample(n = 3000)
+```
+
+```{r}
+
+tabyl(nes_sample_2, dem)
+```
+
+We get a different answer. Of course! This is just like our different coin flip trials. Each resulted in a different number of heads. The more flips we did, the closer we got to the true underlying probability distribution.
+
+Let's take 1,000 different samples of 3,000 US voters and see what we get:
+
+```{r}
+
+dem_survey <- function(df, n) {
+  
+  slice_sample(df, n = n) |> 
+    tabyl(dem) |> 
+    filter(dem == 1) |> 
+    pull(percent)
+  
+}
+
+nes_samples_1000 <- tibble(survey = 1:1000) |> 
+  rowwise() |> 
+  mutate(prop_dem = dem_survey(select(nes, caseid, dem), 3000)) |> 
+  ungroup()
+
+nes_samples_1000
+```
+
+```{r}
+
+ggplot(nes_samples_1000, aes(x = prop_dem)) + 
+  geom_histogram() + 
+  geom_vline(xintercept = tabyl(nes, dem) |> filter(dem == 1) |> pull(percent))
+```
+
+On average, `r mean(nes_samples_1000$prop_dem) |> percent(accuracy = 0.01)` of US voters in our 1,000 samples of 3,000 US voters identified as Democrats. Our (cheeky) population average is `r tabyl(nes, dem) |> filter(dem == 1) |> pull(percent) |> percent(accuracy = 0.01)`. Yay! As long as our sample is large and representative, we should be able to infer from our sample what is going on in the population.
+
+You'll have noticed that these draws are always symmetrical or normally distributed around the sample mean (which is; hopefully, also the population mean). This distribution of your statistic is referred to as your **sampling distribution**. We lean *very heavily* on some important characteristics of this distribution when doing statistical inference.
+
+***When your sample is large and representative***, your sampling distribution will be near normally distributed. The center will be at (or very, very close to) the population mean. This is called the **Central Limit Theorem**. This theorem suggests that statistics (including means, proportions, counts) from large and randomly drawn samples are very good approximations of the underlying (and often unobservable) population parameter.
+
+### Inferring from a single "trial"
+
+In a lot of (social) science is is not practical or, in some cases, possible to do many trials. For example, a lot of us study the onset, conduct, and termination of wars. Unlike a game of chess, you cannot reset and run a war many times in order to get your sampling distribution of your variable of interest.
+
+Further, we often do not know the shape or size of our population. For example, the best guess we have of the demographics of the US population comes from the census. But this misses a lot of people. If you want to study houselessness, you might need to rely on surveys of samples of people that may or may not be representative of this difficult to reach population of people.   
+
+A lot of the time; therefore, you will have one data point. This requires that we take some lessons learned from above and make some pretty important assumptions.
+
+Let's return to our survey work above. We took 1,000 different samples of 3,000 US voters and asked each of them whether they identified as Democrats. We recorded the proportion of the 3,000 respondents who identified as Democrats in each of our 1,000 different samples. We then took the average of those 1,000 different proportions and compared it to our population average. In line with the Central Limit Theorem, we found that the average of our sample statistics was very, very close to our population parameter.
+
+Okay, now imagine that you could only run one of those trials. Let's select one at random:
+
+```{r}
+
+nes_single <- slice_sample(nes_samples_1000)
+nes_single
+```
+
+How close is this single sample statistic to the population parameter of `r tabyl(nes, dem) |> filter(dem == 1) |> pull(percent) |> percent(accuracy = 0.01)`? Pretty close! In fact, you are more likely to get a sample statistic close to the population parameter than not. 
+
+Remember, when we ran multiple trials we got many sample statistics that were clustered around the population mean. 
+
+```{r}
+ggplot(nes_samples_1000, aes(x = prop_dem)) + 
+  geom_histogram() + 
+  geom_vline(xintercept = tabyl(nes, dem) |> filter(dem == 1) |> pull(percent))
+```
+
+So, if you were to pick one of these trials at random, you are more likely to pick one with a sample statistic that is close to the population parameter than not. Convenient!
+
+### How confident can we be in our statistic? 
+
+That being said, we could get unlucky and have drawn a large and representative sample that sits at one of those extreme values. How confident can we be that our single sample statistic is close to the population parameter? 
+
+Remember back to our week on descriptive statistics. There are some super handy properties of normal distributions on which we will draw.
+
+```{r}
+
+norm_5_2 <- tibble(x = rnorm(n = 1e6, mean = 5, sd = 2))
+
+ggplot(norm_5_2, aes(x = x)) + 
+  stat_slab(
+    aes(fill_ramp = after_stat(cut_cdf_qi(cdf))), fill = met.brewer("Egypt")[2]
+  ) + 
+  scale_fill_ramp_discrete(range = c(1, 0.2), guide = "none") + 
+  theme_minimal()
+```
+
+For normally distributed data:
+
+-   Approximately 68% of the data fall within one standard deviation of the mean (the dark blue).
+
+-   Approximately 95% of the data fall within two standard deviations of the mean (the medium blue).
+
+-   Approximately 99.7% of the data fall within three standard deviations of the mean (the light blue).
+
+

@@ -124,6 +124,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   }
 }</script>
 
+<script src="../site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../html/custom.css">
@@ -192,6 +195,56 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <a href="../content/03-bivariate_relationships.html" class="sidebar-item-text sidebar-link active">Bivariate Relationships</a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/04-research_design.html" class="sidebar-item-text sidebar-link">Research Design</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/05-applications.html" class="sidebar-item-text sidebar-link">Applications</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/06-probability_theory.html" class="sidebar-item-text sidebar-link">Probability Theory</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/07-statistical_inference.html" class="sidebar-item-text sidebar-link">Statistical Inference</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/08_hypothesis_testing.html" class="sidebar-item-text sidebar-link">Hypothesis Testing</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/09-hypothesis_testing.html" class="sidebar-item-text sidebar-link">Hypothesis Testing II</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/10-applications.html" class="sidebar-item-text sidebar-link">Applications II</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/11-regression.html" class="sidebar-item-text sidebar-link">Regression</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/12-multiple_regression.html" class="sidebar-item-text sidebar-link">Multiple Regression</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/13-conclusion.html" class="sidebar-item-text sidebar-link">Conclusion</a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -247,6 +300,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="class-slides" class="level2">
 <h2 class="anchored" data-anchor-id="class-slides">Class slides</h2>
+<iframe class="slide-deck" src="../files/slides/Lecture 3- Relationships between Variables.pdf" width="100%" height="600px"></iframe>
 </section>
 <section id="section" class="level2">
 <h2 class="anchored" data-anchor-id="section">Section</h2>
@@ -262,25 +316,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(countrycode)</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggridges)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggridges)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modelsummary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="how-will-what-you-learn-this-week-help-your-research" class="level3">
 <h3 class="anchored" data-anchor-id="how-will-what-you-learn-this-week-help-your-research">How will what you learn this week help your research?</h3>
-<p>As usual, we start with an interesting question. You have some outcome of interest and you think that there is an important determinant of that outcome that no has yet identified. Or perhaps that the relationship between some heavily chewed over determinant and the outcome of interest is misunderstood. We are steadily building up your ability to determine empirically the relationship between that determinant and the outcome of interest.</p>
-<p>Last week, we discussed various tools that you can use to explore your data. You can develop a very good understanding of each of the individual variables, both dependent and independent. This exploration is very important for building your intuition and, by extension, your expertise in the question at hand. These tools also allow you to identify and deal with unusual data points (or outliers).</p>
-<p>This week, we will start to get to the heart of empirical analysis: understanding the relationships between variables. We have an outcome of interest (the dependent variable) and we have a theory about how a factor or set of factors (independent variables) related to that outcome. Simply put (and there really is no need to over-complicate this), we want to understand 1) how these variables change in relation to one another and 2) whether this relationship is strong enough that we should declare (though 8,000 word journal articles or by shouting from rooftops) that whenever we want to change or understand that outcome, we <em>must</em> consider these important independent variables.</p>
-<p>We will start small, looking at how we can measure the relationship between two variables. Later, we will explore how we can measure the relationship between many variables. Rarely are the complex outcomes that concern us as political scientists determined by only one factor. In your research you will need to consider the many important determinants of the outcome. However, it is very important to consider the relationship between each of these individual independent variables and your dependent variable. How do they move with each other: when one goes up, does the other go down, up, or not really move? How strong is this association?</p>
-<p>This exploration is particularly important for you to do with regard to the independent variable(s) that are the focal point of your theory and, therefore, your contribution to our understanding of the spaghetti bowl of things that determine your outcome of interest. Just as it is important for you to spend some time understanding the shape of your variables (using the tools we discussed last week), you must start to understand the shape of the relationship between your dependent variable and independent variables.</p>
+<p>As usual, we start with an interesting question. You have some outcome of interest and you think that there is an important determinant of that outcome that no has yet identified. Or perhaps the relationship between some heavily chewed over determinant and the outcome of interest is misunderstood. We are steadily building up your ability to determine empirically the relationship between that determinant and the outcome of interest.</p>
+<p>Simply put (and there really is no need to over-complicate this), we have two or more variables: an outcome of interest (the dependent variable) and a set of independent variables that we theorize are important determinants of that outcome. We can use empirical analysis to understand 1) how the dependent and independent variables change in relation to one another, and 2) whether this relationship is strong enough that we should declare (though 12,000-word journal articles or by shouting from rooftops) that whenever we want to change or understand that outcome, we <em>must</em> consider these important independent variables.</p>
+<p>Last week, we discussed various tools that you can use to explore your data. You can develop a very good understanding of each of the individual variables. This exploration is very important for building your intuition and, by extension, your expertise in the question at hand. These tools also allow you to identify unusual data points (or outliers).</p>
+<p>This week, we will make the next step. We will explore how two variables relate to each other. How do they move with each other: when one goes up, does the other go down, up, or not really move? How strong is this association?</p>
+<p>This exploration is particularly important for you to do with regard to the independent variable(s) that are the focal point of your theory and, therefore, your contribution to our understanding of the messy spaghetti bowl of things that determine your outcome of interest. Just as it is important for you to spend some time understanding the shape of your variables (using the tools we discussed last week), you must start to understand the shape of the relationship between the outcome you are trying to understand or predict and the factors you think are important determinants of that outcome.</p>
 <p>Let’s begin!</p>
 </section>
 <section id="bivariate-relationships" class="level3">
 <h3 class="anchored" data-anchor-id="bivariate-relationships">Bivariate relationships</h3>
-<p>How do two variables move with one another? When when goes up, does the other go down, up, or not really move at all? How dramatic is this shift? The type of variables we have determines how we can answer this question. To begin, we will explore the relationship between two continuous variables. Later in the class, we will look at how to explore the relationship between a continuous and categorical variable.</p>
+<p>How do two variables move with one another? When when goes up, does the other go down, up, or not really move at all? How dramatic is this shift?</p>
+<p>The type of variables we have determines how we can answer this question. To begin, we will explore the relationship between two continuous variables. Later in the class, we will look at how to explore the relationship between a continuous and categorical variable.</p>
 <p>To start, we will explore the relationship between wealth and health. This question was made popular by Hans Rosling’s Gapminder project.</p>
-<blockquote class="blockquote">
-<p>TODO: Include an explanation of the Gapminder research question.</p>
-</blockquote>
+<div class="quarto-video ratio ratio-16x9"><iframe src="https://www.youtube.com/embed/jbkSRLYSojo" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
 </section>
 <section id="collecting-our-data" class="level3">
 <h3 class="anchored" data-anchor-id="collecting-our-data">Collecting our data</h3>
@@ -342,7 +396,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <blockquote class="blockquote">
-<p>You can transform your data to make it easier to work with. Just remember that you now need to talk in terms of logged GDP per capita instead of GDP per capita. You can, of course, transform you logged variable back to its raw values to ease your interpretation (I cannot, for the life of me, understand logs and I exert a lot of effort towards spending as little time with them as possible).</p>
+<p>You can transform your data to make it easier to work with. Just remember that you now need to talk in terms of logged GDP per capita instead of GDP per capita.</p>
 </blockquote>
 <p>I can imagine drawing a straight line among these points that summarises how they vary with each other. It appears that as a country’s logged GDP per capita increases, so too does the average life expectancy of its population. As wealth increases, so too does health.</p>
 </section>
@@ -380,10 +434,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <p>We can, of course, draw many different lines through these points. Each of us has probably drawn a slightly different line in our heads. Which is the best line? <strong>Ordinary least squares (OLS) regression</strong> provides an answer. Simply put, OLS regression draws the line that minimizes the distance between itself and all of the data points. That line can take many shapes, including a straight line, an S, a frowney face, and smiley face, etc.</p>
-<p>Looking at our data above, it appears that a straight line is the best line to draw (perhaps because that’s the type of line I asked you to consider).</p>
+<p>Looking at our data above, it appears that a straight line is the best line to draw.</p>
 <blockquote class="blockquote">
-<p><strong>Overfitting</strong> involves fitting a model (or drawing a line through our data) that misses the forest for the trees. You can draw all kinds of shapes through those data that perhaps result in a smaller distance between itself and each dot. In fact, if you draw a line that connects all of those dots like some kind of spaghetti bowl there will be no difference between your line and the data points. However, this model may be too focused on the data we have at hand. Introduce a new data point, and our model has no idea what to do with it. This is bad! Your aim here is to produce a generalizable model of the relationship between these two variables, not to draw a line that connects this particular constellation of dots.</p>
-<p>We will talk more about overfitting later in the semester.</p>
+<p><strong>Overfitting</strong> involves fitting a model (or drawing a line through our data) that misses the forest for the trees. You can draw all kinds of shapes through those data that perhaps result in a smaller distance between itself and each dot. In fact, if you draw a line that connects all of those dots there will be no difference between your line and the data points. However, this model will be too focused on the data we have at hand. Our model will have no idea what to do with any new data points we introduce. This is bad! Your aim here is to produce a generalizable model of the relationship between these two variables, not to draw a line that connects this particular constellation of dots.</p>
 </blockquote>
 <p>Okay, so a straight line in the best type of line to draw. But there are still many, many different straight lines that we can draw. Which straight line is best? Remember, OLS regression finds the line that minimizes the distance between itself and all of the data points. Let’s step through this. Look at the graph above.</p>
 <ol type="1">
@@ -478,7 +531,7 @@ life Exp_x = 30 + 4 * logGdpPerCap_x
 <section id="how-do-we-calculate-the-constant-beta_0-using-ols-regression" class="level4">
 <h4 class="anchored" data-anchor-id="how-do-we-calculate-the-constant-beta_0-using-ols-regression">How do we calculate the constant (<span class="math inline">\(\beta_0\)</span>) using OLS regression?</h4>
 <p>Remember, OLS regression simply finds the line that minimizes the distance between itself and all the data points. The constant that minimizes this distance is the mean of <span class="math inline">\(Y\)</span> minus <span class="math inline">\(\beta_1\)</span> times the mean of <span class="math inline">\(X\)</span>.</p>
-<p>So, the constant that best predicts a country’s average life expectancy based on its logged GDP per capita is equal to the average life expectancy across our sample (NA years) minus the average logged GDP per capita (NA) transformed by <span class="math inline">\(\beta_1\)</span>.</p>
+<p>So, the constant that best predicts a country’s average life expectancy based on its logged GDP per capita is equal to the average life expectancy across our sample (72.3 years) minus the average logged GDP per capita ($8.79, or $6,548.15 GDP per capita) transformed by <span class="math inline">\(\beta_1\)</span>.</p>
 <p>So…</p>
 </section>
 <section id="how-do-we-calculate-the-coefficient-beta_1" class="level4">
@@ -514,10 +567,72 @@ Coefficients:
 <p><span class="math display">\[
 life Exp_x = 32.9 + 4.5 * logGdpPerCap_x + \epsilon
 \]</span></p>
-<p>That’s it! We now have a generalized model of the relationship between a country’s average life expectancy and its logged GDP per capita. This model is informed by what we actually observed in the world. It carefully balances our need to accurately describe what we have observed whilst still remaining generalizable.</p>
+<p>That’s it! We now have a generalized model of the relationship between a country’s average life expectancy and its logged GDP per capita. This model is informed by what we actually observed in the world. It carefully balances our need to accurately describe what we have observed and the need to develop something that is generalizable.</p>
+<p>The above model output is difficult to read. It will not be accepted by any journal or professor. Luckily, we can use <code>modelsummary::modelsummary()</code> to easily generate a professionally formatted table.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  m, </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">statistic =</span> <span class="cn">NULL</span>,</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">coef_rename =</span> <span class="fu">c</span>(<span class="st">"log_gdp_per_cap"</span> <span class="ot">=</span> <span class="st">"GDP per capita (logged)"</span>)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:center;"> Model 1 </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> (Intercept) </td>
+   <td style="text-align:center;"> 32.927 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;box-shadow: 0px 1px"> GDP per capita (logged) </td>
+   <td style="text-align:center;box-shadow: 0px 1px"> 4.509 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Num.Obs. </td>
+   <td style="text-align:center;"> 202 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:center;"> 0.718 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> R2 Adj. </td>
+   <td style="text-align:center;"> 0.717 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> AIC </td>
+   <td style="text-align:center;"> 1150.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> BIC </td>
+   <td style="text-align:center;"> 1159.9 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Log.Lik. </td>
+   <td style="text-align:center;"> −571.993 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> F </td>
+   <td style="text-align:center;"> 510.264 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> RMSE </td>
+   <td style="text-align:center;"> 4.11 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<p>Note that OLS regression, particularly linear regression, involves a lot of important assumptions. These were discussed in detail in the lecture. For example, we assume that the best line to fit is straight. We also assume that the best way to generate and describe the relationship across all observations is to fit the line that minimizes the distance between itself and the observed values or dots.</p>
 <blockquote class="blockquote">
-<p>Note that OLS regression, particularly linear regression, involves a lot of important assumptions. These were discussed in detail in the lecture. For example, we assume that the best line to fit is straight. We also assume that the best way to generate and describe the relationship across all countries is to fit that line in such a way that minimizes the distance between itself and the observed values or dots.</p>
-<p>There are other approaches to determining the “best” line. These include maximum likelihood estimation (discussed in detail in GVPT729) and Bayesian statistics. We won’t discuss these approaches in this class or in GVPT722. It’s worth noting here; however, that OLS regression requires a whole bunch of assumptions that may or may not be appropriate to your research question. This class prepares you to grapple with those questions and appropriately use these tools in your own research.</p>
+<p>There are other approaches to determining the “best” line. These include maximum likelihood estimation (discussed in detail in GVPT729) and Bayesian statistics. We won’t discuss these approaches in this class or in GVPT722. It’s worth noting here; however, that OLS regression requires a whole bunch of assumptions that may or may not be appropriate to your research question or theory. This class prepares you to grapple with those questions and appropriately use these tools in your own research.</p>
 </blockquote>
 </section>
 </section>
@@ -527,7 +642,7 @@ life Exp_x = 32.9 + 4.5 * logGdpPerCap_x + \epsilon
 <p>First, we can use this model to predict a country’s average life expectancy given its GDP per capita.</p>
 <p><code>broom::tidy(m)</code> makes this model object a lot easier to work with.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(m)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(m)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 5
   term            estimate std.error statistic  p.value
@@ -538,56 +653,74 @@ life Exp_x = 32.9 + 4.5 * logGdpPerCap_x + \epsilon
 </div>
 <p>What do we predict to be the average life expectancy of a country with a GDP per capita of $10,000? First, let’s pull out the estimated constant (or intercept or <span class="math inline">\(\beta_0\)</span>) for our calculations.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>m_res <span class="ot">&lt;-</span> <span class="fu">tidy</span>(m)</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>beta_0 <span class="ot">&lt;-</span> m_res <span class="sc">|&gt;</span> </span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"(Intercept)"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(estimate)</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>beta_0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>m_res <span class="ot">&lt;-</span> <span class="fu">tidy</span>(m)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>beta_0 <span class="ot">&lt;-</span> m_res <span class="sc">|&gt;</span> </span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"(Intercept)"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(estimate)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>beta_0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 32.92739</code></pre>
 </div>
 </div>
 <p>Next, let’s pull out the estimated coefficient for (logged) GDP per capita:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>beta_1 <span class="ot">&lt;-</span> m_res <span class="sc">|&gt;</span> </span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"log_gdp_per_cap"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(estimate)</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>beta_1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>beta_1 <span class="ot">&lt;-</span> m_res <span class="sc">|&gt;</span> </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"log_gdp_per_cap"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(estimate)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>beta_1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 4.508875</code></pre>
 </div>
 </div>
 <p>Finally, we can plug this in to our model:</p>
+<p><span class="math display">\[
+life Exp_x = \beta_0 + \beta_1 logGdpPerCap_x
+\]</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>life_exp_10000 <span class="ot">&lt;-</span> beta_0 <span class="sc">+</span> beta_1 <span class="sc">*</span> <span class="fu">log</span>(<span class="dv">10000</span>)</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>life_exp_10000</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>life_exp_10000 <span class="ot">&lt;-</span> beta_0 <span class="sc">+</span> beta_1 <span class="sc">*</span> <span class="fu">log</span>(<span class="dv">10000</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>life_exp_10000</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 74.45566</code></pre>
 </div>
 </div>
-<p>A country with a GDP per capita of $10,000 is predicted to have an average life expectancy of 74 years. Let’s take a look back at our data. Remember, these data describe what the World Bank actually observed for each country in 2016. How close is our predicted value to our observed value?</p>
+<p>A country with a GDP per capita of $10,000 is predicted to have an average life expectancy of 74 years. Let’s take a look back at our data. Remember, these data describe what the World Bank actually observed for each country in 2016. How close is our predicted value to our observed values?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gapminder_df, <span class="fu">aes</span>(<span class="at">x =</span> log_gdp_per_cap, <span class="at">y =</span> life_exp)) <span class="sc">+</span> </span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">log</span>(<span class="dv">10000</span>)) <span class="sc">+</span> </span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> life_exp_10000) <span class="sc">+</span> </span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> F) <span class="sc">+</span> </span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>countries_10</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 8
+  iso2c iso3c country          region  date gdp_per_cap life_exp log_gdp_per_cap
+  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;            &lt;chr&gt;  &lt;dbl&gt;       &lt;dbl&gt;    &lt;dbl&gt;           &lt;dbl&gt;
+1 BH    BHR   Bahrain          Middl…  2016      22867.     79.6           10.0 
+2 KN    KNA   St. Kitts and N… Latin…  2016      21095.     71.7            9.96
+3 SI    SVN   Slovenia         Europ…  2016      21678.     81.2            9.98</code></pre>
+</div>
+</div>
+<p>As above, our data suggest that these countries have closer to an average of 77 years. Although our model predicted an average life expectancy closer to this than our guess above (which predicted 70 years), we still have a gap. Why?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gapminder_df, <span class="fu">aes</span>(<span class="at">x =</span> log_gdp_per_cap, <span class="at">y =</span> life_exp)) <span class="sc">+</span> </span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">log</span>(<span class="dv">10000</span>)) <span class="sc">+</span> </span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> life_exp_10000) <span class="sc">+</span> </span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> F) <span class="sc">+</span> </span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="03-bivariate_relationships_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="960"></p>
+<p><img src="03-bivariate_relationships_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="960"></p>
 </div>
 </div>
-<p>This line looks good! Of course, not all the dots line up. That’s okay. We want something generalizable. A bit of noise (error) is expected. How much error is okay? This is a complicated question that has contested answers. Let’s start with actually measuring that error. Then we can chat about whether or not it’s small enough to allow us to be confident in our model.</p>
+<p>Our model is an attempt to solidify our understanding of the general relationship between a country’s wealth and health. Mapping our model against the observed values we used to generate it illustrates this point well.</p>
+<p>The world is a complicated and messy place. There are many countries that have a GDP per capita of around $10,000 (those dots sitting around the vertical black line). They have a wide range of average life expectancy. Also, there are several countries with a wide range of logged GDP per capita that have an average life expectancy of 74 years (those sitting at or around the horizontal black line).</p>
+<p>Our model is our best attempt at accounting for that diversity whilst still producing a useful summary of the relationship between health and wealth for those countries and all other countries with all observed values of GDP per capita.</p>
+<p>A bit of noise (error) is expected. How much error is okay? This is a complicated question that has contested answers. Let’s start with actually measuring that error. Then we can chat about whether or not it’s small enough to allow us to be confident in our model.</p>
 </section>
 <section id="measuring-error-in-our-model" class="level3">
 <h3 class="anchored" data-anchor-id="measuring-error-in-our-model">Measuring error in our model</h3>
 <p>Returning to our question above, how close are our predicted values to our observed values? For example, how far from the observed average life expectancy of countries with a GDP per capita of or close to $10,000 is 74 years?</p>
-<p>Start by working out the average life expectancy predicted by our model for the logged GDP per capita of all of our countries. We can then compare this the average life expectancy actually observed in all these countries. We can predict values from a model using <code>broom::augment()</code>:</p>
+<p>Start by working out the average life expectancy predicted by our model for the logged GDP per capita of all of our countries. We can then compare this to the average life expectancy actually observed in all these countries. We can predict values from a model using <code>broom::augment()</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">augment</span>(m)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">augment</span>(m)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 202 × 9
    .rownames life_exp log_gdp_per_cap .fitted .resid    .hat .sigma   .cooksd
@@ -606,16 +739,17 @@ life Exp_x = 32.9 + 4.5 * logGdpPerCap_x + \epsilon
 # ℹ 1 more variable: .std.resid &lt;dbl&gt;</code></pre>
 </div>
 </div>
+<p>This function is simply fitting our model (<span class="math inline">\(life Exp_x = 32.9 + 4.5 * logGdpPerCap_x\)</span>) to each country’s logged GDP per capita.</p>
 <p>How did the model do? What is the difference between what it predicted and the country’s observed average life expectancy? Compare <code>.fitted</code> (the predicted average life expectancy) to <code>life_exp</code> (the actual observed average life expectancy).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>m_eval <span class="ot">&lt;-</span> <span class="fu">augment</span>(m) <span class="sc">|&gt;</span> </span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    life_exp, </span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    .fitted,</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">diff =</span> life_exp <span class="sc">-</span> .fitted</span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>m_eval</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>m_eval <span class="ot">&lt;-</span> <span class="fu">augment</span>(m) <span class="sc">|&gt;</span> </span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    life_exp, </span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    .fitted,</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">diff =</span> life_exp <span class="sc">-</span> .fitted</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>m_eval</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 202 × 3
    life_exp .fitted   diff
@@ -635,13 +769,13 @@ life Exp_x = 32.9 + 4.5 * logGdpPerCap_x + \epsilon
 </div>
 <p>Note that <code>broom::augment()</code> already did this calculation and stored it in the <code>.resid</code> variable. The formal term for the difference between the predicted and observed values is the <strong>residual</strong>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">augment</span>(m) <span class="sc">|&gt;</span> </span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    life_exp, </span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    .fitted,</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">diff =</span> life_exp <span class="sc">-</span> .fitted,</span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    .resid</span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">augment</span>(m) <span class="sc">|&gt;</span> </span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    life_exp, </span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>    .fitted,</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">diff =</span> life_exp <span class="sc">-</span> .fitted,</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>    .resid</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 202 × 4
    life_exp .fitted   diff .resid
@@ -661,33 +795,31 @@ life Exp_x = 32.9 + 4.5 * logGdpPerCap_x + \epsilon
 </div>
 <p>Okay, so there are some differences. Let’s look at those difference a bit more closely:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">augment</span>(m), <span class="fu">aes</span>(<span class="at">x =</span> .resid)) <span class="sc">+</span> </span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>() <span class="sc">+</span> </span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>) <span class="sc">+</span> </span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">augment</span>(m), <span class="fu">aes</span>(<span class="at">x =</span> .resid)) <span class="sc">+</span> </span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>() <span class="sc">+</span> </span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>) <span class="sc">+</span> </span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="03-bivariate_relationships_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="960"></p>
+<p><img src="03-bivariate_relationships_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="960"></p>
 </div>
 </div>
 <p>If our model perfectly predicted each country’s life expectancy, we would see no difference between the predicted and observed values. There would just be a very tall straight line at 0 on the graph above.</p>
 <p>Our model hasn’t predicted life expectancy perfectly. Whilst most predictions are within a couple of years of the country’s true life expectancy, there are some that are very different (up to 10 or 15 years!). Where the model has got it wrong, it has tended to overestimate life expectancy (note that the peak of the density curve sits above 0).</p>
-<blockquote class="blockquote">
 <p>Can you see for which points these large differences exist?</p>
-</blockquote>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gapminder_df, <span class="fu">aes</span>(<span class="at">x =</span> log_gdp_per_cap, <span class="at">y =</span> life_exp)) <span class="sc">+</span> </span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> F) <span class="sc">+</span> </span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gapminder_df, <span class="fu">aes</span>(<span class="at">x =</span> log_gdp_per_cap, <span class="at">y =</span> life_exp)) <span class="sc">+</span> </span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> F) <span class="sc">+</span> </span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="03-bivariate_relationships_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="960"></p>
+<p><img src="03-bivariate_relationships_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" width="960"></p>
 </div>
 </div>
 <p>What is causing these differences? A lot of your work as a political scientist is trying to answer this very question!</p>
 <section id="random-error" class="level4">
 <h4 class="anchored" data-anchor-id="random-error">(Random) error</h4>
-<p>The world is a messy and complicated place. Things often vary in completely random ways. That’s okay! It means that your observational data are going to move in funny and random ways. That’s okay too! As long as your model includes all those systematic drivers of the thing you are interested in measuring (such as average life expectancy), we can accept a bit of random error.</p>
-<p>In fact, we have already accounted for this. Remember that error term?</p>
+<p>The world is a messy and complicated place. Things often vary in random ways. That’s okay! It means that your observational data are going to move in funny and random ways. That’s okay too! As long as your model includes all those systematic drivers of the thing you are interested in measuring (such as average life expectancy), we can accept a bit of random error.</p>
+<p>In fact, we have already accounted for this. Remember that error term:</p>
 <p><span class="math display">\[
 life Exp_x = \beta_0 + \beta_1 logGdpPerCap_x + \epsilon
 \]</span></p>
@@ -708,7 +840,7 @@ life Exp_x = \beta_0 + \beta_1 logGdpPerCap_x + \epsilon
 <blockquote class="blockquote">
 <p>Remember that we tend to square things when we don’t care about the direction. We don’t care that the predicted value is less or more than the observed value, just about how far they are from each other.</p>
 </blockquote>
-<p>This is useful, but influenced by the units by which we measure our variables. What if we want to compare model performance?</p>
+<p>This is useful, but influenced by the units by which we measure our variables. If one model includes something like GDP which is measured in terms of billions of dollars, we will get a very large sum of squared residuals. If another model includes something like percentage of as state’s citizens who will vote for Donald Trump, we will get a relatively small sum of squared residuals. What if we want to compare model performance in a meaningful way?</p>
 </section>
 <section id="r2" class="level4">
 <h4 class="anchored" data-anchor-id="r2"><span class="math inline">\(R^2\)</span></h4>
@@ -733,6 +865,17 @@ R^2 = 1 - \frac{RSS}{TSS} = 1 - \frac{\Sigma(y_i - \hat{y_i})^2}{\Sigma(y_i - \h
 <p><span class="math display">\[
 R^2 = \frac{ESS}{TSS} = \frac{\Sigma(\hat{y}_i - \bar{y})^2}{\Sigma(y_i - \bar{y})^2}
 \]</span></p>
+<p>Our model’s <span class="math inline">\(R^2\)</span> was one of the many values provided at the bottom of our nicely formatted regression table above. We can access it (and other general model statistics) directly using <code>broom::glance()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glance</span>(m)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 12
+  r.squared adj.r.squared sigma statistic  p.value    df logLik   AIC   BIC
+      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1     0.718         0.717  4.13      510. 6.07e-57     1  -572. 1150. 1160.
+# ℹ 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;</code></pre>
+</div>
+</div>
 </section>
 </section>
 </section>
@@ -746,18 +889,131 @@ R^2 = \frac{ESS}{TSS} = \frac{\Sigma(\hat{y}_i - \bar{y})^2}{\Sigma(y_i - \bar{y
 <h4 class="anchored" data-anchor-id="cross-tabs">Cross tabs</h4>
 <p>A simple cross tab can provide a nice summary of differences in your outcome of interest across your categories.</p>
 <p>For example, let’s look at differences in the number of individuals who identified as Democrat, Republican, or Independent who do not support access to abortions, support access with some conditions, with more conditions, or always.</p>
+<p>We can use <code>modelsummary::datasummary_crosstab()</code> to produce a nicely formatted cross tab of our variables:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tabyl</span>(nes, abort4, pid_3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">datasummary_crosstab</span>(abort4 <span class="sc">~</span> pid_3, <span class="at">data =</span> nes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> abort4 </th>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:right;"> Dem </th>
+   <th style="text-align:right;"> Ind </th>
+   <th style="text-align:right;"> Rep </th>
+   <th style="text-align:right;"> All </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Never </td>
+   <td style="text-align:left;"> N </td>
+   <td style="text-align:right;"> 187 </td>
+   <td style="text-align:right;"> 229 </td>
+   <td style="text-align:right;"> 252 </td>
+   <td style="text-align:right;"> 672 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> % row </td>
+   <td style="text-align:right;"> 27.8 </td>
+   <td style="text-align:right;"> 34.1 </td>
+   <td style="text-align:right;"> 37.5 </td>
+   <td style="text-align:right;"> 100.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Some conds </td>
+   <td style="text-align:left;"> N </td>
+   <td style="text-align:right;"> 499 </td>
+   <td style="text-align:right;"> 583 </td>
+   <td style="text-align:right;"> 519 </td>
+   <td style="text-align:right;"> 1607 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> % row </td>
+   <td style="text-align:right;"> 31.1 </td>
+   <td style="text-align:right;"> 36.3 </td>
+   <td style="text-align:right;"> 32.3 </td>
+   <td style="text-align:right;"> 100.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> More conds </td>
+   <td style="text-align:left;"> N </td>
+   <td style="text-align:right;"> 332 </td>
+   <td style="text-align:right;"> 337 </td>
+   <td style="text-align:right;"> 227 </td>
+   <td style="text-align:right;"> 898 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> % row </td>
+   <td style="text-align:right;"> 37.0 </td>
+   <td style="text-align:right;"> 37.5 </td>
+   <td style="text-align:right;"> 25.3 </td>
+   <td style="text-align:right;"> 100.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Always </td>
+   <td style="text-align:left;"> N </td>
+   <td style="text-align:right;"> 1325 </td>
+   <td style="text-align:right;"> 964 </td>
+   <td style="text-align:right;"> 381 </td>
+   <td style="text-align:right;"> 2680 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> % row </td>
+   <td style="text-align:right;"> 49.4 </td>
+   <td style="text-align:right;"> 36.0 </td>
+   <td style="text-align:right;"> 14.2 </td>
+   <td style="text-align:right;"> 100.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> All </td>
+   <td style="text-align:left;"> N </td>
+   <td style="text-align:right;"> 2358 </td>
+   <td style="text-align:right;"> 2149 </td>
+   <td style="text-align:right;"> 1385 </td>
+   <td style="text-align:right;"> 5916 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> % row </td>
+   <td style="text-align:right;"> 39.9 </td>
+   <td style="text-align:right;"> 36.3 </td>
+   <td style="text-align:right;"> 23.4 </td>
+   <td style="text-align:right;"> 100.0 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</section>
+<section id="mean-comparison-table" class="level4">
+<h4 class="anchored" data-anchor-id="mean-comparison-table">Mean comparison table</h4>
+<p>We can use mean comparison tables to, well, compare means (in a table). Let’s compare the average response to the feeling thermometer (scale from 0 to 100) for the Republican party across parties:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>nes <span class="sc">|&gt;</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(pid_3) <span class="sc">|&gt;</span> </span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean =</span> <span class="fu">mean</span>(ft_rep, <span class="at">na.rm =</span> T),</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd =</span> <span class="fu">sd</span>(ft_rep, <span class="at">na.rm =</span> T),</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">freq =</span> <span class="fu">n</span>()</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>     abort4  Dem Ind Rep NA_
-      Never  187 229 252   4
- Some conds  499 583 519   6
- More conds  332 337 227   2
-     Always 1325 964 381  10
-       &lt;NA&gt;   15  36   6   2</code></pre>
+<pre><code># A tibble: 4 × 4
+  pid_3  mean    sd  freq
+  &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;
+1 Dem    24.5  21.8  2358
+2 Ind    43.0  23.1  2149
+3 Rep    70.3  18.3  1385
+4 &lt;NA&gt;   50    14.7    24</code></pre>
 </div>
 </div>
-<p>Are these differences meaningful or significant? We will chat about that next week.</p>
+<p>Are these counts or averages meaningfully different from one another? We need some additional tools to answer that question. We will discuss those in the coming weeks.</p>
 
 
 </section>
