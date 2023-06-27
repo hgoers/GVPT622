@@ -545,3 +545,13 @@ nes |>
 ```
 
 Are these counts or averages meaningfully different from one another? We need some additional tools to answer that question. We will discuss those in the coming weeks.
+
+#### Looking at the whole distribution
+
+We can also visualize the whole distribution of a continuous variable of interest within our categories. Returning to the `gapminder` dataset:
+
+```{r}
+ggplot(gapminder::gapminder, aes(x = lifeExp, fill = continent)) + 
+  geom_density(alpha = 0.5) + 
+  theme_minimal()
+```
