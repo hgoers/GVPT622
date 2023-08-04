@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.475">
+<meta name="generator" content="quarto-1.3.353">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -17,9 +17,10 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -46,43 +47,13 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -127,6 +98,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="../site_libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../html/custom.css">
@@ -143,111 +115,129 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <span class="navbar-title">GVPT622</span>
     </a>
   </div>
+            <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html">
+    <a class="nav-link" href="../index.html" rel="" target="">
  <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../schedule.html">
+    <a class="nav-link" href="../schedule.html" rel="" target="">
  <span class="menu-text">Schedule</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../content/01-introduction.html" aria-current="page">
+    <a class="nav-link active" href="../content/01-introduction.html" rel="" target="" aria-current="page">
  <span class="menu-text">Content</span></a>
   </li>  
 </ul>
-              <div id="quarto-search" class="" title="Search"></div>
+            <div class="quarto-navbar-tools">
+</div>
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
-  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-    <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Bivariate Relationships</h1>
-      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
-        <i class="bi bi-chevron-right"></i>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/03-bivariate_relationships.html">Bivariate Relationships</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
     </div>
   </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/01-introduction.html" class="sidebar-item-text sidebar-link">Course Introduction</a>
+  <a href="../content/01-introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Course Introduction</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/02-descriptive_statistics.html" class="sidebar-item-text sidebar-link">Descriptive Statistics</a>
+  <a href="../content/02-descriptive_statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Descriptive Statistics</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/03-bivariate_relationships.html" class="sidebar-item-text sidebar-link active">Bivariate Relationships</a>
+  <a href="../content/03-bivariate_relationships.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Bivariate Relationships</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/04-research_design.html" class="sidebar-item-text sidebar-link">Research Design</a>
+  <a href="../content/04-research_design.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Research Design</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/05-applications.html" class="sidebar-item-text sidebar-link">Applications</a>
+  <a href="../content/05-applications.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Applications</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/06-probability_theory.html" class="sidebar-item-text sidebar-link">Probability Theory</a>
+  <a href="../content/06-probability_theory.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Probability Theory</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/07-statistical_inference.html" class="sidebar-item-text sidebar-link">Statistical Inference</a>
+  <a href="../content/07-statistical_inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistical Inference</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/08_hypothesis_testing.html" class="sidebar-item-text sidebar-link">Hypothesis Testing</a>
+  <a href="../content/08_hypothesis_testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hypothesis Testing</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/09-hypothesis_testing.html" class="sidebar-item-text sidebar-link">Hypothesis Testing II</a>
+  <a href="../content/09-hypothesis_testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hypothesis Testing II</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/10-applications.html" class="sidebar-item-text sidebar-link">Applications II</a>
+  <a href="../content/10-applications.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Applications II</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/11-regression.html" class="sidebar-item-text sidebar-link">Regression</a>
+  <a href="../content/11-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Regression</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/12-multiple_regression.html" class="sidebar-item-text sidebar-link">Multiple Regression</a>
+  <a href="../content/12-multiple_regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Multiple Regression</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/13-conclusion.html" class="sidebar-item-text sidebar-link">Conclusion</a>
+  <a href="../content/13-conclusion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Conclusion</span></a>
   </div>
 </li>
     </ul>
     </div>
 </nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -280,7 +270,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Bivariate Relationships</h1>
+<h1 class="title">Bivariate Relationships</h1>
 </div>
 
 
@@ -307,9 +297,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="prerequisites" class="level3">
 <h3 class="anchored" data-anchor-id="prerequisites">Prerequisites</h3>
 <div class="cell">
-
-</div>
-<div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(wbstats)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(poliscidata)</span>
@@ -334,7 +321,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>How do two variables move with one another? When when goes up, does the other go down, up, or not really move at all? How dramatic is this shift?</p>
 <p>The type of variables we have determines how we can answer this question. To begin, we will explore the relationship between two continuous variables. Later in the class, we will look at how to explore the relationship between a continuous and categorical variable.</p>
 <p>To start, we will explore the relationship between wealth and health. This question was made popular by Hans Rosling’s Gapminder project.</p>
-<div class="quarto-video ratio ratio-16x9"><iframe src="https://www.youtube.com/embed/jbkSRLYSojo" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/jbkSRLYSojo" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
 </section>
 <section id="collecting-our-data" class="level3">
 <h3 class="anchored" data-anchor-id="collecting-our-data">Collecting our data</h3>
@@ -364,7 +351,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
  2 AF    AFG   Afghanistan     South…  2016        520.     63.1            6.25
  3 AO    AGO   Angola          Sub-S…  2016       1710.     61.1            7.44
  4 AL    ALB   Albania         Europ…  2016       4124.     78.9            8.32
- 5 AD    AND   Andorra         Europ…  2016      39932.     NA             10.6 
+ 5 AD    AND   Andorra         Europ…  2016      39931.     NA             10.6 
  6 AE    ARE   United Arab Em… Middl…  2016      41055.     79.3           10.6 
  7 AR    ARG   Argentina       Latin…  2016      12790.     76.3            9.46
  8 AM    ARM   Armenia         Europ…  2016       3680.     74.7            8.21
@@ -412,7 +399,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(gapminder_df<span class="sc">$</span>log_gdp_per_cap, gapminder_df<span class="sc">$</span>life_exp, <span class="at">use =</span> <span class="st">"complete.obs"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.8475933</code></pre>
+<pre><code>[1] 0.8494337</code></pre>
 </div>
 </div>
 <p>As expected, the relationship is positive and strong.</p>
@@ -479,7 +466,7 @@ y = 10 + 2*20 = 50
 <p>For many values of <span class="math inline">\(x\)</span>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">tibble</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>, <span class="at">y =</span> <span class="dv">10</span> <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>x), <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span> </span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">colour =</span> <span class="st">"lightgrey"</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">colour =</span> <span class="st">"lightgrey"</span>, <span class="at">linewidth =</span> <span class="dv">3</span>) <span class="sc">+</span> </span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -490,7 +477,7 @@ y = 10 + 2*20 = 50
 <p><span class="math display">\[
 life Exp_x = \beta_0 + \beta_1 logGdpPerCap_x + \epsilon
 \]</span></p>
-<p>Read this as: a country’s average life expectancy is a function of some constant (<span class="math inline">\(\beta_0\)</span>) and its logged GDP per capita transformed by some value <span class="math inline">\(\beta_1\)</span> with some random error (<span class="math inline">\(\epsilon\)</span>).</p>
+<p>Read this as: a country’s average life expectancy is a function of some constant (<span class="math inline">\(\beta_0\)</span>) and its logged GDP per capita transformed by some value <span class="math inline">\(\beta_1\)</span> with some random error (<span class="math inline">\(\epsilon\)</span>), <strong>on average</strong>.</p>
 <p>Let’s imagine that this relationship is accurately described by the following formula:</p>
 <p><span class="math display">\[
 life Exp_x = 30 + 4 * logGdpPerCap_x
@@ -504,8 +491,9 @@ life Exp_x = 30 + 4 * logGdpPerCap_x
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">log_gdp_per_cap =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>, <span class="at">life_exp =</span> <span class="dv">30</span> <span class="sc">+</span> <span class="dv">4</span><span class="sc">*</span>log_gdp_per_cap), </span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> log_gdp_per_cap, <span class="at">y =</span> life_exp)</span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span> </span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">colour =</span> <span class="st">"lightgrey"</span>, <span class="at">linewidth =</span> <span class="dv">3</span>) <span class="sc">+</span> </span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="03-bivariate_relationships_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="960"></p>
 </div>
@@ -530,8 +518,8 @@ life Exp_x = 30 + 4 * logGdpPerCap_x
 <p>Well, we probably haven’t produced the best model we can (this isn’t the best line!). We just picked those numbers out of thin air. Let’s fit a linear OLS regression and see if we improve our ability to predict what we have seen in the wild.</p>
 <section id="how-do-we-calculate-the-constant-beta_0-using-ols-regression" class="level4">
 <h4 class="anchored" data-anchor-id="how-do-we-calculate-the-constant-beta_0-using-ols-regression">How do we calculate the constant (<span class="math inline">\(\beta_0\)</span>) using OLS regression?</h4>
-<p>Remember, OLS regression simply finds the line that minimizes the distance between itself and all the data points. The constant that minimizes this distance is the mean of <span class="math inline">\(Y\)</span> minus <span class="math inline">\(\beta_1\)</span> times the mean of <span class="math inline">\(X\)</span>.</p>
-<p>So, the constant that best predicts a country’s average life expectancy based on its logged GDP per capita is equal to the average life expectancy across our sample (72.3 years) minus the average logged GDP per capita ($8.79, or $6,548.15 GDP per capita) transformed by <span class="math inline">\(\beta_1\)</span>.</p>
+<p>Remember, OLS regression simply finds the line that minimizes the distance between itself and all the data points. The constant that minimizes this distance is <strong>the mean of <span class="math inline">\(Y\)</span> minus <span class="math inline">\(\beta_1\)</span> times the mean of <span class="math inline">\(X\)</span></strong>.</p>
+<p>So, the constant that best predicts a country’s average life expectancy based on its logged GDP per capita is equal to the average life expectancy across our sample (72.3 years) minus the average logged GDP per capita ($8.80, or $6,633.36 GDP per capita) transformed by <span class="math inline">\(\beta_1\)</span>.</p>
 <p>So…</p>
 </section>
 <section id="how-do-we-calculate-the-coefficient-beta_1" class="level4">
@@ -560,77 +548,50 @@ lm(formula = life_exp ~ log_gdp_per_cap, data = gapminder_df)
 
 Coefficients:
     (Intercept)  log_gdp_per_cap  
-         32.927            4.509  </code></pre>
+         32.807            4.521  </code></pre>
 </div>
 </div>
 <p>Okay, so the line of best fit describing the relationship between life expectancy and logged GDP per capita is:</p>
 <p><span class="math display">\[
 life Exp_x = 32.9 + 4.5 * logGdpPerCap_x + \epsilon
 \]</span></p>
-<p>That’s it! We now have a generalized model of the relationship between a country’s average life expectancy and its logged GDP per capita. This model is informed by what we actually observed in the world. It carefully balances our need to accurately describe what we have observed and the need to develop something that is generalizable.</p>
+<p>That’s it! We now have a generalized model of the relationship between a country’s average life expectancy and its logged GDP per capita. This model is informed by what we actually observed in the world. It carefully balances our need to accurately describe what we have observed and to develop something that is generalizable.</p>
 <p>The above model output is difficult to read. It will not be accepted by any journal or professor. Luckily, we can use <code>modelsummary::modelsummary()</code> to easily generate a professionally formatted table.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  m, </span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">statistic =</span> <span class="cn">NULL</span>,</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">coef_rename =</span> <span class="fu">c</span>(<span class="st">"log_gdp_per_cap"</span> <span class="ot">=</span> <span class="st">"GDP per capita (logged)"</span>)</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">coef_rename =</span> <span class="fu">c</span>(<span class="st">"log_gdp_per_cap"</span> <span class="ot">=</span> <span class="st">"GDP per capita (logged)"</span>),</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">gof_map =</span> <span class="st">"nobs"</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
-<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
- <thead>
-  <tr>
-   <th style="text-align:left;">   </th>
-   <th style="text-align:center;"> Model 1 </th>
-  </tr>
- </thead>
+<table class="table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Model 1</th>
+</tr>
+</thead>
 <tbody>
-  <tr>
-   <td style="text-align:left;"> (Intercept) </td>
-   <td style="text-align:center;"> 32.927 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;box-shadow: 0px 1px"> GDP per capita (logged) </td>
-   <td style="text-align:center;box-shadow: 0px 1px"> 4.509 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Num.Obs. </td>
-   <td style="text-align:center;"> 202 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> R2 </td>
-   <td style="text-align:center;"> 0.718 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> R2 Adj. </td>
-   <td style="text-align:center;"> 0.717 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> AIC </td>
-   <td style="text-align:center;"> 1150.0 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> BIC </td>
-   <td style="text-align:center;"> 1159.9 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Log.Lik. </td>
-   <td style="text-align:center;"> −571.993 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> F </td>
-   <td style="text-align:center;"> 510.264 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> RMSE </td>
-   <td style="text-align:center;"> 4.11 </td>
-  </tr>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: center;">32.807</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; box-shadow: 0px 1px;">GDP per capita (logged)</td>
+<td style="text-align: center; box-shadow: 0px 1px;">4.521</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Num.Obs.</td>
+<td style="text-align: center;">203</td>
+</tr>
 </tbody>
 </table>
 
+
 </div>
 </div>
-<p>Note that OLS regression, particularly linear regression, involves a lot of important assumptions. These were discussed in detail in the lecture. For example, we assume that the best line to fit is straight. We also assume that the best way to generate and describe the relationship across all observations is to fit the line that minimizes the distance between itself and the observed values or dots.</p>
+<p>Note that OLS regression, particularly linear regression, requires that you make a lot of important assumptions about the relationship between your two variables. These were discussed in detail in the lecture. For example, we assume that the best line to fit is straight. We also assume that the best way to generate and describe the relationship across all observations is to fit the line that minimizes the distance between itself and the observed values or dots.</p>
 <blockquote class="blockquote">
 <p>There are other approaches to determining the “best” line. These include maximum likelihood estimation (discussed in detail in GVPT729) and Bayesian statistics. We won’t discuss these approaches in this class or in GVPT722. It’s worth noting here; however, that OLS regression requires a whole bunch of assumptions that may or may not be appropriate to your research question or theory. This class prepares you to grapple with those questions and appropriately use these tools in your own research.</p>
 </blockquote>
@@ -640,18 +601,18 @@ life Exp_x = 32.9 + 4.5 * logGdpPerCap_x + \epsilon
 <h3 class="anchored" data-anchor-id="prediction-and-performance">Prediction and performance</h3>
 <p>Okay, so we now have a model that describes the relationship between our outcome of interest (health) and our independent variable of interest (wealth). What can we do with this?</p>
 <p>First, we can use this model to predict a country’s average life expectancy given its GDP per capita.</p>
-<p><code>broom::tidy(m)</code> makes this model object a lot easier to work with.</p>
+<p><code>broom::tidy(m)</code> makes this model object a lot easier (tidier) to work with.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(m)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 5
   term            estimate std.error statistic  p.value
   &lt;chr&gt;              &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-1 (Intercept)        32.9      1.77       18.6 1.24e-45
-2 log_gdp_per_cap     4.51     0.200      22.6 6.07e-57</code></pre>
+1 (Intercept)        32.8      1.76       18.7 7.55e-46
+2 log_gdp_per_cap     4.52     0.198      22.8 1.04e-57</code></pre>
 </div>
 </div>
-<p>What do we predict to be the average life expectancy of a country with a GDP per capita of $10,000? First, let’s pull out the estimated constant (or intercept or <span class="math inline">\(\beta_0\)</span>) for our calculations.</p>
+<p>What do we predict to be the average life expectancy of a country with a GDP per capita of $20,000? First, let’s pull out the estimated constant (or intercept or <span class="math inline">\(\beta_0\)</span>) for our calculations.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>m_res <span class="ot">&lt;-</span> <span class="fu">tidy</span>(m)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -661,7 +622,7 @@ life Exp_x = 32.9 + 4.5 * logGdpPerCap_x + \epsilon
 <span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>beta_0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 32.92739</code></pre>
+<pre><code>[1] 32.80653</code></pre>
 </div>
 </div>
 <p>Next, let’s pull out the estimated coefficient for (logged) GDP per capita:</p>
@@ -672,7 +633,7 @@ life Exp_x = 32.9 + 4.5 * logGdpPerCap_x + \epsilon
 <span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>beta_1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 4.508875</code></pre>
+<pre><code>[1] 4.520775</code></pre>
 </div>
 </div>
 <p>Finally, we can plug this in to our model:</p>
@@ -680,13 +641,13 @@ life Exp_x = 32.9 + 4.5 * logGdpPerCap_x + \epsilon
 life Exp_x = \beta_0 + \beta_1 logGdpPerCap_x
 \]</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>life_exp_10000 <span class="ot">&lt;-</span> beta_0 <span class="sc">+</span> beta_1 <span class="sc">*</span> <span class="fu">log</span>(<span class="dv">10000</span>)</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>life_exp_10000</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>life_exp_20000 <span class="ot">&lt;-</span> beta_0 <span class="sc">+</span> beta_1 <span class="sc">*</span> <span class="fu">log</span>(<span class="dv">20000</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>life_exp_20000</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 74.45566</code></pre>
+<pre><code>[1] 77.57797</code></pre>
 </div>
 </div>
-<p>A country with a GDP per capita of $10,000 is predicted to have an average life expectancy of 74 years. Let’s take a look back at our data. Remember, these data describe what the World Bank actually observed for each country in 2016. How close is our predicted value to our observed values?</p>
+<p>A country with a GDP per capita of $20,000 is predicted to have an average life expectancy of 78 years. Let’s take a look back at our data. Remember, these data describe what the World Bank actually observed for each country in 2016. How close is our predicted value to our observed values?</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>countries_10</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -699,126 +660,146 @@ life Exp_x = \beta_0 + \beta_1 logGdpPerCap_x
 </div>
 </div>
 <p>As above, our data suggest that these countries have closer to an average of 77 years. Although our model predicted an average life expectancy closer to this than our guess above (which predicted 70 years), we still have a gap. Why?</p>
+<p>Our model is an attempt to formalize our understanding of the general relationship between a country’s wealth and health. Mapping our model against the observed values we used to generate it illustrates this point well.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gapminder_df, <span class="fu">aes</span>(<span class="at">x =</span> log_gdp_per_cap, <span class="at">y =</span> life_exp)) <span class="sc">+</span> </span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">log</span>(<span class="dv">10000</span>)) <span class="sc">+</span> </span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> life_exp_10000) <span class="sc">+</span> </span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">log</span>(<span class="dv">20000</span>)) <span class="sc">+</span> </span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> life_exp_20000) <span class="sc">+</span> </span>
 <span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> F) <span class="sc">+</span> </span>
 <span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="03-bivariate_relationships_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="960"></p>
 </div>
 </div>
-<p>Our model is an attempt to solidify our understanding of the general relationship between a country’s wealth and health. Mapping our model against the observed values we used to generate it illustrates this point well.</p>
-<p>The world is a complicated and messy place. There are many countries that have a GDP per capita of around $10,000 (those dots sitting around the vertical black line). They have a wide range of average life expectancy. Also, there are several countries with a wide range of logged GDP per capita that have an average life expectancy of 74 years (those sitting at or around the horizontal black line).</p>
+<p>The world is a complicated and messy place. There are many countries that have a GDP per capita of around $20,000 (those dots sitting around the vertical black line). They have a wide range of average life expectancy: look at their various placement along that vertical line. Some are higher than others.</p>
+<p>Also, there are several countries with a wide range of logged GDP per capita that have an average life expectancy of 78 years (those sitting at or around the horizontal black line). These have a wide range of logged GDP per capita: some are further to the left than others.</p>
 <p>Our model is our best attempt at accounting for that diversity whilst still producing a useful summary of the relationship between health and wealth for those countries and all other countries with all observed values of GDP per capita.</p>
 <p>A bit of noise (error) is expected. How much error is okay? This is a complicated question that has contested answers. Let’s start with actually measuring that error. Then we can chat about whether or not it’s small enough to allow us to be confident in our model.</p>
 </section>
 <section id="measuring-error-in-our-model" class="level3">
 <h3 class="anchored" data-anchor-id="measuring-error-in-our-model">Measuring error in our model</h3>
-<p>Returning to our question above, how close are our predicted values to our observed values? For example, how far from the observed average life expectancy of countries with a GDP per capita of or close to $10,000 is 74 years?</p>
+<p>Returning to our question above, how close are our predicted values to our observed values? For example, how far from the observed average life expectancy of countries with a GDP per capita of or close to $20,000 is 78 years?</p>
 <p>Start by working out the average life expectancy predicted by our model for the logged GDP per capita of all of our countries. We can then compare this to the average life expectancy actually observed in all these countries. We can predict values from a model using <code>broom::augment()</code>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">augment</span>(m)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 202 × 9
+<pre><code># A tibble: 203 × 9
    .rownames life_exp log_gdp_per_cap .fitted .resid    .hat .sigma   .cooksd
    &lt;chr&gt;        &lt;dbl&gt;           &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;
- 1 1             75.6           10.3     79.2 -3.55  0.0104    4.13 0.00395  
- 2 2             63.1            6.25    61.1  2.01  0.0192    4.14 0.00237  
- 3 3             61.1            7.44    66.5 -5.40  0.00879   4.12 0.00766  
- 4 4             78.9            8.32    70.5  8.40  0.00533   4.09 0.0111   
- 5 6             79.3           10.6     80.8 -1.49  0.0134    4.14 0.000893 
- 6 7             76.3            9.46    75.6  0.743 0.00620   4.14 0.000102 
- 7 8             74.7            8.21    69.9  4.72  0.00557   4.12 0.00368  
- 8 10            78.2            9.67    76.5  1.62  0.00704   4.14 0.000548 
- 9 11            82.4           10.8     81.7  0.748 0.0152    4.14 0.000257 
-10 12            81.6           10.7     81.3  0.373 0.0143    4.14 0.0000601
-# ℹ 192 more rows
+ 1 1             75.6           10.3     79.2 -3.55  0.0103    4.11 0.00393  
+ 2 2             63.1            6.25    61.1  2.06  0.0193    4.12 0.00251  
+ 3 3             61.1            7.44    66.5 -5.37  0.00883   4.10 0.00767  
+ 4 4             78.9            8.32    70.4  8.42  0.00533   4.08 0.0113   
+ 5 6             79.3           10.6     80.8 -1.49  0.0132    4.12 0.000895 
+ 6 7             76.3            9.46    75.6  0.751 0.00612   4.12 0.000104 
+ 7 8             74.7            8.21    69.9  4.74  0.00558   4.10 0.00375  
+ 8 10            78.2            9.67    76.5  1.62  0.00695   4.12 0.000549 
+ 9 11            82.4           10.8     81.7  0.740 0.0150    4.12 0.000250 
+10 12            81.6           10.7     81.3  0.367 0.0141    4.12 0.0000576
+# ℹ 193 more rows
 # ℹ 1 more variable: .std.resid &lt;dbl&gt;</code></pre>
 </div>
 </div>
-<p>This function is simply fitting our model (<span class="math inline">\(life Exp_x = 32.9 + 4.5 * logGdpPerCap_x\)</span>) to each country’s logged GDP per capita.</p>
+<p>This function is simply fitting our model (<span class="math inline">\(life Exp_x = 32.9 + 4.5 * logGdpPerCap_x\)</span>) to each country’s logged GDP per capita. You can confirm this by running the model yourself:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>gapminder_df <span class="sc">|&gt;</span> </span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    country,</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    log_gdp_per_cap,</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">.fitted =</span> beta_0 <span class="sc">+</span> beta_1<span class="sc">*</span>log_gdp_per_cap</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 217 × 3
+   country              log_gdp_per_cap .fitted
+   &lt;chr&gt;                          &lt;dbl&gt;   &lt;dbl&gt;
+ 1 Aruba                          10.3     79.2
+ 2 Afghanistan                     6.25    61.1
+ 3 Angola                          7.44    66.5
+ 4 Albania                         8.32    70.4
+ 5 Andorra                        10.6     80.7
+ 6 United Arab Emirates           10.6     80.8
+ 7 Argentina                       9.46    75.6
+ 8 Armenia                         8.21    69.9
+ 9 American Samoa                  9.50    75.7
+10 Antigua and Barbuda             9.67    76.5
+# ℹ 207 more rows</code></pre>
+</div>
+</div>
 <p>How did the model do? What is the difference between what it predicted and the country’s observed average life expectancy? Compare <code>.fitted</code> (the predicted average life expectancy) to <code>life_exp</code> (the actual observed average life expectancy).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>m_eval <span class="ot">&lt;-</span> <span class="fu">augment</span>(m) <span class="sc">|&gt;</span> </span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    life_exp, </span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    .fitted,</span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">diff =</span> life_exp <span class="sc">-</span> .fitted</span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>m_eval</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>m_eval <span class="ot">&lt;-</span> <span class="fu">augment</span>(m) <span class="sc">|&gt;</span> </span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    life_exp, </span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>    .fitted,</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">diff =</span> life_exp <span class="sc">-</span> .fitted</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>m_eval</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 202 × 3
+<pre><code># A tibble: 203 × 3
    life_exp .fitted   diff
       &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
  1     75.6    79.2 -3.55 
- 2     63.1    61.1  2.01 
- 3     61.1    66.5 -5.40 
- 4     78.9    70.5  8.40 
+ 2     63.1    61.1  2.06 
+ 3     61.1    66.5 -5.37 
+ 4     78.9    70.4  8.42 
  5     79.3    80.8 -1.49 
- 6     76.3    75.6  0.743
- 7     74.7    69.9  4.72 
+ 6     76.3    75.6  0.751
+ 7     74.7    69.9  4.74 
  8     78.2    76.5  1.62 
- 9     82.4    81.7  0.748
-10     81.6    81.3  0.373
-# ℹ 192 more rows</code></pre>
+ 9     82.4    81.7  0.740
+10     81.6    81.3  0.367
+# ℹ 193 more rows</code></pre>
 </div>
 </div>
 <p>Note that <code>broom::augment()</code> already did this calculation and stored it in the <code>.resid</code> variable. The formal term for the difference between the predicted and observed values is the <strong>residual</strong>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">augment</span>(m) <span class="sc">|&gt;</span> </span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    life_exp, </span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>    .fitted,</span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">diff =</span> life_exp <span class="sc">-</span> .fitted,</span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>    .resid</span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">augment</span>(m) <span class="sc">|&gt;</span> </span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(life_exp, .fitted, .resid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 202 × 4
-   life_exp .fitted   diff .resid
-      &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
- 1     75.6    79.2 -3.55  -3.55 
- 2     63.1    61.1  2.01   2.01 
- 3     61.1    66.5 -5.40  -5.40 
- 4     78.9    70.5  8.40   8.40 
- 5     79.3    80.8 -1.49  -1.49 
- 6     76.3    75.6  0.743  0.743
- 7     74.7    69.9  4.72   4.72 
- 8     78.2    76.5  1.62   1.62 
- 9     82.4    81.7  0.748  0.748
-10     81.6    81.3  0.373  0.373
-# ℹ 192 more rows</code></pre>
+<pre><code># A tibble: 203 × 3
+   life_exp .fitted .resid
+      &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+ 1     75.6    79.2 -3.55 
+ 2     63.1    61.1  2.06 
+ 3     61.1    66.5 -5.37 
+ 4     78.9    70.4  8.42 
+ 5     79.3    80.8 -1.49 
+ 6     76.3    75.6  0.751
+ 7     74.7    69.9  4.74 
+ 8     78.2    76.5  1.62 
+ 9     82.4    81.7  0.740
+10     81.6    81.3  0.367
+# ℹ 193 more rows</code></pre>
 </div>
 </div>
 <p>Okay, so there are some differences. Let’s look at those difference a bit more closely:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">augment</span>(m), <span class="fu">aes</span>(<span class="at">x =</span> .resid)) <span class="sc">+</span> </span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>() <span class="sc">+</span> </span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>) <span class="sc">+</span> </span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">augment</span>(m), <span class="fu">aes</span>(<span class="at">x =</span> .resid)) <span class="sc">+</span> </span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>() <span class="sc">+</span> </span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>) <span class="sc">+</span> </span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="03-bivariate_relationships_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="960"></p>
+<p><img src="03-bivariate_relationships_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" width="960"></p>
 </div>
 </div>
 <p>If our model perfectly predicted each country’s life expectancy, we would see no difference between the predicted and observed values. There would just be a very tall straight line at 0 on the graph above.</p>
 <p>Our model hasn’t predicted life expectancy perfectly. Whilst most predictions are within a couple of years of the country’s true life expectancy, there are some that are very different (up to 10 or 15 years!). Where the model has got it wrong, it has tended to overestimate life expectancy (note that the peak of the density curve sits above 0).</p>
 <p>Can you see for which points these large differences exist?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gapminder_df, <span class="fu">aes</span>(<span class="at">x =</span> log_gdp_per_cap, <span class="at">y =</span> life_exp)) <span class="sc">+</span> </span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> F) <span class="sc">+</span> </span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gapminder_df, <span class="fu">aes</span>(<span class="at">x =</span> log_gdp_per_cap, <span class="at">y =</span> life_exp)) <span class="sc">+</span> </span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> F) <span class="sc">+</span> </span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="03-bivariate_relationships_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" width="960"></p>
+<p><img src="03-bivariate_relationships_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid" width="960"></p>
 </div>
 </div>
 <p>What is causing these differences? A lot of your work as a political scientist is trying to answer this very question!</p>
 <section id="random-error" class="level4">
 <h4 class="anchored" data-anchor-id="random-error">(Random) error</h4>
-<p>The world is a messy and complicated place. Things often vary in random ways. That’s okay! It means that your observational data are going to move in funny and random ways. That’s okay too! As long as your model includes all those systematic drivers of the thing you are interested in measuring (such as average life expectancy), we can accept a bit of random error.</p>
+<p>The world is a messy and complicated place. Things often vary in random ways. That’s okay! It means that your observational data are going to move in funny and random ways. That’s okay too! As long as your model includes all of the systematic drivers of the thing you are interested in measuring (such as average life expectancy), we can accept a bit of random error.</p>
 <p>In fact, we have already accounted for this. Remember that error term:</p>
 <p><span class="math display">\[
 life Exp_x = \beta_0 + \beta_1 logGdpPerCap_x + \epsilon
@@ -829,8 +810,8 @@ life Exp_x = \beta_0 + \beta_1 logGdpPerCap_x + \epsilon
 <section id="a-model-wide-value-for-error" class="level3">
 <h3 class="anchored" data-anchor-id="a-model-wide-value-for-error">A model-wide value for error</h3>
 <p>We often want to understand how the model has performed as a whole, rather than how well it predicts each individual observed data point. There are many different ways we can do this.</p>
-<section id="sum-of-squared-residuals" class="level4">
-<h4 class="anchored" data-anchor-id="sum-of-squared-residuals">Sum of squared residuals</h4>
+<section id="sum-of-squared-residuals-deviance" class="level4">
+<h4 class="anchored" data-anchor-id="sum-of-squared-residuals-deviance">Sum of squared residuals (deviance)</h4>
 <p>The sum of squared residuals measures the total error in our model. Formally:</p>
 <p><span class="math display">\[
 \Sigma(y_i - \hat{y_i})^2
@@ -840,7 +821,42 @@ life Exp_x = \beta_0 + \beta_1 logGdpPerCap_x + \epsilon
 <blockquote class="blockquote">
 <p>Remember that we tend to square things when we don’t care about the direction. We don’t care that the predicted value is less or more than the observed value, just about how far they are from each other.</p>
 </blockquote>
-<p>This is useful, but influenced by the units by which we measure our variables. If one model includes something like GDP which is measured in terms of billions of dollars, we will get a very large sum of squared residuals. If another model includes something like percentage of as state’s citizens who will vote for Donald Trump, we will get a relatively small sum of squared residuals. What if we want to compare model performance in a meaningful way?</p>
+<p>We can do this ourselves:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">augment</span>(m) <span class="sc">|&gt;</span> </span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">sum</span>(.resid<span class="sc">^</span><span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  `sum(.resid^2)`
+            &lt;dbl&gt;
+1           3392.</code></pre>
+</div>
+</div>
+<p>Or we can use <code>broom::glance()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glance</span>(m)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 12
+  r.squared adj.r.squared sigma statistic  p.value    df logLik   AIC   BIC
+      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1     0.722         0.720  4.11      521. 1.04e-57     1  -574. 1154. 1164.
+# ℹ 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glance</span>(m) <span class="sc">|&gt;</span> </span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(deviance)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  deviance
+     &lt;dbl&gt;
+1    3392.</code></pre>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>Where <code>broom::tidy()</code> gives us information about the coefficients of our model, <code>broom::glance()</code> gives us information on the overall model performance.</p>
+</blockquote>
+<p>This is useful, but it is influenced by the units by which we measure our variables. If one model includes something like GDP which is measured in terms of billions of dollars, we will get a very large sum of squared residuals. If another model includes something like percentage of as state’s citizens who will vote for Donald Trump, we will get a relatively small sum of squared residuals. What if we want to compare model performance in a meaningful way?</p>
 </section>
 <section id="r2" class="level4">
 <h4 class="anchored" data-anchor-id="r2"><span class="math inline">\(R^2\)</span></h4>
@@ -865,15 +881,15 @@ R^2 = 1 - \frac{RSS}{TSS} = 1 - \frac{\Sigma(y_i - \hat{y_i})^2}{\Sigma(y_i - \h
 <p><span class="math display">\[
 R^2 = \frac{ESS}{TSS} = \frac{\Sigma(\hat{y}_i - \bar{y})^2}{\Sigma(y_i - \bar{y})^2}
 \]</span></p>
-<p>Our model’s <span class="math inline">\(R^2\)</span> was one of the many values provided at the bottom of our nicely formatted regression table above. We can access it (and other general model statistics) directly using <code>broom::glance()</code>:</p>
+<p>Our model’s <span class="math inline">\(R^2\)</span> can be accessed using <code>broom::glance()</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glance</span>(m)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glance</span>(m) <span class="sc">|&gt;</span> </span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(r.squared)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 12
-  r.squared adj.r.squared sigma statistic  p.value    df logLik   AIC   BIC
-      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-1     0.718         0.717  4.13      510. 6.07e-57     1  -572. 1150. 1160.
-# ℹ 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;</code></pre>
+<pre><code># A tibble: 1 × 1
+  r.squared
+      &lt;dbl&gt;
+1     0.722</code></pre>
 </div>
 </div>
 </section>
@@ -883,7 +899,7 @@ R^2 = \frac{ESS}{TSS} = \frac{\Sigma(\hat{y}_i - \bar{y})^2}{\Sigma(y_i - \bar{y
 <h3 class="anchored" data-anchor-id="modelling-relationships-among-categorical-variables">Modelling relationships among categorical variables</h3>
 <p>Sometimes we want to know whether our outcome of interest changes based on the category in which it sits. For example, do levels of support for abortion access differ between Democrats, Republicans, and Independents? Do the number of women elected to parliament change based on whether or not the country has a formal quota? Do the number of civilians targeted in war change based on whether the war is intra- or inter-state?</p>
 <p>Let’s return to the <a href="https://electionstudies.org/">American National Election Survey</a> first explored last week. We will focus on that first question: do levels of support for abortion access differ between Democrats, Republicans, and Independents?</p>
-<p>We can easily access the 2012 survey through R using the <code>poliscidata</code> package.</p>
+<p>We can access the 2012 survey through R using the <code>poliscidata</code> package:</p>
 <pre><code>poliscidata::nes</code></pre>
 <section id="cross-tabs" class="level4">
 <h4 class="anchored" data-anchor-id="cross-tabs">Cross tabs</h4>
@@ -891,103 +907,103 @@ R^2 = \frac{ESS}{TSS} = \frac{\Sigma(\hat{y}_i - \bar{y})^2}{\Sigma(y_i - \bar{y
 <p>For example, let’s look at differences in the number of individuals who identified as Democrat, Republican, or Independent who do not support access to abortions, support access with some conditions, with more conditions, or always.</p>
 <p>We can use <code>modelsummary::datasummary_crosstab()</code> to produce a nicely formatted cross tab of our variables:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">datasummary_crosstab</span>(abort4 <span class="sc">~</span> pid_3, <span class="at">data =</span> nes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">datasummary_crosstab</span>(abort4 <span class="sc">~</span> pid_3, <span class="at">data =</span> nes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
-<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
- <thead>
-  <tr>
-   <th style="text-align:left;"> abort4 </th>
-   <th style="text-align:left;">   </th>
-   <th style="text-align:right;"> Dem </th>
-   <th style="text-align:right;"> Ind </th>
-   <th style="text-align:right;"> Rep </th>
-   <th style="text-align:right;"> All </th>
-  </tr>
- </thead>
+<table class="table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">abort4</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Dem</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Ind</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Rep</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">All</th>
+</tr>
+</thead>
 <tbody>
-  <tr>
-   <td style="text-align:left;"> Never </td>
-   <td style="text-align:left;"> N </td>
-   <td style="text-align:right;"> 187 </td>
-   <td style="text-align:right;"> 229 </td>
-   <td style="text-align:right;"> 252 </td>
-   <td style="text-align:right;"> 672 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;">  </td>
-   <td style="text-align:left;"> % row </td>
-   <td style="text-align:right;"> 27.8 </td>
-   <td style="text-align:right;"> 34.1 </td>
-   <td style="text-align:right;"> 37.5 </td>
-   <td style="text-align:right;"> 100.0 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Some conds </td>
-   <td style="text-align:left;"> N </td>
-   <td style="text-align:right;"> 499 </td>
-   <td style="text-align:right;"> 583 </td>
-   <td style="text-align:right;"> 519 </td>
-   <td style="text-align:right;"> 1607 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;">  </td>
-   <td style="text-align:left;"> % row </td>
-   <td style="text-align:right;"> 31.1 </td>
-   <td style="text-align:right;"> 36.3 </td>
-   <td style="text-align:right;"> 32.3 </td>
-   <td style="text-align:right;"> 100.0 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> More conds </td>
-   <td style="text-align:left;"> N </td>
-   <td style="text-align:right;"> 332 </td>
-   <td style="text-align:right;"> 337 </td>
-   <td style="text-align:right;"> 227 </td>
-   <td style="text-align:right;"> 898 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;">  </td>
-   <td style="text-align:left;"> % row </td>
-   <td style="text-align:right;"> 37.0 </td>
-   <td style="text-align:right;"> 37.5 </td>
-   <td style="text-align:right;"> 25.3 </td>
-   <td style="text-align:right;"> 100.0 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Always </td>
-   <td style="text-align:left;"> N </td>
-   <td style="text-align:right;"> 1325 </td>
-   <td style="text-align:right;"> 964 </td>
-   <td style="text-align:right;"> 381 </td>
-   <td style="text-align:right;"> 2680 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;">  </td>
-   <td style="text-align:left;"> % row </td>
-   <td style="text-align:right;"> 49.4 </td>
-   <td style="text-align:right;"> 36.0 </td>
-   <td style="text-align:right;"> 14.2 </td>
-   <td style="text-align:right;"> 100.0 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> All </td>
-   <td style="text-align:left;"> N </td>
-   <td style="text-align:right;"> 2358 </td>
-   <td style="text-align:right;"> 2149 </td>
-   <td style="text-align:right;"> 1385 </td>
-   <td style="text-align:right;"> 5916 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;">  </td>
-   <td style="text-align:left;"> % row </td>
-   <td style="text-align:right;"> 39.9 </td>
-   <td style="text-align:right;"> 36.3 </td>
-   <td style="text-align:right;"> 23.4 </td>
-   <td style="text-align:right;"> 100.0 </td>
-  </tr>
+<tr class="odd">
+<td style="text-align: left;">Never</td>
+<td style="text-align: left;">N</td>
+<td style="text-align: right;">187</td>
+<td style="text-align: right;">229</td>
+<td style="text-align: right;">252</td>
+<td style="text-align: right;">672</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">% row</td>
+<td style="text-align: right;">27.8</td>
+<td style="text-align: right;">34.1</td>
+<td style="text-align: right;">37.5</td>
+<td style="text-align: right;">100.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Some conds</td>
+<td style="text-align: left;">N</td>
+<td style="text-align: right;">499</td>
+<td style="text-align: right;">583</td>
+<td style="text-align: right;">519</td>
+<td style="text-align: right;">1607</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">% row</td>
+<td style="text-align: right;">31.1</td>
+<td style="text-align: right;">36.3</td>
+<td style="text-align: right;">32.3</td>
+<td style="text-align: right;">100.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">More conds</td>
+<td style="text-align: left;">N</td>
+<td style="text-align: right;">332</td>
+<td style="text-align: right;">337</td>
+<td style="text-align: right;">227</td>
+<td style="text-align: right;">898</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">% row</td>
+<td style="text-align: right;">37.0</td>
+<td style="text-align: right;">37.5</td>
+<td style="text-align: right;">25.3</td>
+<td style="text-align: right;">100.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Always</td>
+<td style="text-align: left;">N</td>
+<td style="text-align: right;">1325</td>
+<td style="text-align: right;">964</td>
+<td style="text-align: right;">381</td>
+<td style="text-align: right;">2680</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">% row</td>
+<td style="text-align: right;">49.4</td>
+<td style="text-align: right;">36.0</td>
+<td style="text-align: right;">14.2</td>
+<td style="text-align: right;">100.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">All</td>
+<td style="text-align: left;">N</td>
+<td style="text-align: right;">2358</td>
+<td style="text-align: right;">2149</td>
+<td style="text-align: right;">1385</td>
+<td style="text-align: right;">5916</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">% row</td>
+<td style="text-align: right;">39.9</td>
+<td style="text-align: right;">36.3</td>
+<td style="text-align: right;">23.4</td>
+<td style="text-align: right;">100.0</td>
+</tr>
 </tbody>
 </table>
+
 
 </div>
 </div>
@@ -996,13 +1012,13 @@ R^2 = \frac{ESS}{TSS} = \frac{\Sigma(\hat{y}_i - \bar{y})^2}{\Sigma(y_i - \bar{y
 <h4 class="anchored" data-anchor-id="mean-comparison-table">Mean comparison table</h4>
 <p>We can use mean comparison tables to, well, compare means (in a table). Let’s compare the average response to the feeling thermometer (scale from 0 to 100) for the Republican party across parties:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>nes <span class="sc">|&gt;</span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(pid_3) <span class="sc">|&gt;</span> </span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean =</span> <span class="fu">mean</span>(ft_rep, <span class="at">na.rm =</span> T),</span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd =</span> <span class="fu">sd</span>(ft_rep, <span class="at">na.rm =</span> T),</span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">freq =</span> <span class="fu">n</span>()</span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>nes <span class="sc">|&gt;</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(pid_3) <span class="sc">|&gt;</span> </span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean =</span> <span class="fu">mean</span>(ft_rep, <span class="at">na.rm =</span> T),</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd =</span> <span class="fu">sd</span>(ft_rep, <span class="at">na.rm =</span> T),</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">freq =</span> <span class="fu">n</span>()</span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 4
   pid_3  mean    sd  freq
@@ -1014,6 +1030,20 @@ R^2 = \frac{ESS}{TSS} = \frac{\Sigma(\hat{y}_i - \bar{y})^2}{\Sigma(y_i - \bar{y
 </div>
 </div>
 <p>Are these counts or averages meaningfully different from one another? We need some additional tools to answer that question. We will discuss those in the coming weeks.</p>
+</section>
+<section id="looking-at-the-whole-distribution" class="level4">
+<h4 class="anchored" data-anchor-id="looking-at-the-whole-distribution">Looking at the whole distribution</h4>
+<p>We can also visualize the whole distribution of a continuous variable of interest within our categories.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>nes <span class="sc">|&gt;</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(pid_3) <span class="sc">|&gt;</span> </span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> ft_rep, <span class="at">fill =</span> pid_3)) <span class="sc">+</span> </span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="03-bivariate_relationships_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid" width="960"></p>
+</div>
+</div>
 
 
 </section>
@@ -1048,9 +1078,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -1115,6 +1159,92 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {
@@ -1158,6 +1288,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">Content <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> 2023 by <a href="https://www.harrietgoers.com">Harriet Goers</a> <br> All content licensed under a <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> <i class="fa-brands fa-creative-commons-by" aria-label="creative-commons-by"></i> <i class="fa-brands fa-creative-commons-nc" aria-label="creative-commons-nc"></i> <a href="https://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-Non Commercial 4.0 International license (CC BY-NC 4.0)</a></div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
     <div class="nav-footer-right">Made with <i class="fa-brands fa-r-project" aria-label="r-project"></i> and <a href="https://quarto.org/">Quarto</a><br> <a href="https://www.andrewheiss.com/teaching/">Heavily inspired by course websites built by Dr Andrew Heiss</a></div>
   </div>
 </footer>

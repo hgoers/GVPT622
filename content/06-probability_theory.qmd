@@ -37,8 +37,6 @@ set.seed(1234)
 
 ### How will what you learn this week help your research?
 
-### Probability theory
-
 ### Randomness and avoiding doing the dishes
 
 Imagine you and a friend are trying to decide who will do the dishes after you have both cooked a very large and very messy meal. You agree to flip a coin. Should you pick heads or tails?
@@ -76,34 +74,35 @@ table(repeat_trials)
 
 Given the results of this trial, I would expect that for every 10 coin flips, I should get `r table(repeat_trials)["HEADS"]` heads and `r table(repeat_trials)["TAILS"]` tails. If I want to use this information to determine the chance that the coin will land on its head after one flip, I can convert this to percentages. There is a `r percent(table(repeat_trials)["HEADS"] / 10)` chance that the coin will land on heads. Therefore, based solely on the 10 flip trial, you should pick `r case_when(table(repeat_trials)["HEADS"] / 10 > 0.5 ~ "heads", table(repeat_trials)["HEADS"] / 10 < 0.5 ~ "tails", table(repeat_trials)["HEADS"] / 10 == 0.5 ~ "either heads or tails, because they are equally likely to win")`.
 
-Hmm... but aren't fair coins meant to land on heads or tails with equal probability? In fact, if you look at our `sample()` you will see that I explicitly set the probability of landing on heads and tails to be an even 0.5 and 0.5 each (using the `prob` argument). Why then, are we getting `r percent(table(repeat_trials)["HEADS"] / 10)` for heads and `r percent(table(repeat_trials)["TAILS"] / 10)` for tails instead of 50% and 50%?
+Hmm... but aren't fair coins meant to land on heads or tails with equal probability? In fact, if you look back to our sample (drawn using the `sample()` function) you will see that I explicitly set the probability of landing on heads and tails to be an even 0.5 and 0.5 each (using the `prob` argument). Why then are we getting `r percent(table(repeat_trials)["HEADS"] / 10)` for heads and `r percent(table(repeat_trials)["TAILS"] / 10)` for tails instead of 50% and 50%?
 
 To answer this question, we need to build up some foundations in probability theory. Let's start with **independence**.
 
 ### Independence
 
-You want to maximize my chances of not doing the dishes (i.e. picking the winning side of the coin). To do this, you need to know all possible outcomes (heads and tails) and the probability that each of those outcomes will eventuate. To learn this, you ran a trial in which you flipped the coin 10 times and recorded the outcome of each flip. How can you trust that this trial is revealing the true underlying probabilities of heads vs. tails?
+You want to maximize your chances of not doing the dishes (i.e. of picking the winning side of the coin). To do this, you need to know all possible outcomes (heads and tails) and the probability that each of those outcomes will eventuate. To learn this, you ran a trial in which you flipped the coin 10 times and recorded the outcome of each flip. How can you trust that this trial is revealing the true underlying probabilities of heads vs. tails?
 
-Each time you flipped that coin, you undertook the very process you will eventually take to decide who has to do the dishes. You will only flip that deciding coin once, so you need to know what the chances are that the coin will land on heads or tails that one time. You can't ever observe that. If you flip a coin once, you will either see heads or tails. But we know that if we flip it again we might get a different outcome. In other words, if you flip a coin once and it lands on heads, this does not necessarily mean that the probability of heads is 1 and the probability of tails is 0 (or that you will always get heads). We use trials to try to observe the underlying probabilities of each single coin flip.
+Each time you flipped that coin, you undertook the very process you will eventually take to decide who has to do the dishes. You will only flip that deciding coin once, so you need to know what the chances are that the coin will land on heads or tails that one time. You can't ever observe that. If you flip a coin once, you will either see heads or tails. But we know that if we flip it again we might get a different outcome. In other words, if you flip a coin once and it lands on heads, this does not necessarily mean that the probability of heads is 1 and the probability of tails is 0 (or that you will always get heads). We use trials to try to estimate the unobservable underlying probabilities of each possible outcome of a single coin flip.
 
-To make sure that we can infer from our many observed flips the underlying and unobservable probability of heads vs. tails of one coin flip, we need to make sure that our trials meet certain conditions. The first is **independence**:the outcome of any other flips cannot impact the outcome of the current flip.
+To make sure that we can infer from our many observed flips the underlying and unobservable probability of heads vs. tails of one coin flip, we need to make sure that our trials meet certain conditions. The first is **independence**: the outcome of any other flips cannot impact the outcome of the current flip.
 
-If your draws are independent of one another, you can infer from the results of the trial the underlying probability of each outcome eventuating.
+For example, let's go back to our bag of 10 different marbles. Say there are 2 red, 3 blue, and 5 green marbles in your bag. You want to know the probability of drawing out a green marble. You pull out a marble. We know that there is a 20% chance your marble will be red, a 30% chance it will be blue, and a 50% chance it will be green. It is green. You then do not replace the marble before your next draw. Now, there is a `r percent(2/9)` chance that marble will be red, a `r percent(3/9)` chance it is blue, and a `r percent(4/9)` chance it will be green (there are now only nine marbles in your bag: 2 red, 3, blue, and 4 green). These draws are not independent of each other! Your first draw changed the underlying probability of drawing a green marble in your second draw.
 
-But if we do that, we will infer that this coin is not fair (even though it is). We still have uneven results:
+If your draws are independent of one another, you can infer from the results of the trial the underlying probability of each outcome eventuating. But we did that and we still got uneven results:
 
 ```{r}
-
 table(repeat_trials)
 ```
 
+Why?
+
 ### The law of large numbers
 
-In sort, our trial was too small.
+In short, our trial was too small.
 
 Even if our underlying probability is `{0.5, 0.5}` (which it is: remember that `prob = c(0.5, 0.5)` argument), we may observe a set of outcomes in our trial that do not reflect this true distribution.
 
-To illustrate, think of the outcome you could observe from only one draw: heads or tails. If you draw a heads and then use that trial to infer the underlying probability of drawing heads vs. tails, you will state that your probabilities are `{1, 0}`. You will be very surprised if you subsequently flip a tail.
+To illustrate, think of the outcome you could observe from only one draw: heads or tails. If you draw heads and then use that trial to infer the underlying probability of drawing heads vs. tails, you will state that the underlying probability of drawing a head and tail is equal to `{1, 0}`. You will be very surprised if you subsequently flip a tail.
 
 Now, what if you run a trial of two flips?
 
@@ -128,13 +127,15 @@ trial_two_flips
 
 `r trial_two_flips |> filter(flip_1 == flip_2) |> nrow()` or `r percent(trial_two_flips |> filter(flip_1 == flip_2) |> nrow() / 10)` of our 10 trials resulted in two of the same outcomes. How can we be confident that our trials are good reflections of the actual distribution of probabilities?
 
-The law of large numbers suggests that when your population of independent observations has a finite mean, as the number of observations drawn increases, the mean of the observed values) in the sample approaches the mean of the population.
+The law of large numbers suggests that when your population of independent observations has a finite mean, as the number of observations drawn increases, the mean of the observed values in the sample approaches the mean of the population.
 
 In other words, the more flips you do, the closer you will get to the true underlying distribution of probabilities. Cool!
 
 Let's try this out.
 
 First, let's flip the coin 10 times:
+
+> The red dots are sitting at `{0.5,0.5}`. We are aiming for this true probability distribution.
 
 ```{r}
 tibble(outcome = sample(possible_outcomes, 10, replace = T, prob = c(0.5, 0.5))) |> 
@@ -196,14 +197,16 @@ tibble(outcome = sample(possible_outcomes, 100000, replace = T, prob = c(0.5, 0.
 
 Each time we increase the number of draws we make, we get closer to the true underlying distribution of probabilities (as coded in our `sample()` function).
 
-So, after all of that how can you avoid doing the dishes? Sadly (and as expected) whatever you pick (heads or tails) will not give you an edge over your friend. Both heads and tails are equally likely to come up in a fair coin toss.
+So, after all of that how can you avoid doing the dishes? Sadly (and as expected) you cannot get an edge on your friend. All possible outcomes have the same probability of eventuating.
 
-### What does this all have to do with political science? 
+### What does this all have to do with political science?
 
 Fair question.
 
-Quantitative social science involves statistical inference. We start with a parameter of interest. For example, what proportion of US voters approve of Joe Biden's work as president? It would be very nice if we could go and ask all US voters what they think and if we could be confident that they are giving us their true opinions. However, this is simply not possible (even the census misses some people!). Instead, we rely on surveys. These surveys (if done well) will take a representative sample of the population of US voters and ask their opinion of Biden. We can then use that sample to infer the overall level of support for Joe Biden among the population (of US voters).
+Quantitative social science involves statistical inference. We start with a parameter of interest. For example, what proportion of US voters approve of Joe Biden's job as president? It would be very nice if we could go and ask all US voters what they think and if we could be confident that they are giving us their true opinions. However, this is simply not possible (even the census misses some people!). Instead, we rely on surveys.
 
-We can even use this sample to answer interesting questions about groups within the population. What do Republicans think about Joe Biden's work as president? What about women? Or people of color?
+These surveys (if done well) will take a representative sample of the population of US voters and ask their opinion of Biden. We can then use that sample to infer the overall level of support for Joe Biden among the population (of US voters). Think of a survey as a trial.
+
+We can even use this sample to answer interesting questions about groups within the population. What do Republicans think about Joe Biden's job as president? What about women? Or people of color?
 
 This is all statistical inference. Probability theory undergrids our ability to observe or measure variables of interest and use these variables to strengthen our arguments in support of our theory. We will discuss this in more detail next week.

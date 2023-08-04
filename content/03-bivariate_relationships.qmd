@@ -198,7 +198,7 @@ For many values of $x$:
 
 ```{r}
 ggplot(tibble(x = 1:50, y = 10 + 2*x), aes(x = x, y = y)) + 
-  geom_line(colour = "lightgrey", size = 3) + 
+  geom_line(colour = "lightgrey", linewidth = 3) + 
   geom_point() + 
   theme_minimal()
 ```
@@ -209,7 +209,7 @@ $$
 life Exp_x = \beta_0 + \beta_1 logGdpPerCap_x + \epsilon
 $$
 
-Read this as: a country's average life expectancy is a function of some constant ($\beta_0$) and its logged GDP per capita transformed by some value $\beta_1$ with some random error ($\epsilon$).
+Read this as: a country's average life expectancy is a function of some constant ($\beta_0$) and its logged GDP per capita transformed by some value $\beta_1$ with some random error ($\epsilon$), **on average**.
 
 Let's imagine that this relationship is accurately described by the following formula:
 
@@ -226,6 +226,7 @@ ggplot(
   tibble(log_gdp_per_cap = 1:20, life_exp = 30 + 4*log_gdp_per_cap), 
   aes(x = log_gdp_per_cap, y = life_exp)
 ) + 
+  geom_line(colour = "lightgrey", linewidth = 3) + 
   geom_point() + 
   theme_minimal()
 ```
@@ -248,7 +249,7 @@ Well, we probably haven't produced the best model we can (this isn't the best li
 
 #### How do we calculate the constant ($\beta_0$) using OLS regression?
 
-Remember, OLS regression simply finds the line that minimizes the distance between itself and all the data points. The constant that minimizes this distance is the mean of $Y$ minus $\beta_1$ times the mean of $X$.
+Remember, OLS regression simply finds the line that minimizes the distance between itself and all the data points. The constant that minimizes this distance is **the mean of $Y$ minus $\beta_1$ times the mean of $X$**.
 
 So, the constant that best predicts a country's average life expectancy based on its logged GDP per capita is equal to the average life expectancy across our sample (`r mean(gapminder_df$life_exp, na.rm = T) |> round(2)` years) minus the average logged GDP per capita (`r mean(gapminder_df$log_gdp_per_cap, na.rm = T) |> dollar()`, or `r mean(gapminder_df$log_gdp_per_cap, na.rm = T) |> exp() |> dollar()` GDP per capita) transformed by $\beta_1$.
 
@@ -288,7 +289,7 @@ $$
 life Exp_x = 32.9 + 4.5 * logGdpPerCap_x + \epsilon
 $$
 
-That's it! We now have a generalized model of the relationship between a country's average life expectancy and its logged GDP per capita. This model is informed by what we actually observed in the world. It carefully balances our need to accurately describe what we have observed and the need to develop something that is generalizable.
+That's it! We now have a generalized model of the relationship between a country's average life expectancy and its logged GDP per capita. This model is informed by what we actually observed in the world. It carefully balances our need to accurately describe what we have observed and to develop something that is generalizable.
 
 The above model output is difficult to read. It will not be accepted by any journal or professor. Luckily, we can use `modelsummary::modelsummary()` to easily generate a professionally formatted table.
 
@@ -296,11 +297,12 @@ The above model output is difficult to read. It will not be accepted by any jour
 modelsummary(
   m, 
   statistic = NULL,
-  coef_rename = c("log_gdp_per_cap" = "GDP per capita (logged)")
+  coef_rename = c("log_gdp_per_cap" = "GDP per capita (logged)"),
+  gof_map = "nobs"
 )
 ```
 
-Note that OLS regression, particularly linear regression, involves a lot of important assumptions. These were discussed in detail in the lecture. For example, we assume that the best line to fit is straight. We also assume that the best way to generate and describe the relationship across all observations is to fit the line that minimizes the distance between itself and the observed values or dots.
+Note that OLS regression, particularly linear regression, requires that you make a lot of important assumptions about the relationship between your two variables. These were discussed in detail in the lecture. For example, we assume that the best line to fit is straight. We also assume that the best way to generate and describe the relationship across all observations is to fit the line that minimizes the distance between itself and the observed values or dots.
 
 > There are other approaches to determining the "best" line. These include maximum likelihood estimation (discussed in detail in GVPT729) and Bayesian statistics. We won't discuss these approaches in this class or in GVPT722. It's worth noting here; however, that OLS regression requires a whole bunch of assumptions that may or may not be appropriate to your research question or theory. This class prepares you to grapple with those questions and appropriately use these tools in your own research.
 
@@ -310,13 +312,13 @@ Okay, so we now have a model that describes the relationship between our outcome
 
 First, we can use this model to predict a country's average life expectancy given its GDP per capita.
 
-`broom::tidy(m)` makes this model object a lot easier to work with.
+`broom::tidy(m)` makes this model object a lot easier (tidier) to work with.
 
 ```{r}
 tidy(m)
 ```
 
-What do we predict to be the average life expectancy of a country with a GDP per capita of \$10,000? First, let's pull out the estimated constant (or intercept or $\beta_0$) for our calculations.
+What do we predict to be the average life expectancy of a country with a GDP per capita of \$20,000? First, let's pull out the estimated constant (or intercept or $\beta_0$) for our calculations.
 
 ```{r}
 m_res <- tidy(m)
@@ -345,11 +347,11 @@ life Exp_x = \beta_0 + \beta_1 logGdpPerCap_x
 $$
 
 ```{r}
-life_exp_10000 <- beta_0 + beta_1 * log(10000)
-life_exp_10000
+life_exp_20000 <- beta_0 + beta_1 * log(20000)
+life_exp_20000
 ```
 
-A country with a GDP per capita of \$10,000 is predicted to have an average life expectancy of `r round(life_exp_10000)` years. Let's take a look back at our data. Remember, these data describe what the World Bank actually observed for each country in 2016. How close is our predicted value to our observed values?
+A country with a GDP per capita of \$20,000 is predicted to have an average life expectancy of `r round(life_exp_20000)` years. Let's take a look back at our data. Remember, these data describe what the World Bank actually observed for each country in 2016. How close is our predicted value to our observed values?
 
 ```{r}
 
@@ -358,18 +360,20 @@ countries_10
 
 As above, our data suggest that these countries have closer to an average of `r round(mean(countries_10$life_exp))` years. Although our model predicted an average life expectancy closer to this than our guess above (which predicted 70 years), we still have a gap. Why?
 
+Our model is an attempt to formalize our understanding of the general relationship between a country's wealth and health. Mapping our model against the observed values we used to generate it illustrates this point well.
+
 ```{r}
 ggplot(gapminder_df, aes(x = log_gdp_per_cap, y = life_exp)) + 
   geom_point() + 
-  geom_vline(xintercept = log(10000)) + 
-  geom_hline(yintercept = life_exp_10000) + 
+  geom_vline(xintercept = log(20000)) + 
+  geom_hline(yintercept = life_exp_20000) + 
   geom_smooth(method = "lm", se = F) + 
   theme_minimal()
 ```
 
-Our model is an attempt to solidify our understanding of the general relationship between a country's wealth and health. Mapping our model against the observed values we used to generate it illustrates this point well.
+The world is a complicated and messy place. There are many countries that have a GDP per capita of around \$20,000 (those dots sitting around the vertical black line). They have a wide range of average life expectancy: look at their various placement along that vertical line. Some are higher than others. 
 
-The world is a complicated and messy place. There are many countries that have a GDP per capita of around \$10,000 (those dots sitting around the vertical black line). They have a wide range of average life expectancy. Also, there are several countries with a wide range of logged GDP per capita that have an average life expectancy of `r round(life_exp_10000)` years (those sitting at or around the horizontal black line).
+Also, there are several countries with a wide range of logged GDP per capita that have an average life expectancy of `r round(life_exp_20000)` years (those sitting at or around the horizontal black line). These have a wide range of logged GDP per capita: some are further to the left than others. 
 
 Our model is our best attempt at accounting for that diversity whilst still producing a useful summary of the relationship between health and wealth for those countries and all other countries with all observed values of GDP per capita.
 
@@ -377,7 +381,7 @@ A bit of noise (error) is expected. How much error is okay? This is a complicate
 
 ### Measuring error in our model
 
-Returning to our question above, how close are our predicted values to our observed values? For example, how far from the observed average life expectancy of countries with a GDP per capita of or close to \$10,000 is `r round(life_exp_10000)` years?
+Returning to our question above, how close are our predicted values to our observed values? For example, how far from the observed average life expectancy of countries with a GDP per capita of or close to \$20,000 is `r round(life_exp_20000)` years?
 
 Start by working out the average life expectancy predicted by our model for the logged GDP per capita of all of our countries. We can then compare this to the average life expectancy actually observed in all these countries. We can predict values from a model using `broom::augment()`:
 
@@ -385,7 +389,16 @@ Start by working out the average life expectancy predicted by our model for the 
 augment(m)
 ```
 
-This function is simply fitting our model ($life Exp_x = 32.9 + 4.5 * logGdpPerCap_x$) to each country's logged GDP per capita.
+This function is simply fitting our model ($life Exp_x = 32.9 + 4.5 * logGdpPerCap_x$) to each country's logged GDP per capita. You can confirm this by running the model yourself: 
+
+```{r}
+gapminder_df |> 
+  transmute(
+    country,
+    log_gdp_per_cap,
+    .fitted = beta_0 + beta_1*log_gdp_per_cap
+  )
+```
 
 How did the model do? What is the difference between what it predicted and the country's observed average life expectancy? Compare `.fitted` (the predicted average life expectancy) to `life_exp` (the actual observed average life expectancy).
 
@@ -404,12 +417,7 @@ Note that `broom::augment()` already did this calculation and stored it in the `
 
 ```{r}
 augment(m) |> 
-  transmute(
-    life_exp, 
-    .fitted,
-    diff = life_exp - .fitted,
-    .resid
-  )
+  select(life_exp, .fitted, .resid)
 ```
 
 Okay, so there are some differences. Let's look at those difference a bit more closely:
@@ -438,7 +446,7 @@ What is causing these differences? A lot of your work as a political scientist i
 
 #### (Random) error
 
-The world is a messy and complicated place. Things often vary in random ways. That's okay! It means that your observational data are going to move in funny and random ways. That's okay too! As long as your model includes all those systematic drivers of the thing you are interested in measuring (such as average life expectancy), we can accept a bit of random error.
+The world is a messy and complicated place. Things often vary in random ways. That's okay! It means that your observational data are going to move in funny and random ways. That's okay too! As long as your model includes all of the systematic drivers of the thing you are interested in measuring (such as average life expectancy), we can accept a bit of random error.
 
 In fact, we have already accounted for this. Remember that error term:
 
@@ -452,7 +460,7 @@ We run into issues when these are non-random things bundled up into the differen
 
 We often want to understand how the model has performed as a whole, rather than how well it predicts each individual observed data point. There are many different ways we can do this.
 
-#### Sum of squared residuals
+#### Sum of squared residuals (deviance)
 
 The sum of squared residuals measures the total error in our model. Formally:
 
@@ -466,7 +474,27 @@ We just add those all up to get a single measure of the model's overall performa
 
 > Remember that we tend to square things when we don't care about the direction. We don't care that the predicted value is less or more than the observed value, just about how far they are from each other.
 
-This is useful, but influenced by the units by which we measure our variables. If one model includes something like GDP which is measured in terms of billions of dollars, we will get a very large sum of squared residuals. If another model includes something like percentage of as state's citizens who will vote for Donald Trump, we will get a relatively small sum of squared residuals. What if we want to compare model performance in a meaningful way?
+We can do this ourselves: 
+
+```{r}
+augment(m) |> 
+  summarise(sum(.resid^2))
+```
+
+Or we can use `broom::glance()`:
+
+```{r}
+glance(m)
+```
+
+```{r}
+glance(m) |> 
+  select(deviance)
+```
+
+> Where `broom::tidy()` gives us information about the coefficients of our model, `broom::glance()` gives us information on the overall model performance. 
+
+This is useful, but it is influenced by the units by which we measure our variables. If one model includes something like GDP which is measured in terms of billions of dollars, we will get a very large sum of squared residuals. If another model includes something like percentage of as state's citizens who will vote for Donald Trump, we will get a relatively small sum of squared residuals. What if we want to compare model performance in a meaningful way?
 
 #### $R^2$
 
@@ -498,11 +526,11 @@ $$
 R^2 = \frac{ESS}{TSS} = \frac{\Sigma(\hat{y}_i - \bar{y})^2}{\Sigma(y_i - \bar{y})^2}
 $$
 
-Our model's $R^2$ was one of the many values provided at the bottom of our nicely formatted regression table above. We can access it (and other general model statistics) directly using `broom::glance()`:
+Our model's $R^2$ can be accessed using `broom::glance()`:
 
 ```{r}
-
-glance(m)
+glance(m) |> 
+  select(r.squared)
 ```
 
 ### Modelling relationships among categorical variables
@@ -511,7 +539,7 @@ Sometimes we want to know whether our outcome of interest changes based on the c
 
 Let's return to the [American National Election Survey](https://electionstudies.org/) first explored last week. We will focus on that first question: do levels of support for abortion access differ between Democrats, Republicans, and Independents?
 
-We can easily access the 2012 survey through R using the `poliscidata` package.
+We can access the 2012 survey through R using the `poliscidata` package:
 
 ```         
 poliscidata::nes
@@ -548,10 +576,12 @@ Are these counts or averages meaningfully different from one another? We need so
 
 #### Looking at the whole distribution
 
-We can also visualize the whole distribution of a continuous variable of interest within our categories. Returning to the `gapminder` dataset:
+We can also visualize the whole distribution of a continuous variable of interest within our categories.
 
 ```{r}
-ggplot(gapminder::gapminder, aes(x = lifeExp, fill = continent)) + 
+nes |>
+  drop_na(pid_3) |> 
+  ggplot(aes(x = ft_rep, fill = pid_3)) + 
   geom_density(alpha = 0.5) + 
   theme_minimal()
 ```

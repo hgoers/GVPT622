@@ -15,5 +15,33 @@ execute:
 ```{=html}
 <iframe class="slide-deck" src="../files/slides/Lecture 8 - Hypothesis Testing.pdf" width = "100%" height = 600px></iframe>
 ```
-
 ## Section
+
+### Prerequisites
+
+```{r}
+
+library(tidyverse)
+library(wbstats)
+```
+
+```{r}
+region_gdp_df <- wb_data(
+  "NY.GDP.MKTP.CD",
+        start_date = 2021,
+        end_date = 2021,
+        return_wide = F
+) |> 
+  transmute(
+    country,
+            region = countrycode::countrycode(iso3c, "iso3c", "region"),
+            gdp = value
+  )
+
+region_gdp_df
+```
+
+```{r}
+ggplot(region_gdp_df, aes(x = gdp, y = region, fill = region)) + 
+  geom_boxplot()
+```

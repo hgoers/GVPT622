@@ -40,29 +40,33 @@ library(patchwork)
 
 ### How will what you learn this week help your research?
 
-You have an interesting question that you want to explore. You have some data that relate to that question, including those that describe the outcome in which you are interested and the things that you think determine or drive that outcome. You think that one (or more) of the drivers is particularly important, but no one has yet written about it or proven its importance. Brilliant! What do you do now?
+You have an interesting question that you want to explore. You have some data that relate to that question. Included in these data are information on your outcome of interest and information on the things that you think determine or shape that outcome. You think that one (or more) of the drivers is particularly important, but no one has yet written about it or proven its importance. Brilliant! What do you do now?
 
 The first step in any empirical analysis is getting to know your data. I mean, *really* getting to know your data. You want to dig into it with a critical eye. You want to understand any patterns lurking beneath the surface.
 
-Ultimately, you want to get a really good understanding of the **data generation process**. This has two parts. First, you want to understand how, out there in the real world, your outcome and drivers come to be. For example, if you are interested in political voting patterns, you want to know the nitty gritty process of how people actually vote. Do they have to travel long distances, stand in long queues, fill out a lot of paperwork? Are there age restrictions on their ability to vote? Are there more insidious restrictions that might suppress voting for one particular group in the electorate?
+Ultimately, you want to get a really good understanding of the **data generation process**. This process can be thought of in two different and important ways. First, you want to understand how, out there in the real world, your outcome and drivers come to be. For example, if you are interested in political voting patterns, you want to know the nitty gritty process of how people actually vote. Do they have to travel long distances, stand in long queues, fill out a lot of paperwork? Are there age restrictions on their ability to vote? Are there more insidious restrictions that might suppress voting for one particular group in the electorate?
 
-To answer these questions, you can use the skills we will discuss this week. Are there relatively few young voters compared to older voters? Why might that be? In turn, your growing expertise in and understanding of the data generation process should inform your exploration of the data. You might note that people have to wait in long queues on a Tuesday to vote. Does this impact the number of workers vs. retirees who vote?
+You can use the skills we will discuss this week to help you answer these questions. For example, you can determine whether there are relatively few young voters compared to older voters. Then you can explore why this might be. In turn, your growing expertise in and understanding of the data generation process should inform your exploration of the data. You might note that people have to wait in long queues on a Tuesday to vote. Does this impact the number of workers vs. retirees who vote?
 
 Now, this is made slightly more tricky by the second part of your exploration. You need to understand how your variables are actually measured. How do we know who turns out to vote? Did you get access to the voter file, which records each individual who voted and some interesting and potentially relevant demographic information about them? Or are you relying on exit polls, that only include a portion of those who voted? Were the people included in the polls reflective of the total voting population? What or whom is missing from this survey? Of course, if your sample is not representative, you might find some patterns that appear to be very important to your outcome of interest but are, in fact, just an artifact of a poorly drawn sample.
 
-This week you will be introduced to the first part of this process: data exploration. We use descriptive statistics to *describe patterns in our data*. These are incredibly powerful tools that will arm you with an intimate knowledge of the shape of your factors of interest. With this knowledge, you will be able to start to answer your important question and potentially identify new ones. You will also be able to sense-check your more complex models and pick up on odd or incorrect relationships that they may find.
+This week you will be introduced to the first part of this process: data exploration. We use descriptive statistics to *describe patterns in our data*. These are incredibly powerful tools that will arm you with an intimate knowledge of the shape of your variables of interest. With this knowledge, you will be able to start to answer your important question and potentially identify new ones. You will also be able to sense-check your more complex models and pick up on odd or incorrect relationships that they may find.
 
-As you make frequency tables and histograms and very elaborate dot plots and box charts, keep in mind that these are tools useful for your interrogation of the data generation process. *Be critical.* Continue to ask whether your data allow you to detect true relationships between your variables of interest. Build your intuition for what is really going on and what factors are really driving your outcome of interest.
+As you make your frequency tables and histograms and very elaborate dot plots and box charts, keep in mind that these tools are useful for your interrogation of the data generation process. *Be critical.* Continue to ask whether your data allow you to detect true relationships between your variables of interest. Build your intuition for what is really going on and what factors are really driving your outcome of interest.
 
 Let's get started.
 
 ### Describing your data
 
-Descriptive statistics can be used to understand single variables and how any number of variables of interest relate to one another. The level of complexity involved in understanding these data and their relationships tend to increase with the number of variables you include.
+Descriptive statistics can be used to understand single variables and how any number of variables of interest relate to one another. The level of complexity involved in understanding these data and their relationships tend to increase with the number of variables you include. Today, we will look at single variables (for example, the age of respondents to a survey or how much each country spends on education in a year). Next week we will explore the relationship between two variables (for example, an individual's party affiliation and their level of support for abortion access).
 
-Your variables are defined in terms of a **unit of observation or analysis**. These could include individuals, households, congressional districts, states, or countries. **The unit of analysis you adopt should be relevant to your theory.** For example, if you are interested in understanding which strategies rebel groups use to successfully recruit individuals to fight, you probably want individual-level data. If you are interested in determining what drives countries to war with one another, you probably want country-level data (or leader-level data, or voter-level data?).
+Your variables are defined in terms of a **unit of observation or analysis**. These could include individuals, households, congressional districts, states, or countries. **The unit of analysis you adopt should be relevant to your theory.** For example, if you are interested in understanding which individuals are more susceptable to the different strategies rebel groups use to recruit individuals to fight, you probably want individual-level data. If you are interested in determining what drives countries to war with one another, you probably want country-level data (or leader-level data, or voter-level data?).
 
-Also, the ways of describing your data depend on the type of variable. You can have categorical or continuous variables.
+The important take-away here is that you should start with your theory. You should build a data set that reflects your theory.
+
+### Different types of data
+
+The ways of describing your data depend on the type of variable. You can have categorical or continuous variables.
 
 **Categorical variables** are discrete. They can be unordered (**nominal**) - for example, the colour of cars - or ordered (**ordinal**) - for example, whether you strongly dislike, dislike, are neutral about, like, or strongly like Taylor Swift.
 
@@ -70,7 +74,7 @@ Also, the ways of describing your data depend on the type of variable. You can h
 
 **Continuous variables** are, well, continuous. For example, your height or weight, a country's GDP or population, or the number of fatalities in a battle.
 
-> Continuous variables can be made into (usually ordered) categorical variables. This process is called **binning**. For example, you can take peoples ages and reduce them to 0 - 18 years old, 18 - 45 years old, 45 - 65 years old, and 65+ years old.
+> Continuous variables can be made into (usually ordered) categorical variables. This process is called **binning**. For example, you can take individuals' ages and reduce them to 0 - 18 years old, 18 - 45 years old, 45 - 65 years old, and 65+ years old.
 >
 > You lose information in this process: you cannot go from 45 - 65 years old back to the individuals' precise age. In other words, you cannot go from a categorical to continuous variable.
 
@@ -78,7 +82,7 @@ Let's take a look at how you can describe these different types of variables in 
 
 ### Describing categorical variables
 
-Simple put, for categorical variables we are interested in the count and/or percentage of cases that fall into each category.
+Simply put, for categorical variables we are interested in the count and/or percentage of cases that fall into each category.
 
 > Later, we will ask interesting questions using these summaries. These include whether differences between the counts and/or percentages of cases that fall into each category are meaningfully (and/or statistically significantly) different from one another. This deceptively simple question serves as the foundation for a lot of political science (particularly comparative) research.
 
@@ -128,7 +132,7 @@ nes |>
 
 ### Describing continuous variables
 
-We need to treat continuous variables differently from categorical ones because they cannot meaningfully be bounded together and compared. For example, imagine making a frequency table or bar chart that counts the number of countries with each observed GDP. You would have 193 different counts of one. Not very helpful!
+We need to treat continuous variables differently from categorical ones because they cannot be meaningfully bound together and compared. For example, imagine making a frequency table or bar chart that counts the number of countries with each observed GDP. You would have 193 different counts of one. Not very helpful!
 
 We can get a much better sense of our continuous variables by looking at characteristics of the **distribution** of these variables across the range of all possible values they could take on. Phew! Let's make sense of this using some real-world data.
 
@@ -142,8 +146,7 @@ perc_edu <- wb_data(
 ) |> 
   transmute(
     country, 
-    region = countrycode(country, "country.name", "region", 
-                         custom_match = c("Turkiye" = "Europe & Central Asia")),
+    region = countrycode(country, "country.name", "region"),
     year = date, 
     value = value / 100
   )
@@ -152,8 +155,6 @@ perc_edu
 ```
 
 I have converted these percentages (0 - 100) to proportions (0 - 1) for ease of interpretation. I have also added each country's region (using `countrycode::countrycode()`) so that we can explore regional trends in our data.
-
-> Turkiye's recent name change has not yet been included in the package. We need to correct for this using the `custom_match` argument.
 
 We can get a good sense of how expenditure varied by country by looking at the **center**, **spread**, and **shape** of the distribution.
 
@@ -166,7 +167,8 @@ ggplot(perc_edu, aes(x = value)) +
   labs(
     x = "Expenditure on education as a proportion of GDP",
     y = "Count"
-  )
+  ) + 
+  scale_x_continuous(labels = label_percent())
 ```
 
 > Take a look at `?geom_histogram` to find the arguments needed to change the bin width of your histograms.
@@ -180,12 +182,13 @@ ggplot(perc_edu, aes(x = value)) +
   labs(
     x = "Expenditure on education as a proportion of GDP",
     y = "Count"
-  )
+  ) + 
+  scale_x_continuous(labels = label_percent())
 ```
 
 #### Understanding distributions
 
-Because continuous variables are best described through their distribution, we can use the shape of that distribution to better understand our individual variables and compare them to others. Is the distribution symmetric or skewed? Where are the majority of observations clustered? Are there multiple distinct clusters, or high points, in the distribution?
+Because continuous variables are best described using their distribution, we can use the shape of that distribution to better understand our individual variables and compare them to others. Is the distribution symmetric or skewed? Where are the majority of observations clustered? Are there multiple distinct clusters, or high points, in the distribution?
 
 ##### Normal distribution
 
@@ -326,7 +329,7 @@ skim(perc_edu$value)
 
 We have `r nrow(perc_edu)` rows (because our unit of observation is a country, we can read this as 217 countries). We are missing education spending values for `r skim(perc_edu$value) |> pull(n_missing)` of those countries (see `n_missing`), giving us a complete rate of `r skim(perc_edu$value) |> pull(complete_rate) |> percent()` (see `complete_rate`).
 
-The country that spent the least on education as a percent of its GDP in 2020 was `r perc_edu |> slice_min(value) |> pull(country)`, which spent `r perc_edu |> slice_min(value) |> pull(value) |> scales::percent(accuracy = 0.001)` (see `p0`). The country that spent the most was the `r perc_edu |> slice_max(value) |> pull(country)`, which spent `r perc_edu |> slice_max(value) |> pull(value) |> scales::percent()` (see `p100`). The average percent of GDP spent on education in 2020 was `r perc_edu |> summarise(avg = mean(value, na.rm = T)) |> pull(avg) |> scales::percent(accuracy = 0.01)` (see `p50`).
+The country that spent the least on education as a percent of its GDP in 2020 was `r perc_edu |> slice_min(value) |> pull(country)`, which spent `r skim(perc_edu$value) |> pull(numeric.p0) |> percent(accuracy = 0.1)` (see `p0`). The country that spent the most was the `r perc_edu |> slice_max(value) |> pull(country)`, which spent `r skim(perc_edu$value) |> pull(numeric.p100) |> percent(accuracy = 0.1)` (see `p100`). The average percent of GDP spent on education in 2020 was `r skim(perc_edu$value) |> pull(numeric.mean) |> percent(accuracy = 0.1)` (see `mean`) and the median was `r skim(perc_edu$value) |> pull(numeric.p50) |> percent(accuracy = 0.1)` (see `p50`).
 
 This description was a bit unwieldy. To get a better sense of our data, we can visualize it.
 
@@ -344,16 +347,17 @@ ggplot(perc_edu, aes(x = value)) +
   labs(
     x = "Expenditure on education as a proportion of GDP",
     y = NULL
-  )
+  ) + 
+  scale_x_continuous(labels = label_percent())
 ```
 
 Note that some values are displayed as dots. The box plot is providing you with a bit more information than the five number summary alone. The box itself displays the 25th percentile, the mean, and the 75th percentile values. The tails show you all the data up to a range 1.5 times the mean. If the smallest or largest values fall below or above (respectively) 1.5 times the mean, the tail ends at that value. If, however, these values fall outside that range, they are displayed as dots. These are (very rule of thumb, take with a grain of salt, please rely on your theory instead!) candidates for **outliers**.
 
 #### Outliers
 
-**Outliers** fall so far away from the majority of the other values that they should be examined closely and perhaps excluded from your analysis. Outliers can distort your mean. They do not, howver, distort your median.
+**Outliers** fall so far away from the majority of the other values that they should be examined closely and perhaps excluded from your analysis. Outliers can distort your mean. They do not, however, distort your median.
 
-> We will talk more about how to deal with outliers appropriately later in the course.
+> We will talk more about how to deal with outliers later in the course.
 
 #### Measures of spread: range, variance, and standard deviation
 
@@ -508,7 +512,7 @@ tibble(
 
 #### Normal distributions
 
-Remember that normal distributions share a mean and median. This has very cool and useful consequences.
+Remember that normal distributions share a mean and median. This has very cool and useful side effects. 
 
 ```{r}
 norm_5_2 <- tibble(x = rnorm(n = 1e6, mean = 5, sd = 2))
@@ -529,7 +533,7 @@ ggplot(norm_5_2, aes(x = x)) +
 
 #### Standardization
 
-Notice how our description of each variable depends on its units of measurement. What do we do if we want to compare across different measurements that have different units?
+Notice how our description of each variable depends on its units of measurement. What do we do if we want to compare across different measurements that have different units? 
 
 ##### Z scores
 

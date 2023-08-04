@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.475">
+<meta name="generator" content="quarto-1.3.353">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -17,9 +17,10 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -46,43 +47,13 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -124,6 +95,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../html/custom.css">
@@ -140,111 +112,129 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <span class="navbar-title">GVPT622</span>
     </a>
   </div>
+            <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html">
+    <a class="nav-link" href="../index.html" rel="" target="">
  <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../schedule.html">
+    <a class="nav-link" href="../schedule.html" rel="" target="">
  <span class="menu-text">Schedule</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../content/01-introduction.html" aria-current="page">
+    <a class="nav-link active" href="../content/01-introduction.html" rel="" target="" aria-current="page">
  <span class="menu-text">Content</span></a>
   </li>  
 </ul>
-              <div id="quarto-search" class="" title="Search"></div>
+            <div class="quarto-navbar-tools">
+</div>
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
-  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-    <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Descriptive Statistics</h1>
-      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
-        <i class="bi bi-chevron-right"></i>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/02-descriptive_statistics.html">Descriptive Statistics</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
     </div>
   </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/01-introduction.html" class="sidebar-item-text sidebar-link">Course Introduction</a>
+  <a href="../content/01-introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Course Introduction</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/02-descriptive_statistics.html" class="sidebar-item-text sidebar-link active">Descriptive Statistics</a>
+  <a href="../content/02-descriptive_statistics.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Descriptive Statistics</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/03-bivariate_relationships.html" class="sidebar-item-text sidebar-link">Bivariate Relationships</a>
+  <a href="../content/03-bivariate_relationships.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bivariate Relationships</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/04-research_design.html" class="sidebar-item-text sidebar-link">Research Design</a>
+  <a href="../content/04-research_design.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Research Design</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/05-applications.html" class="sidebar-item-text sidebar-link">Applications</a>
+  <a href="../content/05-applications.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Applications</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/06-probability_theory.html" class="sidebar-item-text sidebar-link">Probability Theory</a>
+  <a href="../content/06-probability_theory.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Probability Theory</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/07-statistical_inference.html" class="sidebar-item-text sidebar-link">Statistical Inference</a>
+  <a href="../content/07-statistical_inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistical Inference</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/08_hypothesis_testing.html" class="sidebar-item-text sidebar-link">Hypothesis Testing</a>
+  <a href="../content/08_hypothesis_testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hypothesis Testing</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/09-hypothesis_testing.html" class="sidebar-item-text sidebar-link">Hypothesis Testing II</a>
+  <a href="../content/09-hypothesis_testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hypothesis Testing II</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/10-applications.html" class="sidebar-item-text sidebar-link">Applications II</a>
+  <a href="../content/10-applications.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Applications II</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/11-regression.html" class="sidebar-item-text sidebar-link">Regression</a>
+  <a href="../content/11-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Regression</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/12-multiple_regression.html" class="sidebar-item-text sidebar-link">Multiple Regression</a>
+  <a href="../content/12-multiple_regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Multiple Regression</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/13-conclusion.html" class="sidebar-item-text sidebar-link">Conclusion</a>
+  <a href="../content/13-conclusion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Conclusion</span></a>
   </div>
 </li>
     </ul>
     </div>
 </nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -258,6 +248,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites">Prerequisites</a></li>
   <li><a href="#how-will-what-you-learn-this-week-help-your-research" id="toc-how-will-what-you-learn-this-week-help-your-research" class="nav-link" data-scroll-target="#how-will-what-you-learn-this-week-help-your-research">How will what you learn this week help your research?</a></li>
   <li><a href="#describing-your-data" id="toc-describing-your-data" class="nav-link" data-scroll-target="#describing-your-data">Describing your data</a></li>
+  <li><a href="#different-types-of-data" id="toc-different-types-of-data" class="nav-link" data-scroll-target="#different-types-of-data">Different types of data</a></li>
   <li><a href="#describing-categorical-variables" id="toc-describing-categorical-variables" class="nav-link" data-scroll-target="#describing-categorical-variables">Describing categorical variables</a>
   <ul class="collapse">
   <li><a href="#case-study-american-national-election-survey" id="toc-case-study-american-national-election-survey" class="nav-link" data-scroll-target="#case-study-american-national-election-survey">Case study: American National Election Survey</a></li>
@@ -288,7 +279,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Descriptive Statistics</h1>
+<h1 class="title">Descriptive Statistics</h1>
 </div>
 
 
@@ -315,9 +306,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="prerequisites" class="level3">
 <h3 class="anchored" data-anchor-id="prerequisites">Prerequisites</h3>
 <div class="cell">
-
-</div>
-<div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(poliscidata)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(wbstats)</span>
@@ -332,34 +320,38 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="how-will-what-you-learn-this-week-help-your-research" class="level3">
 <h3 class="anchored" data-anchor-id="how-will-what-you-learn-this-week-help-your-research">How will what you learn this week help your research?</h3>
-<p>You have an interesting question that you want to explore. You have some data that relate to that question, including those that describe the outcome in which you are interested and the things that you think determine or drive that outcome. You think that one (or more) of the drivers is particularly important, but no one has yet written about it or proven its importance. Brilliant! What do you do now?</p>
+<p>You have an interesting question that you want to explore. You have some data that relate to that question. Included in these data are information on your outcome of interest and information on the things that you think determine or shape that outcome. You think that one (or more) of the drivers is particularly important, but no one has yet written about it or proven its importance. Brilliant! What do you do now?</p>
 <p>The first step in any empirical analysis is getting to know your data. I mean, <em>really</em> getting to know your data. You want to dig into it with a critical eye. You want to understand any patterns lurking beneath the surface.</p>
-<p>Ultimately, you want to get a really good understanding of the <strong>data generation process</strong>. This has two parts. First, you want to understand how, out there in the real world, your outcome and drivers come to be. For example, if you are interested in political voting patterns, you want to know the nitty gritty process of how people actually vote. Do they have to travel long distances, stand in long queues, fill out a lot of paperwork? Are there age restrictions on their ability to vote? Are there more insidious restrictions that might suppress voting for one particular group in the electorate?</p>
-<p>To answer these questions, you can use the skills we will discuss this week. Are there relatively few young voters compared to older voters? Why might that be? In turn, your growing expertise in and understanding of the data generation process should inform your exploration of the data. You might note that people have to wait in long queues on a Tuesday to vote. Does this impact the number of workers vs.&nbsp;retirees who vote?</p>
+<p>Ultimately, you want to get a really good understanding of the <strong>data generation process</strong>. This process can be thought of in two different and important ways. First, you want to understand how, out there in the real world, your outcome and drivers come to be. For example, if you are interested in political voting patterns, you want to know the nitty gritty process of how people actually vote. Do they have to travel long distances, stand in long queues, fill out a lot of paperwork? Are there age restrictions on their ability to vote? Are there more insidious restrictions that might suppress voting for one particular group in the electorate?</p>
+<p>You can use the skills we will discuss this week to help you answer these questions. For example, you can determine whether there are relatively few young voters compared to older voters. Then you can explore why this might be. In turn, your growing expertise in and understanding of the data generation process should inform your exploration of the data. You might note that people have to wait in long queues on a Tuesday to vote. Does this impact the number of workers vs.&nbsp;retirees who vote?</p>
 <p>Now, this is made slightly more tricky by the second part of your exploration. You need to understand how your variables are actually measured. How do we know who turns out to vote? Did you get access to the voter file, which records each individual who voted and some interesting and potentially relevant demographic information about them? Or are you relying on exit polls, that only include a portion of those who voted? Were the people included in the polls reflective of the total voting population? What or whom is missing from this survey? Of course, if your sample is not representative, you might find some patterns that appear to be very important to your outcome of interest but are, in fact, just an artifact of a poorly drawn sample.</p>
-<p>This week you will be introduced to the first part of this process: data exploration. We use descriptive statistics to <em>describe patterns in our data</em>. These are incredibly powerful tools that will arm you with an intimate knowledge of the shape of your factors of interest. With this knowledge, you will be able to start to answer your important question and potentially identify new ones. You will also be able to sense-check your more complex models and pick up on odd or incorrect relationships that they may find.</p>
-<p>As you make frequency tables and histograms and very elaborate dot plots and box charts, keep in mind that these are tools useful for your interrogation of the data generation process. <em>Be critical.</em> Continue to ask whether your data allow you to detect true relationships between your variables of interest. Build your intuition for what is really going on and what factors are really driving your outcome of interest.</p>
+<p>This week you will be introduced to the first part of this process: data exploration. We use descriptive statistics to <em>describe patterns in our data</em>. These are incredibly powerful tools that will arm you with an intimate knowledge of the shape of your variables of interest. With this knowledge, you will be able to start to answer your important question and potentially identify new ones. You will also be able to sense-check your more complex models and pick up on odd or incorrect relationships that they may find.</p>
+<p>As you make your frequency tables and histograms and very elaborate dot plots and box charts, keep in mind that these tools are useful for your interrogation of the data generation process. <em>Be critical.</em> Continue to ask whether your data allow you to detect true relationships between your variables of interest. Build your intuition for what is really going on and what factors are really driving your outcome of interest.</p>
 <p>Let’s get started.</p>
 </section>
 <section id="describing-your-data" class="level3">
 <h3 class="anchored" data-anchor-id="describing-your-data">Describing your data</h3>
-<p>Descriptive statistics can be used to understand single variables and how any number of variables of interest relate to one another. The level of complexity involved in understanding these data and their relationships tend to increase with the number of variables you include.</p>
-<p>Your variables are defined in terms of a <strong>unit of observation or analysis</strong>. These could include individuals, households, congressional districts, states, or countries. <strong>The unit of analysis you adopt should be relevant to your theory.</strong> For example, if you are interested in understanding which strategies rebel groups use to successfully recruit individuals to fight, you probably want individual-level data. If you are interested in determining what drives countries to war with one another, you probably want country-level data (or leader-level data, or voter-level data?).</p>
-<p>Also, the ways of describing your data depend on the type of variable. You can have categorical or continuous variables.</p>
+<p>Descriptive statistics can be used to understand single variables and how any number of variables of interest relate to one another. The level of complexity involved in understanding these data and their relationships tend to increase with the number of variables you include. Today, we will look at single variables (for example, the age of respondents to a survey or how much each country spends on education in a year). Next week we will explore the relationship between two variables (for example, an individual’s party affiliation and their level of support for abortion access).</p>
+<p>Your variables are defined in terms of a <strong>unit of observation or analysis</strong>. These could include individuals, households, congressional districts, states, or countries. <strong>The unit of analysis you adopt should be relevant to your theory.</strong> For example, if you are interested in understanding which individuals are more susceptable to the different strategies rebel groups use to recruit individuals to fight, you probably want individual-level data. If you are interested in determining what drives countries to war with one another, you probably want country-level data (or leader-level data, or voter-level data?).</p>
+<p>The important take-away here is that you should start with your theory. You should build a data set that reflects your theory.</p>
+</section>
+<section id="different-types-of-data" class="level3">
+<h3 class="anchored" data-anchor-id="different-types-of-data">Different types of data</h3>
+<p>The ways of describing your data depend on the type of variable. You can have categorical or continuous variables.</p>
 <p><strong>Categorical variables</strong> are discrete. They can be unordered (<strong>nominal</strong>) - for example, the colour of cars - or ordered (<strong>ordinal</strong>) - for example, whether you strongly dislike, dislike, are neutral about, like, or strongly like Taylor Swift.</p>
 <blockquote class="blockquote">
 <p><strong>Dichotomous (or binary) variables</strong> are a special type of categorical variable. They take on one of two values. For example: yes or no; at war or not at war; is a Swifty, or is not a Swifty.</p>
 </blockquote>
 <p><strong>Continuous variables</strong> are, well, continuous. For example, your height or weight, a country’s GDP or population, or the number of fatalities in a battle.</p>
 <blockquote class="blockquote">
-<p>Continuous variables can be made into (usually ordered) categorical variables. This process is called <strong>binning</strong>. For example, you can take peoples ages and reduce them to 0 - 18 years old, 18 - 45 years old, 45 - 65 years old, and 65+ years old.</p>
+<p>Continuous variables can be made into (usually ordered) categorical variables. This process is called <strong>binning</strong>. For example, you can take individuals’ ages and reduce them to 0 - 18 years old, 18 - 45 years old, 45 - 65 years old, and 65+ years old.</p>
 <p>You lose information in this process: you cannot go from 45 - 65 years old back to the individuals’ precise age. In other words, you cannot go from a categorical to continuous variable.</p>
 </blockquote>
 <p>Let’s take a look at how you can describe these different types of variables in turn, using real-world political science examples.</p>
 </section>
 <section id="describing-categorical-variables" class="level3">
 <h3 class="anchored" data-anchor-id="describing-categorical-variables">Describing categorical variables</h3>
-<p>Simple put, for categorical variables we are interested in the count and/or percentage of cases that fall into each category.</p>
+<p>Simply put, for categorical variables we are interested in the count and/or percentage of cases that fall into each category.</p>
 <blockquote class="blockquote">
 <p>Later, we will ask interesting questions using these summaries. These include whether differences between the counts and/or percentages of cases that fall into each category are meaningfully (and/or statistically significantly) different from one another. This deceptively simple question serves as the foundation for a lot of political science (particularly comparative) research.</p>
 </blockquote>
@@ -417,7 +409,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="describing-continuous-variables" class="level3">
 <h3 class="anchored" data-anchor-id="describing-continuous-variables">Describing continuous variables</h3>
-<p>We need to treat continuous variables differently from categorical ones because they cannot meaningfully be bounded together and compared. For example, imagine making a frequency table or bar chart that counts the number of countries with each observed GDP. You would have 193 different counts of one. Not very helpful!</p>
+<p>We need to treat continuous variables differently from categorical ones because they cannot be meaningfully bound together and compared. For example, imagine making a frequency table or bar chart that counts the number of countries with each observed GDP. You would have 193 different counts of one. Not very helpful!</p>
 <p>We can get a much better sense of our continuous variables by looking at characteristics of the <strong>distribution</strong> of these variables across the range of all possible values they could take on. Phew! Let’s make sense of this using some real-world data.</p>
 <section id="case-study-comparing-countries-spending-on-education" class="level4">
 <h4 class="anchored" data-anchor-id="case-study-comparing-countries-spending-on-education">Case study: Comparing countries’ spending on education</h4>
@@ -428,13 +420,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span> </span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(</span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    country, </span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">region =</span> <span class="fu">countrycode</span>(country, <span class="st">"country.name"</span>, <span class="st">"region"</span>, </span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>                         <span class="at">custom_match =</span> <span class="fu">c</span>(<span class="st">"Turkiye"</span> <span class="ot">=</span> <span class="st">"Europe &amp; Central Asia"</span>)),</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">year =</span> date, </span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">value =</span> value <span class="sc">/</span> <span class="dv">100</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>perc_edu</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">region =</span> <span class="fu">countrycode</span>(country, <span class="st">"country.name"</span>, <span class="st">"region"</span>),</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">year =</span> date, </span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">value =</span> value <span class="sc">/</span> <span class="dv">100</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>perc_edu</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 217 × 4
    country             region                      year   value
@@ -453,9 +444,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <p>I have converted these percentages (0 - 100) to proportions (0 - 1) for ease of interpretation. I have also added each country’s region (using <code>countrycode::countrycode()</code>) so that we can explore regional trends in our data.</p>
-<blockquote class="blockquote">
-<p>Turkiye’s recent name change has not yet been included in the package. We need to correct for this using the <code>custom_match</code> argument.</p>
-</blockquote>
 <p>We can get a good sense of how expenditure varied by country by looking at the <strong>center</strong>, <strong>spread</strong>, and <strong>shape</strong> of the distribution.</p>
 </section>
 <section id="histogram" class="level4">
@@ -467,7 +455,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Expenditure on education as a proportion of GDP"</span>,</span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Count"</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> <span class="fu">label_percent</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="02-descriptive_statistics_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="960"></p>
 </div>
@@ -485,7 +474,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Expenditure on education as a proportion of GDP"</span>,</span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Count"</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> <span class="fu">label_percent</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="02-descriptive_statistics_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="960"></p>
 </div>
@@ -493,7 +483,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="understanding-distributions" class="level4">
 <h4 class="anchored" data-anchor-id="understanding-distributions">Understanding distributions</h4>
-<p>Because continuous variables are best described through their distribution, we can use the shape of that distribution to better understand our individual variables and compare them to others. Is the distribution symmetric or skewed? Where are the majority of observations clustered? Are there multiple distinct clusters, or high points, in the distribution?</p>
+<p>Because continuous variables are best described using their distribution, we can use the shape of that distribution to better understand our individual variables and compare them to others. Is the distribution symmetric or skewed? Where are the majority of observations clustered? Are there multiple distinct clusters, or high points, in the distribution?</p>
 <section id="normal-distribution" class="level5">
 <h5 class="anchored" data-anchor-id="normal-distribution">Normal distribution</h5>
 <div class="cell">
@@ -641,7 +631,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(perc_edu<span class="sc">$</span>value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<table class="table table-sm table-striped">
+<table class="table table-sm table-striped small">
 <caption>Data summary</caption>
 <tbody>
 <tr class="odd">
@@ -679,7 +669,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 <p><strong>Variable type: numeric</strong></p>
-<table class="table table-sm table-striped">
+<table class="table table-sm table-striped small">
 <colgroup>
 <col style="width: 18%">
 <col style="width: 12%">
@@ -727,7 +717,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <p>We have 217 rows (because our unit of observation is a country, we can read this as 217 countries). We are missing education spending values for 59 of those countries (see <code>n_missing</code>), giving us a complete rate of 73% (see <code>complete_rate</code>).</p>
-<p>The country that spent the least on education as a percent of its GDP in 2020 was Cuba, which spent 0.000% (see <code>p0</code>). The country that spent the most was the Marshall Islands, which spent 14% (see <code>p100</code>). The average percent of GDP spent on education in 2020 was 4.64% (see <code>p50</code>).</p>
+<p>The country that spent the least on education as a percent of its GDP in 2020 was Cuba, which spent 0.0% (see <code>p0</code>). The country that spent the most was the Marshall Islands, which spent 13.6% (see <code>p100</code>). The average percent of GDP spent on education in 2020 was 4.6% (see <code>mean</code>) and the median was 4.5% (see <code>p50</code>).</p>
 <p>This description was a bit unwieldy. To get a better sense of our data, we can visualize it.</p>
 </section>
 <section id="box-plots" class="level4">
@@ -743,7 +733,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
 <span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Expenditure on education as a proportion of GDP"</span>,</span>
 <span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="cn">NULL</span></span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> <span class="fu">label_percent</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="02-descriptive_statistics_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="960"></p>
 </div>
@@ -752,9 +743,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="outliers" class="level4">
 <h4 class="anchored" data-anchor-id="outliers">Outliers</h4>
-<p><strong>Outliers</strong> fall so far away from the majority of the other values that they should be examined closely and perhaps excluded from your analysis. Outliers can distort your mean. They do not, howver, distort your median.</p>
+<p><strong>Outliers</strong> fall so far away from the majority of the other values that they should be examined closely and perhaps excluded from your analysis. Outliers can distort your mean. They do not, however, distort your median.</p>
 <blockquote class="blockquote">
-<p>We will talk more about how to deal with outliers appropriately later in the course.</p>
+<p>We will talk more about how to deal with outliers later in the course.</p>
 </blockquote>
 </section>
 <section id="measures-of-spread-range-variance-and-standard-deviation" class="level4">
@@ -826,18 +817,18 @@ s^2 = \frac{\Sigma(x_i - \bar{x})^2}{n - 1}
 <span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>wide_var_calc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1,000,000 × 4
-         x    mean    diff    diff_2
-     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;
- 1  0.383  0.00153  0.381   0.145   
- 2  0.0873 0.00153  0.0858  0.00736 
- 3 -0.353  0.00153 -0.355   0.126   
- 4  3.33   0.00153  3.33   11.1     
- 5 -0.0193 0.00153 -0.0209  0.000435
- 6 -1.30   0.00153 -1.30    1.70    
- 7 -2.55   0.00153 -2.55    6.49    
- 8 -1.49   0.00153 -1.49    2.22    
- 9  1.31   0.00153  1.31    1.71    
-10  3.92   0.00153  3.92   15.4     
+        x     mean   diff diff_2
+    &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+ 1  1.93  -0.00381  1.94   3.74 
+ 2 -3.40  -0.00381 -3.40  11.5  
+ 3 -1.84  -0.00381 -1.84   3.37 
+ 4 -0.537 -0.00381 -0.534  0.285
+ 5 -3.48  -0.00381 -3.47  12.1  
+ 6 -2.03  -0.00381 -2.03   4.10 
+ 7 -0.538 -0.00381 -0.534  0.285
+ 8  2.38  -0.00381  2.39   5.70 
+ 9 -1.44  -0.00381 -1.43   2.06 
+10  3.08  -0.00381  3.08   9.48 
 # ℹ 999,990 more rows</code></pre>
 </div>
 </div>
@@ -847,7 +838,7 @@ s^2 = \frac{\Sigma(x_i - \bar{x})^2}{n - 1}
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>wide_var</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 4.004449</code></pre>
+<pre><code>[1] 4.00121</code></pre>
 </div>
 </div>
 <p>We can compare this to the variance for our narrower distribution.</p>
@@ -863,7 +854,7 @@ s^2 = \frac{\Sigma(x_i - \bar{x})^2}{n - 1}
 <span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>narrow_var</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.001083</code></pre>
+<pre><code>[1] 1.000157</code></pre>
 </div>
 </div>
 <p>It is, in fact, smaller!</p>
@@ -871,15 +862,15 @@ s^2 = \frac{\Sigma(x_i - \bar{x})^2}{n - 1}
 <div class="cell">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(wide_dist)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>         x
-x 4.004449</code></pre>
+<pre><code>        x
+x 4.00121</code></pre>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(narrow_dist)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         x
-x 1.001083</code></pre>
+x 1.000157</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -896,26 +887,26 @@ x TRUE</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(wide_var)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 2.001112</code></pre>
+<pre><code>[1] 2.000302</code></pre>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(narrow_var)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.000541</code></pre>
+<pre><code>[1] 1.000079</code></pre>
 </div>
 </div>
 <p>You can get this directly using <code>sd()</code>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(wide_dist<span class="sc">$</span>x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 2.001112</code></pre>
+<pre><code>[1] 2.000302</code></pre>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(narrow_dist<span class="sc">$</span>x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.000541</code></pre>
+<pre><code>[1] 1.000079</code></pre>
 </div>
 </div>
 <p>If you look back to our graphs, you will see that I set the standard deviations explicitly when I generated the data: <code>rnorm()</code> takes an <code>sd</code> argument. This is great because we can confirm that the standard deviations for the wide and narrow distributions are 2 and 1 respectively (with a little bit of noise).</p>
@@ -939,7 +930,7 @@ x TRUE</code></pre>
 </section>
 <section id="normal-distributions" class="level4">
 <h4 class="anchored" data-anchor-id="normal-distributions">Normal distributions</h4>
-<p>Remember that normal distributions share a mean and median. This has very cool and useful consequences.</p>
+<p>Remember that normal distributions share a mean and median. This has very cool and useful side effects.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>norm_5_2 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="fl">1e6</span>, <span class="at">mean =</span> <span class="dv">5</span>, <span class="at">sd =</span> <span class="dv">2</span>))</span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -981,12 +972,12 @@ z_i = \frac{x_i - \mu_x}{\sigma_x}
 <pre><code># A tibble: 6 × 4
       x  mean    sd z_score
   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
-1  5.98  5.00  2.00  0.490 
-2  5.04  5.00  2.00  0.0194
-3  3.29  5.00  2.00 -0.855 
-4  4.50  5.00  2.00 -0.250 
-5  2.20  5.00  2.00 -1.40  
-6  5.23  5.00  2.00  0.112 </code></pre>
+1  2.24  5.00  2.00  -1.38 
+2  4.19  5.00  2.00  -0.402
+3  3.93  5.00  2.00  -0.536
+4  6.58  5.00  2.00   0.790
+5  3.90  5.00  2.00  -0.550
+6  3.89  5.00  2.00  -0.556</code></pre>
 </div>
 </div>
 <p>We can confirm this:</p>
@@ -1041,9 +1032,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -1108,6 +1113,92 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {
@@ -1151,6 +1242,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">Content <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> 2023 by <a href="https://www.harrietgoers.com">Harriet Goers</a> <br> All content licensed under a <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> <i class="fa-brands fa-creative-commons-by" aria-label="creative-commons-by"></i> <i class="fa-brands fa-creative-commons-nc" aria-label="creative-commons-nc"></i> <a href="https://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-Non Commercial 4.0 International license (CC BY-NC 4.0)</a></div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
     <div class="nav-footer-right">Made with <i class="fa-brands fa-r-project" aria-label="r-project"></i> and <a href="https://quarto.org/">Quarto</a><br> <a href="https://www.andrewheiss.com/teaching/">Heavily inspired by course websites built by Dr Andrew Heiss</a></div>
   </div>
 </footer>

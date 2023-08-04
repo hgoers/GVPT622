@@ -32,6 +32,7 @@ library(janitor)
 library(poliscidata)
 library(ggdist)
 library(MetBrewer)
+library(DescTools)
 
 set.seed(1234)
 ```
@@ -39,8 +40,6 @@ set.seed(1234)
 ### How will what you learn this week help your research?
 
 ### Population and sample
-
-We can use a representative sample of our population to make inferences about interesting characteristics of that population.
 
 Say we are interested in the proportion of US voters who will vote for Joe Biden in the 2024 general election. We cannot ask all US voters of their intentions. Instead, we ask a sample of the US voting population and infer from that sample the population's intentions.
 
@@ -54,9 +53,9 @@ When we generalize from the sample statistic to the parameter we are engaging in
 
 How can we be confident that our statistic represents the parameter? Generally speaking, the more our sample "looks like" our population, the more confident we can be that we have a good statistic. Drawing on probability theory, our sample is increasingly likely to resemble our population with its randomness and size.
 
-Let's break this down. You should strive for a **pure random sample**. This means that every individual within your population is equally likely to be drawn. This is really hard to achieve! Think about normal election surveys. Many are conducted over the phone. There are plenty of people who do not have a landline phone, or do not pick up calls from unknown numbers, or who keep their phones on do not disturb during the day. These people will be harder to contact than those who are sitting by the phone waiting eagerly for a call. Even if you have access to all US voters' phone numbers (never mind that some voters do not have phone numbers)and you took a random sample of those phone numbers and started calling, you still will not get a hold of them all with equal probability.
+You should strive for a **pure random sample**. This means that every individual within your population is equally likely to be drawn. This is really hard to achieve! Think about normal election surveys. Many are conducted over the phone. There are plenty of people who do not have a landline phone, or do not pick up calls from unknown numbers, or who keep their phones on do not disturb during the day. These people will be harder to contact than those who are sitting by the phone waiting eagerly for a call. Even if you have access to all US voters' phone numbers (never mind that some voters do not have phone numbers) and you take a random sample of those phone numbers and start calling, you still will not get a hold of them all with equal probability.
 
-You should also strive for as large a sample as you can possibly get. More is always better in terms of statistical inference (if not your research budget). Remember back to our coin flips last week. The more coin flips we did, the closer we got to the true probability distribution between heads and tails. This principle also holds here.
+You should also strive for as large a sample as you can possibly get. More is always better in terms of statistical inference (if not your research budget or time). Remember back to our coin flips last week. The more coin flips we did, the closer we got to the true probability distribution between heads and tails. This principle also holds here.
 
 ### Sampling error
 
@@ -161,11 +160,10 @@ nes |>
 Let's very cheekily pretend that this is a complete survey of the entire voting population of America. That way, we can pretend that we know the proportion of US voters who identify as Democrats.
 
 ```{r}
-
 tabyl(nes, dem)
 ```
 
-Okay, so let's pretend that `r tabyl(nes, dem) |> filter(dem == 1) |> pull(percent) |> percent()` of US voters identify as Democrats.
+Okay, so let's pretend that `r tabyl(nes, dem) |> filter(dem == 1) |> pull(percent) |> percent()` of all US voters identify as Democrats.
 
 We can't survey all voters, so instead we take a representative and large sample from this population:
 
@@ -176,7 +174,7 @@ nes_sample <- nes |>
   slice_sample(n = 3000)
 ```
 
-We have taken a sample of 3,000 (or `r percent(3000 / nrow(nes))` of our population of `r comma(nrow(nes))` voters).
+We have taken a pure random sample of 3,000 (or `r percent(3000 / nrow(nes))` of our population of `r comma(nrow(nes))` voters). Each of those voters had an equal probability of being picked for this sample.
 
 What proportion of this sample identify as Democrats?
 
@@ -185,7 +183,7 @@ What proportion of this sample identify as Democrats?
 tabyl(nes_sample, dem)
 ```
 
-Nice! But what if we took a different sample of 3,000?
+`r tabyl(nes_sample, dem) |> filter(dem == 1) |> pull(percent) |> percent()`. Nice! But what if we took a different sample of 3,000?
 
 ```{r}
 
@@ -199,7 +197,7 @@ nes_sample_2 <- nes |>
 tabyl(nes_sample_2, dem)
 ```
 
-We get a different answer. Of course! This is just like our different coin flip trials. Each resulted in a different number of heads. The more flips we did, the closer we got to the true underlying probability distribution.
+We get a different answer: `r tabyl(nes_sample_2, dem) |> filter(dem == 1) |> pull(percent) |> percent()`. Of course! This is just like our different coin flip trials from last week. Each resulted in a different number of heads. The more flips we did, the closer we got to the true underlying probability distribution.
 
 Let's take 1,000 different samples of 3,000 US voters and see what we get:
 
@@ -239,7 +237,7 @@ You'll have noticed that these draws are always symmetrical or normally distribu
 
 In a lot of (social) science is is not practical or, in some cases, possible to do many trials. For example, a lot of us study the onset, conduct, and termination of wars. Unlike a game of chess, you cannot reset and run a war many times in order to get your sampling distribution of your variable of interest.
 
-Further, we often do not know the shape or size of our population. For example, the best guess we have of the demographics of the US population comes from the census. But this misses a lot of people. If you want to study houselessness, you might need to rely on surveys of samples of people that may or may not be representative of this difficult to reach population of people.   
+Further, we often do not know the shape or size of our population. For example, the best guess we have of the demographics of the US population comes from the census. But this misses a lot of people. If you want to study houselessness, you might need to rely on surveys of samples of people that may or may not be representative of this difficult to reach population of people.
 
 A lot of the time; therefore, you will have one data point. This requires that we take some lessons learned from above and make some pretty important assumptions.
 
@@ -253,9 +251,9 @@ nes_single <- slice_sample(nes_samples_1000)
 nes_single
 ```
 
-How close is this single sample statistic to the population parameter of `r tabyl(nes, dem) |> filter(dem == 1) |> pull(percent) |> percent(accuracy = 0.01)`? Pretty close! In fact, you are more likely to get a sample statistic close to the population parameter than not. 
+How close is this single sample statistic to the population parameter of `r tabyl(nes, dem) |> filter(dem == 1) |> pull(percent) |> percent(accuracy = 0.01)`? Pretty close! In fact, you are more likely to get a sample statistic close to the population parameter than not.
 
-Remember, when we ran multiple trials we got many sample statistics that were clustered around the population mean. 
+Remember, when we ran multiple trials we got many sample statistics that were clustered around the population mean.
 
 ```{r}
 ggplot(nes_samples_1000, aes(x = prop_dem)) + 
@@ -265,11 +263,11 @@ ggplot(nes_samples_1000, aes(x = prop_dem)) +
 
 So, if you were to pick one of these trials at random, you are more likely to pick one with a sample statistic that is close to the population parameter than not. Convenient!
 
-### How confident can we be in our statistic? 
+### How confident can we be in our statistic?
 
-That being said, we could get unlucky and have drawn a large and representative sample that sits at one of those extreme values. How confident can we be that our single sample statistic is close to the population parameter? 
+That being said, we could get unlucky and have drawn a large and representative sample that sits at one of those extreme values. How confident can we be that our single sample statistic is close to the population parameter?
 
-Remember back to our week on descriptive statistics. There are some super handy properties of normal distributions on which we will draw.
+Remember back to our week on descriptive statistics. There are some super handy [properties of normal distributions](https://hgoers.github.io/GVPT622/content/02-descriptive_statistics.html#normal-distributions) on which we will draw.
 
 ```{r}
 
@@ -291,4 +289,140 @@ For normally distributed data:
 
 -   Approximately 99.7% of the data fall within three standard deviations of the mean (the light blue).
 
+So, if we assume that the statistic we get from our large and representative sample is our "best guess" at the population parameter, we can center our theoretical sampling distribution around this point. We know that this distribution is normally distributed. So we can calculate the shape of that distribution using what we know about normal distributions.
 
+68 percent of the hypothetical sample statistics would fall within one standard deviation of the mean. We will build into our statistic an acknowledgment of this uncertainty.
+
+Let's go back to our single sample of 3,000 respondents from the NES survey to illustrate how we do this.
+
+```{r}
+head(nes_sample)
+```
+
+We need to calculate the standard deviation of the mean. When we are looking at the standard deviation of the sampling distribution, we refer to it as the **standard error**.
+
+The formula for working out the standard error is:
+
+$$
+S_{\bar{x}} = \frac{S}{\sqrt{n}}
+$$
+
+The standard error of the mean is equal to the standard deviation of the whole sample divided by the square root of the sample size.
+
+> We learnt how to calculate the standard deviation of a vector of data (in this case, the whole sample) in the [Descriptive Statistics week](https://hgoers.github.io/GVPT622/content/02-descriptive_statistics.html#standard-deviation).
+
+First, we need to find the standard deviation of the whole sample. We can use `sd()`:
+
+```{r}
+sd_sample <-sd(nes_sample$dem, na.rm = T)
+  
+sd_sample
+```
+
+Then we need to divide this by the square root of the size of the sample:
+
+```{r}
+se_mean <- sd_sample / sqrt(nrow(nes_sample))
+
+se_mean
+```
+
+You can use `DescTools::MeanSE()` to calculate this in one line:
+
+```{r}
+MeanSE(nes_sample$dem, na.rm = T)
+```
+
+The mean is `r mean(nes_sample$dem, na.rm = T) |> round(4)` and the standard error of this mean is `r round(se_mean, 4)`. Great! So now we know that 68% of the hypothetical means of our hypothetical trials sit within plus or minus `r round(se_mean, 4)` of `r mean(nes_sample$dem, na.rm = T) |> round(4)`.
+
+Translating this into our research question: based on our sample, we are 68 percent confident that the true percentage of US voters who identify as Democrats sits between `r percent(mean(nes_sample$dem, na.rm = T) - se_mean, accuracy = 0.01)` and `r percent(mean(nes_sample$dem, na.rm = T) + se_mean, accuracy = 0.01)`.
+
+Of course, if we took a different sample, we would get a different sample mean and a different confidence interval. The point is that *as long as you have a large and representative sample*, your sample is more likely than not to be close to the population parameter.
+
+What if you want to be more confident than 68 percent? Again, we can draw on our knowledge of normal distributions to help us out. Let's work out the bounds within which we are 95 percent confident the proportion of US voters who identify as Democrats sit.
+
+I have to admit here that I cheated a little in calculating the 68 percent confidence interval. If you remember back to our week on descriptive statistics, you will recall that these ranges (68%, 95%, and 99.7%) are artifacts of our efforts to standardize our data using [z-scores](https://hgoers.github.io/GVPT622/content/02-descriptive_statistics.html#z-scores).
+
+A quick refresher that you can promptly forget again:
+
+$$
+z_i = \frac{x_i - \mu_x}{\sigma_x}
+$$
+
+Now, it just so happens that doing this to your normally distributed data means that 68 percent of your data will land within **one z-score** of the center point.
+
+So, when we calculated the 68 percent confidence interval as:
+
+$$
+mean \pm se
+$$
+
+What we actually (sneakily) did was:
+
+$$
+mean \pm z * se
+$$
+
+The z-score just so happened to be one.
+
+What z-score captures 95 percent of our data?
+
+```{r}
+qnorm(p = 0.025, lower.tail = F)
+```
+
+> The first argument in `qnorm()` is the vector of probabilities. We want to find the 95 percent confidence interval, so we need to find the boundaries beyond which the remaining 5 percent of data sit. Remember that a normal distribution is symmetrical. Data falls above and below our center point. So to get the upper boundary, we need to halve 5 percent (hence `p = 0.025`) and then ask `qnorm()` to only give us the upper boundary (`lower.tail = F`). You can, of course, take the lower boundary but then you have to deal with a negative number which is kind of annoying.
+
+So, the z-score that will give us 95 percent of our data sitting around our center point is `r qnorm(p = 0.025, lower.tail = F) |> round(2)`.
+
+Therefore, our lower bound is:
+
+```{r}
+se_mean - qnorm(p = 0.025, lower.tail = F) * se_mean
+```
+
+And our upper bound is:
+
+```{r}
+se_mean + qnorm(p = 0.025, lower.tail = F) * se_mean
+```
+
+Translated, this means that we are 95 percent confident that the true percentage of US voters who identify as Democrats sits between `r percent(mean(nes_sample$dem, na.rm = T) - qnorm(p = 0.025, lower.tail = F) * se_mean, accuracy = 0.01)` and `r percent(mean(nes_sample$dem, na.rm = T) + qnorm(p = 0.025, lower.tail = F) * se_mean, accuracy = 0.01)`, based on our sample.
+
+> EXERCISE: Calculate the 99.7 percent confidence interval around the mean.
+
+We are putting a lot of stead in our single sample. That's okay as long as your sample is *large and representative*. Over these past few weeks we have discussed in sometimes painful detail why we can make some of the assumptions on which we rely. But, at the end of the day, you are the expert. You have explored your data with a critical eye. You have read everything you possibly can about this topic. You might have even gone out in the field and gotten your hands dirty. The more you know about your subject matter, the better you will be able to detect whether something strange is going on with your sample and your findings. This is so important. The strength of your empirical analysis is built on these foundations.
+
+### Choosing your sample size
+
+We know that our confidence around our point estimate increases with the number of observations. Formally:
+
+$$
+S_{\bar{x}} = \frac{S}{\sqrt{n}}
+$$
+
+So, as you increase that $n$, you decrease your standard error and you narrow the interval over which you have a given level of confidence.
+
+I have said before that more is always better. Technically, this is very, very true. But those returns are marginal. And those survey costs stack up.
+
+```{r}
+se_from_sample <- function(n_samples) {
+  
+  nes |> 
+    slice_sample(n = n_samples) |> 
+    pull(dem) |> 
+    MeanSE(na.rm = T)
+  
+}
+
+tibble(sample_size = seq(from = 100, to = 3000, by = 100)) |> 
+  rowwise() |> 
+  mutate(se = se_from_sample(sample_size)) |> 
+  ggplot(aes(x = sample_size, y = se)) + 
+  geom_line() + 
+  theme_minimal() + 
+  labs(x = "Number of observations in the sample",
+       y = "Standard error")
+```
+
+Moving from 100 to 1,000 observations in your sample dramatically decreases your standard error. Moving the same distance from 1,000 to 1,900 makes a far smaller difference to your error.
