@@ -62,7 +62,23 @@ schedule <- tibble(
     "12-multiple_regression.html",
     "13-conclusion.html"
   ),
-  `SESSION SCRIPTS` = c(""),
+  `SESSION SCRIPTS` = c(
+    "",
+    "02-descriptive_statistics.html#section",
+    "03-bivariate_relationships.html#section",
+    "",
+    "",
+    "06-probability_theory.html#section",
+    "07-statistical_inference.html#section",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+  ),
   ASSIGNMENTS = c("")
 ) |> 
   mutate(
