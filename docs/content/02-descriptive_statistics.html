@@ -817,18 +817,18 @@ s^2 = \frac{\Sigma(x_i - \bar{x})^2}{n - 1}
 <span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>wide_var_calc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1,000,000 × 4
-         x     mean    diff    diff_2
-     &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;
- 1 -1.99   -0.00110 -1.99    3.94    
- 2 -0.0208 -0.00110 -0.0197  0.000387
- 3 -0.705  -0.00110 -0.704   0.495   
- 4 -0.974  -0.00110 -0.973   0.946   
- 5 -0.416  -0.00110 -0.415   0.172   
- 6  0.267  -0.00110  0.268   0.0717  
- 7  0.0308 -0.00110  0.0319  0.00102 
- 8 -3.30   -0.00110 -3.30   10.9     
- 9 -0.621  -0.00110 -0.620   0.385   
-10 -2.01   -0.00110 -2.01    4.02    
+        x    mean   diff  diff_2
+    &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
+ 1 -1.78  0.00322 -1.79   3.19  
+ 2 -0.296 0.00322 -0.299  0.0896
+ 3 -1.02  0.00322 -1.02   1.04  
+ 4 -4.03  0.00322 -4.04  16.3   
+ 5 -1.27  0.00322 -1.28   1.63  
+ 6 -1.55  0.00322 -1.55   2.41  
+ 7  0.264 0.00322  0.261  0.0681
+ 8  1.52  0.00322  1.52   2.30  
+ 9  0.653 0.00322  0.650  0.422 
+10 -1.53  0.00322 -1.53   2.36  
 # ℹ 999,990 more rows</code></pre>
 </div>
 </div>
@@ -838,7 +838,7 @@ s^2 = \frac{\Sigma(x_i - \bar{x})^2}{n - 1}
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>wide_var</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 4.000166</code></pre>
+<pre><code>[1] 3.997437</code></pre>
 </div>
 </div>
 <p>We can compare this to the variance for our narrower distribution.</p>
@@ -854,7 +854,7 @@ s^2 = \frac{\Sigma(x_i - \bar{x})^2}{n - 1}
 <span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>narrow_var</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.001632</code></pre>
+<pre><code>[1] 1.001458</code></pre>
 </div>
 </div>
 <p>It is, in fact, smaller!</p>
@@ -863,14 +863,14 @@ s^2 = \frac{\Sigma(x_i - \bar{x})^2}{n - 1}
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(wide_dist)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         x
-x 4.000166</code></pre>
+x 3.997437</code></pre>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(narrow_dist)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         x
-x 1.001632</code></pre>
+x 1.001458</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -887,26 +887,26 @@ x TRUE</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(wide_var)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 2.000041</code></pre>
+<pre><code>[1] 1.999359</code></pre>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(narrow_var)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.000815</code></pre>
+<pre><code>[1] 1.000729</code></pre>
 </div>
 </div>
 <p>You can get this directly using <code>sd()</code>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(wide_dist<span class="sc">$</span>x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 2.000041</code></pre>
+<pre><code>[1] 1.999359</code></pre>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(narrow_dist<span class="sc">$</span>x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.000815</code></pre>
+<pre><code>[1] 1.000729</code></pre>
 </div>
 </div>
 <p>If you look back to our graphs, you will see that I set the standard deviations explicitly when I generated the data: <code>rnorm()</code> takes an <code>sd</code> argument. This is great because we can confirm that the standard deviations for the wide and narrow distributions are 2 and 1 respectively (with a little bit of noise).</p>
@@ -972,12 +972,12 @@ z_i = \frac{x_i - \mu_x}{\sigma_x}
 <pre><code># A tibble: 6 × 4
       x  mean    sd z_score
   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
-1  5.76  5.00  2.00   0.381
-2  4.64  5.00  2.00  -0.177
-3  5.42  5.00  2.00   0.209
-4  1.34  5.00  2.00  -1.82 
-5  3.82  5.00  2.00  -0.591
-6  7.19  5.00  2.00   1.10 </code></pre>
+1  3.58  5.00  2.00  -0.709
+2  5.42  5.00  2.00   0.210
+3  1.31  5.00  2.00  -1.85 
+4  7.39  5.00  2.00   1.20 
+5  6.78  5.00  2.00   0.895
+6  6.39  5.00  2.00   0.698</code></pre>
 </div>
 </div>
 <p>We can confirm this:</p>

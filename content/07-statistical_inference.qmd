@@ -43,9 +43,9 @@ set.seed(1234)
 
 Say we are interested in the proportion of US voters who will vote for Joe Biden in the 2024 general election. We cannot ask all US voters of their intentions. Instead, we ask a sample of the US voting population and infer from that sample the population's intentions.
 
-> The data point of interest among the population is referred to as the **parameter**. Here, it is the proportion of *US voters* who will vote for Joe Biden in the 2024 general election.
+> The data point of interest among the population is referred to as the **parameter**. Here, it is the proportion of *US voters* who intend to vote for Joe Biden in the 2024 general election.
 >
-> The data point of interest among the sample is referred to as the **statistic**. Here, it is the proportion of *survey respondents* who will vote for Joe Biden in the 2024 general election.
+> The data point of interest among the sample is referred to as the **statistic**. Here, it is the proportion of *survey respondents* who intend to vote for Joe Biden in the 2024 general election.
 >
 > We aim to have a statistic that accurately represents the parameter.
 
@@ -143,6 +143,8 @@ The average number of heads drawn in each of these 100,000 trials is `r mean(res
 The lessons we can take from this is that more is better. The more times you flip that coin, the closer you will get to the true underlying probability of a fair coin landing on heads.
 
 > You will need to make important decisions in your own research regarding the number of samples with which you are comfortable. This will be constrained by your budget, time, and population. You will get a more accurate picture of the parameter with more data points. However, adding another 1,000,000 responses to your survey may result in a change so small it has no material impact what you infer from your analysis. If this is the case and you have a representative sample, you are well justified in not running yourself dry trying to get those extra observations.
+>
+> For more information on working out the smallest acceptable sample size for an experiment, look up **power analysis**.
 
 ### Sampling distributions
 
@@ -157,7 +159,7 @@ nes |>
   head()
 ```
 
-Let's very cheekily pretend that this is a complete survey of the entire voting population of America. That way, we can pretend that we know the proportion of US voters who identify as Democrats.
+Let's very cheekily pretend that this is a complete survey of the entire voting population of America. That way, we can pretend that we know the proportion of US voters who identify as Democrats (our parameter).
 
 ```{r}
 tabyl(nes, dem)
@@ -183,7 +185,7 @@ What proportion of this sample identify as Democrats?
 tabyl(nes_sample, dem)
 ```
 
-`r tabyl(nes_sample, dem) |> filter(dem == 1) |> pull(percent) |> percent()`. Nice! But what if we took a different sample of 3,000?
+`r tabyl(nes_sample, dem) |> filter(dem == 1) |> pull(percent) |> percent(accuracy = 0.01)`. Nice! But what if we took a different sample of 3,000?
 
 ```{r}
 
@@ -197,7 +199,7 @@ nes_sample_2 <- nes |>
 tabyl(nes_sample_2, dem)
 ```
 
-We get a different answer: `r tabyl(nes_sample_2, dem) |> filter(dem == 1) |> pull(percent) |> percent()`. Of course! This is just like our different coin flip trials from last week. Each resulted in a different number of heads. The more flips we did, the closer we got to the true underlying probability distribution.
+We get a different answer: `r tabyl(nes_sample_2, dem) |> filter(dem == 1) |> pull(percent) |> percent(accuracy = 0.01)`. Of course! This is just like our different coin flip trials from last week. Each resulted in a different number of heads. The more flips we did, the closer we got to the true underlying probability distribution.
 
 Let's take 1,000 different samples of 3,000 US voters and see what we get:
 
@@ -403,7 +405,9 @@ $$
 
 So, as you increase that $n$, you decrease your standard error and you narrow the interval over which you have a given level of confidence.
 
-I have said before that more is always better. Technically, this is very, very true. But those returns are marginal. And those survey costs stack up.
+I have said before that more is always better. Technically, this is very, very true. But those marginal returns diminish. And those survey costs stack up.
+
+To illustrate, let's look at how much your standard error decreases as you increase your sample size. 
 
 ```{r}
 se_from_sample <- function(n_samples) {
@@ -425,4 +429,8 @@ tibble(sample_size = seq(from = 100, to = 3000, by = 100)) |>
        y = "Standard error")
 ```
 
-Moving from 100 to 1,000 observations in your sample dramatically decreases your standard error. Moving the same distance from 1,000 to 1,900 makes a far smaller difference to your error.
+Moving from 100 to 1,000 observations in your sample dramatically decreases your standard error. Moving the same distance from 1,000 to 1,900 makes a far smaller difference to your error. 
+
+### Next week
+
+We will discuss the guts of quantitative analysis: hypothesis testing. 

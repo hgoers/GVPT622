@@ -253,6 +253,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#inferring-from-a-single-trial" id="toc-inferring-from-a-single-trial" class="nav-link" data-scroll-target="#inferring-from-a-single-trial">Inferring from a single “trial”</a></li>
   <li><a href="#how-confident-can-we-be-in-our-statistic" id="toc-how-confident-can-we-be-in-our-statistic" class="nav-link" data-scroll-target="#how-confident-can-we-be-in-our-statistic">How confident can we be in our statistic?</a></li>
   <li><a href="#choosing-your-sample-size" id="toc-choosing-your-sample-size" class="nav-link" data-scroll-target="#choosing-your-sample-size">Choosing your sample size</a></li>
+  <li><a href="#next-week" id="toc-next-week" class="nav-link" data-scroll-target="#next-week">Next week</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -306,8 +307,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="population-and-sample">Population and sample</h3>
 <p>Say we are interested in the proportion of US voters who will vote for Joe Biden in the 2024 general election. We cannot ask all US voters of their intentions. Instead, we ask a sample of the US voting population and infer from that sample the population’s intentions.</p>
 <blockquote class="blockquote">
-<p>The data point of interest among the population is referred to as the <strong>parameter</strong>. Here, it is the proportion of <em>US voters</em> who will vote for Joe Biden in the 2024 general election.</p>
-<p>The data point of interest among the sample is referred to as the <strong>statistic</strong>. Here, it is the proportion of <em>survey respondents</em> who will vote for Joe Biden in the 2024 general election.</p>
+<p>The data point of interest among the population is referred to as the <strong>parameter</strong>. Here, it is the proportion of <em>US voters</em> who intend to vote for Joe Biden in the 2024 general election.</p>
+<p>The data point of interest among the sample is referred to as the <strong>statistic</strong>. Here, it is the proportion of <em>survey respondents</em> who intend to vote for Joe Biden in the 2024 general election.</p>
 <p>We aim to have a statistic that accurately represents the parameter.</p>
 </blockquote>
 <p>When we generalize from the sample statistic to the parameter we are engaging in statistical inference.</p>
@@ -421,6 +422,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The lessons we can take from this is that more is better. The more times you flip that coin, the closer you will get to the true underlying probability of a fair coin landing on heads.</p>
 <blockquote class="blockquote">
 <p>You will need to make important decisions in your own research regarding the number of samples with which you are comfortable. This will be constrained by your budget, time, and population. You will get a more accurate picture of the parameter with more data points. However, adding another 1,000,000 responses to your survey may result in a change so small it has no material impact what you infer from your analysis. If this is the case and you have a representative sample, you are well justified in not running yourself dry trying to get those extra observations.</p>
+<p>For more information on working out the smallest acceptable sample size for an experiment, look up <strong>power analysis</strong>.</p>
 </blockquote>
 </section>
 <section id="sampling-distributions" class="level3">
@@ -441,7 +443,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 6   5880   0</code></pre>
 </div>
 </div>
-<p>Let’s very cheekily pretend that this is a complete survey of the entire voting population of America. That way, we can pretend that we know the proportion of US voters who identify as Democrats.</p>
+<p>Let’s very cheekily pretend that this is a complete survey of the entire voting population of America. That way, we can pretend that we know the proportion of US voters who identify as Democrats (our parameter).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tabyl</span>(nes, dem)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -469,7 +471,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   NA   14 0.004666667            NA</code></pre>
 </div>
 </div>
-<p>40%. Nice! But what if we took a different sample of 3,000?</p>
+<p>39.70%. Nice! But what if we took a different sample of 3,000?</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>nes_sample_2 <span class="ot">&lt;-</span> nes <span class="sc">|&gt;</span> </span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(caseid, dem) <span class="sc">|&gt;</span> </span>
@@ -484,7 +486,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   NA    9   0.003            NA</code></pre>
 </div>
 </div>
-<p>We get a different answer: 40%. Of course! This is just like our different coin flip trials from last week. Each resulted in a different number of heads. The more flips we did, the closer we got to the true underlying probability distribution.</p>
+<p>We get a different answer: 40.40%. Of course! This is just like our different coin flip trials from last week. Each resulted in a different number of heads. The more flips we did, the closer we got to the true underlying probability distribution.</p>
 <p>Let’s take 1,000 different samples of 3,000 US voters and see what we get:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>dem_survey <span class="ot">&lt;-</span> <span class="cf">function</span>(df, n) {</span>
@@ -689,7 +691,8 @@ mean \pm z * se
 S_{\bar{x}} = \frac{S}{\sqrt{n}}
 \]</span></p>
 <p>So, as you increase that <span class="math inline">\(n\)</span>, you decrease your standard error and you narrow the interval over which you have a given level of confidence.</p>
-<p>I have said before that more is always better. Technically, this is very, very true. But those returns are marginal. And those survey costs stack up.</p>
+<p>I have said before that more is always better. Technically, this is very, very true. But those marginal returns diminish. And those survey costs stack up.</p>
+<p>To illustrate, let’s look at how much your standard error decreases as you increase your sample size.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>se_from_sample <span class="ot">&lt;-</span> <span class="cf">function</span>(n_samples) {</span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  </span>
@@ -713,6 +716,10 @@ S_{\bar{x}} = \frac{S}{\sqrt{n}}
 </div>
 </div>
 <p>Moving from 100 to 1,000 observations in your sample dramatically decreases your standard error. Moving the same distance from 1,000 to 1,900 makes a far smaller difference to your error.</p>
+</section>
+<section id="next-week" class="level3">
+<h3 class="anchored" data-anchor-id="next-week">Next week</h3>
+<p>We will discuss the guts of quantitative analysis: hypothesis testing.</p>
 
 
 </section>

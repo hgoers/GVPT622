@@ -244,7 +244,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section">Section</a>
   <ul>
   <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites">Prerequisites</a></li>
-  <li><a href="#how-will-what-you-learn-this-week-help-your-research" id="toc-how-will-what-you-learn-this-week-help-your-research" class="nav-link" data-scroll-target="#how-will-what-you-learn-this-week-help-your-research">How will what you learn this week help your research?</a></li>
   <li><a href="#randomness-and-avoiding-doing-the-dishes" id="toc-randomness-and-avoiding-doing-the-dishes" class="nav-link" data-scroll-target="#randomness-and-avoiding-doing-the-dishes">Randomness and avoiding doing the dishes</a></li>
   <li><a href="#independence" id="toc-independence" class="nav-link" data-scroll-target="#independence">Independence</a></li>
   <li><a href="#the-law-of-large-numbers" id="toc-the-law-of-large-numbers" class="nav-link" data-scroll-target="#the-law-of-large-numbers">The law of large numbers</a></li>
@@ -294,9 +293,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Today, we are working with randomness and chance. To make sure we are all working with the same randomness and chance, you need to set your seed! <code>set.seed()</code> sets the random number generator state in which R will operate for this session. The draws we make in the session are still random, but they will be the same random draw each time we take it. This is important for replication, so you will use it outside of class.</p>
 </blockquote>
 </section>
-<section id="how-will-what-you-learn-this-week-help-your-research" class="level3">
-<h3 class="anchored" data-anchor-id="how-will-what-you-learn-this-week-help-your-research">How will what you learn this week help your research?</h3>
-</section>
 <section id="randomness-and-avoiding-doing-the-dishes" class="level3">
 <h3 class="anchored" data-anchor-id="randomness-and-avoiding-doing-the-dishes">Randomness and avoiding doing the dishes</h3>
 <p>Imagine you and a friend are trying to decide who will do the dishes after you have both cooked a very large and very messy meal. You agree to flip a coin. Should you pick heads or tails?</p>
@@ -340,9 +336,10 @@ HEADS TAILS
 <h3 class="anchored" data-anchor-id="independence">Independence</h3>
 <p>You want to maximize your chances of not doing the dishes (i.e.&nbsp;of picking the winning side of the coin). To do this, you need to know all possible outcomes (heads and tails) and the probability that each of those outcomes will eventuate. To learn this, you ran a trial in which you flipped the coin 10 times and recorded the outcome of each flip. How can you trust that this trial is revealing the true underlying probabilities of heads vs.&nbsp;tails?</p>
 <p>Each time you flipped that coin, you undertook the very process you will eventually take to decide who has to do the dishes. You will only flip that deciding coin once, so you need to know what the chances are that the coin will land on heads or tails that one time. You can’t ever observe that. If you flip a coin once, you will either see heads or tails. But we know that if we flip it again we might get a different outcome. In other words, if you flip a coin once and it lands on heads, this does not necessarily mean that the probability of heads is 1 and the probability of tails is 0 (or that you will always get heads). We use trials to try to estimate the unobservable underlying probabilities of each possible outcome of a single coin flip.</p>
-<p>To make sure that we can infer from our many observed flips the underlying and unobservable probability of heads vs.&nbsp;tails of one coin flip, we need to make sure that our trials meet certain conditions. The first is <strong>independence</strong>: the outcome of any other flips cannot impact the outcome of the current flip.</p>
+<p>To make sure that we can infer from our observed flips the underlying and unobservable probability of heads vs.&nbsp;tails of one coin flip, we need to make sure that our trials meet certain conditions. The first is <strong>independence</strong>: the outcome of any other flips cannot impact the outcome of the current flip.</p>
 <p>For example, let’s go back to our bag of 10 different marbles. Say there are 2 red, 3 blue, and 5 green marbles in your bag. You want to know the probability of drawing out a green marble. You pull out a marble. We know that there is a 20% chance your marble will be red, a 30% chance it will be blue, and a 50% chance it will be green. It is green. You then do not replace the marble before your next draw. Now, there is a 22% chance that marble will be red, a 33% chance it is blue, and a 44% chance it will be green (there are now only nine marbles in your bag: 2 red, 3, blue, and 4 green). These draws are not independent of each other! Your first draw changed the underlying probability of drawing a green marble in your second draw.</p>
-<p>If your draws are independent of one another, you can infer from the results of the trial the underlying probability of each outcome eventuating. But we did that and we still got uneven results:</p>
+<p>If your draws are independent of one another, you can infer from the results of the trial the underlying probability of each outcome eventuating.</p>
+<p>But hold on: we did that and we still got uneven results!</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(repeat_trials)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -392,7 +389,7 @@ HEADS TAILS
 </div>
 </div>
 <p>6 or 60% of our 10 trials resulted in two of the same outcomes. How can we be confident that our trials are good reflections of the actual distribution of probabilities?</p>
-<p>The law of large numbers suggests that when your population of independent observations has a finite mean, as the number of observations drawn increases, the mean of the observed values in the sample approaches the mean of the population.</p>
+<p>The <strong>law of large numbers</strong> suggests that when your population of independent observations has a finite mean, as the number of observations drawn increases, the mean of the observed values in the sample approaches the mean of the population.</p>
 <p>In other words, the more flips you do, the closer you will get to the true underlying distribution of probabilities. Cool!</p>
 <p>Let’s try this out.</p>
 <p>First, let’s flip the coin 10 times:</p>
