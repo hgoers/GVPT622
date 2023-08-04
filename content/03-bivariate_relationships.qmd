@@ -45,7 +45,7 @@ Last week, we discussed various tools that you can use to explore your data. You
 
 This week, we will make the next step. We will explore how two variables relate to each other. How do they move with each other: when one goes up, does the other go down, up, or not really move? How strong is this association?
 
-This exploration is particularly important for you to do with regard to the independent variable(s) that are the focal point of your theory and, therefore, your contribution to our understanding of the messy spaghetti bowl of things that determine your outcome of interest. Just as it is important for you to spend some time understanding the shape of your variables (using the tools we discussed last week), you must start to understand the shape of the relationship between the outcome you are trying to understand or predict and the factors you think are important determinants of that outcome.
+This exploration is particularly important for you to do with regard to the independent variable(s) that are the focal point of your theory and, therefore, your contribution to our understanding of the messy spaghetti bowl of things that determine your outcome of interest. Just as it is important for you to spend some time understanding the shape of your variables (using the tools we discussed last week), you must also start to understand the shape of the relationship between the outcome you are trying to understand or predict and the factors you think are important determinants of that outcome.
 
 Let's begin!
 
@@ -107,11 +107,11 @@ ggplot(gapminder_df, aes(x = log_gdp_per_cap, y = life_exp)) +
 
 I can imagine drawing a straight line among these points that summarises how they vary with each other. It appears that as a country's logged GDP per capita increases, so too does the average life expectancy of its population. As wealth increases, so too does health.
 
-### How can we measure the strength of that relationship?
-
 Well, that was easy! What is the relationship between health and wealth? They increase with each other.
 
-Now we need some way of measuring the strength of the relationship. In other words, what amount of the variation in countries' average life expectancy are associated with variation in their GDP per capita? We can measure the strength of this association using correlations. The **correlation coefficient** tells us how closely variables relate to one another. It tells us both the strength and direction of the association.
+### How can we measure the strength of that relationship?
+
+Now we need some way of measuring the strength of the relationship. In other words, what amount of the variation in countries' average life expectancy is associated with variation in their GDP per capita? We can measure the strength of this association using correlations. The **correlation coefficient** tells us how closely variables relate to one another. It tells us both the strength and direction of the association.
 
 -   Strength: how closely are these values tied to one another. Measured from 0 to \|1\|, with values closer to 0 indicating a very weak relationship and values closer to \|1\| indicating a very strong relationship.
 
@@ -420,7 +420,7 @@ augment(m) |>
   select(life_exp, .fitted, .resid)
 ```
 
-Okay, so there are some differences. Let's look at those difference a bit more closely:
+Okay, so there are some differences. Let's look at those differences a bit more closely:
 
 ```{r}
 ggplot(augment(m), aes(x = .resid)) + 
@@ -585,3 +585,9 @@ nes |>
   geom_density(alpha = 0.5) + 
   theme_minimal()
 ```
+
+As expected, Democrats appear to respond least favourably to the Republican Party, followed by Independents, and Republicans. This is demonstrated by both the mean comparison table and density plots. 
+
+### Next week
+
+We will discuss research design. 

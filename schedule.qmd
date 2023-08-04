@@ -13,18 +13,34 @@ library(fontawesome)
 
 ```{r, include = FALSE}
 schedule <- tibble(
-  DATE = "X",
+  DATE = c("28 August",
+           "11 September",
+           "18 September",
+           "25 September", 
+           "2 October",
+           "9 October",
+           "16 October",
+           "23 October",
+           "30 October",
+           "6 November",
+           "13 November",
+           "20 November",
+           "27 November",
+           "4 December",
+           "11 December"),
   TITLE = c(
     "Course Introduction", 
     "Descriptive Statistics", 
     "Bivariate Relationships", 
     "Research Design", 
     "Applications", 
+    "Mid-term Exam I",
     "Probability Theory",
     "Statistical Inference",
     "Hypothesis Testing",
     "Hypothesis Testing II",
     "Applications II", 
+    "Mid-term Exam II",
     "Regression", 
     "Multiple Regression", 
     "Conclusion"
@@ -35,11 +51,13 @@ schedule <- tibble(
     "03-bivariate_relationships.html", 
     "04-research_design.html", 
     "05-applications.html", 
+    "",
     "06-probability_theory.html", 
     "07-statistical_inference.html",
     "08_hypothesis_testing.html",
     "09-hypothesis_testing.html",
     "10-applications.html",
+    "", 
     "11-regression.html",
     "12-multiple_regression.html",
     "13-conclusion.html"
@@ -49,14 +67,14 @@ schedule <- tibble(
 ) |> 
   mutate(
     `CLASS NOTES` = if_else(`CLASS NOTES` != "", 
-                      paste0("<a href=\"https://hgoers.github.io/GVPT622/content/", `CLASS NOTES`, "\">", as.character(fa("book")), "</a>"),
-                      as.character(fa("book"))),
+                      paste0("<a href=\"https://hgoers.github.io/GVPT622/content/", `CLASS NOTES`, "\">", "{{< fa book >}}", "</a>"),
+                      "{{< fa book >}}"),
     `SESSION SCRIPTS` = if_else(`SESSION SCRIPTS` != "", 
-                      paste0("<a href=\"http://localhost:3933/content/", `SESSION SCRIPTS`, "\">", as.character(fa("gears")), "</a>"),
-                      as.character(fa("gears"))),
+                      paste0("<a href=\"http://localhost:3933/content/", `SESSION SCRIPTS`, "\">", "{{< fa gears >}}", "</a>"),
+                      "{{< fa gears >}}"),
     ASSIGNMENTS = if_else(ASSIGNMENTS != "",
-                         paste0("<a href=\"http://localhost:3933/content/", ASSIGNMENTS, "\">", as.character(fa("pen-ruler")), "</a>"),
-                         as.character(fa("pen-ruler")))
+                         paste0("<a href=\"http://localhost:3933/content/", ASSIGNMENTS, "\">", "{{< fa pen-ruler >}}", "</a>"),
+                         "{{< fa pen-ruler >}}")
   )
 ```
 

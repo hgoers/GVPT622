@@ -261,6 +261,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#measuring-error-in-our-model" id="toc-measuring-error-in-our-model" class="nav-link" data-scroll-target="#measuring-error-in-our-model">Measuring error in our model</a></li>
   <li><a href="#a-model-wide-value-for-error" id="toc-a-model-wide-value-for-error" class="nav-link" data-scroll-target="#a-model-wide-value-for-error">A model-wide value for error</a></li>
   <li><a href="#modelling-relationships-among-categorical-variables" id="toc-modelling-relationships-among-categorical-variables" class="nav-link" data-scroll-target="#modelling-relationships-among-categorical-variables">Modelling relationships among categorical variables</a></li>
+  <li><a href="#next-week" id="toc-next-week" class="nav-link" data-scroll-target="#next-week">Next week</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -313,7 +314,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Simply put (and there really is no need to over-complicate this), we have two or more variables: an outcome of interest (the dependent variable) and a set of independent variables that we theorize are important determinants of that outcome. We can use empirical analysis to understand 1) how the dependent and independent variables change in relation to one another, and 2) whether this relationship is strong enough that we should declare (though 12,000-word journal articles or by shouting from rooftops) that whenever we want to change or understand that outcome, we <em>must</em> consider these important independent variables.</p>
 <p>Last week, we discussed various tools that you can use to explore your data. You can develop a very good understanding of each of the individual variables. This exploration is very important for building your intuition and, by extension, your expertise in the question at hand. These tools also allow you to identify unusual data points (or outliers).</p>
 <p>This week, we will make the next step. We will explore how two variables relate to each other. How do they move with each other: when one goes up, does the other go down, up, or not really move? How strong is this association?</p>
-<p>This exploration is particularly important for you to do with regard to the independent variable(s) that are the focal point of your theory and, therefore, your contribution to our understanding of the messy spaghetti bowl of things that determine your outcome of interest. Just as it is important for you to spend some time understanding the shape of your variables (using the tools we discussed last week), you must start to understand the shape of the relationship between the outcome you are trying to understand or predict and the factors you think are important determinants of that outcome.</p>
+<p>This exploration is particularly important for you to do with regard to the independent variable(s) that are the focal point of your theory and, therefore, your contribution to our understanding of the messy spaghetti bowl of things that determine your outcome of interest. Just as it is important for you to spend some time understanding the shape of your variables (using the tools we discussed last week), you must also start to understand the shape of the relationship between the outcome you are trying to understand or predict and the factors you think are important determinants of that outcome.</p>
 <p>Let’s begin!</p>
 </section>
 <section id="bivariate-relationships" class="level3">
@@ -386,11 +387,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>You can transform your data to make it easier to work with. Just remember that you now need to talk in terms of logged GDP per capita instead of GDP per capita.</p>
 </blockquote>
 <p>I can imagine drawing a straight line among these points that summarises how they vary with each other. It appears that as a country’s logged GDP per capita increases, so too does the average life expectancy of its population. As wealth increases, so too does health.</p>
+<p>Well, that was easy! What is the relationship between health and wealth? They increase with each other.</p>
 </section>
 <section id="how-can-we-measure-the-strength-of-that-relationship" class="level3">
 <h3 class="anchored" data-anchor-id="how-can-we-measure-the-strength-of-that-relationship">How can we measure the strength of that relationship?</h3>
-<p>Well, that was easy! What is the relationship between health and wealth? They increase with each other.</p>
-<p>Now we need some way of measuring the strength of the relationship. In other words, what amount of the variation in countries’ average life expectancy are associated with variation in their GDP per capita? We can measure the strength of this association using correlations. The <strong>correlation coefficient</strong> tells us how closely variables relate to one another. It tells us both the strength and direction of the association.</p>
+<p>Now we need some way of measuring the strength of the relationship. In other words, what amount of the variation in countries’ average life expectancy is associated with variation in their GDP per capita? We can measure the strength of this association using correlations. The <strong>correlation coefficient</strong> tells us how closely variables relate to one another. It tells us both the strength and direction of the association.</p>
 <ul>
 <li><p>Strength: how closely are these values tied to one another. Measured from 0 to |1|, with values closer to 0 indicating a very weak relationship and values closer to |1| indicating a very strong relationship.</p></li>
 <li><p>Direction: do both <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> change in the same direction? Positive correlations show that when <span class="math inline">\(X\)</span> increases (decreases), so too does <span class="math inline">\(Y\)</span>. Negative correlations show that when <span class="math inline">\(X\)</span> increases (decreases), <span class="math inline">\(Y\)</span> decreases (increases). In other words, the move in different directions.</p></li>
@@ -774,7 +775,7 @@ life Exp_x = \beta_0 + \beta_1 logGdpPerCap_x
 # ℹ 193 more rows</code></pre>
 </div>
 </div>
-<p>Okay, so there are some differences. Let’s look at those difference a bit more closely:</p>
+<p>Okay, so there are some differences. Let’s look at those differences a bit more closely:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">augment</span>(m), <span class="fu">aes</span>(<span class="at">x =</span> .resid)) <span class="sc">+</span> </span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>() <span class="sc">+</span> </span>
@@ -1044,9 +1045,14 @@ R^2 = \frac{ESS}{TSS} = \frac{\Sigma(\hat{y}_i - \bar{y})^2}{\Sigma(y_i - \bar{y
 <p><img src="03-bivariate_relationships_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid" width="960"></p>
 </div>
 </div>
-
-
+<p>As expected, Democrats appear to respond least favourably to the Republican Party, followed by Independents, and Republicans. This is demonstrated by both the mean comparison table and density plots.</p>
 </section>
+</section>
+<section id="next-week" class="level3">
+<h3 class="anchored" data-anchor-id="next-week">Next week</h3>
+<p>We will discuss research design.</p>
+
+
 </section>
 </section>
 
