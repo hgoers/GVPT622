@@ -1,5 +1,5 @@
 ---
-title: "Bivariate Relationships"
+title: "Relationships Between Two Variables"
 execute: 
   warning: false
   message: false
@@ -8,6 +8,14 @@ execute:
 ---
 
 ## Readings
+
+### Class
+
+{{< fa book >}} Pollock & Edwards, Chapter 3
+
+### Lab
+
+{{< fa book >}} Pollock & Edwards R Companion, Chapters 4-5
 
 ## Class slides
 
@@ -591,4 +599,3 @@ As expected, Democrats appear to respond least favourably to the Republican Part
 ### Next week
 
 We will discuss research design.
-

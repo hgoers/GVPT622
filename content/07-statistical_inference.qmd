@@ -1,5 +1,5 @@
 ---
-title: "Statistical Inference"
+title: "Hypothesis Testing I"
 toc-depth: 4
 execute: 
   warning: false
@@ -9,6 +9,14 @@ execute:
 ---
 
 ## Readings
+
+### Class
+
+{{< fa book >}} Pollock & Edwards, Chapter 6
+
+### Lab
+
+{{< fa book >}} Pollock & Edwards R Companion, Chapter 6
 
 ## Class slides
 
@@ -407,7 +415,7 @@ So, as you increase that $n$, you decrease your standard error and you narrow th
 
 I have said before that more is always better. Technically, this is very, very true. But those marginal returns diminish. And those survey costs stack up.
 
-To illustrate, let's look at how much your standard error decreases as you increase your sample size. 
+To illustrate, let's look at how much your standard error decreases as you increase your sample size.
 
 ```{r}
 se_from_sample <- function(n_samples) {
@@ -429,8 +437,8 @@ tibble(sample_size = seq(from = 100, to = 3000, by = 100)) |>
        y = "Standard error")
 ```
 
-Moving from 100 to 1,000 observations in your sample dramatically decreases your standard error. Moving the same distance from 1,000 to 1,900 makes a far smaller difference to your error. 
+Moving from 100 to 1,000 observations in your sample dramatically decreases your standard error. Moving the same distance from 1,000 to 1,900 makes a far smaller difference to your error.
 
 ### Next week
 
-We will discuss the guts of quantitative analysis: hypothesis testing. 
+We will discuss the guts of quantitative analysis: hypothesis testing.

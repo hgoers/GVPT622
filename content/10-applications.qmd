@@ -1,5 +1,5 @@
 ---
-title: "Applications II"
+title: "Applications & Midterm Exam Review II"
 toc-depth: 4
 execute: 
   warning: false
@@ -9,6 +9,10 @@ execute:
 ---
 
 ## Readings
+
+### Class
+
+{{< fa graduation-cap >}} Brooks, Deborah Jordan. 2011. “Testing the Double Standard for Candidate Emotionality: Voter Reactions to the Tears and Anger of Male and Female Politicians.” The Journal of Politics 73: 597-615. 
 
 ## Class slides
 

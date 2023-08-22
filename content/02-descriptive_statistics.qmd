@@ -10,6 +10,14 @@ execute:
 
 ## Readings
 
+### Class
+
+{{< fa book >}} Pollock & Edwards, Chapters 1-2
+
+### Lab
+
+{{< fa book >}} Pollock & Edwards R Companion, Chapters 2-3
+
 ## Class slides
 
 ```{=html}

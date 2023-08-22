@@ -1,5 +1,5 @@
 ---
-title: "Regression"
+title: "Regression I"
 toc-depth: 4
 execute: 
   warning: false
@@ -9,6 +9,14 @@ execute:
 ---
 
 ## Readings
+
+### Class
+
+{{< fa book >}} Pollock & Edwards, Chapter 8
+
+### Lab
+
+{{< fa book >}} Pollock & Edwards R Companion, Chapter 8
 
 ## Class slides
 

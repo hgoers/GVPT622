@@ -1,5 +1,5 @@
 ---
-title: "Hypothesis Testing II"
+title: "Hypothesis Testing III"
 toc-depth: 4
 execute: 
   warning: false
@@ -9,6 +9,10 @@ execute:
 ---
 
 ## Readings
+
+### Lab
+
+{{< fa book >}} Pollock & Edwards R Companion, Chapter 7
 
 ## Class slides
 
