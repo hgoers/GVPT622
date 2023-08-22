@@ -819,16 +819,16 @@ s^2 = \frac{\Sigma(x_i - \bar{x})^2}{n - 1}
 <pre><code># A tibble: 1,000,000 × 4
         x    mean   diff  diff_2
     &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
- 1 -2.10  0.00373 -2.11   4.44  
- 2  0.484 0.00373  0.480  0.231 
- 3  1.44  0.00373  1.44   2.08  
- 4 -1.56  0.00373 -1.56   2.44  
- 5 -3.93  0.00373 -3.93  15.5   
- 6 -3.87  0.00373 -3.87  15.0   
- 7  0.140 0.00373  0.136  0.0185
- 8  1.32  0.00373  1.32   1.73  
- 9 -0.808 0.00373 -0.812  0.659 
-10 -0.589 0.00373 -0.593  0.351 
+ 1  1.12  0.00157  1.12   1.25  
+ 2  2.75  0.00157  2.75   7.55  
+ 3 -1.62  0.00157 -1.62   2.64  
+ 4 -4.40  0.00157 -4.40  19.4   
+ 5  0.675 0.00157  0.674  0.454 
+ 6 -1.12  0.00157 -1.12   1.26  
+ 7 -0.568 0.00157 -0.570  0.324 
+ 8  0.323 0.00157  0.322  0.104 
+ 9  0.201 0.00157  0.200  0.0399
+10  1.06  0.00157  1.06   1.12  
 # ℹ 999,990 more rows</code></pre>
 </div>
 </div>
@@ -838,7 +838,7 @@ s^2 = \frac{\Sigma(x_i - \bar{x})^2}{n - 1}
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>wide_var</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 3.990402</code></pre>
+<pre><code>[1] 3.998047</code></pre>
 </div>
 </div>
 <p>We can compare this to the variance for our narrower distribution.</p>
@@ -854,7 +854,7 @@ s^2 = \frac{\Sigma(x_i - \bar{x})^2}{n - 1}
 <span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>narrow_var</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.000592</code></pre>
+<pre><code>[1] 0.9976539</code></pre>
 </div>
 </div>
 <p>It is, in fact, smaller!</p>
@@ -863,14 +863,14 @@ s^2 = \frac{\Sigma(x_i - \bar{x})^2}{n - 1}
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(wide_dist)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         x
-x 3.990402</code></pre>
+x 3.998047</code></pre>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(narrow_dist)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>         x
-x 1.000592</code></pre>
+<pre><code>          x
+x 0.9976539</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -887,26 +887,26 @@ x TRUE</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(wide_var)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.997599</code></pre>
+<pre><code>[1] 1.999512</code></pre>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(narrow_var)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.000296</code></pre>
+<pre><code>[1] 0.9988263</code></pre>
 </div>
 </div>
 <p>You can get this directly using <code>sd()</code>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(wide_dist<span class="sc">$</span>x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.997599</code></pre>
+<pre><code>[1] 1.999512</code></pre>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(narrow_dist<span class="sc">$</span>x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.000296</code></pre>
+<pre><code>[1] 0.9988263</code></pre>
 </div>
 </div>
 <p>If you look back to our graphs, you will see that I set the standard deviations explicitly when I generated the data: <code>rnorm()</code> takes an <code>sd</code> argument. This is great because we can confirm that the standard deviations for the wide and narrow distributions are 2 and 1 respectively (with a little bit of noise).</p>
@@ -972,12 +972,12 @@ z_i = \frac{x_i - \mu_x}{\sigma_x}
 <pre><code># A tibble: 6 × 4
       x  mean    sd z_score
   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
-1  2.92  5.00  2.00  -1.04 
-2  4.66  5.00  2.00  -0.170
-3  5.23  5.00  2.00   0.117
-4  3.03  5.00  2.00  -0.987
-5  7.33  5.00  2.00   1.16 
-6  5.90  5.00  2.00   0.451</code></pre>
+1  3.71  5.00  2.00  -0.646
+2  7.89  5.00  2.00   1.45 
+3  4.73  5.00  2.00  -0.135
+4  6.80  5.00  2.00   0.900
+5  4.50  5.00  2.00  -0.252
+6  5.69  5.00  2.00   0.343</code></pre>
 </div>
 </div>
 <p>We can confirm this:</p>

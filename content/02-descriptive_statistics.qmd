@@ -512,7 +512,7 @@ tibble(
 
 #### Normal distributions
 
-Remember that normal distributions share a mean and median. This has very cool and useful side effects. 
+Remember that normal distributions share a mean and median. This has very cool and useful side effects.
 
 ```{r}
 norm_5_2 <- tibble(x = rnorm(n = 1e6, mean = 5, sd = 2))
@@ -533,7 +533,7 @@ ggplot(norm_5_2, aes(x = x)) +
 
 #### Standardization
 
-Notice how our description of each variable depends on its units of measurement. What do we do if we want to compare across different measurements that have different units? 
+Notice how our description of each variable depends on its units of measurement. What do we do if we want to compare across different measurements that have different units?
 
 ##### Z scores
 

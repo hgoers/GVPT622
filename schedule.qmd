@@ -9,79 +9,15 @@ page-layout: full
 library(tidyverse)
 library(kableExtra)
 library(fontawesome)
+library(googlesheets4)
+
+gs4_auth(email = "hgoers@umd.edu")
 ```
 
 ```{r, include = FALSE}
-schedule <- tibble(
-  DATE = c("28 August",
-           "11 September",
-           "18 September",
-           "25 September", 
-           "2 October",
-           "9 October",
-           "16 October",
-           "23 October",
-           "30 October",
-           "6 November",
-           "13 November",
-           "20 November",
-           "27 November",
-           "4 December",
-           "11 December"),
-  TITLE = c(
-    "Course Introduction", 
-    "Descriptive Statistics", 
-    "Bivariate Relationships", 
-    "Research Design", 
-    "Applications", 
-    "Mid-term Exam I",
-    "Probability Theory",
-    "Statistical Inference",
-    "Hypothesis Testing",
-    "Hypothesis Testing II",
-    "Applications II", 
-    "Mid-term Exam II",
-    "Regression", 
-    "Multiple Regression", 
-    "Conclusion"
-  ),
-  `CLASS NOTES` = c(
-    "01-introduction.html", 
-    "02-descriptive_statistics.html", 
-    "03-bivariate_relationships.html", 
-    "04-research_design.html", 
-    "05-applications.html", 
-    "",
-    "06-probability_theory.html", 
-    "07-statistical_inference.html",
-    "08_hypothesis_testing.html",
-    "09-hypothesis_testing.html",
-    "10-applications.html",
-    "", 
-    "11-regression.html",
-    "12-multiple_regression.html",
-    "13-conclusion.html"
-  ),
-  `SESSION SCRIPTS` = c(
-    "",
-    "02-descriptive_statistics.html#section",
-    "03-bivariate_relationships.html#section",
-    "",
-    "",
-    "06-probability_theory.html#section",
-    "07-statistical_inference.html#section",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    ""
-  ),
-  ASSIGNMENTS = c("")
-) |> 
+schedule <- read_sheet("1Q_kkuW8X_uHXX7YrzC9P2Wg6ehZ044jMMZX1N1Bl2sE") |> 
   mutate(
+    across(TITLE:ASSIGNMENTS, ~ replace_na(.x, "")),
     `CLASS NOTES` = if_else(`CLASS NOTES` != "", 
                       paste0("<a href=\"https://hgoers.github.io/GVPT622/content/", `CLASS NOTES`, "\">", "{{< fa book >}}", "</a>"),
                       "{{< fa book >}}"),

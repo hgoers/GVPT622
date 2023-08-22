@@ -519,7 +519,7 @@ life Exp_x = 30 + 4 * logGdpPerCap_x
 <p>Well, we probably haven’t produced the best model we can (this isn’t the best line!). We just picked those numbers out of thin air. Let’s fit a linear OLS regression and see if we improve our ability to predict what we have seen in the wild.</p>
 <section id="how-do-we-calculate-the-constant-beta_0-using-ols-regression" class="level4">
 <h4 class="anchored" data-anchor-id="how-do-we-calculate-the-constant-beta_0-using-ols-regression">How do we calculate the constant (<span class="math inline">\(\beta_0\)</span>) using OLS regression?</h4>
-<p>Remember, OLS regression simply finds the line that minimizes the distance between itself and all the data points. The constant that minimizes this distance is <strong>the mean of <span class="math inline">\(Y\)</span> minus <span class="math inline">\(\beta_1\)</span> times the mean of <span class="math inline">\(X\)</span></strong>.</p>
+<p>Remember, OLS regression simply finds the line that minimizes the distance between itself and all the data points. The constant that minimizes this distance is <strong>the mean of</strong> <span class="math inline">\(Y\)</span> minus <span class="math inline">\(\beta_1\)</span> times the mean of <span class="math inline">\(X\)</span>.</p>
 <p>So, the constant that best predicts a country’s average life expectancy based on its logged GDP per capita is equal to the average life expectancy across our sample (72.3 years) minus the average logged GDP per capita ($8.80, or $6,633.36 GDP per capita) transformed by <span class="math inline">\(\beta_1\)</span>.</p>
 <p>So…</p>
 </section>
@@ -805,7 +805,7 @@ life Exp_x = \beta_0 + \beta_1 logGdpPerCap_x
 <p><span class="math display">\[
 life Exp_x = \beta_0 + \beta_1 logGdpPerCap_x + \epsilon
 \]</span></p>
-<p>We run into issues when these are non-random things bundled up into the difference between what our model predicts and what we actually observe. We will discuss this more in later classes.</p>
+<p>We run into issues when there are non-random things bundled up into the difference between what our model predicts and what we actually observe. We will discuss this more in later classes.</p>
 </section>
 </section>
 <section id="a-model-wide-value-for-error" class="level3">

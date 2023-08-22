@@ -249,7 +249,7 @@ Well, we probably haven't produced the best model we can (this isn't the best li
 
 #### How do we calculate the constant ($\beta_0$) using OLS regression?
 
-Remember, OLS regression simply finds the line that minimizes the distance between itself and all the data points. The constant that minimizes this distance is **the mean of $Y$ minus $\beta_1$ times the mean of $X$**.
+Remember, OLS regression simply finds the line that minimizes the distance between itself and all the data points. The constant that minimizes this distance is **the mean of** $Y$ minus $\beta_1$ times the mean of $X$.
 
 So, the constant that best predicts a country's average life expectancy based on its logged GDP per capita is equal to the average life expectancy across our sample (`r mean(gapminder_df$life_exp, na.rm = T) |> round(2)` years) minus the average logged GDP per capita (`r mean(gapminder_df$log_gdp_per_cap, na.rm = T) |> dollar()`, or `r mean(gapminder_df$log_gdp_per_cap, na.rm = T) |> exp() |> dollar()` GDP per capita) transformed by $\beta_1$.
 
@@ -371,9 +371,9 @@ ggplot(gapminder_df, aes(x = log_gdp_per_cap, y = life_exp)) +
   theme_minimal()
 ```
 
-The world is a complicated and messy place. There are many countries that have a GDP per capita of around \$20,000 (those dots sitting around the vertical black line). They have a wide range of average life expectancy: look at their various placement along that vertical line. Some are higher than others. 
+The world is a complicated and messy place. There are many countries that have a GDP per capita of around \$20,000 (those dots sitting around the vertical black line). They have a wide range of average life expectancy: look at their various placement along that vertical line. Some are higher than others.
 
-Also, there are several countries with a wide range of logged GDP per capita that have an average life expectancy of `r round(life_exp_20000)` years (those sitting at or around the horizontal black line). These have a wide range of logged GDP per capita: some are further to the left than others. 
+Also, there are several countries with a wide range of logged GDP per capita that have an average life expectancy of `r round(life_exp_20000)` years (those sitting at or around the horizontal black line). These have a wide range of logged GDP per capita: some are further to the left than others.
 
 Our model is our best attempt at accounting for that diversity whilst still producing a useful summary of the relationship between health and wealth for those countries and all other countries with all observed values of GDP per capita.
 
@@ -389,7 +389,7 @@ Start by working out the average life expectancy predicted by our model for the 
 augment(m)
 ```
 
-This function is simply fitting our model ($life Exp_x = 32.9 + 4.5 * logGdpPerCap_x$) to each country's logged GDP per capita. You can confirm this by running the model yourself: 
+This function is simply fitting our model ($life Exp_x = 32.9 + 4.5 * logGdpPerCap_x$) to each country's logged GDP per capita. You can confirm this by running the model yourself:
 
 ```{r}
 gapminder_df |> 
@@ -454,7 +454,7 @@ $$
 life Exp_x = \beta_0 + \beta_1 logGdpPerCap_x + \epsilon
 $$
 
-We run into issues when these are non-random things bundled up into the difference between what our model predicts and what we actually observe. We will discuss this more in later classes.
+We run into issues when there are non-random things bundled up into the difference between what our model predicts and what we actually observe. We will discuss this more in later classes.
 
 ### A model-wide value for error
 
@@ -474,7 +474,7 @@ We just add those all up to get a single measure of the model's overall performa
 
 > Remember that we tend to square things when we don't care about the direction. We don't care that the predicted value is less or more than the observed value, just about how far they are from each other.
 
-We can do this ourselves: 
+We can do this ourselves:
 
 ```{r}
 augment(m) |> 
@@ -492,7 +492,7 @@ glance(m) |>
   select(deviance)
 ```
 
-> Where `broom::tidy()` gives us information about the coefficients of our model, `broom::glance()` gives us information on the overall model performance. 
+> Where `broom::tidy()` gives us information about the coefficients of our model, `broom::glance()` gives us information on the overall model performance.
 
 This is useful, but it is influenced by the units by which we measure our variables. If one model includes something like GDP which is measured in terms of billions of dollars, we will get a very large sum of squared residuals. If another model includes something like percentage of as state's citizens who will vote for Donald Trump, we will get a relatively small sum of squared residuals. What if we want to compare model performance in a meaningful way?
 
@@ -586,8 +586,9 @@ nes |>
   theme_minimal()
 ```
 
-As expected, Democrats appear to respond least favourably to the Republican Party, followed by Independents, and Republicans. This is demonstrated by both the mean comparison table and density plots. 
+As expected, Democrats appear to respond least favourably to the Republican Party, followed by Independents, and Republicans. This is demonstrated by both the mean comparison table and density plots.
 
 ### Next week
 
-We will discuss research design. 
+We will discuss research design.
+
