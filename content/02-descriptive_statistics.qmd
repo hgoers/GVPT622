@@ -72,7 +72,7 @@ Your variables are defined in terms of a **unit of observation or analysis**. Th
 
 The important take-away here is that you should start with your theory. You should build a data set that reflects your theory.
 
-### Different types of data
+### Different types of variables
 
 The ways of describing your data depend on the type of variable. You can have categorical or continuous variables.
 

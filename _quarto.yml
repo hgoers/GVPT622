@@ -13,8 +13,8 @@ website:
     right:
       - href: index.qmd
         text: Home
-      - href: schedule.qmd
-        text: Schedule
+#      - href: schedule.qmd
+#        text: Schedule
       - href: content/01-introduction.qmd
         text: Content
 
@@ -23,18 +23,18 @@ website:
       style: "docked"
       contents:
         - content/01-introduction.qmd
-        - content/02-descriptive_statistics.qmd
-        - content/03-bivariate_relationships.qmd
-        - content/04-research_design.qmd
-        - content/05-applications.qmd
-        - content/06-probability_theory.qmd
-        - content/07-statistical_inference.qmd
-        - content/08_hypothesis_testing.qmd
-        - content/09-hypothesis_testing.qmd
-        - content/10-applications.qmd
-        - content/11-regression.qmd
-        - content/12-multiple_regression.qmd
-        - content/13-conclusion.qmd
+#        - content/02-descriptive_statistics.qmd
+#        - content/03-bivariate_relationships.qmd
+#        - content/04-research_design.qmd
+#        - content/05-applications.qmd
+#        - content/06-probability_theory.qmd
+#        - content/07-statistical_inference.qmd
+#        - content/08_hypothesis_testing.qmd
+#        - content/09-hypothesis_testing.qmd
+#        - content/10-applications.qmd
+#        - content/11-regression.qmd
+#        - content/12-multiple_regression.qmd
+#        - content/13-conclusion.qmd
         
         
   page-footer:

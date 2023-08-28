@@ -252,7 +252,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites">Prerequisites</a></li>
   <li><a href="#how-will-what-you-learn-this-week-help-your-research" id="toc-how-will-what-you-learn-this-week-help-your-research" class="nav-link" data-scroll-target="#how-will-what-you-learn-this-week-help-your-research">How will what you learn this week help your research?</a></li>
   <li><a href="#describing-your-data" id="toc-describing-your-data" class="nav-link" data-scroll-target="#describing-your-data">Describing your data</a></li>
-  <li><a href="#different-types-of-data" id="toc-different-types-of-data" class="nav-link" data-scroll-target="#different-types-of-data">Different types of data</a></li>
+  <li><a href="#different-types-of-variables" id="toc-different-types-of-variables" class="nav-link" data-scroll-target="#different-types-of-variables">Different types of variables</a></li>
   <li><a href="#describing-categorical-variables" id="toc-describing-categorical-variables" class="nav-link" data-scroll-target="#describing-categorical-variables">Describing categorical variables</a>
   <ul class="collapse">
   <li><a href="#case-study-american-national-election-survey" id="toc-case-study-american-national-election-survey" class="nav-link" data-scroll-target="#case-study-american-national-election-survey">Case study: American National Election Survey</a></li>
@@ -347,8 +347,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Your variables are defined in terms of a <strong>unit of observation or analysis</strong>. These could include individuals, households, congressional districts, states, or countries. <strong>The unit of analysis you adopt should be relevant to your theory.</strong> For example, if you are interested in understanding which individuals are more susceptable to the different strategies rebel groups use to recruit individuals to fight, you probably want individual-level data. If you are interested in determining what drives countries to war with one another, you probably want country-level data (or leader-level data, or voter-level data?).</p>
 <p>The important take-away here is that you should start with your theory. You should build a data set that reflects your theory.</p>
 </section>
-<section id="different-types-of-data" class="level3">
-<h3 class="anchored" data-anchor-id="different-types-of-data">Different types of data</h3>
+<section id="different-types-of-variables" class="level3">
+<h3 class="anchored" data-anchor-id="different-types-of-variables">Different types of variables</h3>
 <p>The ways of describing your data depend on the type of variable. You can have categorical or continuous variables.</p>
 <p><strong>Categorical variables</strong> are discrete. They can be unordered (<strong>nominal</strong>) - for example, the colour of cars - or ordered (<strong>ordinal</strong>) - for example, whether you strongly dislike, dislike, are neutral about, like, or strongly like Taylor Swift.</p>
 <blockquote class="blockquote">
@@ -829,18 +829,18 @@ s^2 = \frac{\Sigma(x_i - \bar{x})^2}{n - 1}
 <span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>wide_var_calc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1,000,000 × 4
-         x    mean    diff    diff_2
-     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;
- 1  0.0339 0.00293  0.0310  0.000962
- 2  2.17   0.00293  2.17    4.70    
- 3 -0.998  0.00293 -1.00    1.00    
- 4 -2.20   0.00293 -2.20    4.86    
- 5  0.983  0.00293  0.980   0.960   
- 6  1.22   0.00293  1.22    1.49    
- 7 -0.988  0.00293 -0.991   0.983   
- 8 -3.12   0.00293 -3.13    9.78    
- 9  2.37   0.00293  2.37    5.60    
-10 -4.61   0.00293 -4.61   21.2     
+         x     mean    diff   diff_2
+     &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;
+ 1  2.65   -0.00102  2.66    7.05   
+ 2 -0.120  -0.00102 -0.119   0.0143 
+ 3  0.599  -0.00102  0.600   0.360  
+ 4  0.731  -0.00102  0.732   0.536  
+ 5  1.32   -0.00102  1.33    1.76   
+ 6 -0.966  -0.00102 -0.965   0.932  
+ 7  3.30   -0.00102  3.30   10.9    
+ 8 -2.42   -0.00102 -2.42    5.87   
+ 9  0.0948 -0.00102  0.0958  0.00917
+10  0.197  -0.00102  0.198   0.0392 
 # ℹ 999,990 more rows</code></pre>
 </div>
 </div>
@@ -850,7 +850,7 @@ s^2 = \frac{\Sigma(x_i - \bar{x})^2}{n - 1}
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>wide_var</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 4.003025</code></pre>
+<pre><code>[1] 3.992407</code></pre>
 </div>
 </div>
 <p>We can compare this to the variance for our narrower distribution.</p>
@@ -866,7 +866,7 @@ s^2 = \frac{\Sigma(x_i - \bar{x})^2}{n - 1}
 <span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>narrow_var</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.000468</code></pre>
+<pre><code>[1] 0.9989804</code></pre>
 </div>
 </div>
 <p>It is, in fact, smaller!</p>
@@ -875,14 +875,14 @@ s^2 = \frac{\Sigma(x_i - \bar{x})^2}{n - 1}
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(wide_dist)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         x
-x 4.003025</code></pre>
+x 3.992407</code></pre>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(narrow_dist)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>         x
-x 1.000468</code></pre>
+<pre><code>          x
+x 0.9989804</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -899,26 +899,26 @@ x TRUE</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(wide_var)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 2.000756</code></pre>
+<pre><code>[1] 1.998101</code></pre>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(narrow_var)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.000234</code></pre>
+<pre><code>[1] 0.9994901</code></pre>
 </div>
 </div>
 <p>You can get this directly using <code>sd()</code>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(wide_dist<span class="sc">$</span>x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 2.000756</code></pre>
+<pre><code>[1] 1.998101</code></pre>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(narrow_dist<span class="sc">$</span>x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.000234</code></pre>
+<pre><code>[1] 0.9994901</code></pre>
 </div>
 </div>
 <p>If you look back to our graphs, you will see that I set the standard deviations explicitly when I generated the data: <code>rnorm()</code> takes an <code>sd</code> argument. This is great because we can confirm that the standard deviations for the wide and narrow distributions are 2 and 1 respectively (with a little bit of noise).</p>
@@ -984,12 +984,12 @@ z_i = \frac{x_i - \mu_x}{\sigma_x}
 <pre><code># A tibble: 6 × 4
       x  mean    sd z_score
   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
-1  6.84  5.00  2.00   0.925
-2  5.40  5.00  2.00   0.201
-3  1.97  5.00  2.00  -1.51 
-4  5.24  5.00  2.00   0.122
-5  4.38  5.00  2.00  -0.308
-6  5.88  5.00  2.00   0.441</code></pre>
+1  6.65  5.00  2.00   0.824
+2  5.76  5.00  2.00   0.380
+3  6.30  5.00  2.00   0.649
+4  7.68  5.00  2.00   1.34 
+5  6.18  5.00  2.00   0.589
+6  6.49  5.00  2.00   0.745</code></pre>
 </div>
 </div>
 <p>We can confirm this:</p>
