@@ -41,6 +41,11 @@ course-logo: /files/img/hex-testudo.png
 -   {{< fa clock >}}   {{< var lab.time >}}
 -   {{< fa location-dot >}}   {{< var lab.location >}}
 
+### Office hours
+
+-   {{< fa clock >}}   {{< var office.time >}}
+-   {{< fa location-dot >}}   [{{< var office.location >}}](https://app.testudo.umd.edu/soc/202308/GVPT)
+
 :::
 
 ::: {.g-col-12 .g-col-md-4 .contact-policy}
