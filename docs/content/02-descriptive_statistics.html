@@ -141,7 +141,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/02-descriptive_statistics.html">Descriptive Statistics</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Descriptive Statistics</li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -157,78 +157,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../content/01-introduction.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Course Introduction</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/02-descriptive_statistics.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Descriptive Statistics</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/03-bivariate_relationships.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Relationships Between Two Variables</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/04-research_design.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Research Design</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/05-applications.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Applications &amp; Midterm Exam Review</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/06-probability_theory.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Probability Theory</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/07-statistical_inference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Hypothesis Testing I</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/08_hypothesis_testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Hypothesis Testing II</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/09-hypothesis_testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Hypothesis Testing III</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/10-applications.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Applications &amp; Midterm Exam Review II</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/11-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Regression I</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/12-multiple_regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Regression Analysis II</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/13-conclusion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Regression Analysis Extensions &amp; Final Exam Review</span></a>
   </div>
 </li>
     </ul>
@@ -829,18 +757,18 @@ s^2 = \frac{\Sigma(x_i - \bar{x})^2}{n - 1}
 <span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>wide_var_calc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1,000,000 × 4
-         x     mean    diff   diff_2
-     &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;
- 1  2.65   -0.00102  2.66    7.05   
- 2 -0.120  -0.00102 -0.119   0.0143 
- 3  0.599  -0.00102  0.600   0.360  
- 4  0.731  -0.00102  0.732   0.536  
- 5  1.32   -0.00102  1.33    1.76   
- 6 -0.966  -0.00102 -0.965   0.932  
- 7  3.30   -0.00102  3.30   10.9    
- 8 -2.42   -0.00102 -2.42    5.87   
- 9  0.0948 -0.00102  0.0958  0.00917
-10  0.197  -0.00102  0.198   0.0392 
+        x    mean   diff diff_2
+    &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+ 1  3.42  0.00144  3.42  11.7  
+ 2 -0.372 0.00144 -0.373  0.139
+ 3  1.55  0.00144  1.54   2.39 
+ 4 -0.726 0.00144 -0.727  0.529
+ 5  3.96  0.00144  3.96  15.7  
+ 6 -3.02  0.00144 -3.02   9.11 
+ 7  1.21  0.00144  1.21   1.46 
+ 8 -3.54  0.00144 -3.55  12.6  
+ 9 -0.635 0.00144 -0.637  0.405
+10  2.06  0.00144  2.06   4.25 
 # ℹ 999,990 more rows</code></pre>
 </div>
 </div>
@@ -850,7 +778,7 @@ s^2 = \frac{\Sigma(x_i - \bar{x})^2}{n - 1}
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>wide_var</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 3.992407</code></pre>
+<pre><code>[1] 3.999273</code></pre>
 </div>
 </div>
 <p>We can compare this to the variance for our narrower distribution.</p>
@@ -866,7 +794,7 @@ s^2 = \frac{\Sigma(x_i - \bar{x})^2}{n - 1}
 <span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>narrow_var</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.9989804</code></pre>
+<pre><code>[1] 1.001786</code></pre>
 </div>
 </div>
 <p>It is, in fact, smaller!</p>
@@ -875,14 +803,14 @@ s^2 = \frac{\Sigma(x_i - \bar{x})^2}{n - 1}
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(wide_dist)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         x
-x 3.992407</code></pre>
+x 3.999273</code></pre>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(narrow_dist)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>          x
-x 0.9989804</code></pre>
+<pre><code>         x
+x 1.001786</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -899,26 +827,26 @@ x TRUE</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(wide_var)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.998101</code></pre>
+<pre><code>[1] 1.999818</code></pre>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(narrow_var)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.9994901</code></pre>
+<pre><code>[1] 1.000893</code></pre>
 </div>
 </div>
 <p>You can get this directly using <code>sd()</code>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(wide_dist<span class="sc">$</span>x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.998101</code></pre>
+<pre><code>[1] 1.999818</code></pre>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(narrow_dist<span class="sc">$</span>x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.9994901</code></pre>
+<pre><code>[1] 1.000893</code></pre>
 </div>
 </div>
 <p>If you look back to our graphs, you will see that I set the standard deviations explicitly when I generated the data: <code>rnorm()</code> takes an <code>sd</code> argument. This is great because we can confirm that the standard deviations for the wide and narrow distributions are 2 and 1 respectively (with a little bit of noise).</p>
@@ -984,12 +912,12 @@ z_i = \frac{x_i - \mu_x}{\sigma_x}
 <pre><code># A tibble: 6 × 4
       x  mean    sd z_score
   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
-1  6.65  5.00  2.00   0.824
-2  5.76  5.00  2.00   0.380
-3  6.30  5.00  2.00   0.649
-4  7.68  5.00  2.00   1.34 
-5  6.18  5.00  2.00   0.589
-6  6.49  5.00  2.00   0.745</code></pre>
+1  3.59  5.00  2.00  -0.707
+2  4.01  5.00  2.00  -0.494
+3  2.09  5.00  2.00  -1.45 
+4  7.75  5.00  2.00   1.38 
+5  3.45  5.00  2.00  -0.773
+6  7.68  5.00  2.00   1.34 </code></pre>
 </div>
 </div>
 <p>We can confirm this:</p>

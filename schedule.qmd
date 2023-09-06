@@ -17,17 +17,17 @@ gs4_auth(email = "hgoers@umd.edu")
 ```{r, include = FALSE}
 schedule <- read_sheet("1Q_kkuW8X_uHXX7YrzC9P2Wg6ehZ044jMMZX1N1Bl2sE") |> 
   mutate(
-    across(TITLE:ASSIGNMENTS, ~ replace_na(.x, "")),
-    `CLASS NOTES` = if_else(`CLASS NOTES` != "", 
-                      paste0("<a href=\"https://hgoers.github.io/GVPT622/content/", `CLASS NOTES`, "\">", "{{< fa book >}}", "</a>"),
-                      "{{< fa book >}}"),
-    `SESSION SCRIPTS` = if_else(`SESSION SCRIPTS` != "", 
-                      paste0("<a href=\"https://hgoers.github.io/GVPT622/content/", `SESSION SCRIPTS`, "\">", "{{< fa gears >}}", "</a>"),
-                      "{{< fa gears >}}"),
-    ASSIGNMENTS = if_else(ASSIGNMENTS != "",
-                         paste0("<a href=\"https://github.com/hgoers/GVPT622_problem_sets/blob/main/", ASSIGNMENTS, "\">", "{{< fa pen-ruler >}}", "</a>"),
-                         "{{< fa pen-ruler >}}")
-  )
+    `CLASS NOTES` = if_else(is.na(`CLASS NOTES`), 
+                            "{{< fa book >}}",
+                            paste0("<a href=\"https://hgoers.github.io/GVPT622/content/", `CLASS NOTES`, "\">", "{{< fa book >}}", "</a>")),
+    `SESSION SCRIPTS` = if_else(is.na(`SESSION SCRIPTS`),
+                                "{{< fa gears >}}",
+                                paste0("<a href=\"https://hgoers.github.io/GVPT622/content/", `SESSION SCRIPTS`, "\">", "{{< fa gears >}}", "</a>")),
+    ASSIGNMENTS = if_else(is.na(ASSIGNMENTS),
+                          "{{< fa pen-ruler >}}",
+                          paste0("<a href=\"https://github.com/hgoers/GVPT622_problem_sets/blob/main/", ASSIGNMENTS, "\">", "{{< fa pen-ruler >}}", "</a>"))
+  ) |> 
+  select(DATE:ASSIGNMENTS)
 ```
 
 ```{r schedule, echo = FALSE, results = "asis"}

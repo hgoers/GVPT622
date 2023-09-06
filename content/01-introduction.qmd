@@ -6,6 +6,8 @@ title: "Course Introduction"
 
 ### Lab
 
+{{< fa arrow-up-right-from-square >}} [Quarto introductory tutorial](https://quarto.org/docs/get-started/hello/rstudio.html)
+
 {{< fa book >}} Pollock & Edwards R Companion, Chapter 1
 
 ## Class slides
@@ -13,3 +15,114 @@ title: "Course Introduction"
 ```{=html}
 <iframe class="slide-deck" src="../files/slides/Lecture 1- Introduction.pdf" width = "100%" height = 600px></iframe>
 ```
+## Section
+
+```{r}
+#| include: false
+
+library(tidyverse)
+```
+
+### Introduction to Quarto and markdown
+
+Quarto provides you with a tool that allows you to create fully reproducible research outputs. It allows you to combine your code, results, and prose into one document that can output in many different format. All of the materials I produced for this class and Maths Camp were created using Quarto.
+
+You can use Quarto from RStudio.[^1] Here is a screen shot of a Quarto document (extension `.qmd`) and its HTML output. You can render a Quarto document to many different types of formats, including PDF and MS Word.
+
+[^1]: You can also use it from VS Code, Jupyter, Neovim, and Editor.
+
+![Source: [Quarto](https://quarto.org/docs/get-started/hello/rstudio.html)](img/rstudio-hello.png)
+
+### A new Quarto document
+
+Open up a new Quarto document in RStudio:
+
+![](img/new_quarto.png)
+
+Fill in the relevant fields:
+
+![](img/new_quarto_2.png)
+
+It will have a `.qmd` extension. This is the Quarto document extension.
+
+The new document will have some introductory text and other things in it. Importantly, it will have a YAML section. This section (written in YAML) includes all of the metadata for your document. It includes the title, author, format in which it will rendered, and the default editor.
+
+![](img/yaml.png)
+
+There are two ways to work with and view Quarto documents. The default editor is `visual`, which follows a more "what-you-see-is-what-you-get" style. Alternatively, you can edit in `source`, which looks more like a raw script. To switch between the two, you can use the `Source` and `Visual` icons in the top left hand side of the screen.
+
+::: callout-note
+I find myself switching between these two formats all the time. The visual editor is much easier to work in when writing, but it can be a bit buggy when it comes to formatting my work and writing code. I work in source when I am doing those two things.
+:::
+
+### Rendering your document
+
+To render your document into your chosen format (in this case: HTML), you need to hit the Render icon in the document's top bar. This will produce a HTML version of your Quarto document in the same folder in which you saved your Quarto document. 
+
+You can preview your document in RStudio by changing your settings to **Preview in Viewer Pane**. 
+
+![](img/preview.png)
+
+Now, whenever you render your document a preview of it will show up in the `Viewer` pane (which is in the same place as your `Files`, `Plots`, and `Help` panes). 
+
+![](img/preview_2.png)
+
+::: {.callout-note}
+If you toggle on the `Render on Save` option, your Quarto document will render and update your viewer every time you hit save. This can be helpful when you are formatting your document. 
+:::
+
+### Writing prose in Quarto
+
+You can write prose as you would in any other text editor in Quarto. When you are in the Visual editor model, Quarto provides you with the shortcut keys for many of the formats you use in other text editors, including MS Word and Google Docs. You can also use your usual keyboard shortcuts. 
+
+In the Source editor mode, you will need to use markdown. Markdown is a lightweight markup language that allows you to format plain text. It gives you a lot of control over the format of your text documents (similar to Latex). 
+
+Here is the link for a [great Markdown tutorial](https://www.markdowntutorial.com/). It takes about 10 minutes to complete, so we will play around in there now. 
+
+### Running code in Quarto 
+
+You can also run code from within your Quarto document. You can do this through a code chunk or in-line code. I will step through both options now. 
+
+#### Code chunks
+
+A code chunk starts with ` ```{r}` and ends with ` ``` `. You can then write whole "chunks" of code that will output in your rendered document. 
+
+```{{r}}
+#| echo: true
+
+library(tidyverse)
+```
+
+You can specify your chunk options using `#|` at the start of the line. For example, above I specified that I wanted the code in the code chunk to be shown when I render my document. You can hide the code by changing the chunk option `echo` to `false`. There are many different chunk options that you can control. [A full list can be found here.](https://quarto.org/docs/computations/execution-options.html)
+
+You can set the chunk options in the individual chunks, as show above. Alternatively, you can set them universally in the YAML section at the top of your Quarto document using the `execute` command. For example:  
+
+```{{yaml}}
+execute:
+  echo: true
+  message: false
+  warning: false
+```
+
+This will apply to all code chunks unless you overwrite it by including chunk-specific options in a code chunk. 
+
+Code chunks are useful for running large amounts of code. Commonly, I use them to include a plot, a regression table, or to read in my data or model results. For example, you can write the code to create a `ggplot` directly in your document. 
+
+![Source: [Quarto](https://quarto.org/docs/get-started/hello/rstudio.html#code-chunks)](img/rstudio-inline-output.png)
+
+#### In-line code
+
+Alternatively, you often want to reference numbers or results in your prose. For example, I may be writing up the data section of a paper and want to specify that my data set includes 100 observations. If I were to write this in normally and then go away and collect more data, I would need to come back and update this number manually. I may do this several times (very tedious) or I may miss a time (we are all human). In-line coding allows you to include R code in your prose. 
+
+You include R code directly in your prose using the expression: \`r `. For example: 
+
+![](img/in_line.png)
+
+Will render as: There are `r nrow(mpg)` observations in our data. No need to go and update this reference if that number changes!
+
+::: {.callout-note}
+`scales` is a great package for formatting numbers. 
+
+For example, R will output raw numbers such as `1000000000` and `8932348920`. `scales` allows you to format these numbers so they are easier to read: `scales::comma(1000000000)` gives you `r scales::comma(1000000000)` and `scales::dollar(8932348920)` gives you `r scales::dollar(8932348920)`.
+:::
+
