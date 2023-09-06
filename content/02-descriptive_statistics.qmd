@@ -70,21 +70,23 @@ Descriptive statistics can be used to understand single variables and how any nu
 
 Your variables are defined in terms of a **unit of observation or analysis**. These could include individuals, households, congressional districts, states, or countries. **The unit of analysis you adopt should be relevant to your theory.** For example, if you are interested in understanding which individuals are more susceptable to the different strategies rebel groups use to recruit individuals to fight, you probably want individual-level data. If you are interested in determining what drives countries to war with one another, you probably want country-level data (or leader-level data, or voter-level data?).
 
-The important take-away here is that you should start with your theory. You should build a data set that reflects your theory.
+The important take-away here is that you should start with your theory. You should build a data set that reflects that theory.
 
 ### Different types of variables
 
-The ways of describing your data depend on the type of variable. You can have categorical or continuous variables.
+The ways of describing your data depend on the type of variable. You can have categorical or continuous variables. **Categorical variables** are discrete. They can be unordered (**nominal**) - for example, the colour of cars - or ordered (**ordinal**) - for example, whether you strongly dislike, dislike, are neutral about, like, or strongly like Taylor Swift.
 
-**Categorical variables** are discrete. They can be unordered (**nominal**) - for example, the colour of cars - or ordered (**ordinal**) - for example, whether you strongly dislike, dislike, are neutral about, like, or strongly like Taylor Swift.
-
-> **Dichotomous (or binary) variables** are a special type of categorical variable. They take on one of two values. For example: yes or no; at war or not at war; is a Swifty, or is not a Swifty.
+::: {.callout-note}
+**Dichotomous (or binary) variables** are a special type of categorical variable. They take on one of two values. For example: yes or no; at war or not at war; is a Swifty, or is not a Swifty.
+::: 
 
 **Continuous variables** are, well, continuous. For example, your height or weight, a country's GDP or population, or the number of fatalities in a battle.
 
-> Continuous variables can be made into (usually ordered) categorical variables. This process is called **binning**. For example, you can take individuals' ages and reduce them to 0 - 18 years old, 18 - 45 years old, 45 - 65 years old, and 65+ years old.
->
-> You lose information in this process: you cannot go from 45 - 65 years old back to the individuals' precise age. In other words, you cannot go from a categorical to continuous variable.
+::: {.callout-note}
+Continuous variables can be made into (usually ordered) categorical variables. This process is called **binning**. For example, you can take individuals' ages and reduce them to 0 - 18 years old, 18 - 45 years old, 45 - 65 years old, and 65+ years old.
+
+You lose information in this process: you cannot go from 45 - 65 years old back to the individuals' precise age. In other words, you cannot go from a categorical to continuous variable.
+::: 
 
 Let's take a look at how you can describe these different types of variables in turn, using real-world political science examples.
 
@@ -92,7 +94,9 @@ Let's take a look at how you can describe these different types of variables in 
 
 Simply put, for categorical variables we are interested in the count and/or percentage of cases that fall into each category.
 
-> Later, we will ask interesting questions using these summaries. These include whether differences between the counts and/or percentages of cases that fall into each category are meaningfully (and/or statistically significantly) different from one another. This deceptively simple question serves as the foundation for a lot of political science (particularly comparative) research.
+::: {.callout-note collapse="true"}
+Later, we will ask interesting questions using these summaries. These include whether differences between the counts and/or percentages of cases that fall into each category are meaningfully (and/or statistically significantly) different from one another. This deceptively simple question serves as the foundation for a lot of political science (particularly comparative) research.
+:::
 
 #### Case study: American National Election Survey
 
@@ -106,7 +110,9 @@ We can access the 2012 survey using the `poliscidata` package:
 poliscidata::nes
 ```
 
-> Take a look at the many different bits of information collected about each respondent using `?nes`.
+::: {.callout-caution title="Exercise"}
+Take a look at the many different bits of information collected about each respondent using `?nes`.
+:::
 
 Let's look at how many individuals of different ages took part in the survey in 2012. The survey records the age of each respondent within six different brackets and reports that information in the `dem_age6` variable.
 
@@ -118,7 +124,9 @@ We can take advantage of `janitor::tabyl()` to quickly calculate the number and 
 tabyl(nes, dem_age6)
 ```
 
-> Note: `valid_percent` provides the proportion of respondents in each age bracket **with missing values removed from the denominator**. For example, the NES survey had `r nes |> nrow() |> comma()` respondents in 2012, but only `r nes |> drop_na(dem_age6) |> nrow() |> comma()` of them provided their age. `r nes |> filter(dem_age6 == "17-29") |> nrow()` responded that they are 17 - 29 years old. Therefore, the `17-29` proportion (which is bounded by 0 and 1, whereas percents are bounded by 0 and 100) is `r nes |> filter(dem_age6 == "17-29") |> nrow()` / `r nes |> nrow() |> comma()` and its valid proportion is `r nes |> filter(dem_age6 == "17-29") |> nrow()` / `r nes |> drop_na(dem_age6) |> nrow() |> comma()`.
+:::{.callout-tip}
+`valid_percent` provides the proportion of respondents in each age bracket **with missing values removed from the denominator**. For example, the NES survey had `r nes |> nrow() |> comma()` respondents in 2012, but only `r nes |> drop_na(dem_age6) |> nrow() |> comma()` of them provided their age. `r nes |> filter(dem_age6 == "17-29") |> nrow()` responded that they are 17 - 29 years old. Therefore, the `17-29` proportion (which is bounded by 0 and 1, whereas percents are bounded by 0 and 100) is `r nes |> filter(dem_age6 == "17-29") |> nrow()` / `r nes |> nrow() |> comma()` and its valid proportion is `r nes |> filter(dem_age6 == "17-29") |> nrow()` / `r nes |> drop_na(dem_age6) |> nrow() |> comma()`.
+:::
 
 #### Visualizing this frequency
 
@@ -146,7 +154,7 @@ We can get a much better sense of our continuous variables by looking at charact
 
 #### Case study: Comparing countries' spending on education
 
-For this section, we will look at each country's spending on education as a percent of their gross domestic product. We will use `wbstats::wb_data()` to collect these data.
+For this section, we will look at each country's spending on education as a percent of its gross domestic product. We will use `wbstats::wb_data()` to collect these data.
 
 ```{r}
 perc_edu <- wb_data(
@@ -179,7 +187,13 @@ ggplot(perc_edu, aes(x = value)) +
   scale_x_continuous(labels = label_percent())
 ```
 
-> Take a look at `?geom_histogram` to find the arguments needed to change the bin width of your histograms.
+::: {.callout-tip}
+The `scales` package includes a lot of helpful functions that allow you to format numbers. Here, I am using `scales::label_percent()` to convert our raw proportions into the percentage format on the x-axis of the plot.
+:::
+
+::: {.callout-caution title="Exercise"}
+Take a look at `?geom_histogram` to find the arguments needed to change the bin width of your histograms.
+:::
 
 #### Density curves
 
@@ -245,7 +259,9 @@ In R:
 mean(perc_edu$value, na.rm = T)
 ```
 
-> Note: if you do not use the argument `na.rm` (read NA remove!), you will get an `NA` if any exist in your vector of values. This is a good default! You should be very aware of missing data points.
+::: {.callout-tip}
+If you do not use the argument `na.rm` (read NA remove!), you will get an `NA` if any exist in your vector of values. This is a good default! You should be very aware of missing data points.
+:::
 
 ##### Median
 
@@ -265,7 +281,9 @@ The **mode** is the most frequent of all values.
 
 To calculate it, count how many times each value occurs in your data set. The one that occurs the most is your mode.
 
-> This is usually a more useful summary statistic for categorical variables than continuous ones. For example, which colour of car is most popular? Which political party has the most members?
+::: {.callout-note}
+This is usually a more useful summary statistic for categorical variables than continuous ones. For example, which colour of car is most popular? Which political party has the most members?
+:::
 
 In R:
 
@@ -277,39 +295,39 @@ table(x)
 
 ##### Using central tendency to describe and understand distributions
 
-Normally distributed values *have the same mean and median*.
+Normally distributed values *have the same <span style="color:#EEABC4;">mean</span> and <span style="color:#4582EC;">median</span>*.
 
 ```{r}
 norm_dist <- tibble(x = rnorm(n = 1e6))
 
 ggplot(norm_dist, aes(x = x)) + 
   geom_histogram() + 
-  geom_vline(xintercept = mean(norm_dist$x), colour = "#FB8F86", size = 2) + 
-  geom_vline(xintercept = median(norm_dist$x), colour = "#819FE3", size = 2) + 
+  geom_vline(xintercept = mean(norm_dist$x), colour = "#EEABC4", size = 2) + 
+  geom_vline(xintercept = median(norm_dist$x), colour = "#4582EC", size = 2) + 
   theme_minimal()
 ```
 
-For right skewed data, *the mean is greater than the median*.
+For right skewed data, *the <span style="color:#EEABC4;">mean</span> is greater than the <span style="color:#4582EC;">median</span>*.
 
 ```{r}
 right_dist <- tibble(x = rbeta(1e6, 2, 10))
 
 ggplot(right_dist, aes(x = x)) + 
   geom_histogram() + 
-  geom_vline(xintercept = mean(right_dist$x), colour = "#FB8F86", size = 2) + 
-  geom_vline(xintercept = median(right_dist$x), colour = "#819FE3", size = 2) + 
+  geom_vline(xintercept = mean(right_dist$x), colour = "#EEABC4", size = 2) + 
+  geom_vline(xintercept = median(right_dist$x), colour = "#4582EC", size = 2) + 
   theme_minimal()
 ```
 
-For left skewed data, *the mean is smaller than the median*.
+For left skewed data, *the <span style="color:#EEABC4;">mean</span> is smaller than the <span style="color:#4582EC;">median</span>*.
 
 ```{r}
 left_dist <- tibble(x = rbeta(1e6, 10, 2))
 
 ggplot(left_dist, aes(x = x)) + 
   geom_histogram() + 
-  geom_vline(xintercept = mean(left_dist$x), colour = "#FB8F86", size = 2) + 
-  geom_vline(xintercept = median(left_dist$x), colour = "#819FE3", size = 2) + 
+  geom_vline(xintercept = mean(left_dist$x), colour = "#EEABC4", size = 2) + 
+  geom_vline(xintercept = median(left_dist$x), colour = "#4582EC", size = 2) + 
   theme_minimal()
 ```
 
@@ -323,7 +341,7 @@ We can provide more context to our understanding using more summary statistics. 
 
 -   The 25th percentile value, or the median of the lower half of the data;
 
--   The mean;
+-   The median;
 
 -   The 75th percentile value, or the median of the upper half of the data;
 
@@ -359,13 +377,15 @@ ggplot(perc_edu, aes(x = value)) +
   scale_x_continuous(labels = label_percent())
 ```
 
-Note that some values are displayed as dots. The box plot is providing you with a bit more information than the five number summary alone. The box itself displays the 25th percentile, the mean, and the 75th percentile values. The tails show you all the data up to a range 1.5 times the mean. If the smallest or largest values fall below or above (respectively) 1.5 times the mean, the tail ends at that value. If, however, these values fall outside that range, they are displayed as dots. These are (very rule of thumb, take with a grain of salt, please rely on your theory instead!) candidates for **outliers**.
+Note that some values are displayed as dots. The box plot is providing you with a bit more information than the five number summary alone. The box itself displays the 25th percentile, the median, and the 75th percentile values. The tails show you all the data up to a range 1.5 times the median. If the smallest or largest values fall below or above (respectively) 1.5 times the median, the tail ends at that value. If, however, these values fall outside that range, they are displayed as dots. These are (very rule of thumb, take with a grain of salt, please rely on your theory and data generation process instead!) candidates for **outliers**.
 
 #### Outliers
 
 **Outliers** fall so far away from the majority of the other values that they should be examined closely and perhaps excluded from your analysis. Outliers can distort your mean. They do not, however, distort your median.
 
-> We will talk more about how to deal with outliers later in the course.
+::: {.callout-note}
+We will talk more about how to deal with outliers later in the course.
+:::
 
 #### Measures of spread: range, variance, and standard deviation
 
@@ -421,7 +441,9 @@ Let's step through this. We will first calculate the variance for `wide_dist`, o
 
 3.  Square those differences.
 
-    > We do not care whether the value is higher or lower than the mean. We only care how far from the mean it is. Squaring a value removes its sign (positive or negative) allowing us to concentrate on this difference.
+::: {.callout-tip}
+We do not care whether the value is higher or lower than the mean. We only care how far from the mean it is. Squaring a value removes its sign (positive or negative) allowing us to concentrate on this difference.
+:::
 
 4.  Add all of those squared differences to get a single number.
 
@@ -432,9 +454,11 @@ You now have your variance!
 In R:
 
 ```{r}
+wide_dist_mean <- mean(wide_dist$x)
+
 wide_var_calc <- wide_dist |> 
   mutate(
-    mean = mean(wide_dist$x),
+    mean = wide_dist_mean,
     diff = x - mean,
     diff_2 = diff^2
   )
@@ -442,7 +466,7 @@ wide_var_calc <- wide_dist |>
 wide_var_calc
 ```
 
-We take the sum of square of the difference between each observation and the mean of our whole sample. We then divide that by one less than our number of observations.
+We the add those squared differences between each observation and the mean of our whole sample together. Finally, we divide that by one less than our number of observations.
 
 ```{r}
 wide_var <- sum(wide_var_calc$diff_2) / (nrow(wide_var_calc) - 1)
@@ -503,7 +527,7 @@ sd(wide_dist$x)
 sd(narrow_dist$x)
 ```
 
-If you look back to our graphs, you will see that I set the standard deviations explicitly when I generated the data: `rnorm()` takes an `sd` argument. This is great because we can confirm that the standard deviations for the wide and narrow distributions are 2 and 1 respectively (with a little bit of noise).
+If you look back to our graphs, you will see that I set the standard deviations explicitly when I generated the data: `rnorm()` takes an `sd` argument. This is great because we can confirm that the standard deviations for the wide and narrow distributions are 2 and 1 respectively (with a little bit of randomnoise).
 
 ```{r}
 tibble(
@@ -516,15 +540,29 @@ tibble(
   theme_minimal()
 ```
 
-> Remember that the standard deviation is a measure of how spread out our data are. Therefore, data with no spread (are all the exact same number) will have a standard deviation of 0.
+::: {.callout-tip}
+Remember that the standard deviation is a measure of how spread out our data are. Therefore, data with no spread (are all the exact same number) will have a standard deviation of 0. 
+:::
 
 #### Normal distributions
 
 Remember that normal distributions share a mean and median. This has very cool and useful side effects.
 
+Let's explore these with some simulated data that have a mean of 5 and a standard deviation of 2. 
+
 ```{r}
 norm_5_2 <- tibble(x = rnorm(n = 1e6, mean = 5, sd = 2))
 
+head(norm_5_2)
+```
+
+::: {.callout-note}
+Because we are taking random draws of numbers using `rnorm()`, you will get a different set of numbers to me if you run this command. They will still be centered around a mean of 5 and have a standard deviation of 2.  
+:::
+
+Let's plot these numbers: 
+
+```{r}
 ggplot(norm_5_2, aes(x = x)) + 
   stat_slab(
     aes(fill_ramp = after_stat(cut_cdf_qi(cdf))), fill = met.brewer("Egypt")[2]
@@ -533,15 +571,21 @@ ggplot(norm_5_2, aes(x = x)) +
   theme_minimal()
 ```
 
--   Approximately 68% of the data fall within one standard deviation of the mean (the dark blue).
+Because these numbers are normally distributed (share a mean and median), the following are true: 
 
--   Approximately 95% of the data fall within two standard deviations of the mean (the medium blue).
+-   Approximately 68% of the data fall within one standard deviation of the mean (the dark blue shaded area);
 
--   Approximately 99.7% of the data fall within three standard deviations of the mean (the light blue).
+-   Approximately 95% of the data fall within two standard deviations of the mean (the medium blue shaded area);
+
+-   Approximately 99.7% of the data fall within three standard deviations of the mean (the light blue shaded area).
+
+::: {.callout-caution title="Exercise"}
+Repeat this process with normally distributed data centered around different means and with different standard deviations. 
+:::
 
 #### Standardization
 
-Notice how our description of each variable depends on its units of measurement. What do we do if we want to compare across different measurements that have different units?
+Notice how our description of each variable depends on its units of measurement. What do we do if we want to compare across different measurements that have different units? 
 
 ##### Z scores
 
