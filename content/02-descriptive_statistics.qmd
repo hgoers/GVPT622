@@ -132,7 +132,7 @@ To illustrate, let's look at the `dem_age6` variable in the `nes` data set. This
 distinct(nes, dem_age6)
 ```
 
-This is an ordinal categorical variable. It is discrete but represents and ordered. We can take a look at the variable itself using the helpful `skimr::skim()` function: 
+This is an ordinal categorical variable. It is discrete and ordered. We can take a look at the variable itself using the helpful `skimr::skim()` function: 
 
 ```{r}
 skimr::skim(nes$dem_age6)
@@ -384,7 +384,7 @@ ggplot(left_dist, aes(x = x)) +
   theme_minimal()
 ```
 
-::: {.callout-caution label="Exercise"}
+::: {.callout-caution title="Exercise"}
 How is the percentage spent on education data skewed? 
 :::
 
