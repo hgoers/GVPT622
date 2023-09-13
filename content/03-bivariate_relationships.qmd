@@ -117,7 +117,9 @@ ggplot(gapminder_df, aes(x = log_gdp_per_cap, y = life_exp)) +
   scale_x_continuous(labels = label_dollar())
 ```
 
-> You can transform your data to make it easier to work with. Just remember that you now need to talk in terms of logged GDP per capita instead of GDP per capita.
+::: {.callout-note}
+You can transform your data to make it easier to work with. Just remember that you now need to talk in terms of logged GDP per capita instead of GDP per capita.
+:::
 
 I can imagine drawing a straight line among these points that summarises how they vary with each other. It appears that as a country's logged GDP per capita increases, so too does the average life expectancy of its population. As wealth increases, so too does health.
 
@@ -162,7 +164,9 @@ We can, of course, draw many different lines through these points. Each of us ha
 
 Looking at our data above, it appears that a straight line is the best line to draw.
 
-> **Overfitting** involves fitting a model (or drawing a line through our data) that misses the forest for the trees. You can draw all kinds of shapes through those data that perhaps result in a smaller distance between itself and each dot. In fact, if you draw a line that connects all of those dots there will be no difference between your line and the data points. However, this model will be too focused on the data we have at hand. Our model will have no idea what to do with any new data points we introduce. This is bad! Your aim here is to produce a generalizable model of the relationship between these two variables, not to draw a line that connects this particular constellation of dots.
+::: {.callout-note}
+**Overfitting** involves fitting a model (or drawing a line through our data) that misses the forest for the trees. You can draw all kinds of shapes through those data that perhaps result in a smaller distance between itself and each dot. In fact, if you draw a line that connects all of those dots there will be no difference between your line and the data points. However, this model will be too focused on the data we have at hand. Our model will have no idea what to do with any new data points we introduce. This is bad! Your aim here is to produce a generalizable model of the relationship between these two variables, not to draw a line that connects this particular constellation of dots.
+:::
 
 Okay, so a straight line is the best type of line to draw. But there are still many, many different straight lines that we can draw. Which straight line is best? Remember, OLS regression finds the line that minimizes the distance between itself and all of the data points. Let's step through this. Look at the graph above.
 
@@ -200,7 +204,9 @@ $$
 
 Read this as: the value of $y$ is the sum of some constant, $a$, and some $x$ variable that has been transformed by some slope value $m$.
 
-> Remember that the slope constant, $m$, tells you how much $y$ changes for every one unit increase in $x$.
+::: {.callout-note}
+Remember that the slope constant, $m$, tells you how much $y$ changes for every one unit increase in $x$.
+:::
 
 So, if:
 
@@ -237,7 +243,9 @@ $$
 life Exp_x = 30 + 4 * logGdpPerCap_x
 $$
 
-> We will get to that pesky error term in just a minute.
+::: {.callout-note}
+We will get to that pesky error term in just a minute.
+:::
 
 Then, our model would predict the following average life expectancy for countries with log GDPs per capita between 0 and 20:
 
