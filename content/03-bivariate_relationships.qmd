@@ -45,7 +45,7 @@ library(modelsummary)
 
 ### How will what you learn this week help your research?
 
-As usual, we start with an interesting question. You have some outcome of interest and you think that there is an important determinant of that outcome that no has yet identified. Or perhaps the relationship between some heavily chewed over determinant and the outcome of interest is misunderstood. We are steadily building up your ability to determine empirically the relationship between that determinant and the outcome of interest.
+As usual, we start with an interesting question. You have some outcome of interest and you think that there is an important determinant of that outcome that no one has yet identified. Or perhaps the relationship between some heavily chewed over determinant and the outcome of interest is misunderstood. We are steadily building up your ability to determine empirically the relationship between that determinant and the outcome of interest.
 
 Simply put (and there really is no need to over-complicate this), we have two or more variables: an outcome of interest (the dependent variable) and a set of independent variables that we theorize are important determinants of that outcome. We can use empirical analysis to understand 1) how the dependent and independent variables change in relation to one another, and 2) whether this relationship is strong enough that we should declare (though 12,000-word journal articles or by shouting from rooftops) that whenever we want to change or understand that outcome, we *must* consider these important independent variables.
 
@@ -98,7 +98,10 @@ What is the relationship between a country's average life expectancy and its GDP
 ```{r}
 ggplot(gapminder_df, aes(x = gdp_per_cap, y = life_exp)) + 
   geom_point() + 
-  theme_minimal()
+  theme_minimal() + 
+  labs(x = "GDP per capita (USD current)",
+       y = "Average life expectancy (years)") + 
+  scale_x_continuous(labels = label_dollar())
 ```
 
 There seems to be a good case that there is a strong relationship between a country's GDP per capita (wealth) and its average life expectancy (health).
@@ -108,7 +111,10 @@ Because we want to explore linear relationships at this stage of the course, we 
 ```{r}
 ggplot(gapminder_df, aes(x = log_gdp_per_cap, y = life_exp)) + 
   geom_point() + 
-  theme_minimal()
+  theme_minimal() + 
+  labs(x = "Logged GDP per capita",
+       y = "Average life expectancy (years)") + 
+  scale_x_continuous(labels = label_dollar())
 ```
 
 > You can transform your data to make it easier to work with. Just remember that you now need to talk in terms of logged GDP per capita instead of GDP per capita.
@@ -123,7 +129,7 @@ Now we need some way of measuring the strength of the relationship. In other wor
 
 -   Strength: how closely are these values tied to one another. Measured from 0 to \|1\|, with values closer to 0 indicating a very weak relationship and values closer to \|1\| indicating a very strong relationship.
 
--   Direction: do both $X$ and $Y$ change in the same direction? Positive correlations show that when $X$ increases (decreases), so too does $Y$. Negative correlations show that when $X$ increases (decreases), $Y$ decreases (increases). In other words, the move in different directions.
+-   Direction: do both $X$ and $Y$ change in the same direction? Positive correlations show that when $X$ increases (decreases), so does $Y$. Negative correlations show that when $X$ increases (decreases), $Y$ decreases (increases). In other words, they move in different directions.
 
 What is the correlation between logged GDP per capita and life expectancy?
 
@@ -146,7 +152,10 @@ Looking back at our data, we can image a straight line running between each coun
 ```{r}
 ggplot(gapminder_df, aes(x = log_gdp_per_cap, y = life_exp)) + 
   geom_point() + 
-  theme_minimal()
+  theme_minimal() + 
+  labs(x = "Logged GDP per capita",
+       y = "Average life expectancy (years)") + 
+  scale_x_continuous(labels = label_dollar())
 ```
 
 We can, of course, draw many different lines through these points. Each of us has probably drawn a slightly different line in our heads. Which is the best line? **Ordinary least squares (OLS) regression** provides an answer. Simply put, OLS regression draws the line that minimizes the distance between itself and all of the data points. That line can take many shapes, including a straight line, an S, a frowney face, and smiley face, etc.
@@ -155,7 +164,7 @@ Looking at our data above, it appears that a straight line is the best line to d
 
 > **Overfitting** involves fitting a model (or drawing a line through our data) that misses the forest for the trees. You can draw all kinds of shapes through those data that perhaps result in a smaller distance between itself and each dot. In fact, if you draw a line that connects all of those dots there will be no difference between your line and the data points. However, this model will be too focused on the data we have at hand. Our model will have no idea what to do with any new data points we introduce. This is bad! Your aim here is to produce a generalizable model of the relationship between these two variables, not to draw a line that connects this particular constellation of dots.
 
-Okay, so a straight line in the best type of line to draw. But there are still many, many different straight lines that we can draw. Which straight line is best? Remember, OLS regression finds the line that minimizes the distance between itself and all of the data points. Let's step through this. Look at the graph above.
+Okay, so a straight line is the best type of line to draw. But there are still many, many different straight lines that we can draw. Which straight line is best? Remember, OLS regression finds the line that minimizes the distance between itself and all of the data points. Let's step through this. Look at the graph above.
 
 1.  Draw a line through those dots. Pick a line, any line!
 
@@ -167,18 +176,21 @@ Okay, so a straight line in the best type of line to draw. But there are still m
 
 5.  Pick the line with the **smallest** sum of distances (or results from step 3).
 
-Phew, this seems tedious and I still might not draw the correct line. Happily, maths and R are to the rescue. Here is the line that minimizes those distances (all with the addition of one extra line of code).
+Phew, this seems tedious. Happily, maths and R are to the rescue. Here is the line that minimizes those distances (all with the addition of one extra line of code).
 
 ```{r}
 ggplot(gapminder_df, aes(x = log_gdp_per_cap, y = life_exp)) + 
   geom_point() + 
   geom_smooth(method = "lm", se = F) + 
-  theme_minimal()
+  theme_minimal() + 
+  labs(x = "Logged GDP per capita",
+       y = "Average life expectancy (years)") + 
+  scale_x_continuous(labels = label_dollar())
 ```
 
 ### Estimating a linear model in R
 
-How can we find this line? To answer this, we will first do some review.
+How did R do this? To answer this, we will first do some review.
 
 Remember the general equation for a line:
 
@@ -205,7 +217,7 @@ $$
 For many values of $x$:
 
 ```{r}
-ggplot(tibble(x = 1:50, y = 10 + 2*x), aes(x = x, y = y)) + 
+ggplot(tibble(x = 0:50, y = 10 + 2*x), aes(x = x, y = y)) + 
   geom_line(colour = "lightgrey", linewidth = 3) + 
   geom_point() + 
   theme_minimal()
@@ -231,12 +243,15 @@ Then, our model would predict the following average life expectancy for countrie
 
 ```{r}
 ggplot(
-  tibble(log_gdp_per_cap = 1:20, life_exp = 30 + 4*log_gdp_per_cap), 
+  tibble(log_gdp_per_cap = 0:20, life_exp = 30 + 4*log_gdp_per_cap), 
   aes(x = log_gdp_per_cap, y = life_exp)
 ) + 
   geom_line(colour = "lightgrey", linewidth = 3) + 
   geom_point() + 
-  theme_minimal()
+  theme_minimal() + 
+  labs(x = "Logged GDP per capita",
+       y = "Average life expectancy (years)") + 
+  scale_x_continuous(labels = label_dollar())
 ```
 
 A country with a logged GDP per capita of 5 (the equivalent of a GDP per capita of `r exp(5) |> scales::dollar()`) has a predicted average life expectancy of 50 years, or $30 + 4*5$.
@@ -312,13 +327,13 @@ modelsummary(
 
 Note that OLS regression, particularly linear regression, requires that you make a lot of important assumptions about the relationship between your two variables. These were discussed in detail in the lecture. For example, we assume that the best line to fit is straight. We also assume that the best way to generate and describe the relationship across all observations is to fit the line that minimizes the distance between itself and the observed values or dots.
 
-> There are other approaches to determining the "best" line. These include maximum likelihood estimation (discussed in detail in GVPT729) and Bayesian statistics. We won't discuss these approaches in this class or in GVPT722. It's worth noting here; however, that OLS regression requires a whole bunch of assumptions that may or may not be appropriate to your research question or theory. This class prepares you to grapple with those questions and appropriately use these tools in your own research.
+::: {.callout-note collapse=true}
+There are other approaches to determining the "best" line. These include maximum likelihood estimation (discussed in detail in GVPT729) and Bayesian statistics. We won't discuss these approaches in this class or in GVPT722. It's worth noting here; however, that OLS regression requires a whole bunch of assumptions that may or may not be appropriate to your research question or theory. This class prepares you to grapple with those questions and appropriately use these tools in your own research.
+:::
 
 ### Prediction and performance
 
-Okay, so we now have a model that describes the relationship between our outcome of interest (health) and our independent variable of interest (wealth). What can we do with this?
-
-First, we can use this model to predict a country's average life expectancy given its GDP per capita.
+Okay, so we now have a model that describes the relationship between our outcome of interest (health) and our independent variable of interest (wealth). We can use this to predict our outcome of interest for different values of our independent variable. For example, what do we predict to be the average life expectancy of a country with a GDP per capita of \$20,000? 
 
 `broom::tidy(m)` makes this model object a lot easier (tidier) to work with.
 
@@ -326,7 +341,7 @@ First, we can use this model to predict a country's average life expectancy give
 tidy(m)
 ```
 
-What do we predict to be the average life expectancy of a country with a GDP per capita of \$20,000? First, let's pull out the estimated constant (or intercept or $\beta_0$) for our calculations.
+First, let's pull out the estimated constant (or intercept or $\beta_0$) for our calculations.
 
 ```{r}
 m_res <- tidy(m)
@@ -376,7 +391,10 @@ ggplot(gapminder_df, aes(x = log_gdp_per_cap, y = life_exp)) +
   geom_vline(xintercept = log(20000)) + 
   geom_hline(yintercept = life_exp_20000) + 
   geom_smooth(method = "lm", se = F) + 
-  theme_minimal()
+  theme_minimal() + 
+  labs(x = "Logged GDP per capita",
+       y = "Average life expectancy (years)") + 
+  scale_x_continuous(labels = label_dollar())
 ```
 
 The world is a complicated and messy place. There are many countries that have a GDP per capita of around \$20,000 (those dots sitting around the vertical black line). They have a wide range of average life expectancy: look at their various placement along that vertical line. Some are higher than others.
@@ -447,7 +465,10 @@ Can you see for which points these large differences exist?
 ggplot(gapminder_df, aes(x = log_gdp_per_cap, y = life_exp)) + 
   geom_point() + 
   geom_smooth(method = "lm", se = F) + 
-  theme_minimal()
+  theme_minimal() + 
+  labs(x = "Logged GDP per capita",
+       y = "Average life expectancy (years)") + 
+  scale_x_continuous(labels = label_dollar())
 ```
 
 What is causing these differences? A lot of your work as a political scientist is trying to answer this very question!
@@ -480,7 +501,9 @@ Where $y_i$ is each predicted value (the model's estimate of country's average l
 
 We just add those all up to get a single measure of the model's overall performance.
 
-> Remember that we tend to square things when we don't care about the direction. We don't care that the predicted value is less or more than the observed value, just about how far they are from each other.
+::: {.callout-note}
+Remember that we tend to square things when we don't care about the direction. We don't care that the predicted value is less or more than the observed value, just about how far they are from each other.
+:::
 
 We can do this ourselves:
 
@@ -500,13 +523,21 @@ glance(m) |>
   select(deviance)
 ```
 
-> Where `broom::tidy()` gives us information about the coefficients of our model, `broom::glance()` gives us information on the overall model performance.
+::: {.callout-tip}
+Where `broom::tidy()` gives us information about the coefficients of our model, `broom::glance()` gives us information on the overall model performance.
+:::
 
 This is useful, but it is influenced by the units by which we measure our variables. If one model includes something like GDP which is measured in terms of billions of dollars, we will get a very large sum of squared residuals. If another model includes something like percentage of as state's citizens who will vote for Donald Trump, we will get a relatively small sum of squared residuals. What if we want to compare model performance in a meaningful way?
 
 #### $R^2$
 
-The $R^2$ value measures the amount of variation in the dependent variable that is explained by the independent variable. In our example, it measures how much the changes in countries' average life expectancy is explained by the changes in their (logged) GDP per capita. The $R^2$ value is useful because it does not reflect the units of measurement used in our variables. Therefore, we can compare how well different models perform.
+The $R^2$ value measures the amount of variation in the dependent variable that is explained by the independent variable. In our example, it measures how much the changes in countries' average life expectancy is explained by the changes in their (logged) GDP per capita. 
+
+$$
+R^2 = 1 - \frac{Unexplained\ variation}{Total\ variation}
+$$
+
+The $R^2$ value is useful because it does not reflect the units of measurement used in our variables. Therefore, we can compare how well different models perform.
 
 The $R^2$ value has three component parts.
 
@@ -541,11 +572,15 @@ glance(m) |>
   select(r.squared)
 ```
 
+An $R^2$ of 1 means that all of the change in the dependent variable are completely explained by changes in the independent variable. Here, it would mean that all changes to a country's average life expectancy are explained through changes to the country's logged GDP per capita. 
+
+According to our model, `r percent(glance(m)$r.squared, accuracy = 0.1)` of changes in a country's average life expectancy are explained through changes to the country's logged GDP per capita.
+
 ### Modelling relationships among categorical variables
 
 Sometimes we want to know whether our outcome of interest changes based on the category in which it sits. For example, do levels of support for abortion access differ between Democrats, Republicans, and Independents? Do the number of women elected to parliament change based on whether or not the country has a formal quota? Do the number of civilians targeted in war change based on whether the war is intra- or inter-state?
 
-Let's return to the [American National Election Survey](https://electionstudies.org/) first explored last week. We will focus on that first question: do levels of support for abortion access differ between Democrats, Republicans, and Independents?
+Let's return to the [American National Election Survey](https://electionstudies.org/) we first explored last week. We will focus on that first question: do levels of support for abortion access differ between Democrats, Republicans, and Independents?
 
 We can access the 2012 survey through R using the `poliscidata` package:
 
@@ -565,12 +600,41 @@ We can use `modelsummary::datasummary_crosstab()` to produce a nicely formatted 
 datasummary_crosstab(abort4 ~ pid_3, data = nes)
 ```
 
+We can also visualise this: 
+
+```{r}
+nes |> 
+  count(pid_3, abort4) |> 
+  drop_na(pid_3) |> 
+  ggplot(aes(x = n, y = pid_3, fill = abort4)) + 
+  geom_bar(position = "dodge", stat = "identity") + 
+  theme_minimal() + 
+  labs(x = "N",
+       y = NULL,
+       fill = "Level of support") + 
+  scale_fill_manual(values = c("#EDE5CF","#E0C2A2","#D39C83","#C1766F"))
+```
+
+Or this:
+
+```{r}
+nes |> 
+  count(pid_3, abort4) |> 
+  drop_na(pid_3) |> 
+  ggplot(aes(x = n, y = abort4, fill = pid_3)) + 
+  geom_bar(position = "dodge", stat = "identity") + 
+  theme_minimal() + 
+  labs(x = "N",
+       y = NULL,
+       fill = "Party") + 
+  scale_fill_manual(values = c("#1375B7","lightgrey","#C93135"))
+```
+
 #### Mean comparison table
 
 We can use mean comparison tables to, well, compare means (in a table). Let's compare the average response to the feeling thermometer (scale from 0 to 100) for the Republican party across parties:
 
 ```{r}
-
 nes |>
   group_by(pid_3) |> 
   summarise(
@@ -591,7 +655,11 @@ nes |>
   drop_na(pid_3) |> 
   ggplot(aes(x = ft_rep, fill = pid_3)) + 
   geom_density(alpha = 0.5) + 
-  theme_minimal()
+  theme_minimal() + 
+  scale_fill_manual(values = c("#1375B7","lightgrey","#C93135")) + 
+  labs(x = "Feeling thermometer",
+       y = "Density", 
+       fill = "Party")
 ```
 
 As expected, Democrats appear to respond least favourably to the Republican Party, followed by Independents, and Republicans. This is demonstrated by both the mean comparison table and density plots.
