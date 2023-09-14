@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -151,7 +185,17 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#lab" id="toc-lab" class="nav-link" data-scroll-target="#lab">Lab</a></li>
   </ul></li>
   <li><a href="#class-slides" id="toc-class-slides" class="nav-link" data-scroll-target="#class-slides">Class slides</a></li>
-  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section">Section</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section">Section</a>
+  <ul>
+  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites">Prerequisites</a></li>
+  <li><a href="#how-will-what-you-learn-this-week-help-your-research" id="toc-how-will-what-you-learn-this-week-help-your-research" class="nav-link" data-scroll-target="#how-will-what-you-learn-this-week-help-your-research">How will what you learn this week help your research?</a></li>
+  <li><a href="#data-collection" id="toc-data-collection" class="nav-link" data-scroll-target="#data-collection">Data collection</a>
+  <ul class="collapse">
+  <li><a href="#common-data-sets" id="toc-common-data-sets" class="nav-link" data-scroll-target="#common-data-sets">Common data sets</a></li>
+  <li><a href="#programmatically-downloading-data-sets-from-the-internet" id="toc-programmatically-downloading-data-sets-from-the-internet" class="nav-link" data-scroll-target="#programmatically-downloading-data-sets-from-the-internet">Programmatically downloading data sets from the internet</a></li>
+  <li><a href="#apis" id="toc-apis" class="nav-link" data-scroll-target="#apis">APIs</a></li>
+  </ul></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -192,8 +236,102 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="section" class="level2">
 <h2 class="anchored" data-anchor-id="section">Section</h2>
+<section id="prerequisites" class="level3">
+<h3 class="anchored" data-anchor-id="prerequisites">Prerequisites</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="how-will-what-you-learn-this-week-help-your-research" class="level3">
+<h3 class="anchored" data-anchor-id="how-will-what-you-learn-this-week-help-your-research">How will what you learn this week help your research?</h3>
+<p>Critical to our ability to understand the relationship between our outcome of interest and all of the variables that we think determine (or are, at least, associated) with that outcome is our ability to observe those variables moving with one another. To do this, we need quality data that accurately measure those variables. This week, we discuss how you can collect that quality data. The method by which you do this is very important to the quality of that data (i.e.&nbsp;how accurately it reflects the phenomena in which you are interested).</p>
+<p>We have two broad methods at our disposal: observational research and experimental studies. Experimental studies are considered to be the <em>gold standard</em> for causal inference (your ability to confidently say that changes to your independent variable <em>cause</em> changes to your dependent variable).</p>
+<p>Experiments are not always feasible or appropriate. In fact, a lot of political science research (particularly international relations research) relies on observational studies. Unlike experiments, in which the researcher intervenes, observational research involves recording changes in your variables without influencing those variables.</p>
+<p>When you conduct your own research, you will need to make important decisions about what data you will use to uncover the relationships described by your theory. This week introduces you to some of the factors you will need to consider when making those decisions.</p>
+</section>
+<section id="data-collection" class="level3">
+<h3 class="anchored" data-anchor-id="data-collection">Data collection</h3>
+<p>A lot of political science research uses observational data to make inferences about the relationship between some outcome of interest and various factors that are associated with that outcome of interest. For example, we collect data on the incidence of civil war. We also collect data on the regime type of the governments that have experienced civil wars and those that have not. We can then look at whether more civil wars occur in countries with particular regime types. This week, I will introduce some common techniques for collecting observational data used by political scientists.</p>
+<section id="common-data-sets" class="level4">
+<h4 class="anchored" data-anchor-id="common-data-sets">Common data sets</h4>
+<p>There are many large-scale data sets that are commonly used in political science research. These include: the <a href="https://electionstudies.org/">American National Election Survey</a>, with which you are becoming very familiar; the <a href="https://v-dem.net/">Varieties of Democracy</a> data set; and various Correlates of War data sets, include the <a href="https://correlatesofwar.org/data-sets/mids/">Militarized Interstate Disputes</a> data set.</p>
+<p>The easiest way to access these data sets is via their associated websites. You can download the data file, store it in your R project, and use it in your analysis.</p>
+<p>However, these data sets are updated regularly. It can be tedious to download new data files every time they are updated. Further, every time you do something not programmatically, you reduce the ease with which your research process can be replicated.</p>
+</section>
+<section id="programmatically-downloading-data-sets-from-the-internet" class="level4">
+<h4 class="anchored" data-anchor-id="programmatically-downloading-data-sets-from-the-internet">Programmatically downloading data sets from the internet</h4>
+<p>It is very easy to download a file programmatically. The URL used to access the file can be thought of as a file path. Therefore, all you need to do is provide that URL (file path) to the appropriate R command and you will read in that data set directly from the internet.</p>
+<p>For example, let’s read the <a href="https://ucdp.uu.se/downloads/index.html#armedconflict">UCDP/PRIO Armed Conflict Data Set</a> into our current R session.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>From the UCDP website, the UCDP/PRIO Armed Conflict Data Set is:</p>
+<blockquote class="blockquote">
+<p>A conflict-year dataset with information on armed conflict where at least one party is the government of a state in the time period 1946-2022.</p>
+</blockquote>
+</div>
+</div>
+<p>We can use the very flexible <code>rio::import()</code> function to do this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ucdp_actor_df <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"https://ucdp.uu.se/downloads/ucdpprio/ucdp-prio-acd-231-csv.zip"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(ucdp_actor_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 28
+  conflict_id location   side_a side_a_id side_a_2nd side_b side_b_id side_b_2nd
+        &lt;int&gt; &lt;chr&gt;      &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt;     
+1       11342 India      Gover… 141       ""         GNLA   1163      ""        
+2       11342 India      Gover… 141       ""         GNLA   1163      ""        
+3       11343 Egypt, Is… Gover… 117       ""         Gover… 121       ""        
+4       11343 Egypt, Is… Gover… 117       ""         Gover… 121       ""        
+5       11343 Egypt, Is… Gover… 117       ""         Gover… 121       ""        
+6       11343 Egypt, Is… Gover… 117       ""         Gover… 121       ""        
+# ℹ 20 more variables: incompatibility &lt;int&gt;, territory_name &lt;chr&gt;, year &lt;int&gt;,
+#   intensity_level &lt;int&gt;, cumulative_intensity &lt;int&gt;, type_of_conflict &lt;int&gt;,
+#   start_date &lt;IDate&gt;, start_prec &lt;int&gt;, start_date2 &lt;IDate&gt;,
+#   start_prec2 &lt;int&gt;, ep_end &lt;int&gt;, ep_end_date &lt;IDate&gt;, ep_end_prec &lt;lgl&gt;,
+#   gwno_a &lt;chr&gt;, gwno_a_2nd &lt;chr&gt;, gwno_b &lt;chr&gt;, gwno_b_2nd &lt;chr&gt;,
+#   gwno_loc &lt;chr&gt;, region &lt;chr&gt;, version &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>Insofar as that URL points to the most up-to-date data file, you now have programmatic access to that data set.</p>
+</section>
+<section id="apis" class="level4">
+<h4 class="anchored" data-anchor-id="apis">APIs</h4>
+<p>This process is great because it is very straightforward and easy to implement. However, it can often not be very durable. Sometimes links break, or the authors of the data set change the structure of the data set stored in that data file, or they make a new link for more up-to-date data.</p>
+<p>Popular data sets often come with APIs, or Application Programming Interfaces. These can help us maintain durable, programmatic access to our data.</p>
+<p>APIs can get complicated and can be difficult to work with. Today, I am going to introduce you to them and provide the commands needed to access this very popular conflict data set. These commands can be adapted to access other APIs; however, you may need to restructure some things to get it to work. The best package in R for working with APIs is <code>httr2</code>. The <a href="https://httr2.r-lib.org/articles/httr2.html">documentation for this package</a> is great and I would encourage you to have a look at it if you get stuck.</p>
+<p>UCDP provides an API to access their data sets. You can see the documentation for this API here: https://ucdp.uu.se/apidocs/.</p>
+<p>To start, we need to load the <code>httr2</code> package.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next, we need to create our API request. For the UCDP API (and many other APIs), this essentially involves constructing a URL from which you will download the data.</p>
+<p>The API request takes four different arguments:</p>
+<ul>
+<li><p>The <code>&lt;resource&gt;</code>, or the data set you want to access. We will stick with the UCDP/PRIO Armed Conflict Data Set.</p></li>
+<li><p>The <code>&lt;version&gt;</code>, or the version of the data set you want to access. As I said, this data set is regularly updated. At the time of writing, the latest version of the data set is 23.1.</p></li>
+<li><p>The <code>&lt;pagesize&gt;</code> and <code>page</code>. This data set is (kind of) large: it has 2,626. The API will only provide between 1 and 1,000 rows at a time. Therefore, if you want to return more than 1,000 rows (as you would need to if you wanted to access the whole data set), you need to set the page size to 1,000 and iterate over multiple pages (in this case, we need to go through 3 pages to get the full 2,626 rows.</p></li>
+</ul>
+<p>Let’s start simply by accessing the first 10 rows of the data set.</p>
+<p>First, we need to get the base URL. This is provided in the <a href="https://ucdp.uu.se/apidocs/">UCDP API documentation</a>. You will see that they provide the following base URL:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ucdp_base_url <span class="ot">&lt;-</span> <span class="st">"https://ucdpapi.pcr.uu.se/api/&lt;resource&gt;/&lt;version&gt;?&lt;pagesize=x&gt;&amp;&lt;page=x&gt;"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You can see where we need to insert our four arguments: in <code>&lt;resource&gt;</code>, <code>&lt;version&gt;</code>, <code>&lt;pagesize=x&gt;</code>, and <code>&lt;page=x&gt;</code></p>
 
 
+</section>
+</section>
 </section>
 
 </main> <!-- /main -->

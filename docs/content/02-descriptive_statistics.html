@@ -1133,18 +1133,18 @@ Tip
 <span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>wide_var_calc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1,000,000 × 4
-         x    mean    diff    diff_2
-     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;
- 1 -7.22   0.00369 -7.22   52.2     
- 2 -0.809  0.00369 -0.812   0.660   
- 3 -0.0254 0.00369 -0.0291  0.000848
- 4  1.76   0.00369  1.75    3.07    
- 5  0.416  0.00369  0.412   0.170   
- 6 -3.05   0.00369 -3.05    9.30    
- 7  0.470  0.00369  0.466   0.218   
- 8 -3.03   0.00369 -3.04    9.23    
- 9  2.81   0.00369  2.81    7.87    
-10  1.48   0.00369  1.48    2.19    
+        x      mean   diff  diff_2
+    &lt;dbl&gt;     &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
+ 1  1.35  -0.000111  1.35   1.83  
+ 2 -1.64  -0.000111 -1.64   2.70  
+ 3 -0.330 -0.000111 -0.330  0.109 
+ 4  0.952 -0.000111  0.952  0.906 
+ 5  2.04  -0.000111  2.04   4.17  
+ 6 -0.345 -0.000111 -0.345  0.119 
+ 7 -0.367 -0.000111 -0.367  0.135 
+ 8 -0.164 -0.000111 -0.164  0.0269
+ 9 -3.45  -0.000111 -3.45  11.9   
+10 -1.87  -0.000111 -1.87   3.50  
 # ℹ 999,990 more rows</code></pre>
 </div>
 </div>
@@ -1154,7 +1154,7 @@ Tip
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>wide_var</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 4.001026</code></pre>
+<pre><code>[1] 3.997701</code></pre>
 </div>
 </div>
 <p>We can compare this to the variance for our narrower distribution.</p>
@@ -1170,7 +1170,7 @@ Tip
 <span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>narrow_var</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.9994285</code></pre>
+<pre><code>[1] 1.000791</code></pre>
 </div>
 </div>
 <p>It is, in fact, smaller!</p>
@@ -1179,14 +1179,14 @@ Tip
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(wide_dist)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         x
-x 4.001026</code></pre>
+x 3.997701</code></pre>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(narrow_dist)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>          x
-x 0.9994285</code></pre>
+<pre><code>         x
+x 1.000791</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -1203,26 +1203,26 @@ x TRUE</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(wide_var)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 2.000256</code></pre>
+<pre><code>[1] 1.999425</code></pre>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(narrow_var)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.9997142</code></pre>
+<pre><code>[1] 1.000395</code></pre>
 </div>
 </div>
 <p>You can get this directly using <code>sd()</code>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(wide_dist<span class="sc">$</span>x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 2.000256</code></pre>
+<pre><code>[1] 1.999425</code></pre>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(narrow_dist<span class="sc">$</span>x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.9997142</code></pre>
+<pre><code>[1] 1.000395</code></pre>
 </div>
 </div>
 <p>If you look back to our graphs, you will see that I set the standard deviations explicitly when I generated the data: <code>rnorm()</code> takes an <code>sd</code> argument. This is great because we can confirm that the standard deviations for the wide and narrow distributions are 2 and 1 respectively (with a little bit of randomnoise).</p>
@@ -1266,12 +1266,12 @@ Tip
 <pre><code># A tibble: 6 × 1
       x
   &lt;dbl&gt;
-1  9.25
-2  7.00
-3  5.22
-4  2.64
-5  4.46
-6  6.49</code></pre>
+1 0.644
+2 5.73 
+3 8.68 
+4 2.17 
+5 4.44 
+6 5.57 </code></pre>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -1341,12 +1341,12 @@ z_i = \frac{x_i - \mu_x}{\sigma_x}
 <pre><code># A tibble: 6 × 4
       x  mean    sd z_score
   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
-1  9.25  5.00  2.00   2.13 
-2  7.00  5.00  2.00   1.00 
-3  5.22  5.00  2.00   0.110
-4  2.64  5.00  2.00  -1.18 
-5  4.46  5.00  2.00  -0.268
-6  6.49  5.00  2.00   0.745</code></pre>
+1 0.644  5.00  2.00  -2.17 
+2 5.73   5.00  2.00   0.363
+3 8.68   5.00  2.00   1.84 
+4 2.17   5.00  2.00  -1.41 
+5 4.44   5.00  2.00  -0.280
+6 5.57   5.00  2.00   0.285</code></pre>
 </div>
 </div>
 <p>We can confirm this:</p>

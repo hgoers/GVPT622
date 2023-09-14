@@ -23,4 +23,100 @@ execute:
 ```{=html}
 <iframe class="slide-deck" src="../files/slides/Lecture 4- Research Design.pdf" width = "100%" height = 600px></iframe>
 ```
+
 ## Section
+
+### Prerequisites
+
+```{r}
+#| echo: false
+
+library(scales)
+```
+
+```{r}
+library(tidyverse)
+library(rio)
+```
+
+### How will what you learn this week help your research?
+
+Critical to our ability to understand the relationship between our outcome of interest and all of the variables that we think determine (or are, at least, associated) with that outcome is our ability to observe those variables moving with one another. To do this, we need quality data that accurately measure those variables. This week, we discuss how you can collect that quality data. The method by which you do this is very important to the quality of that data (i.e. how accurately it reflects the phenomena in which you are interested). 
+
+We have two broad methods at our disposal: observational research and experimental studies. Experimental studies are considered to be the *gold standard* for causal inference (your ability to confidently say that changes to your independent variable *cause* changes to your dependent variable). 
+
+Experiments are not always feasible or appropriate. In fact, a lot of political science research (particularly international relations research) relies on observational studies. Unlike experiments, in which the researcher intervenes, observational research involves recording changes in your variables without influencing those variables. 
+
+When you conduct your own research, you will need to make important decisions about what data you will use to uncover the relationships described by your theory. This week introduces you to some of the factors you will need to consider when making those decisions. 
+
+### Data collection
+
+A lot of political science research uses observational data to make inferences about the relationship between some outcome of interest and various factors that are associated with that outcome of interest. For example, we collect data on the incidence of civil war. We also collect data on the regime type of the governments that have experienced civil wars and those that have not. We can then look at whether more civil wars occur in countries with particular regime types. 
+This week, I will introduce some common techniques for collecting observational data used by political scientists. 
+
+#### Common data sets
+
+There are many large-scale data sets that are commonly used in political science research. These include: the [American National Election Survey](https://electionstudies.org/), with which you are becoming very familiar; the [Varieties of Democracy](https://v-dem.net/) data set; and various Correlates of War data sets, include the [Militarized Interstate Disputes](https://correlatesofwar.org/data-sets/mids/) data set. 
+
+The easiest way to access these data sets is via their associated websites. You can download the data file, store it in your R project, and use it in your analysis. 
+
+However, these data sets are updated regularly. It can be tedious to download new data files every time they are updated. Further, every time you do something not programmatically, you reduce the ease with which your research process can be replicated. 
+
+#### Programmatically downloading data sets from the internet
+
+It is very easy to download a file programmatically. The URL used to access the file can be thought of as a file path. Therefore, all you need to do is provide that URL (file path) to the appropriate R command and you will read in that data set directly from the internet. 
+
+For example, let's read the [UCDP/PRIO Armed Conflict Data Set](https://ucdp.uu.se/downloads/index.html#armedconflict) into our current R session. 
+
+::: {.callout-note}
+From the UCDP website, the UCDP/PRIO Armed Conflict Data Set is: 
+
+> A conflict-year dataset with information on armed conflict where at least one party is the government of a state in the time period 1946-2022.
+:::
+
+We can use the very flexible `rio::import()` function to do this: 
+
+```{r}
+ucdp_actor_df <- import("https://ucdp.uu.se/downloads/ucdpprio/ucdp-prio-acd-231-csv.zip") |> 
+  as_tibble()
+
+head(ucdp_actor_df)
+```
+
+Insofar as that URL points to the most up-to-date data file, you now have programmatic access to that data set. 
+
+#### APIs
+
+This process is great because it is very straightforward and easy to implement. However, it can often not be very durable. Sometimes links break, or the authors of the data set change the structure of the data set stored in that data file, or they make a new link for more up-to-date data. 
+
+Popular data sets often come with APIs, or Application Programming Interfaces. These can help us maintain durable, programmatic access to our data. 
+
+APIs can get complicated and can be difficult to work with. Today, I am going to introduce you to them and provide the commands needed to access this very popular conflict data set. These commands can be adapted to access other APIs; however, you may need to restructure some things to get it to work. The best package in R for working with APIs is `httr2`. The [documentation for this package](https://httr2.r-lib.org/articles/httr2.html) is great and I would encourage you to have a look at it if you get stuck.
+
+UCDP provides an API to access their data sets. You can see the documentation for this API here: https://ucdp.uu.se/apidocs/. 
+
+To start, we need to load the `httr2` package. 
+
+```{r}
+library(httr2)
+```
+
+Next, we need to create our API request. For the UCDP API (and many other APIs), this essentially involves constructing a URL from which you will download the data. 
+
+The API request takes four different arguments: 
+
+-   The `<resource>`, or the data set you want to access. We will stick with the UCDP/PRIO Armed Conflict Data Set.
+
+-   The `<version>`, or the version of the data set you want to access. As I said, this data set is regularly updated. At the time of writing, the latest version of the data set is 23.1.
+
+-   The `<pagesize>` and `page`. This data set is (kind of) large: it has `r nrow(ucdp_actor_df) |> comma()`. The API will only provide between 1 and 1,000 rows at a time. Therefore, if you want to return more than 1,000 rows (as you would need to if you wanted to access the whole data set), you need to set the page size to 1,000 and iterate over multiple pages (in this case, we need to go through 3 pages to get the full `r nrow(ucdp_actor_df) |> comma()` rows.  
+
+Let's start simply by accessing the first 10 rows of the data set. 
+
+First, we need to get the base URL. This is provided in the [UCDP API documentation](https://ucdp.uu.se/apidocs/). You will see that they provide the following base URL: 
+
+```{r}
+ucdp_base_url <- "https://ucdpapi.pcr.uu.se/api/<resource>/<version>?<pagesize=x>&<page=x>"
+```
+
+You can see where we need to insert our four arguments: in `<resource>`, `<version>`, `<pagesize=x>`, and `<page=x>`
