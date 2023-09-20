@@ -17,6 +17,12 @@ execute:
 
 {{< fa book >}} Pollock & Edwards R Companion, Chapters 4-5
 
+## Class slides
+
+```{=html}
+<iframe class="slide-deck" src="../files/slides/Lecture 3- Relationships between Variables-1.pdf" width = "100%" height = 600px></iframe>
+```
+
 ## Section
 
 ### Prerequisites
@@ -25,6 +31,12 @@ execute:
 #| echo: false
 
 library(scales)
+```
+
+```{r}
+#| eval: false 
+
+install.packages(c("broom", "janitor", "ggridges", "modelsummary"))
 ```
 
 ```{r}
@@ -112,7 +124,7 @@ ggplot(gapminder_df, aes(x = log_gdp_per_cap, y = life_exp)) +
   scale_x_continuous(labels = label_dollar())
 ```
 
-::: {.callout-note}
+::: callout-note
 You can transform your data to make it easier to work with. Just remember that you now need to talk in terms of logged GDP per capita instead of GDP per capita.
 :::
 
@@ -140,7 +152,7 @@ As expected, the relationship is positive and strong.
 
 We have very quickly gained the skills to determine whether the relationship between two variables is positive, negative, or non-existent. We have also learnt how to describe the strength of that relationship. To that end, we are now able to describe the bivariate relationship between health and wealth as a positive and strong one.
 
-This is useful, but we tend to need a more concrete way of describing the relationship between two variables. For example, what if a policy-maker comes up to you and asks what you think the effect of a \$1,000 increase in a country's GDP per capita will do to its average life expectancy? We can build simple models of this relationship to provide that policy-maker with a *prediction* of what we might *expect* to happen. Further, we can use the model to describe the relationship between these two variables in a generalized way. If a new country were to spring into existence, we can use our knowledge of its GDP per capita to determine how long we might expect its citizens to live.
+This is useful, but we tend to need a more concrete way of describing the relationship between two variables. For example, what if a policy-maker comes up to you and asks what you think the effect of a \$1,000 increase in a country's GDP per capita will do to its average life expectancy? We can build simple models of this relationship to provide that policy-maker with a *prediction* of what we might *expect* to happen on average. Further, we can use the model to describe the relationship between these two variables in a generalized way. If a new country were to spring into existence, we can use our knowledge of its GDP per capita to determine how long we might expect its citizens to live.
 
 ### OLS and linear regression
 
@@ -159,7 +171,7 @@ We can, of course, draw many different lines through these points. Each of us ha
 
 Looking at our data above, it appears that a straight line is the best line to draw.
 
-::: {.callout-note}
+::: callout-note
 **Overfitting** involves fitting a model (or drawing a line through our data) that misses the forest for the trees. You can draw all kinds of shapes through those data that perhaps result in a smaller distance between itself and each dot. In fact, if you draw a line that connects all of those dots there will be no difference between your line and the data points. However, this model will be too focused on the data we have at hand. Our model will have no idea what to do with any new data points we introduce. This is bad! Your aim here is to produce a generalizable model of the relationship between these two variables, not to draw a line that connects this particular constellation of dots.
 :::
 
@@ -199,7 +211,7 @@ $$
 
 Read this as: the value of $y$ is the sum of some constant, $a$, and some $x$ variable that has been transformed by some slope value $m$.
 
-::: {.callout-note}
+::: callout-note
 Remember that the slope constant, $m$, tells you how much $y$ changes for every one unit increase in $x$.
 :::
 
@@ -238,7 +250,7 @@ $$
 life Exp_x = 30 + 4 * logGdpPerCap_x
 $$
 
-::: {.callout-note}
+::: callout-note
 We will get to that pesky error term in just a minute.
 :::
 
@@ -330,13 +342,13 @@ modelsummary(
 
 Note that OLS regression, particularly linear regression, requires that you make a lot of important assumptions about the relationship between your two variables. These were discussed in detail in the lecture. For example, we assume that the best line to fit is straight. We also assume that the best way to generate and describe the relationship across all observations is to fit the line that minimizes the distance between itself and the observed values or dots.
 
-::: {.callout-note collapse=true}
+::: {.callout-note collapse="true"}
 There are other approaches to determining the "best" line. These include maximum likelihood estimation (discussed in detail in GVPT729) and Bayesian statistics. We won't discuss these approaches in this class or in GVPT722. It's worth noting here; however, that OLS regression requires a whole bunch of assumptions that may or may not be appropriate to your research question or theory. This class prepares you to grapple with those questions and appropriately use these tools in your own research.
 :::
 
 ### Prediction and performance
 
-Okay, so we now have a model that describes the relationship between our outcome of interest (health) and our independent variable of interest (wealth). We can use this to predict our outcome of interest for different values of our independent variable. For example, what do we predict to be the average life expectancy of a country with a GDP per capita of \$20,000? 
+Okay, so we now have a model that describes the relationship between our outcome of interest (health) and our independent variable of interest (wealth). We can use this to predict our outcome of interest for different values of our independent variable. For example, what do we predict to be the average life expectancy of a country with a GDP per capita of \$20,000?
 
 `broom::tidy(m)` makes this model object a lot easier (tidier) to work with.
 
@@ -504,7 +516,7 @@ Where $y_i$ is each predicted value (the model's estimate of country's average l
 
 We just add those all up to get a single measure of the model's overall performance.
 
-::: {.callout-note}
+::: callout-note
 Remember that we tend to square things when we don't care about the direction. We don't care that the predicted value is less or more than the observed value, just about how far they are from each other.
 :::
 
@@ -526,7 +538,7 @@ glance(m) |>
   select(deviance)
 ```
 
-::: {.callout-tip}
+::: callout-tip
 Where `broom::tidy()` gives us information about the coefficients of our model, `broom::glance()` gives us information on the overall model performance.
 :::
 
@@ -534,7 +546,7 @@ This is useful, but it is influenced by the units by which we measure our variab
 
 #### $R^2$
 
-The $R^2$ value measures the amount of variation in the dependent variable that is explained by the independent variable. In our example, it measures how much the changes in countries' average life expectancy is explained by the changes in their (logged) GDP per capita. 
+The $R^2$ value measures the amount of variation in the dependent variable that is explained by the independent variable. In our example, it measures how much the changes in countries' average life expectancy is explained by the changes in their (logged) GDP per capita.
 
 $$
 R^2 = 1 - \frac{Unexplained\ variation}{Total\ variation}
@@ -575,7 +587,7 @@ glance(m) |>
   select(r.squared)
 ```
 
-An $R^2$ of 1 means that all of the change in the dependent variable are completely explained by changes in the independent variable. Here, it would mean that all changes to a country's average life expectancy are explained through changes to the country's logged GDP per capita. 
+An $R^2$ of 1 means that all of the change in the dependent variable are completely explained by changes in the independent variable. Here, it would mean that all changes to a country's average life expectancy are explained through changes to the country's logged GDP per capita.
 
 According to our model, `r percent(glance(m)$r.squared, accuracy = 0.1)` of changes in a country's average life expectancy are explained through changes to the country's logged GDP per capita.
 
@@ -603,7 +615,7 @@ We can use `modelsummary::datasummary_crosstab()` to produce a nicely formatted 
 datasummary_crosstab(abort4 ~ pid_3, data = nes)
 ```
 
-We can also visualise this: 
+We can also visualise this:
 
 ```{r}
 nes |> 

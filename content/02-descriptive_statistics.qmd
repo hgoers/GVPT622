@@ -76,17 +76,17 @@ The important take-away here is that you should start with your theory. You shou
 
 A variable is an empirical measurement of a characteristic of each observation. The ways of describing your data depend on the type of variable. You can have categorical or continuous variables. **Categorical variables** are discrete. They can be unordered (**nominal**) - for example, the colour of cars - or ordered (**ordinal**) - for example, whether you strongly dislike, dislike, are neutral about, like, or strongly like Taylor Swift.
 
-::: {.callout-note}
+::: callout-note
 **Dichotomous (or binary) variables** are a special type of categorical variable. They take on one of two values. For example: yes or no; at war or not at war; is a Swifty, or is not a Swifty.
-::: 
+:::
 
 **Continuous variables** are, well, continuous. For example, your height or weight, a country's GDP or population, or the number of fatalities in a battle.
 
-::: {.callout-note}
+::: callout-note
 Continuous variables can be made into (usually ordered) categorical variables. This process is called **binning**. For example, you can take individuals' ages and reduce them to 0 - 18 years old, 18 - 45 years old, 45 - 65 years old, and 65+ years old.
 
 You lose information in this process: you cannot go from 45 - 65 years old back to the individuals' precise age. In other words, you cannot go from a categorical to continuous variable.
-::: 
+:::
 
 Let's take a look at how you can describe these different types of variables in turn, using real-world political science examples.
 
@@ -98,8 +98,8 @@ Simply put, for categorical variables we are interested in the count and/or perc
 Later, we will ask interesting questions using these summaries. These include whether differences between the counts and/or percentages of cases that fall into each category are meaningfully (and/or statistically significantly) different from one another. This deceptively simple question serves as the foundation for a lot of political science (particularly comparative) research.
 :::
 
-::: {.callout-note}
-We can represent categorical variables numerically whilest still letting R know not to treat them as continuous variables. We use [factors](https://forcats.tidyverse.org/) to do this. 
+::: callout-note
+We can represent categorical variables numerically whilest still letting R know not to treat them as continuous variables. We use [factors](https://forcats.tidyverse.org/) to do this.
 :::
 
 #### Case study: American National Election Survey
@@ -122,17 +122,17 @@ Let's look at how many individuals of different ages took part in the survey in 
 
 #### Categorical variables as factors
 
-Remember, there are many different data types that R recognizes. These include characters (`"A"`, `"B"`, `"C"`), integers (`1`, `2`, `3`), and logical values (`TRUE` or `FALSE`).  
+Remember, there are many different data types that R recognizes. These include characters (`"A"`, `"B"`, `"C"`), integers (`1`, `2`, `3`), and logical values (`TRUE` or `FALSE`).
 
-Factors are another data type. R uses factors to deal with categorical variables. 
+Factors are another data type. R uses factors to deal with categorical variables.
 
-To illustrate, let's look at the `dem_age6` variable in the `nes` data set. This value takes on six different values, recording the age range into which the respondent to the NES falls. These six categories are: 
+To illustrate, let's look at the `dem_age6` variable in the `nes` data set. This value takes on six different values, recording the age range into which the respondent to the NES falls. These six categories are:
 
 ```{r}
 distinct(nes, dem_age6)
 ```
 
-This is an ordinal categorical variable. It is discrete and ordered. We can take a look at the variable itself using the helpful `skimr::skim()` function: 
+This is an ordinal categorical variable. It is discrete and ordered. We can take a look at the variable itself using the helpful `skimr::skim()` function:
 
 ```{r}
 skimr::skim(nes$dem_age6)
@@ -151,10 +151,10 @@ nes <- mutate(nes, dem_age6 = factor(dem_age6, ordered = T, levels = c("17-29",
 skimr::skim(nes, dem_age6)
 ```
 
-Here, we used the `ordered` argument to tell R that this factor is ordinal. We then used the `levels` argument to tell R the order of the categories. 
+Here, we used the `ordered` argument to tell R that this factor is ordinal. We then used the `levels` argument to tell R the order of the categories.
 
-::: {.callout-tip}
-By ensuring that R understands which variables are categorical, we prevent it from giving us nonsense statistics (such as a mean or median for our categories). 
+::: callout-tip
+By ensuring that R understands which variables are categorical, we prevent it from giving us nonsense statistics (such as a mean or median for our categories).
 :::
 
 #### Frequency distribution
@@ -165,7 +165,7 @@ We can take advantage of `janitor::tabyl()` to quickly calculate the number and 
 tabyl(nes, dem_age6)
 ```
 
-:::{.callout-tip}
+::: callout-tip
 `valid_percent` provides the proportion of respondents in each age bracket **with missing values removed from the denominator**. For example, the NES survey had `r nes |> nrow() |> comma()` respondents in 2012, but only `r nes |> drop_na(dem_age6) |> nrow() |> comma()` of them provided their age. `r nes |> filter(dem_age6 == "17-29") |> nrow()` responded that they are 17 - 29 years old. Therefore, the `17-29` proportion (which is bounded by 0 and 1, whereas percents are bounded by 0 and 100) is `r nes |> filter(dem_age6 == "17-29") |> nrow()` / `r nes |> nrow() |> comma()` and its valid proportion is `r nes |> filter(dem_age6 == "17-29") |> nrow()` / `r nes |> drop_na(dem_age6) |> nrow() |> comma()`.
 :::
 
@@ -189,12 +189,12 @@ nes |>
   scale_x_continuous(limits = c(0, 1500))
 ```
 
-::: {.callout-tip}
-You can use `geom_text()` to add labels to your plots. Remember to include `label` as a `aes()` argument to specify which variable you would like to use as your label. The `hjust` argument provided to the `geom_text()` function moves the label slightly to the right to avoid overlap with the bars. Vertical adjustments can be made using the `vjust` argument.   
+::: callout-tip
+You can use `geom_text()` to add labels to your plots. Remember to include `label` as a `aes()` argument to specify which variable you would like to use as your label. The `hjust` argument provided to the `geom_text()` function moves the label slightly to the right to avoid overlap with the bars. Vertical adjustments can be made using the `vjust` argument.
 :::
 
-::: {.callout-tip}
-Another useful side-effect of properly specifying our ordinal categorical variable as an ordered factor is that it will correctly order our plots according to the order of our variables. 
+::: callout-tip
+Another useful side-effect of properly specifying our ordinal categorical variable as an ordered factor is that it will correctly order our plots according to the order of our variables.
 :::
 
 ### Describing continuous variables
@@ -238,7 +238,7 @@ ggplot(perc_edu, aes(x = value)) +
   scale_x_continuous(labels = label_percent())
 ```
 
-::: {.callout-tip}
+::: callout-tip
 The `scales` package includes a lot of helpful functions that allow you to format numbers. Here, I am using `scales::label_percent()` to convert our raw proportions into the percentage format on the x-axis of the plot.
 :::
 
@@ -254,7 +254,7 @@ ggplot(perc_edu, aes(x = value)) +
   theme_minimal() + 
   labs(
     x = "Expenditure on education as a proportion of GDP",
-    y = "Count"
+    y = "Density"
   ) + 
   scale_x_continuous(labels = label_percent())
 ```
@@ -311,7 +311,7 @@ mean(perc_edu$value, na.rm = T) |>
   percent()
 ```
 
-::: {.callout-tip}
+::: callout-tip
 If you do not use the argument `na.rm` (read NA remove!), you will get an `NA` if any exist in your vector of values. This is a good default! You should be very aware of missing data points.
 :::
 
@@ -334,7 +334,7 @@ The **mode** is the most frequent of all values.
 
 To calculate it, count how many times each value occurs in your data set. The one that occurs the most is your mode.
 
-::: {.callout-note}
+::: callout-note
 This is usually a more useful summary statistic for categorical variables than continuous ones. For example, which colour of car is most popular? Which political party has the most members?
 :::
 
@@ -348,7 +348,7 @@ table(x)
 
 ##### Using central tendency to describe and understand distributions
 
-Normally distributed values *have the same <span style="color:#EEABC4;">mean</span> and <span style="color:#4582EC;">median</span>*.
+Normally distributed values *have the same [mean]{style="color:#EEABC4;"} and [median]{style="color:#4582EC;"}*.
 
 ```{r}
 norm_dist <- tibble(x = rnorm(n = 1e6))
@@ -360,7 +360,7 @@ ggplot(norm_dist, aes(x = x)) +
   theme_minimal()
 ```
 
-For right skewed data, *the <span style="color:#EEABC4;">mean</span> is greater than the <span style="color:#4582EC;">median</span>*.
+For right skewed data, *the [mean]{style="color:#EEABC4;"} is greater than the [median]{style="color:#4582EC;"}*.
 
 ```{r}
 right_dist <- tibble(x = rbeta(1e6, 2, 10))
@@ -372,7 +372,7 @@ ggplot(right_dist, aes(x = x)) +
   theme_minimal()
 ```
 
-For left skewed data, *the <span style="color:#EEABC4;">mean</span> is smaller than the <span style="color:#4582EC;">median</span>*.
+For left skewed data, *the [mean]{style="color:#EEABC4;"} is smaller than the [median]{style="color:#4582EC;"}*.
 
 ```{r}
 left_dist <- tibble(x = rbeta(1e6, 10, 2))
@@ -385,7 +385,7 @@ ggplot(left_dist, aes(x = x)) +
 ```
 
 ::: {.callout-caution title="Exercise"}
-How is the percentage spent on education data skewed? 
+How is the percentage spent on education data skewed?
 :::
 
 #### Five number summary
@@ -440,7 +440,7 @@ Note that some values are displayed as dots. The box plot is providing you with 
 
 **Outliers** fall so far away from the majority of the other values that they should be examined closely and perhaps excluded from your analysis. Outliers can distort your mean. They do not, however, distort your median.
 
-::: {.callout-note}
+::: callout-note
 We will talk more about how to deal with outliers later in the course.
 :::
 
@@ -498,7 +498,7 @@ Let's step through this. We will first calculate the variance for `wide_dist`, o
 
 3.  Square those differences.
 
-::: {.callout-tip}
+::: callout-tip
 We do not care whether the value is higher or lower than the mean. We only care how far from the mean it is. Squaring a value removes its sign (positive or negative) allowing us to concentrate on this difference.
 :::
 
@@ -597,15 +597,15 @@ tibble(
   theme_minimal()
 ```
 
-::: {.callout-tip}
-Remember that the standard deviation is a measure of how spread out our data are. Therefore, data with no spread (are all the exact same number) will have a standard deviation of 0. 
+::: callout-tip
+Remember that the standard deviation is a measure of how spread out our data are. Therefore, data with no spread (are all the exact same number) will have a standard deviation of 0.
 :::
 
 #### Normal distributions
 
 Remember that normal distributions share a mean and median. This has very cool and useful side effects.
 
-Let's explore these with some simulated data that have a mean of 5 and a standard deviation of 2. 
+Let's explore these with some simulated data that have a mean of 5 and a standard deviation of 2.
 
 ```{r}
 norm_5_2 <- tibble(x = rnorm(n = 1e6, mean = 5, sd = 2))
@@ -613,11 +613,11 @@ norm_5_2 <- tibble(x = rnorm(n = 1e6, mean = 5, sd = 2))
 head(norm_5_2)
 ```
 
-::: {.callout-note}
-Because we are taking random draws of numbers using `rnorm()`, you will get a different set of numbers to me if you run this command. They will still be centered around a mean of 5 and have a standard deviation of 2.  
+::: callout-note
+Because we are taking random draws of numbers using `rnorm()`, you will get a different set of numbers to me if you run this command. They will still be centered around a mean of 5 and have a standard deviation of 2.
 :::
 
-Let's plot these numbers: 
+Let's plot these numbers:
 
 ```{r}
 ggplot(norm_5_2, aes(x = x)) + 
@@ -628,7 +628,7 @@ ggplot(norm_5_2, aes(x = x)) +
   theme_minimal()
 ```
 
-Because these numbers are normally distributed (share a mean and median), the following are true: 
+Because these numbers are normally distributed (share a mean and median), the following are true:
 
 -   Approximately 68% of the data fall within one standard deviation of the mean (the dark blue shaded area);
 
@@ -637,12 +637,12 @@ Because these numbers are normally distributed (share a mean and median), the fo
 -   Approximately 99.7% of the data fall within three standard deviations of the mean (the light blue shaded area).
 
 ::: {.callout-caution title="Exercise"}
-Repeat this process with normally distributed data centered around different means and with different standard deviations. 
+Repeat this process with normally distributed data centered around different means and with different standard deviations.
 :::
 
 #### Standardization
 
-Notice how our description of each variable depends on its units of measurement. What do we do if we want to compare across different measurements that have different units? 
+Notice how our description of each variable depends on its units of measurement. What do we do if we want to compare across different measurements that have different units?
 
 ##### Z scores
 
@@ -677,13 +677,13 @@ ggplot(standard_5_2, aes(x = z_score)) +
   scale_x_continuous(breaks = seq(-5, 5, 1))
 ```
 
-We can use the z-score of a value to determine what percentage of values of our normally distributed data are less than that value. To do this, we can either reference a [z table](https://www.z-table.com/), or use the following function in R: 
+We can use the z-score of a value to determine what percentage of values of our normally distributed data are less than that value. To do this, we can either reference a [z table](https://www.z-table.com/), or use the following function in R:
 
-```
+```         
 pnorm()
 ```
 
-What percentage of the simulated data fall below 1.5 standard deviations from the mean? First, let's visualize this question:  
+What percentage of the simulated data fall below 1.5 standard deviations from the mean? First, let's visualize this question:
 
 ```{r}
 ggplot(standard_5_2, aes(x = z_score)) +
@@ -697,22 +697,22 @@ ggplot(standard_5_2, aes(x = z_score)) +
   
 ```
 
-Next, we can use the function above to work out the precise percentage of the data that fall below this value: 
+Next, we can use the function above to work out the precise percentage of the data that fall below this value:
 
 ```{r}
 pnorm(1.5)
 ```
 
-`r pnorm(1.5) |> percent(accuracy = 0.01)` of the data fall below 1.5 standard deviations above the mean of our simulated data. 
+`r pnorm(1.5) |> percent(accuracy = 0.01)` of the data fall below 1.5 standard deviations above the mean of our simulated data.
 
 ::: {.callout-caution title="Exercise"}
-Pick a different number of standard deviations from the mean and have a go at visualizing and calculating the percentage of the data that fall below that value. 
+Pick a different number of standard deviations from the mean and have a go at visualizing and calculating the percentage of the data that fall below that value.
 :::
 
-::: {.callout-note} 
-To work out the percentage of the data that fall above that value, you simply subtract the proportion that falls below from 1 (or the percentage subtracted from 100%). 
+::: callout-note
+To work out the percentage of the data that fall above that value, you simply subtract the proportion that falls below from 1 (or the percentage subtracted from 100%).
 
-What percentage of the data are greater than 1.5 standard deviations from the mean? `1 - pnorm(1.5)` or `r 1 - round(pnorm(1.5), 3)`. 
+What percentage of the data are greater than 1.5 standard deviations from the mean? `1 - pnorm(1.5)` or `r 1 - round(pnorm(1.5), 3)`.
 :::
 
 ### Next week

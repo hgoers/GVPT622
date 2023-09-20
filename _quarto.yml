@@ -25,7 +25,7 @@ website:
         - content/01-introduction.qmd
         - content/02-descriptive_statistics.qmd
         - content/03-bivariate_relationships.qmd
-#        - content/04-research_design.qmd
+        - content/04-research_design.qmd
 #        - content/05-applications.qmd
 #        - content/06-probability_theory.qmd
 #        - content/07-statistical_inference.qmd

@@ -139,7 +139,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Research Design</li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/04-research_design.html">Research Design</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -169,6 +169,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Relationships Between Two Variables</span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/04-research_design.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Research Design</span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -184,7 +190,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#class" id="toc-class" class="nav-link" data-scroll-target="#class">Class</a></li>
   <li><a href="#lab" id="toc-lab" class="nav-link" data-scroll-target="#lab">Lab</a></li>
   </ul></li>
-  <li><a href="#class-slides" id="toc-class-slides" class="nav-link" data-scroll-target="#class-slides">Class slides</a></li>
   <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section">Section</a>
   <ul>
   <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites">Prerequisites</a></li>
@@ -194,6 +199,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#common-data-sets" id="toc-common-data-sets" class="nav-link" data-scroll-target="#common-data-sets">Common data sets</a></li>
   <li><a href="#programmatically-downloading-data-sets-from-the-internet" id="toc-programmatically-downloading-data-sets-from-the-internet" class="nav-link" data-scroll-target="#programmatically-downloading-data-sets-from-the-internet">Programmatically downloading data sets from the internet</a></li>
   <li><a href="#apis" id="toc-apis" class="nav-link" data-scroll-target="#apis">APIs</a></li>
+  <li><a href="#web-scraping" id="toc-web-scraping" class="nav-link" data-scroll-target="#web-scraping">Web scraping</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -230,17 +236,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><i class="fa-solid fa-book" aria-label="book"></i> Pollock &amp; Edwards R Companion, Chapter 5</p>
 </section>
 </section>
-<section id="class-slides" class="level2">
-<h2 class="anchored" data-anchor-id="class-slides">Class slides</h2>
-<iframe class="slide-deck" src="../files/slides/Lecture 4- Research Design.pdf" width="100%" height="600px"></iframe>
-</section>
 <section id="section" class="level2">
 <h2 class="anchored" data-anchor-id="section">Section</h2>
 <section id="prerequisites" class="level3">
 <h3 class="anchored" data-anchor-id="prerequisites">Prerequisites</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"rio"</span>, <span class="st">"httr2"</span>, <span class="st">"rvest"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr2)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rvest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="how-will-what-you-learn-this-week-help-your-research" class="level3">
@@ -257,7 +264,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h4 class="anchored" data-anchor-id="common-data-sets">Common data sets</h4>
 <p>There are many large-scale data sets that are commonly used in political science research. These include: the <a href="https://electionstudies.org/">American National Election Survey</a>, with which you are becoming very familiar; the <a href="https://v-dem.net/">Varieties of Democracy</a> data set; and various Correlates of War data sets, include the <a href="https://correlatesofwar.org/data-sets/mids/">Militarized Interstate Disputes</a> data set.</p>
 <p>The easiest way to access these data sets is via their associated websites. You can download the data file, store it in your R project, and use it in your analysis.</p>
-<p>However, these data sets are updated regularly. It can be tedious to download new data files every time they are updated. Further, every time you do something not programmatically, you reduce the ease with which your research process can be replicated.</p>
+<p>However, these data sets are updated regularly. It can be tedious to download new data files every time they are updated.</p>
 </section>
 <section id="programmatically-downloading-data-sets-from-the-internet" class="level4">
 <h4 class="anchored" data-anchor-id="programmatically-downloading-data-sets-from-the-internet">Programmatically downloading data sets from the internet</h4>
@@ -274,17 +281,15 @@ Note
 </div>
 <div class="callout-body-container callout-body">
 <p>From the UCDP website, the UCDP/PRIO Armed Conflict Data Set is:</p>
-<blockquote class="blockquote">
-<p>A conflict-year dataset with information on armed conflict where at least one party is the government of a state in the time period 1946-2022.</p>
-</blockquote>
+<p><em>A conflict-year dataset with information on armed conflict where at least one party is the government of a state in the time period 1946-2022.</em></p>
 </div>
 </div>
 <p>We can use the very flexible <code>rio::import()</code> function to do this:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ucdp_actor_df <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"https://ucdp.uu.se/downloads/ucdpprio/ucdp-prio-acd-231-csv.zip"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(ucdp_actor_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>ucdp_actor_df <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"https://ucdp.uu.se/downloads/ucdpprio/ucdp-prio-acd-231-csv.zip"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(ucdp_actor_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 28
   conflict_id location   side_a side_a_id side_a_2nd side_b side_b_id side_b_2nd
@@ -309,25 +314,214 @@ Note
 <h4 class="anchored" data-anchor-id="apis">APIs</h4>
 <p>This process is great because it is very straightforward and easy to implement. However, it can often not be very durable. Sometimes links break, or the authors of the data set change the structure of the data set stored in that data file, or they make a new link for more up-to-date data.</p>
 <p>Popular data sets often come with APIs, or Application Programming Interfaces. These can help us maintain durable, programmatic access to our data.</p>
-<p>APIs can get complicated and can be difficult to work with. Today, I am going to introduce you to them and provide the commands needed to access this very popular conflict data set. These commands can be adapted to access other APIs; however, you may need to restructure some things to get it to work. The best package in R for working with APIs is <code>httr2</code>. The <a href="https://httr2.r-lib.org/articles/httr2.html">documentation for this package</a> is great and I would encourage you to have a look at it if you get stuck.</p>
-<p>UCDP provides an API to access their data sets. You can see the documentation for this API here: https://ucdp.uu.se/apidocs/.</p>
-<p>To start, we need to load the <code>httr2</code> package.</p>
+<p>APIs can get a bit complicated. Today, I am going to briefly introduce you to them and some packages that can help you work with them from R. This is, by no means, a comprehensive tutorial on working with APIs, but it should give you the tools to get started with this very useful data collection process.</p>
+<p>The best package in R for working with APIs is <code>httr2</code>. The <a href="https://httr2.r-lib.org/articles/httr2.html">documentation for this package</a> is great and I would encourage you to have a look at it if you get stuck.</p>
+<p>UCDP provides an API to access their data sets. You can see the documentation for this API here: <a href="https://ucdp.uu.se/apidocs/" class="uri">https://ucdp.uu.se/apidocs/</a>.</p>
+<p>To start, we need to load the <code>httr2</code> package into our R session.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Next, we need to create our API request. For the UCDP API (and many other APIs), this essentially involves constructing a URL from which you will download the data.</p>
-<p>The API request takes four different arguments:</p>
+<p>The UCDP API request takes four different arguments:</p>
 <ul>
 <li><p>The <code>&lt;resource&gt;</code>, or the data set you want to access. We will stick with the UCDP/PRIO Armed Conflict Data Set.</p></li>
 <li><p>The <code>&lt;version&gt;</code>, or the version of the data set you want to access. As I said, this data set is regularly updated. At the time of writing, the latest version of the data set is 23.1.</p></li>
-<li><p>The <code>&lt;pagesize&gt;</code> and <code>page</code>. This data set is (kind of) large: it has 2,626. The API will only provide between 1 and 1,000 rows at a time. Therefore, if you want to return more than 1,000 rows (as you would need to if you wanted to access the whole data set), you need to set the page size to 1,000 and iterate over multiple pages (in this case, we need to go through 3 pages to get the full 2,626 rows.</p></li>
+<li><p>The <code>&lt;pagesize&gt;</code> and <code>page</code>. This data set is (kind of) large: it has 2,626 rows. The API will only provide between 1 and 1,000 rows at a time. Therefore, if you want to return more than 1,000 rows (as you would need to if you wanted to access the whole data set), you need to set the page size to 1,000 and iterate over multiple pages (in this case, we need to go through 3 pages to get the full 2,626 rows.</p></li>
 </ul>
 <p>Let’s start simply by accessing the first 10 rows of the data set.</p>
 <p>First, we need to get the base URL. This is provided in the <a href="https://ucdp.uu.se/apidocs/">UCDP API documentation</a>. You will see that they provide the following base URL:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ucdp_base_url <span class="ot">&lt;-</span> <span class="st">"https://ucdpapi.pcr.uu.se/api/&lt;resource&gt;/&lt;version&gt;?&lt;pagesize=x&gt;&amp;&lt;page=x&gt;"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>ucdp_url <span class="ot">&lt;-</span> <span class="st">"https://ucdpapi.pcr.uu.se/api/&lt;resource&gt;/&lt;version&gt;?&lt;pagesize=x&gt;&amp;&lt;page=x&gt;"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>You can see where we need to insert our four arguments: in <code>&lt;resource&gt;</code>, <code>&lt;version&gt;</code>, <code>&lt;pagesize=x&gt;</code>, and <code>&lt;page=x&gt;</code></p>
+<p>You can see where we need to insert our four arguments: <code>&lt;resource&gt;</code>, <code>&lt;version&gt;</code>, <code>&lt;pagesize=x&gt;</code>, and <code>&lt;page=x&gt;</code>. We can get the relevant values from the <a href="https://ucdp.uu.se/apidocs/">UCDP API documentation</a>. These are:</p>
+<ul>
+<li><p><code>&lt;resource&gt;</code>: <code>ucdpprioconflict</code> for the UCDP/PRIO Armed Conflict Data Set;</p></li>
+<li><p><code>&lt;version&gt;</code>: 23.1.</p></li>
+</ul>
+<p>We will start slowly by retrieving the first 10 rows of this data set. Therefore:</p>
+<ul>
+<li><p><code>&lt;pagesize=x&gt;</code>: <code>&lt;pagesize=10&gt;</code>;</p></li>
+<li><p><code>page=x</code>: <code>page=1</code>.</p></li>
+</ul>
+<p>Adding these into our base URL creates the following request URL:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>ucdp_url <span class="ot">&lt;-</span> <span class="st">"https://ucdpapi.pcr.uu.se/api/ucdpprioconflict/23.1?pagesize=10&amp;page=1"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now that we have our URL, we can make our request to the API using <code>httr2::request()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>req <span class="ot">&lt;-</span> <span class="fu">request</span>(ucdp_url)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>req</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next we need to perform the request using <code>httr2::req_perform()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>resp <span class="ot">&lt;-</span> req <span class="sc">|&gt;</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_perform</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can check the status of our request:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>resp <span class="sc">|&gt;</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">resp_status</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 200</code></pre>
+</div>
+</div>
+<p><code>200</code> is good! It means that we have successfully performed our request. For a full list of HTTP status codes, <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">look here</a>.</p>
+<p>Now, let’s get our data! You can look at it using the following command:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>resp <span class="sc">|&gt;</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">resp_body_json</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The response is an array of <strong>JSON objects</strong>. JSON is just a very light-weight way of sharing data. Lots of APIs will respond with this structure.</p>
+<p>The API gave us lots of information. We want the <code>Result</code> object. This is where the data set is stored. First, we need to access the data from the response. We do this using the <code>httr2::resp_body_json()</code> function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>results_raw <span class="ot">&lt;-</span> resp <span class="sc">|&gt;</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">resp_body_json</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The data set is stored in the <code>Results</code> object. You can have a look at it by running this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>results_raw<span class="sc">$</span>Result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This is a JSON object, which can be a bit difficult to work with. It is much easier to work with a tibble or data frame. To convert this JSON object to a tibble, we can use <code>tibble::enframe()</code> and <code>tidyr::unnest_wider()</code> (both of which are loaded with <code>tidyverse</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>results_df <span class="ot">&lt;-</span> <span class="fu">enframe</span>(results_raw<span class="sc">$</span>Result) <span class="sc">|&gt;</span> </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_wider</span>(value)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>results_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 29
+    name conflict_id location    side_a    side_a_Id side_a_2nd side_b side_b_Id
+   &lt;int&gt; &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;  &lt;chr&gt;    
+ 1     1 11345       South Sudan Governme… 113       "Governme… SPLM/… 4226     
+ 2     2 11345       South Sudan Governme… 113       "Governme… SPLM/… 4226     
+ 3     3 11345       South Sudan Governme… 113       ""         SPLM/… 4226     
+ 4     4 11345       South Sudan Governme… 113       ""         SPLM/… 4226     
+ 5     5 11345       South Sudan Governme… 113       ""         SPLM/… 4226     
+ 6     6 11345       South Sudan Governme… 113       ""         NAS    6794     
+ 7     7 11345       South Sudan Governme… 113       ""         NAS    6794     
+ 8     8 11345       South Sudan Governme… 113       ""         NAS, … 6794, 82…
+ 9     9 11346       Libya       Governme… 111       " Governm… Force… 1126, 11…
+10    10 11346       Libya       Governme… 111       ""         ASL    7046     
+# ℹ 21 more variables: side_b_2nd &lt;chr&gt;, incompatibility &lt;chr&gt;,
+#   territory_name &lt;chr&gt;, year &lt;chr&gt;, intensity_level &lt;chr&gt;,
+#   cumulative_intensity &lt;chr&gt;, type_of_conflict &lt;chr&gt;, start_date &lt;chr&gt;,
+#   start_prec &lt;chr&gt;, start_date2 &lt;chr&gt;, start_prec2 &lt;chr&gt;, ep_end &lt;chr&gt;,
+#   ep_end_date &lt;chr&gt;, ep_end_prec &lt;chr&gt;, gwno_a &lt;chr&gt;, gwno_a_2nd &lt;chr&gt;,
+#   gwno_b &lt;chr&gt;, gwno_b_2nd &lt;chr&gt;, gwno_loc &lt;chr&gt;, region &lt;chr&gt;, version &lt;chr&gt;</code></pre>
+</div>
+</div>
+<p>Cool! We now have the first 10 rows of the UCDP/PRIO Armed Conflict Data Set.</p>
+<p>You can do more precise requests with APIs. For example, you can request data for specific countries or time frames. This can be very useful when you are working with big data because it can allow you to work in memory by segmenting your analysis.</p>
+</section>
+<section id="web-scraping" class="level4">
+<h4 class="anchored" data-anchor-id="web-scraping">Web scraping</h4>
+<p>Another useful method for collecting data from the internet is web scraping. Web scraping allows you to extract data from a website. I am going to very quickly introduce you to this process and some useful R packages for performing web scraping. Again, this will be a very cursory introduction that aims to provide you with the tools to build up this skill if you need it.</p>
+<p>The best package for web scraping in R is <a href="https://rvest.tidyverse.org/"><code>rvest</code></a>. We can use this package to <em>harvest</em> data from the web.</p>
+<p>First, let’s load <code>rvest</code> into our current R session:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rvest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s practice by creating a data set of all of the UNSC resolutions passed this year. The UNSC provides a <a href="https://www.un.org/securitycouncil/content/resolutions-adopted-security-council-2023">table of these resolutions on its website</a>:</p>
+<p><img src="img/unsc.png" class="img-fluid"></p>
+<p>This table includes some very useful information for anyone interested in looking at UNSC behaviour over time. It provides the unique resolution ID, the data of adoption, and a brief title or description of the resolution. We are going to use <code>rvest</code> and friends to read that information into R so that we can analyze it.</p>
+<p>The first step you need to do is to read in the web page:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>unsc_res <span class="ot">&lt;-</span> <span class="fu">read_html</span>(<span class="st">"https://www.un.org/securitycouncil/content/resolutions-adopted-security-council-2023"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Web pages are (generally) HTML files. HTML is a markup language that is the standard format for documents displayed in web browsers.</p>
+<p>We can have a look at this HTML file:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>unsc_res</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{html_document}
+&lt;html lang="en" dir="ltr"&gt;
+[1] &lt;head&gt;\n&lt;meta charset="utf-8"&gt;\n&lt;meta name="viewport" content="width=devi ...
+[2] &lt;body class="html not-front not-logged-in no-sidebars page-node page-node ...</code></pre>
+</div>
+</div>
+<p>I am not about to teach you yet another scripting language. All you need to know is that HTML documents are <em>highly</em> structured. We can use this structure to point R to the specific part of the document that we want to scrape.</p>
+<p>Here is a basic example of HTML (from the <a href="https://rvest.tidyverse.org/articles/rvest.html#html-basics"><code>rvest</code> documentation</a>):</p>
+<pre><code>&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;Page title&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1 id='first'&gt;A heading&lt;/h1&gt;
+  &lt;p&gt;Some text &amp;amp; &lt;b&gt;some bold text.&lt;/b&gt;&lt;/p&gt;
+  &lt;img src='myimg.png' width='100' height='100'&gt;
+&lt;/body&gt;</code></pre>
+<p>HTML is hierarchical: all elements are nested within one another, providing them with a place within the documentation.</p>
+<p>All HTML elements are contained within two tags: a start tag (<code>&lt;tag&gt;</code>) and corresponding end tag (<code>&lt;/tag&gt;</code>). These tags can have attributes that can group them together.</p>
+<p>For example, the above HTML code includes a heading (<code>&lt;h1&gt;</code>) that includes an <code>id</code> attribute <code>'first'</code>. The text of the heading - <em>A heading</em> - is contained within the heading tag. We know where the heading ends because it closes out with a <code>&lt;/h1&gt;</code> tag.</p>
+<p>Here, we want to scrape the table that contains all the useful information about the resolutions. We need to find the part of the HTML document that contains that table.</p>
+<p>Head back to the web page. We are looking at the rendered HTML. We need to find where in this document the table is located. To do this, right click anywhere in the table and select <em>Inspect</em>.</p>
+<p><img src="img/unsc2.png" class="img-fluid"></p>
+<p>A new window will pop up on the side of your web page that shows you the raw HTML language that is generating this web page.</p>
+<p><img src="img/unsc3.png" class="img-fluid"></p>
+<p>This can look a bit weird if you have not come across HTML before, but it can be easy to work with. Scroll your mouse across different lines in that raw HTML window. You will see the corresponding parts of the rendered page light up.</p>
+<p><img src="img/unsc4.png" class="img-fluid"></p>
+<p>Scroll until you have highlighted the whole table. You will be on a line that reads: <code>&lt;table class="table table-striped table-sm"&gt;</code>.</p>
+<p><img src="img/unsc5.png" class="img-fluid"></p>
+<p>Without getting too into the HTML weeds, this is the code used to generate the table. It includes a couple of unique identifiers that are useful for web scraping. Here, we are going to use the unique <code>class</code> of this table.</p>
+<p>The class is <code>table table-striped table-sm</code>. When providing that to <code>httr2::html_element()</code> (which is function we use to select that part of the HTML document), we need to replace those spaces with full stops:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>unsc_res <span class="sc">|&gt;</span> </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_element</span>(<span class="st">"table.table-striped.table-sm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{html_node}
+&lt;table class="table table-striped table-sm"&gt;
+[1] &lt;tbody&gt;\n&lt;tr&gt;\n&lt;td&gt;&lt;a href="http://undocs.org/en/S/RES/2697(2023)"&gt;S/RES/ ...</code></pre>
+</div>
+</div>
+<p>We have filtered the whole HTML document to only the table we want to select. We don’t want to work with this table in HTML. Let’s convert it into a data frame. We can use the very helpful <code>httr2::html_table()</code> function to extract this tabular data and convert it:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>unsc_res <span class="sc">|&gt;</span> </span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_element</span>(<span class="st">"table.table-striped.table-sm"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_table</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 26 × 3
+   X1                X2                X3                                       
+   &lt;chr&gt;             &lt;chr&gt;             &lt;chr&gt;                                    
+ 1 S/RES/2697 (2023) 15 September 2023 Threats to international peace and secur…
+ 2 S/RES/2696 (2023) 7 September 2023  The situation in Somalia                 
+ 3 S/RES/2695 (2023) 31 August 2023    The situation in the Middle East (UNIFIL)
+ 4 S/RES/2694 (2023) 2 August 2023     Identical letters dated 19 January 2016 …
+ 5 S/RES/2693 (2023) 27 July 2023      The situation in the Central African Rep…
+ 6 S/RES/2692 (2023) 14 July 2023      The question concerning Haiti (BINUH)    
+ 7 S/RES/2691 (2023) 10 July 2023      The situation in the Middle East (UNMHA) 
+ 8 S/RES/2690 (2023) 30 June 2023      The situation in Mali (MINUSMA)          
+ 9 S/RES/2689 (2023) 29 June 2023      The situation in the Middle East (UNDOF) 
+10 S/RES/2688 (2023) 27 June 2023      The situation concerning the Democratic …
+# ℹ 16 more rows</code></pre>
+</div>
+</div>
+<p>Awesome! We now have a table of all of the resolutions passed by the UNSC this year. Let’s clean it up a bit:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>unsc_res_df <span class="ot">&lt;-</span> unsc_res <span class="sc">|&gt;</span> </span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_element</span>(<span class="st">"table.table-striped.table-sm"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_table</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">id =</span> X1,</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">date_adoped =</span> X2,</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">title =</span> X3)</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>unsc_res_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 26 × 3
+   id                date_adoped       title                                    
+   &lt;chr&gt;             &lt;chr&gt;             &lt;chr&gt;                                    
+ 1 S/RES/2697 (2023) 15 September 2023 Threats to international peace and secur…
+ 2 S/RES/2696 (2023) 7 September 2023  The situation in Somalia                 
+ 3 S/RES/2695 (2023) 31 August 2023    The situation in the Middle East (UNIFIL)
+ 4 S/RES/2694 (2023) 2 August 2023     Identical letters dated 19 January 2016 …
+ 5 S/RES/2693 (2023) 27 July 2023      The situation in the Central African Rep…
+ 6 S/RES/2692 (2023) 14 July 2023      The question concerning Haiti (BINUH)    
+ 7 S/RES/2691 (2023) 10 July 2023      The situation in the Middle East (UNMHA) 
+ 8 S/RES/2690 (2023) 30 June 2023      The situation in Mali (MINUSMA)          
+ 9 S/RES/2689 (2023) 29 June 2023      The situation in the Middle East (UNDOF) 
+10 S/RES/2688 (2023) 27 June 2023      The situation concerning the Democratic …
+# ℹ 16 more rows</code></pre>
+</div>
+</div>
+<p>For more information on web-scraping, I recommend reading the <a href="https://rvest.tidyverse.org/articles/rvest.html"><em>Web scraping 101</em> article</a> in the <code>rvest</code> documentation.</p>
 
 
 </section>
