@@ -22,7 +22,6 @@ execute:
 ```{=html}
 <iframe class="slide-deck" src="../files/slides/Lecture 3- Relationships between Variables-1.pdf" width = "100%" height = 600px></iframe>
 ```
-
 ## Section
 
 ### Prerequisites
@@ -512,7 +511,7 @@ $$
 \Sigma(y_i - \hat{y_i})^2
 $$
 
-Where $y_i$ is each predicted value (the model's estimate of country's average life expectancy) and $\hat{y_i}$ is each observed value (the country's actual average life expectancy).
+Where $y_i$ is each observed value (the country's actual average life expectancy) and $\hat{y_i}$ is each predicted value (the model's estimate of country's average life expectancy).
 
 We just add those all up to get a single measure of the model's overall performance.
 
