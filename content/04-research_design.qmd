@@ -35,8 +35,13 @@ install.packages(c("rio", "httr2", "rvest"))
 ```
 
 ```{r}
+# Data cleaning and handling
 library(tidyverse)
+
+# Reading data files
 library(rio)
+
+# Web-scraping
 library(httr2)
 library(rvest)
 ```
@@ -305,3 +310,4 @@ unsc_res_df
 ```
 
 For more information on web-scraping, I recommend reading the [*Web scraping 101* article](https://rvest.tidyverse.org/articles/rvest.html) in the `rvest` documentation. 
+
