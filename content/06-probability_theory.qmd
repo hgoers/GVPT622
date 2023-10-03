@@ -18,11 +18,6 @@ execute:
 
 {{< fa book >}} Pollock & Edwards R Companion, Chapter 6
 
-## Class slides
-
-```{=html}
-<iframe class="slide-deck" src="../files/slides/Lecture 6 - Probability Theory.pdf" width = "100%" height = 600px></iframe>
-```
 ## Section
 
 ### Prerequisites

@@ -15,5 +15,3 @@ execute:
 {{< fa graduation-cap >}} Segal, Jeffrey A. & Albert D. Cover. 1989. "Ideological Values and the Votes of U.S. Supreme Court Justices." American Political Science Review 83(2): 557-565.
 
 {{< fa graduation-cap >}} Sondheimer, Rachel Milstein & Donald P. Green. 2010. "Using Experiments to Estimate the Effects of Education on Voter Turnout." American Journal of Political Science 54(1): 174-189.
-
-## Section
