@@ -213,14 +213,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section">Section</a>
   <ul>
   <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites">Prerequisites</a></li>
-  <li><a href="#how-will-what-you-learn-this-week-help-your-research" id="toc-how-will-what-you-learn-this-week-help-your-research" class="nav-link" data-scroll-target="#how-will-what-you-learn-this-week-help-your-research">How will what you learn this week help your research?</a></li>
   <li><a href="#population-and-sample" id="toc-population-and-sample" class="nav-link" data-scroll-target="#population-and-sample">Population and sample</a></li>
   <li><a href="#sampling-error" id="toc-sampling-error" class="nav-link" data-scroll-target="#sampling-error">Sampling error</a></li>
   <li><a href="#sampling-distributions" id="toc-sampling-distributions" class="nav-link" data-scroll-target="#sampling-distributions">Sampling distributions</a></li>
   <li><a href="#inferring-from-a-single-trial" id="toc-inferring-from-a-single-trial" class="nav-link" data-scroll-target="#inferring-from-a-single-trial">Inferring from a single “trial”</a></li>
   <li><a href="#how-confident-can-we-be-in-our-statistic" id="toc-how-confident-can-we-be-in-our-statistic" class="nav-link" data-scroll-target="#how-confident-can-we-be-in-our-statistic">How confident can we be in our statistic?</a></li>
   <li><a href="#choosing-your-sample-size" id="toc-choosing-your-sample-size" class="nav-link" data-scroll-target="#choosing-your-sample-size">Choosing your sample size</a></li>
-  <li><a href="#next-week" id="toc-next-week" class="nav-link" data-scroll-target="#next-week">Next week</a></li>
+  <li><a href="#hypthesis-testing" id="toc-hypthesis-testing" class="nav-link" data-scroll-target="#hypthesis-testing">Hypthesis testing</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -266,25 +265,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(poliscidata)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggdist)</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MetBrewer)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DescTools)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modelsummary)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DescTools)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="how-will-what-you-learn-this-week-help-your-research" class="level3">
-<h3 class="anchored" data-anchor-id="how-will-what-you-learn-this-week-help-your-research">How will what you learn this week help your research?</h3>
 </section>
 <section id="population-and-sample" class="level3">
 <h3 class="anchored" data-anchor-id="population-and-sample">Population and sample</h3>
-<p>Say we are interested in the proportion of US voters who will vote for Joe Biden in the 2024 general election. We cannot ask all US voters of their intentions. Instead, we ask a sample of the US voting population and infer from that sample the population’s intentions.</p>
-<blockquote class="blockquote">
-<p>The data point of interest among the population is referred to as the <strong>parameter</strong>. Here, it is the proportion of <em>US voters</em> who intend to vote for Joe Biden in the 2024 general election.</p>
-<p>The data point of interest among the sample is referred to as the <strong>statistic</strong>. Here, it is the proportion of <em>survey respondents</em> who intend to vote for Joe Biden in the 2024 general election.</p>
+<p>Say we are interested in the proportion of US voters who will vote for Joe Biden in the 2024 general election. We cannot ask all US voters of their intentions. Instead, we ask a sample of the US voting population and infer from that sample the population’s intentions. When we generalize from the sample statistic to the parameter we are engaging in statistical inference.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The data point of interest among the population is referred to as the <strong>parameter</strong>. Here, it is the proportion of <em>US voters</em> who intend to vote for Joe Biden in the 2024 general election. We do <em>not</em> know this.</p>
+<p>The data point of interest among the sample is referred to as the <strong>statistic</strong>. Here, it is the proportion of <em>survey respondents</em> who intend to vote for Joe Biden in the 2024 general election. We do know this.</p>
 <p>We aim to have a statistic that accurately represents the parameter.</p>
-</blockquote>
-<p>When we generalize from the sample statistic to the parameter we are engaging in statistical inference.</p>
-<p>How can we be confident that our statistic represents the parameter? Generally speaking, the more our sample “looks like” our population, the more confident we can be that we have a good statistic. Drawing on probability theory, our sample is increasingly likely to resemble our population with its randomness and size.</p>
-<p>You should strive for a <strong>pure random sample</strong>. This means that every individual within your population is equally likely to be drawn. This is really hard to achieve! Think about normal election surveys. Many are conducted over the phone. There are plenty of people who do not have a landline phone, or do not pick up calls from unknown numbers, or who keep their phones on do not disturb during the day. These people will be harder to contact than those who are sitting by the phone waiting eagerly for a call. Even if you have access to all US voters’ phone numbers (never mind that some voters do not have phone numbers) and you take a random sample of those phone numbers and start calling, you still will not get a hold of them all with equal probability.</p>
+</div>
+</div>
+<p>We want to know how many people intend to vote for Joe Biden. In other words, we want to know whether our survey results reflect the true proportion of the population who intend to vote for him. How can we be confident that our statistic represents the parameter?</p>
+<p>Generally speaking, the more our sample “looks like” our population, the more confident we can be that we have a good statistic. Drawing on probability theory, our sample is increasingly likely to resemble our population with its randomness and size.</p>
+<p>You should strive for a large <strong>pure random sample</strong>. In a pure random sample, every individual within your population is equally likely to be drawn. This is really hard to achieve! Think about normal election surveys. Many are conducted over the phone. There are plenty of people who do not have a landline phone, or do not pick up calls from unknown numbers, or who keep their phones on do not disturb during the day. These people will be harder to contact than those who are sitting by the phone waiting eagerly for a call. Even if you have access to all US voters’ phone numbers (never mind that some voters do not have phone numbers) and you take a random sample of those phone numbers and start calling, you still will not get a hold of them all with equal probability.</p>
 <p>You should also strive for as large a sample as you can possibly get. More is always better in terms of statistical inference (if not your research budget or time). Remember back to our coin flips last week. The more coin flips we did, the closer we got to the true probability distribution between heads and tails. This principle also holds here.</p>
 </section>
 <section id="sampling-error" class="level3">
@@ -300,7 +307,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>We flip our coin 100 times:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(possible_outcomes, <span class="dv">100</span>, <span class="at">replace =</span> T, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>coin_flip_100 <span class="ot">&lt;-</span> <span class="fu">sample</span>(possible_outcomes, <span class="dv">100</span>, <span class="at">replace =</span> T, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>))</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>coin_flip_100</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  [1] "TAILS" "HEADS" "HEADS" "HEADS" "HEADS" "HEADS" "TAILS" "TAILS" "HEADS"
  [10] "HEADS" "HEADS" "HEADS" "TAILS" "HEADS" "TAILS" "HEADS" "TAILS" "TAILS"
@@ -316,24 +324,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 [100] "HEADS"</code></pre>
 </div>
 </div>
-<p>We know that the true probability of the coin landing on heads is 0.5. If we flip a fair coin 100 times, we should get 50 heads. We also know that these random draws are a bit noisy: we can get proportions that do not reflect the underlying probability of 0.5. However, the more flips we do, the closer we will get to that true probability distribution.</p>
-<p>Let’s do 100,000 100-coin flip trials and record the number of heads we get each time:</p>
+<p>We know that the true probability of the fair coin landing on heads is 0.5. Therefore, if we flip a fair coin 100 times, we should get 50 heads. However, we also know from last week that these random draws are a bit noisy: we can get proportions that do not reflect the underlying probability of 0.5. What did we get in this draw?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>coin_flip <span class="ot">&lt;-</span> <span class="cf">function</span>(possible_outcomes, n) {</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  outcomes <span class="ot">&lt;-</span> <span class="fu">sample</span>(possible_outcomes, <span class="at">size =</span> n, <span class="at">replace =</span> T, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>))</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">table</span>(outcomes)[<span class="st">"HEADS"</span>])</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">trial =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100000</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n_heads =</span> <span class="fu">coin_flip</span>(possible_outcomes, <span class="dv">100</span>))</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(coin_flip_100)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 100,000 × 2
+<pre><code>coin_flip_100
+HEADS TAILS 
+   45    55 </code></pre>
+</div>
+</div>
+<p>The more flips we do, the closer we will get to that true probability distribution. To demonstrate, let’s do 1,000,000 100-coin flip trials and record the number of heads we get each time:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>coin_flip <span class="ot">&lt;-</span> <span class="cf">function</span>(possible_outcomes, n) {</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  outcomes <span class="ot">&lt;-</span> <span class="fu">sample</span>(possible_outcomes, <span class="at">size =</span> n, <span class="at">replace =</span> T, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>))</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">table</span>(outcomes)[<span class="st">"HEADS"</span>])</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">trial =</span> <span class="dv">1</span><span class="sc">:</span><span class="fl">1e6</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n_heads =</span> <span class="fu">coin_flip</span>(possible_outcomes, <span class="dv">100</span>))</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,000,000 × 2
 # Rowwise: 
    trial n_heads
    &lt;int&gt;   &lt;int&gt;
@@ -347,74 +363,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  8     8      50
  9     9      49
 10    10      45
-# ℹ 99,990 more rows</code></pre>
+# ℹ 999,990 more rows</code></pre>
 </div>
 </div>
 <p>What are the results of these repeated trials?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(results, <span class="fu">aes</span>(<span class="at">x =</span> n_heads)) <span class="sc">+</span> </span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span> </span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">50</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="07-statistical_inference_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="960"></p>
-</div>
-</div>
-<p>So we know that each time we flip that coin, there is a 50% chance that it will land on heads. We know this because we programmed it in to our sample (<code>sample(c("HEADS", "TAILS"), prob = c(0.5, 0.5))</code>). We don’t usually have this luxury of knowing the parameter, so let’s take advantage of this to build up our confidence around good samples and their relationship to the population.</p>
-<p>Even though every time we flip the coin there is a 50% chance it lands on heads, we still get some trials in which we draw many more or far fewer than our expected 50 heads. We have some as low as 28 and some as large as 71. But notice how the number of heads recorded in most of our trials are clustered around our expected 50. The mean of our results is 49.9987 which is really, really close to our known parameter of 0.5 or 50%. Yay!</p>
-<p>So, even with representative and large samples you will get some error. That’s okay. We can still use that sample to confidently infer what the parameter looks like.</p>
-<p>Let’s extend this a little further. What happens if we conduct less trials? Let’s try with only 100 trials.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>results_100 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">trial =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n_heads =</span> <span class="fu">coin_flip</span>(possible_outcomes, <span class="dv">100</span>))</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(results_100, <span class="fu">aes</span>(<span class="at">x =</span> n_heads)) <span class="sc">+</span> </span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span> </span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">50</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(results, <span class="fu">aes</span>(<span class="at">x =</span> n_heads)) <span class="sc">+</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">50</span>) <span class="sc">+</span> </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Percentage of heads drawn in 100 coin-flip trial"</span>,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Count of trials"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="07-statistical_inference_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="960"></p>
 </div>
 </div>
-<p>Not as clean as we would like. The average number of heads drawn in each of these 100 trials is 50.31, which is 0.31 points away from the parameter (compared to -0.0013 for our 100,000 trials).</p>
-<p>What about if we decrease the number of draws we make in each trial? Let’s only take 10 draws in our original 100,000 trials.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>results_10 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">trial =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100000</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n_heads =</span> <span class="fu">coin_flip</span>(possible_outcomes, <span class="dv">10</span>))</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(results_10, <span class="fu">aes</span>(<span class="at">x =</span> n_heads)) <span class="sc">+</span> </span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span> </span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="07-statistical_inference_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="960"></p>
-</div>
-</div>
-<p>The average number of heads drawn in each of these 100,000 trials is 5.0028231, which is 0.0028231 points away from the parameter (compared to -0.0013 for our 100,000 trials).</p>
-<p>The lessons we can take from this is that more is better. The more times you flip that coin, the closer you will get to the true underlying probability of a fair coin landing on heads.</p>
-<blockquote class="blockquote">
-<p>You will need to make important decisions in your own research regarding the number of samples with which you are comfortable. This will be constrained by your budget, time, and population. You will get a more accurate picture of the parameter with more data points. However, adding another 1,000,000 responses to your survey may result in a change so small it has no material impact what you infer from your analysis. If this is the case and you have a representative sample, you are well justified in not running yourself dry trying to get those extra observations.</p>
-<p>For more information on working out the smallest acceptable sample size for an experiment, look up <strong>power analysis</strong>.</p>
-</blockquote>
+<p>The most common outcome of these 1,000,000 100-coin-flip trials is our true underlying proportion: <span class="math inline">\(Pr(H, T) = \{0.5, 0.5\}\)</span>. The next most common outcomes are very close to that true underlying proportion. If I were to select a trial <em>at random</em> from those 1,000,000 we just conducted, I am most likely to get one that resulted in 50% heads or very close to 50% heads. This is because there are many more trials that resulted in and around 50% heads than did not.</p>
+<p>We do get some trials in which we draw many more or far fewer than our expected 50 heads. We have some as low as 26 heads and some as large as 74 heads. But again, the number of heads recorded in most of our trials are clustered around our expected 50. The average number of heads drawn in all of our trials is 49.991061 heads which is really, really close to our known parameter of 0.5 or 50%. Yay!</p>
+<p>So, even with representative and large samples you will get some error. That’s okay. As long as the mean of the sampling distribution of an infinite number of identical trials would equal the true population parameter, we have an <strong>unbiased statistic</strong> that we can use to infer things about our population of interest. Here, each of the outcomes of our trials - including those ones that resulted in 26 heads and 74 heads - are unbiased statistics <em>because</em> the mean of infinite identical trials would be 50 heads.</p>
 </section>
 <section id="sampling-distributions" class="level3">
 <h3 class="anchored" data-anchor-id="sampling-distributions">Sampling distributions</h3>
 <p>Let’s move on from coin flips. Suppose that we want to know how many Americans identify as Democrats. We will return to the American National Election Survey to answer this question.</p>
-<p>This survey asks respondents whether they identify as a Democrat (this binary variable takes on 0 if not and 1 if they do).</p>
+<p>This survey asks respondents whether they identify as a Democrat (this binary variable takes on 0 if not and 1 if they do). Let’s look at these data for our first five survey respondents:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>nes <span class="sc">|&gt;</span> </span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(caseid, dem) <span class="sc">|&gt;</span> </span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  caseid dem
 1    408   0
 2   3282   1
 3   1942   0
 4    118   1
-5   5533   0
-6   5880   0</code></pre>
+5   5533   0</code></pre>
 </div>
 </div>
-<p>Let’s very cheekily pretend that this is a complete survey of the entire voting population of America. That way, we can pretend that we know the proportion of US voters who identify as Democrats (our parameter).</p>
+<p>Let’s very cheekily <strong>pretend</strong> that this is a complete survey of the entire voting population of America. That way, we can <strong>pretend</strong> that we know the true proportion of US voters (our population of interest) who identify as Democrats (our parameter).</p>
+<p>What is that proportion?</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tabyl</span>(nes, dem)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -425,110 +411,119 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Okay, so let’s pretend that 40% of all US voters identify as Democrats.</p>
-<p>We can’t survey all voters, so instead we take a representative and large sample from this population:</p>
+<p>We can’t survey all voters, so instead we take a representative and large <strong>simple random sample</strong> from this population:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>nes_sample <span class="ot">&lt;-</span> nes <span class="sc">|&gt;</span> </span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(caseid, dem) <span class="sc">|&gt;</span> </span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">3000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>We have taken a pure random sample of 3,000 (or 51% of our population of 5,916 voters). Each of those voters had an equal probability of being picked for this sample.</p>
+<p>We have taken a random sample of 3,000 individuals (or 51% of our population of 5,916 voters). Every voter (member of our population) had an equal probability of being picked for this sample.</p>
 <p>What proportion of this sample identify as Democrats?</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tabyl</span>(nes_sample, dem)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> dem    n     percent valid_percent
-   0 1795 0.598333333     0.6011386
-   1 1191 0.397000000     0.3988614
-  NA   14 0.004666667            NA</code></pre>
+   0 1793 0.597666667     0.6002678
+   1 1194 0.398000000     0.3997322
+  NA   13 0.004333333            NA</code></pre>
 </div>
 </div>
-<p>39.70%. Nice! But what if we took a different sample of 3,000?</p>
+<p>39.80%. Nice! But what if we took a different sample of 3,000?</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>nes_sample_2 <span class="ot">&lt;-</span> nes <span class="sc">|&gt;</span> </span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(caseid, dem) <span class="sc">|&gt;</span> </span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">3000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tabyl</span>(nes_sample_2, dem)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">3000</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tabyl</span>(nes_sample_2, dem)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> dem    n percent valid_percent
-   0 1779   0.593     0.5947844
-   1 1212   0.404     0.4052156
-  NA    9   0.003            NA</code></pre>
+   0 1764   0.588     0.5903614
+   1 1224   0.408     0.4096386
+  NA   12   0.004            NA</code></pre>
 </div>
 </div>
-<p>We get a different answer: 40.40%. Of course! This is just like our different coin flip trials from last week. Each resulted in a different number of heads. The more flips we did, the closer we got to the true underlying probability distribution.</p>
+<p>We get a different answer: 40.80%. Of course! This is just like our different coin flip trials from last week and above. Each resulted in a different number of heads. The more flips we did, the closer we got to the true underlying probability distribution.</p>
 <p>Let’s take 1,000 different samples of 3,000 US voters and see what we get:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>dem_survey <span class="ot">&lt;-</span> <span class="cf">function</span>(df, n) {</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(df, <span class="at">n =</span> n) <span class="sc">|&gt;</span> </span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tabyl</span>(dem) <span class="sc">|&gt;</span> </span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(dem <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pull</span>(percent)</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>nes_samples_1000 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">survey =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prop_dem =</span> <span class="fu">dem_survey</span>(<span class="fu">select</span>(nes, caseid, dem), <span class="dv">3000</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>nes_samples_1000</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>dem_survey <span class="ot">&lt;-</span> <span class="cf">function</span>(df, n) {</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(df, <span class="at">n =</span> n) <span class="sc">|&gt;</span> </span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tabyl</span>(dem) <span class="sc">|&gt;</span> </span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(dem <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pull</span>(percent)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>nes_samples_1000 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">survey =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prop_dem =</span> <span class="fu">dem_survey</span>(<span class="fu">select</span>(nes, caseid, dem), <span class="dv">3000</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>nes_samples_1000</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1,000 × 2
    survey prop_dem
     &lt;int&gt;    &lt;dbl&gt;
- 1      1    0.395
- 2      2    0.400
- 3      3    0.396
- 4      4    0.386
- 5      5    0.394
- 6      6    0.404
- 7      7    0.396
- 8      8    0.405
- 9      9    0.399
-10     10    0.404
+ 1      1    0.399
+ 2      2    0.399
+ 3      3    0.397
+ 4      4    0.396
+ 5      5    0.395
+ 6      6    0.39 
+ 7      7    0.403
+ 8      8    0.396
+ 9      9    0.401
+10     10    0.397
 # ℹ 990 more rows</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(nes_samples_1000, <span class="fu">aes</span>(<span class="at">x =</span> prop_dem)) <span class="sc">+</span> </span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span> </span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">tabyl</span>(nes, dem) <span class="sc">|&gt;</span> <span class="fu">filter</span>(dem <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">|&gt;</span> <span class="fu">pull</span>(percent))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(nes_samples_1000, <span class="fu">aes</span>(<span class="at">x =</span> prop_dem)) <span class="sc">+</span> </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span> </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">tabyl</span>(nes, dem) <span class="sc">|&gt;</span> <span class="fu">filter</span>(dem <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">|&gt;</span> <span class="fu">pull</span>(percent), </span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">colour =</span> <span class="st">"lightblue"</span>, </span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">linewidth =</span> <span class="dv">2</span>) <span class="sc">+</span> </span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">mean</span>(nes_samples_1000<span class="sc">$</span>prop_dem), </span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">colour =</span> <span class="st">"pink"</span>,</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">linewidth =</span> <span class="dv">2</span>) <span class="sc">+</span> </span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Proportion of respondents who identify as Democrats"</span>,</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Count of trials"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="07-statistical_inference_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="960"></p>
+<p><img src="07-statistical_inference_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="960"></p>
 </div>
 </div>
-<p>On average, 39.84% of US voters in our 1,000 samples of 3,000 US voters identified as Democrats. Our (cheeky) population average is 39.86%. Yay! As long as our sample is large and representative, we should be able to infer from our sample what is going on in the population.</p>
-<p>You’ll have noticed that these draws are always symmetrical or normally distributed around the sample mean (which is; hopefully, also the population mean). This distribution of your statistic is referred to as your <strong>sampling distribution</strong>. We lean <em>very heavily</em> on some important characteristics of this distribution when doing statistical inference.</p>
-<p><strong><em>When your sample is large and representative</em></strong>, your sampling distribution will be near normally distributed. The center will be at (or very, very close to) the population mean. This is called the <strong>Central Limit Theorem</strong>. This theorem suggests that statistics (including means, proportions, counts) from large and randomly drawn samples are very good approximations of the underlying (and often unobservable) population parameter.</p>
+<p>On average, 39.85% of US voters in our 1,000 samples of 3,000 US voters identified as Democrats. This is shown by the pink line in the graph above. Our (cheeky) population proportion is 39.86% (shown by the blue line in the graph above). Yay! These are very, very close to each other and we only did 1,000 samples. If took more and more samples, the average proportion of respondents who identify as Democrats in those trials would get increasingly close to our population’s proportion of Democrats. In fact, theoretically, if we took an infinite number of samples from these 5,916 observations, the average of the proportion of individuals who identify as Democrats in each of those infinite samples would equal <em>exactly</em> the population’s proportion: 39.86%. Further, we know that the proportions found in each of those trials would be normally distributed around that mean, with the most common outcomes sitting at or very close to the mean.</p>
+<p>As long as our sample of our population is large and randomly drawn, we know enough about its shape and central point to use it to infer what is going on in the population. <strong><em>When your sample is large and representative (see randomly drawn)</em></strong>, your sampling distribution will be near normally distributed. The center will be at (or very, very close to) the population mean. This is called the <strong>Central Limit Theorem</strong>. This theorem suggests that statistics (including means, proportions, counts) from large and randomly drawn samples are very good approximations of the underlying (and often unobservable) population parameter.</p>
 </section>
 <section id="inferring-from-a-single-trial" class="level3">
 <h3 class="anchored" data-anchor-id="inferring-from-a-single-trial">Inferring from a single “trial”</h3>
-<p>In a lot of (social) science is is not practical or, in some cases, possible to do many trials. For example, a lot of us study the onset, conduct, and termination of wars. Unlike a game of chess, you cannot reset and run a war many times in order to get your sampling distribution of your variable of interest.</p>
-<p>Further, we often do not know the shape or size of our population. For example, the best guess we have of the demographics of the US population comes from the census. But this misses a lot of people. If you want to study houselessness, you might need to rely on surveys of samples of people that may or may not be representative of this difficult to reach population of people.</p>
-<p>A lot of the time; therefore, you will have one data point. This requires that we take some lessons learned from above and make some pretty important assumptions.</p>
-<p>Let’s return to our survey work above. We took 1,000 different samples of 3,000 US voters and asked each of them whether they identified as Democrats. We recorded the proportion of the 3,000 respondents who identified as Democrats in each of our 1,000 different samples. We then took the average of those 1,000 different proportions and compared it to our population average. In line with the Central Limit Theorem, we found that the average of our sample statistics was very, very close to our population parameter.</p>
+<p>In a lot of (social) science research it is not practical or, in some cases, possible to do many trials. For example, a lot of us study the onset, conduct, and termination of wars. Unlike a game of chess, you cannot reset and run a war many times in order to get your sampling distribution of your variable of interest.</p>
+<p>Further, we often do not know the shape or size of our population. For example, the best guess we have of the demographics of the US population comes from the census. But this misses a lot of people. For example, if you want to study houselessness, you might need to rely on surveys of samples of people that may or may not be representative of this difficult to reach population of people.</p>
+<p>A lot of the time; therefore, you will have one data point: one mean, one proportion, one count. To use this one data point to infer something about our population of interest, we need to use some of lessons that we learned from above and make some pretty important assumptions.</p>
+<p>Let’s return to our survey work above. We took 1,000 different samples of 3,000 US voters. We asked each of those US voters whether they identified as Democrats. We then found the proportion of the 3,000 respondents who identified as Democrats in each of our 1,000 different samples. We then took the average of those 1,000 different proportions and compared it to our population average. In line with the Central Limit Theorem, we found that the average of our sample statistics was very, very close to our population parameter.</p>
 <p>Okay, now imagine that you could only run one of those trials. Let’s select one at random:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>nes_single <span class="ot">&lt;-</span> <span class="fu">slice_sample</span>(nes_samples_1000)</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>nes_single</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>nes_single <span class="ot">&lt;-</span> <span class="fu">slice_sample</span>(nes_samples_1000)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>nes_single</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 2
   survey prop_dem
    &lt;int&gt;    &lt;dbl&gt;
-1    821    0.396</code></pre>
+1    703    0.384</code></pre>
 </div>
 </div>
-<p>How close is this single sample statistic to the population parameter of 39.86%? Pretty close! In fact, you are more likely to get a sample statistic close to the population parameter than not.</p>
+<p>How close is this single sample statistic to the population parameter of 39.86%? Pretty close! In fact, as discussed above, you are more likely to get a sample statistic close to the population parameter than not.</p>
 <p>Remember, when we ran multiple trials we got many sample statistics that were clustered around the population mean.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(nes_samples_1000, <span class="fu">aes</span>(<span class="at">x =</span> prop_dem)) <span class="sc">+</span> </span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span> </span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">tabyl</span>(nes, dem) <span class="sc">|&gt;</span> <span class="fu">filter</span>(dem <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">|&gt;</span> <span class="fu">pull</span>(percent))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(nes_samples_1000, <span class="fu">aes</span>(<span class="at">x =</span> prop_dem)) <span class="sc">+</span> </span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span> </span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">tabyl</span>(nes, dem) <span class="sc">|&gt;</span> <span class="fu">filter</span>(dem <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">|&gt;</span> <span class="fu">pull</span>(percent)) <span class="sc">+</span> </span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Proportion of respondents who identify as Democrat"</span>,</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Count of trials"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="07-statistical_inference_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="960"></p>
+<p><img src="07-statistical_inference_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="960"></p>
 </div>
 </div>
 <p>So, if you were to pick one of these trials at random, you are more likely to pick one with a sample statistic that is close to the population parameter than not. Convenient!</p>
@@ -538,16 +533,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>That being said, we could get unlucky and have drawn a large and representative sample that sits at one of those extreme values. How confident can we be that our single sample statistic is close to the population parameter?</p>
 <p>Remember back to our week on descriptive statistics. There are some super handy <a href="https://hgoers.github.io/GVPT622/content/02-descriptive_statistics.html#normal-distributions">properties of normal distributions</a> on which we will draw.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>norm_5_2 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="fl">1e6</span>, <span class="at">mean =</span> <span class="dv">5</span>, <span class="at">sd =</span> <span class="dv">2</span>))</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(norm_5_2, <span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span> </span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_slab</span>(</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">fill_ramp =</span> <span class="fu">after_stat</span>(<span class="fu">cut_cdf_qi</span>(cdf))), <span class="at">fill =</span> <span class="fu">met.brewer</span>(<span class="st">"Egypt"</span>)[<span class="dv">2</span>]</span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_ramp_discrete</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="fl">0.2</span>), <span class="at">guide =</span> <span class="st">"none"</span>) <span class="sc">+</span> </span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>norm_5_2 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="fl">1e6</span>, <span class="at">mean =</span> <span class="dv">5</span>, <span class="at">sd =</span> <span class="dv">2</span>))</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(norm_5_2, <span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span> </span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_slab</span>(</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">fill_ramp =</span> <span class="fu">after_stat</span>(<span class="fu">cut_cdf_qi</span>(cdf))), <span class="at">fill =</span> <span class="fu">met.brewer</span>(<span class="st">"Egypt"</span>)[<span class="dv">2</span>]</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_ramp_discrete</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="fl">0.2</span>), <span class="at">guide =</span> <span class="st">"none"</span>) <span class="sc">+</span> </span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="07-statistical_inference_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="960"></p>
+<p><img src="07-statistical_inference_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="960"></p>
 </div>
 </div>
 <p>For normally distributed data:</p>
@@ -556,141 +551,206 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Approximately 95% of the data fall within two standard deviations of the mean (the medium blue).</p></li>
 <li><p>Approximately 99.7% of the data fall within three standard deviations of the mean (the light blue).</p></li>
 </ul>
-<p>So, if we assume that the statistic we get from our large and representative sample is our “best guess” at the population parameter, we can center our theoretical sampling distribution around this point. We know that this distribution is normally distributed. So we can calculate the shape of that distribution using what we know about normal distributions.</p>
-<p>68 percent of the hypothetical sample statistics would fall within one standard deviation of the mean. We will build into our statistic an acknowledgment of this uncertainty.</p>
-<p>Let’s go back to our single sample of 3,000 respondents from the NES survey to illustrate how we do this.</p>
+<p>So, if we assume that the statistic we get from our large and representative sample is our “best guess” at the population parameter, we can center our theoretical sampling distribution around this point. We know that these data are normally distributed. We can use what we know about normal distributions to identify the boundaries around which we are confident some proportion of all statistics from an infinite number of identically drawn samples would fall.</p>
+<p>Let’s make this more concrete by going back to a single random sample of 3,000 respondents from the NES survey. Let’s draw that sample:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(nes_sample)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>nes_sample <span class="ot">&lt;-</span> <span class="fu">sample_n</span>(nes, <span class="dv">3000</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(caseid, dem)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(nes_sample)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  caseid dem
-1   5849   1
-2    595   0
-3   3988   1
-4   3822   0
-5   3157   0
-6   3145   1</code></pre>
+1   5377   0
+2   5948   0
+3   5144   0
+4   3483   1
+5   4773   0
+6   4340   0</code></pre>
 </div>
 </div>
-<p>We need to calculate the standard deviation of the mean. When we are looking at the standard deviation of the sampling distribution, we refer to it as the <strong>standard error</strong>.</p>
-<p>The formula for working out the standard error is:</p>
+<p>In this sample, 39.73% of respondents identify as Democrats. This is our best guess at our parameter of interest: the proportion of US voters who identify as Democrats.</p>
+<p>Using what we know from above, what would our distribution of proportions look like if this was not the (average) proportion drawn from one trial but instead it was the average proportion drawn from an infinite number of identical trials? Well, those proportions would be normally distributed around that center point. To fill in that blank, we need one additional piece of information: the standard deviation (or spread) of those points around that center point.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>When we are looking at the standard deviation of the sampling distribution, we refer to it as the <strong>standard error</strong>.</p>
+</div>
+</div>
+<p>The formula for working out the standard error of a proportion (such as the proportion of a population who identify as Democrats) is:</p>
 <p><span class="math display">\[
-S_{\bar{x}} = \frac{S}{\sqrt{n}}
+se(\hat{p}) = \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}
 \]</span></p>
-<p>The standard error of the mean is equal to the standard deviation of the whole sample divided by the square root of the sample size.</p>
-<blockquote class="blockquote">
-<p>We learnt how to calculate the standard deviation of a vector of data (in this case, the whole sample) in the <a href="https://hgoers.github.io/GVPT622/content/02-descriptive_statistics.html#standard-deviation">Descriptive Statistics week</a>.</p>
-</blockquote>
-<p>First, we need to find the standard deviation of the whole sample. We can use <code>sd()</code>:</p>
+<p>Where <span class="math inline">\(\hat{p}\)</span> is the sample proportion (here: 0.397).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>sd_sample <span class="ot">&lt;-</span><span class="fu">sd</span>(nes_sample<span class="sc">$</span>dem, <span class="at">na.rm =</span> T)</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>sd_sample</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>p_hat <span class="ot">&lt;-</span> <span class="fu">tabyl</span>(nes_sample, dem) <span class="sc">|&gt;</span> </span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(dem <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(percent)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">3000</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>se <span class="ot">&lt;-</span> <span class="fu">sqrt</span>((p_hat <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p_hat)) <span class="sc">/</span> n)</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>se</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.4897462</code></pre>
+<pre><code>[1] 0.008934196</code></pre>
 </div>
 </div>
-<p>Then we need to divide this by the square root of the size of the sample:</p>
+<p>Now, let’s use this information to draw many different hypothetical proportions of respondents who identify as Democrats in many different hypothetical samples.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>se_mean <span class="ot">&lt;-</span> sd_sample <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">nrow</span>(nes_sample))</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>se_mean</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.008941501</code></pre>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">rnorm</span>(<span class="fl">1e6</span>, <span class="at">mean =</span> p_hat, <span class="at">sd =</span> se)), <span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span> </span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_halfeye</span>(<span class="at">.width =</span> <span class="fu">c</span>(<span class="fl">0.95</span>, <span class="fl">0.68</span>)) <span class="sc">+</span> </span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Proportion of respondents who identify as Democrats"</span>,</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Median and mean shown with point. One and two standard deviations are shown by the black bars."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="07-statistical_inference_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="960"></p>
 </div>
 </div>
-<p>You can use <code>DescTools::MeanSE()</code> to calculate this in one line:</p>
+<p>So, if our sample is large and random and we were to draw it many different times (here, 1,000,000 times), we would get a sampling distribution of proportions that resembles the one presented above. This variation is due to random error. There is nothing wrong with our research design or sampling method.</p>
+<p>We can use what we know about normal distributions to say that approximately 68% of these hypothetical proportions of people who identify as Democrats fall within one standard deviation of the mean, or:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">MeanSE</span>(nes_sample<span class="sc">$</span>dem, <span class="at">na.rm =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>lower_68 <span class="ot">&lt;-</span> p_hat <span class="sc">-</span> <span class="dv">1</span> <span class="sc">*</span> se</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>lower_68</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.008962437</code></pre>
+<pre><code>[1] 0.3883991</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>upper_68 <span class="ot">&lt;-</span> p_hat <span class="sc">+</span> <span class="dv">1</span> <span class="sc">*</span> se</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>upper_68</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.4062675</code></pre>
 </div>
 </div>
-<p>The mean is 0.3989 and the standard error of this mean is 0.0089. Great! So now we know that 68% of the hypothetical means of our hypothetical trials sit within plus or minus 0.0089 of 0.3989.</p>
-<p>Translating this into our research question: based on our sample, we are 68 percent confident that the true percentage of US voters who identify as Democrats sits between 38.99% and 40.78%.</p>
-<p>Of course, if we took a different sample, we would get a different sample mean and a different confidence interval. The point is that <em>as long as you have a large and representative sample</em>, your sample is more likely than not to be close to the population parameter.</p>
-<p>What if you want to be more confident than 68 percent? Again, we can draw on our knowledge of normal distributions to help us out. Let’s work out the bounds within which we are 95 percent confident the proportion of US voters who identify as Democrats sit.</p>
-<p>I have to admit here that I cheated a little in calculating the 68 percent confidence interval. If you remember back to our week on descriptive statistics, you will recall that these ranges (68%, 95%, and 99.7%) are artifacts of our efforts to standardize our data using <a href="https://hgoers.github.io/GVPT622/content/02-descriptive_statistics.html#z-scores">z-scores</a>.</p>
-<p>A quick refresher that you can promptly forget again:</p>
-<p><span class="math display">\[
-z_i = \frac{x_i - \mu_x}{\sigma_x}
-\]</span></p>
-<p>Now, it just so happens that doing this to your normally distributed data means that 68 percent of your data will land within <strong>one z-score</strong> of the center point.</p>
-<p>So, when we calculated the 68 percent confidence interval as:</p>
-<p><span class="math display">\[
-mean \pm se
-\]</span></p>
-<p>What we actually (sneakily) did was:</p>
-<p><span class="math display">\[
-mean \pm z * se
-\]</span></p>
-<p>The z-score just so happened to be one.</p>
-<p>What z-score captures 95 percent of our data?</p>
+<p>These boundaries are marked by the thick black line on the graph above.</p>
+<p>Also, approximately 95% of these hypothetical proportions of people who identify as Democrats fall within 1.96 standard deviations of the mean, or:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="at">p =</span> <span class="fl">0.025</span>, <span class="at">lower.tail =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>lower_95 <span class="ot">&lt;-</span> p_hat <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> se</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>lower_95</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.959964</code></pre>
+<pre><code>[1] 0.3798223</code></pre>
 </div>
-</div>
-<blockquote class="blockquote">
-<p>The first argument in <code>qnorm()</code> is the vector of probabilities. We want to find the 95 percent confidence interval, so we need to find the boundaries beyond which the remaining 5 percent of data sit. Remember that a normal distribution is symmetrical. Data falls above and below our center point. So to get the upper boundary, we need to halve 5 percent (hence <code>p = 0.025</code>) and then ask <code>qnorm()</code> to only give us the upper boundary (<code>lower.tail = F</code>). You can, of course, take the lower boundary but then you have to deal with a negative number which is kind of annoying.</p>
-</blockquote>
-<p>So, the z-score that will give us 95 percent of our data sitting around our center point is 1.96.</p>
-<p>Therefore, our lower bound is:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>se_mean <span class="sc">-</span> <span class="fu">qnorm</span>(<span class="at">p =</span> <span class="fl">0.025</span>, <span class="at">lower.tail =</span> F) <span class="sc">*</span> se_mean</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>upper_95 <span class="ot">&lt;-</span> p_hat <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> se</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>upper_95</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] -0.008583519</code></pre>
+<pre><code>[1] 0.4148444</code></pre>
 </div>
 </div>
-<p>And our upper bound is:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>se_mean <span class="sc">+</span> <span class="fu">qnorm</span>(<span class="at">p =</span> <span class="fl">0.025</span>, <span class="at">lower.tail =</span> F) <span class="sc">*</span> se_mean</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.02646652</code></pre>
-</div>
-</div>
-<p>Translated, this means that we are 95 percent confident that the true percentage of US voters who identify as Democrats sits between 38.13% and 41.64%, based on our sample.</p>
-<blockquote class="blockquote">
-<p>EXERCISE: Calculate the 99.7 percent confidence interval around the mean.</p>
-</blockquote>
+<p>These boundaries are marked by the thinner black line on the graph above.</p>
 <p>We are putting a lot of stead in our single sample. That’s okay as long as your sample is <em>large and representative</em>. Over these past few weeks we have discussed in sometimes painful detail why we can make some of the assumptions on which we rely. But, at the end of the day, you are the expert. You have explored your data with a critical eye. You have read everything you possibly can about this topic. You might have even gone out in the field and gotten your hands dirty. The more you know about your subject matter, the better you will be able to detect whether something strange is going on with your sample and your findings. This is so important. The strength of your empirical analysis is built on these foundations.</p>
 </section>
 <section id="choosing-your-sample-size" class="level3">
 <h3 class="anchored" data-anchor-id="choosing-your-sample-size">Choosing your sample size</h3>
 <p>We know that our confidence around our point estimate increases with the number of observations. Formally:</p>
 <p><span class="math display">\[
-S_{\bar{x}} = \frac{S}{\sqrt{n}}
+se(\hat{p}) = \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}
 \]</span></p>
 <p>So, as you increase that <span class="math inline">\(n\)</span>, you decrease your standard error and you narrow the interval over which you have a given level of confidence.</p>
 <p>I have said before that more is always better. Technically, this is very, very true. But those marginal returns diminish. And those survey costs stack up.</p>
 <p>To illustrate, let’s look at how much your standard error decreases as you increase your sample size.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>se_from_sample <span class="ot">&lt;-</span> <span class="cf">function</span>(n_samples) {</span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  nes <span class="sc">|&gt;</span> </span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">slice_sample</span>(<span class="at">n =</span> n_samples) <span class="sc">|&gt;</span> </span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pull</span>(dem) <span class="sc">|&gt;</span> </span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">MeanSE</span>(<span class="at">na.rm =</span> T)</span>
-<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">sample_size =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">100</span>, <span class="at">to =</span> <span class="dv">3000</span>, <span class="at">by =</span> <span class="dv">100</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">se =</span> <span class="fu">se_from_sample</span>(sample_size)) <span class="sc">|&gt;</span> </span>
-<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> sample_size, <span class="at">y =</span> se)) <span class="sc">+</span> </span>
-<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
-<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
-<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Number of observations in the sample"</span>,</span>
-<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Standard error"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>se_from_sample <span class="ot">&lt;-</span> <span class="cf">function</span>(n_samples) {</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  nes <span class="sc">|&gt;</span> </span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">slice_sample</span>(<span class="at">n =</span> n_samples) <span class="sc">|&gt;</span> </span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pull</span>(dem) <span class="sc">|&gt;</span> </span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">MeanSE</span>(<span class="at">na.rm =</span> T)</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">sample_size =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">100</span>, <span class="at">to =</span> <span class="dv">3000</span>, <span class="at">by =</span> <span class="dv">100</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">se =</span> <span class="fu">se_from_sample</span>(sample_size)) <span class="sc">|&gt;</span> </span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> sample_size, <span class="at">y =</span> se)) <span class="sc">+</span> </span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
+<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
+<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Number of observations in the sample"</span>,</span>
+<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Standard error"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="07-statistical_inference_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid" width="960"></p>
+<p><img src="07-statistical_inference_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="960"></p>
 </div>
 </div>
 <p>Moving from 100 to 1,000 observations in your sample dramatically decreases your standard error. Moving the same distance from 1,000 to 1,900 makes a far smaller difference to your error.</p>
 </section>
-<section id="next-week" class="level3">
-<h3 class="anchored" data-anchor-id="next-week">Next week</h3>
-<p>We will discuss the guts of quantitative analysis: hypothesis testing.</p>
+<section id="hypthesis-testing" class="level3">
+<h3 class="anchored" data-anchor-id="hypthesis-testing">Hypthesis testing</h3>
+<p>Generally speaking, we want to make some statement about what is going on in the world. For example, does trade dependence between states reduce the likelihood that those states will go to war with one another? Does election day voter registration increase the number of people who vote in elections in the US? Does party identification shape your views on abortion?</p>
+<p>We can answer these questions by proposing and testing hypotheses, or measurable and observable statements about a population. For example, state dyads with high levels of trade dependence go to war with each other less frequently than state dyads with low levels of trade dependence. Election day voter registration increases the number of people who vote in an election.</p>
+<p>We can use statistical tests of our data to test these hypotheses. Do we see support for our hypothesis in our data? How confident can we be that the differences identified in the data are meaningful and not just the product of random error?</p>
+<p>Frequentist statistics provides us with a means of answering that latter question. It asks you to imagine a world in which your hypothesis is wrong: there is no effect of trade dependence on the prevalence of war, or no effect of election-day registration on the number of people who vote.</p>
+<p>To build our intuition for this approach, let’s consider a simple question: do more than zero Democrats support access to abortions with no conditions.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>More interesting hypotheses are often framed as difference-of-means or difference-of-proportions tests. We will get to those next week.</p>
+</div>
+</div>
+<p>To test this hypothesis, you you go out and you get a large, random sample from your population. Happily, we have access to the NES, which asked asked 5,916 US adults with which party they identified and the conditions under which they think abortions should be allowed. Here are the first five respondents’ answers:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>nes <span class="sc">|&gt;</span> </span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(caseid, pid_3, abort4) <span class="sc">|&gt;</span> </span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  caseid pid_3     abort4
+1    408   Ind     Always
+2   3282   Dem More conds
+3   1942   Ind More conds
+4    118   Dem     Always
+5   5533   Ind     Always</code></pre>
+</div>
+</div>
+<p>We are going to test the hypothesis that more than zero Democrats said that they support access to abortions with no conditions. Let’s start by working out what proportion of Democrats in our survey support that statement:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>nes_sample <span class="ot">&lt;-</span> nes <span class="sc">|&gt;</span> </span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">abortion_always =</span> <span class="fu">if_else</span>(abort4 <span class="sc">==</span> <span class="st">"Always"</span>, <span class="dv">1</span>, <span class="dv">0</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(dem <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tabyl</span>(nes_sample, abortion_always)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> abortion_always    n     percent valid_percent
+               0 1018 0.431721798     0.4344857
+               1 1325 0.561916879     0.5655143
+              NA   15 0.006361323            NA</code></pre>
+</div>
+</div>
+<p>Our sample found that 56% of Democrats think abortions should always be allowed. It looks like we have found support for our hypothesis. But what if this is just random noise? How can we be confident that this represents the true number of Democrats in the population who support unconditional access to abortions?</p>
+<p>Assuming that our sample is large and representative of the population, we can build out the hypothetical distribution of the proportion of Democrats who state their support for access to abortions without conditions in many hypothetical identically drawn samples of our population:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>se <span class="ot">&lt;-</span> <span class="fu">sqrt</span>((prop_dems_always <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> prop_dems_always)) <span class="sc">/</span> <span class="fu">nrow</span>(nes_sample))</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">rnorm</span>(<span class="fl">1e6</span>, <span class="at">mean =</span> prop_dems_always, <span class="at">sd =</span> se)), <span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span> </span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_halfeye</span>(<span class="at">.width =</span> <span class="fu">c</span>(<span class="fl">0.95</span>, <span class="fl">0.68</span>)) <span class="sc">+</span> </span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Proportion of Democrats who always support access to abortion"</span>,</span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Median and mean shown with point. One and two standard deviations are shown by the black bars."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="07-statistical_inference_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid" width="960"></p>
+</div>
+</div>
+<p>But how can we be sure that this difference is not just random error or noise? Let’s return to our statistical test. Imagine a world in which you are wrong: zero percent of Democrats support unconditional access to abortions. If this <strong>null hypothesis</strong> is true, how likely would we be take a large and random sample of our population and find that 56% of democrats within that population support unconditional access to abortions?</p>
+<p>Let’s add this null world to our findings:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">rnorm</span>(<span class="fl">1e6</span>, <span class="at">mean =</span> prop_dems_always, <span class="at">sd =</span> se)), <span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span> </span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_halfeye</span>(<span class="at">.width =</span> <span class="fu">c</span>(<span class="fl">0.95</span>, <span class="fl">0.68</span>)) <span class="sc">+</span> </span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>) <span class="sc">+</span> </span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Proportion of Democrats who always support access to abortion"</span>,</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Median and mean shown with point. One and two standard deviations are shown by the black bars."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="07-statistical_inference_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid" width="960"></p>
+</div>
+</div>
+<p>The null hypothesis of no effect (or zero Democrats) is shown by the vertical line at 0. It is highly unlikely that would we take a large and random sample of our population and find that 56% of democrats within that population support unconditional access to abortions if our null hypothesis was, in fact, true.</p>
 
 
 </section>
