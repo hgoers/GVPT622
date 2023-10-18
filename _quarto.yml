@@ -29,7 +29,7 @@ website:
         - content/05-applications.qmd
         - content/06-probability_theory.qmd
         - content/07-statistical_inference.qmd
-#        - content/08_hypothesis_testing.qmd
+        - content/08_hypothesis_testing.qmd
 #        - content/09-hypothesis_testing.qmd
 #        - content/10-applications.qmd
 #        - content/11-regression.qmd

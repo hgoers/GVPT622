@@ -18,38 +18,330 @@ execute:
 
 {{< fa book >}} Pollock & Edwards R Companion, Chapter 7
 
-## Class slides
-
-```{=html}
-<iframe class="slide-deck" src="../files/slides/Lecture 8 - Hypothesis Testing.pdf" width = "100%" height = 600px></iframe>
-```
 ## Section
 
 ### Prerequisites
 
 ```{r}
+#| eval: false
 
+install.packages("infer")
+```
+
+```{r}
 library(tidyverse)
+library(skimr)
 library(wbstats)
+library(countrycode)
+library(janitor)
+library(broom)
+library(infer)
+library(scales)
+
+set.seed(1234)
+```
+
+### Difference of means
+
+Do richer countries win more medals in the summer Olympics than poorer countries, on average? To answer this question, we need the following data: 
+
+1.    Number of medals countries have won in the summer Olympics, 
+
+2.    Countries' GDP for those corresponding years,
+
+3.    Some threshold by which we will determine whether a country has a high income or not. 
+
+Let's collect those data. To start, we can get data on all athletes who have competed in the Olympics from 1896 to 2016.
+
+```{r}
+olympics_df <- read_csv("https://raw.githubusercontent.com/cosmoduende/r-olympic-games/main/datasets/athleteEvents.csv")
+olympics_df
+```
+
+Let's clean that up a bit: 
+
+```{r}
+olympic_medals_df <- olympics_df |> 
+  # Only look at the most recent year (2016)
+  slice_max(Year) |> 
+  # Include more general country code
+  mutate(iso3c = countrycode(Team, "country.name", "iso3c")) |> 
+  # Count the number of medals won by each country (team) that year
+  count(iso3c, name = "medals_won")
+
+olympic_medals_df
+```
+
+We now have a count of all medals won by each country that competed in the 2016 Summer Olympics. Let's have a look at the shape of those data:
+
+```{r}
+skim(olympic_medals_df)
+```
+
+`r nrow(olympic_medals_df)` countries competed in the 2016 Summer Olympics. On average, they won `r round(mean(olympic_medals_df$medals_won), 1)` medals. Every country won at least one medal. The US won the most medals, with an astonishing `r max(olympic_medals_df$medals_won)` medals. These data are heavily skewed to the right, with the majority of countries winning a small number of medals. 
+
+Now we need data on each country's GDP that year: 
+
+```{r}
+gdp_df <- wb_data("NY.GDP.MKTP.CD", start_date = 2016, end_date = 2016, return_wide = F) |>
+  select(iso3c, gdp = value)
+
+gdp_df
+```
+
+Let's take a look at that: 
+
+```{r}
+ggplot(gdp_df, aes(x = gdp / 1e9)) + 
+  geom_histogram() + 
+  scale_x_continuous(label = label_dollar()) + 
+  labs(x = "Current GDP (billions of US dollars)",
+       y = "Count") +
+  theme_minimal()
+```
+
+We need to define a threshold for national income beyond which we consider a country to be rich. Let's use the 75th percentile: 
+
+```{r}
+gdp_75th <- skim(gdp_df) |> 
+  filter(skim_variable == "gdp") |> 
+  pull(numeric.p75)
+
+gdp_df <- gdp_df |> 
+  mutate(income_level = if_else(gdp >= gdp_75th, "High", "Medium or low"),
+         income_level = factor(income_level, ordered = T, levels = c("Medium or low", "High")))
+```
+
+Let's join these together to get our full data set: 
+
+```{r}
+medals_gdp_df <- olympic_medals_df |> 
+  left_join(gdp_df, by = "iso3c") |> 
+  drop_na(income_level)
+
+medals_gdp_df
+```
+
+Did high-income countries win more medals at the 2016 Summer Olympics than medium- or low-income countries?
+
+```{r}
+ggplot(medals_gdp_df, aes(x = medals_won, y = income_level, fill = income_level)) + 
+  geom_boxplot() + 
+  theme_minimal() +
+  theme(legend.position = "none") + 
+  scale_fill_discrete(type = c("#D88C9A", "#8bc5ed"))
 ```
 
 ```{r}
-region_gdp_df <- wb_data(
-  "NY.GDP.MKTP.CD",
-        start_date = 2021,
-        end_date = 2021,
-        return_wide = F
-) |> 
-  transmute(
-    country,
-            region = countrycode::countrycode(iso3c, "iso3c", "region"),
-            gdp = value
-  )
+medals_avg <- medals_gdp_df |> 
+  group_by(income_level) |> 
+  summarise(n_countries = n(), 
+            avg_medals = mean(medals_won, na.rm = T)) |> 
+  mutate(diff_means = avg_medals - lead(avg_medals))
 
-region_gdp_df
+medals_avg
+```
+
+It certainly looks like high-income countries won more medals on average rather than medium- and low-income countries. This difference looks pretty substantial, but we still need to confirm that this difference is not due to random error. 
+
+You have been introduced to a lot of different ways to answer this question. However, as [Professor Allen Downey writes](https://allendowney.blogspot.com/2016/06/there-is-still-only-one-test.html), there really is only one test: 
+
+1.    Compute the test statistic that you are interested in testing, 
+
+2.    Define the null hypothesis, which is a *model* of the world in which there is no effect,
+
+3.    Use that model of the null hypothesis to generate many simulated samples pulled from your null world,
+
+4.    For each simulated sample, compute the test statistic that you are interested in testing,
+
+5.    Work out the proportion of times those test statistics calculated in step 4 exceed the test statistic from your sample (calculated at step 1). If this proportion is very small, it is very unlikely that you would manage to get a sample that produced the test statistic you found in step 1 if, in fact, there was no effect.
+
+This process is the broad foundation of all frequentist null hypothesis significance tests that you will come across. Let's use it to answer our question about income and Olympic medal tallies. 
+
+#### Step 1: Compute the test statistic from your sample
+
+We are interested in determining whether high-income countries won more models on average than medium- and low-income countries. Therefore, we are interested in the difference in the average number of medals won by high-income countries and medium- and low-income countries. 
+
+Happily, we worked this out above: 
+
+```{r}
+diff_means <- medals_avg |> 
+  drop_na(diff_means) |> 
+  pull(diff_means)
+
+diff_means
+```
+
+On average, high-income countries won `r round(abs(diff_means), 1)` more medals than medium- and low-income countries. 
+
+#### Step 2: Define the null hypothesis
+
+Our null hypothesis is that countries with these two different income levels won the same number of medals, on average. More succinctly: there is no difference of means. There are a couple of ways that we can build a model that captures this null effect (pulled from [another great post](https://allendowney.blogspot.com/2011/06/more-hypotheses-less-trivia.html) from Professor Allen Downey):
+
+**Parametric**: Merge the groups. Work out the shape of the pooled data: the center and spread. Then generate random samples from that distribution. This will give you a modeled world in which there is no difference between these two groups. 
+
+**Resampling**: Similar to the parametric approach, merge the groups. Draw samples (with replacement) from this merged group. 
+
+**Permutation**: Assign elements in the sample your different categories of interest at random. This is similar to resampling without replacement. 
+
+We are going to use permutation to generate our data sets of worlds in which there is no difference in the average number of medals won by high-income countries and by medium- and low-income countries. 
+
+::: {.callout-note}
+The broad point to take from this is that there are many different ways to think about the null hypothesis. Many of the tests you will use to determine statistical significance bury the decision they make about how to model the null hypothesis. It can be useful to bring that decision to the surface. This will allow you to control what is going on. Simulation-based hypothesis testing requires that you do this explicitly. More traditional tests, including the t-test, are doing this in the background. 
+:::
+
+#### Step 3: Generate many simulated data sets from the null hypothesis model
+
+We are now going to draw 5,000 different random samples from our modeled null world. We are going to use various functions from the fantastic [`infer` package](https://infer.netlify.app/) to do this. 
+
+```{r}
+income_null <- medals_gdp_df |>  
+  # Set up our DV and IV
+  specify(medals_won ~ income_level) |>  
+  # Define our null hypothesis
+  hypothesize(null = "independence") |>
+  # Generate 5000 simulated samples from that null world using permutation
+  generate(reps = 5000, type = "permute")
+
+income_null
+```
+
+::: {.callout-note}
+We specify our preferred method for modelling the null world (permutation) using the `type = "permute"` argument in the `generate()` function. 
+:::
+
+Let's take a look at some of those samples: 
+
+```{r}
+random_5 <- sample(1:5000, 5)
+
+income_null |> 
+  # Select five samples at random
+  filter(replicate %in% random_5) |> 
+  # Plot the distribution of the # of medals won by these simulated countries
+  ggplot(aes(x = medals_won, y = factor(replicate), fill = income_level)) + 
+  geom_boxplot() + 
+  theme_minimal() + 
+  labs(x = "Number of medals won",
+       y = "Random sample #",
+       fill = "Income level") + 
+  scale_fill_discrete(type = c("#D88C9A", "#8bc5ed"))
+```
+
+#### Step 4: Compute the test statistic for each of these null worlds
+
+Remember, we are interested in the difference in the average number of medals won by high-income countries and medium- and low-income countries. In our sample, we found a difference of `r round(abs(diff_means), 1)` medals. 
+
+We now need to calculate that difference for each of our samples from our simulated null world. In this world, we would expect there to be no difference, but because of random noise we are likely to occasionally see some years in which high-income countries win some more medals than medium- and low-income countries, and some years where the reverse is the case. As you can see from the graph below, our simulated world reflects this: in most of our random samples of the null world, there is no difference in average medal counts. Other samples have some differences, and very few have large differences.
+
+We can calculate this difference using `infer::calculate()`:
+
+```{r}
+income_diffs_null <- income_null |> 
+  calculate("diff in means", order = c("Medium or low", "High"))
 ```
 
 ```{r}
-ggplot(region_gdp_df, aes(x = gdp, y = region, fill = region)) + 
-  geom_boxplot()
+visualize(income_diffs_null) + 
+  labs(x = "Simulated difference in average ratings (High income − Medium and low income)", y = "Count",
+       title = "Simulation-based null distribution of differences in means")
 ```
+
+We now have 5,000 simulated differences in the average number of medals won by high-income countries and medium- and low-income countries for our 5,000 samples from our simulated null world. The only thing creating these differences in random noise. 
+
+#### Step 5: Work out whether our sample could plausibly exist in this null world
+
+We now have a good idea of the distribution of medals between high-income countries and medium- and low-income countries in a null world in which there was no difference between these groups. 
+
+How likely would we be to see our sample difference of means of `r round(abs(diff_means), 1)` medals in this null world? Well, first let's grab our commonly used 95% confidence interval:
+
+```{r}
+boostrapped_confint <- get_confidence_interval(income_diffs_null)
+boostrapped_confint
+```
+
+```{r}
+visualize(income_diffs_null) + 
+  shade_confidence_interval(boostrapped_confint, color = "#8bc5ed", fill = "#85d9d2") + 
+  labs(x = "Simulated difference in average ratings (High income − Medium and low income)", y = "Count",
+       title = "Simulation-based null distribution of differences in means")
+```
+
+How did we get that confidence interval? These are the 2.5th percentile and 97.5th percentile of the simulated statistics: 
+
+```{r}
+quantile(income_diffs_null$stat, probs = c(0.025, 0.975))
+```
+
+This makes sense! We want to work out the boundary within which 95% of our data fall. So, we just find that directly. I am treating this as a two tailed interval, so we need to account for the remaining 5% of data on both sides of the distribution so we look at the 2.5% and 97.5% boundaries. 
+
+If I wanted to apply a directional interval, I would just find the boundary beyond which 5% of the data fall according to my hypothesis: 
+
+```{r}
+quantile(income_diffs_null$stat, probs = 0.05)
+```
+
+```{r}
+visualize(income_diffs_null) + 
+  shade_confidence_interval(quantile(income_diffs_null$stat, probs = c(0.05, 1)), color = "#8bc5ed", fill = "#85d9d2") + 
+  labs(x = "Simulated difference in average ratings (High income − Medium and low income)", y = "Count",
+       title = "Simulation-based null distribution of differences in means")
+```
+
+Our hypothesis is directional: we think that richer countries win *more* medals than poorer countries. If I observe in my sample that medium- and low-income countries have a much higher number of medals on average, I will need to reject my hypothesis that high-income countries win more medals on average. So the band of observed differences that would cause me to reject my hypothesis moves up.  
+
+::: {.callout-note}
+Because we are working with actual data points, we don't have to worry about finding a theoretically-derived confidence interval. We just need to find the boundaries within which 95% of those actual data fall. It's always a good thing when you don't have to learn a new formula!
+:::
+
+In our null world, 95% of the differences in means between countries with these two income levels sit between `r round(abs(boostrapped_confint$lower_ci), 1)` more medals won by high-income countries and `r round(boostrapped_confint$upper_ci, 1)` more medals won by medium- and low-income countries, on average.
+
+```{r}
+visualize(income_diffs_null) + 
+  shade_confidence_interval(boostrapped_confint, color = "#8bc5ed", fill = "#85d9d2") + 
+  geom_vline(xintercept = diff_means, size = 1, color = "#77002c") +
+  labs(x = "Simulated difference in average ratings (High income − Medium and low income)", y = "Count",
+       title = "Simulation-based null distribution of differences in means",
+       subtitle = "Red line shows observed difference")
+```
+
+It is; therefore, *highly* unlikely that we would be able to draw a sample from our population and find a difference of `r round(abs(diff_means), 1)` medals if there were, in fact, no differences between the average number of medals won by high-income countries and medium- and low-income countries. The graph above illustrates this well. Therefore, we can confidently state that we reject the null hypothesis of no difference. How confidently? To answer this we need to ask one more question of our data. 
+
+Our hypothesis is directional: we think that richer countries win more medals than medium- and low-income countries on average. Therefore, we can use a one-tailed test. 
+
+::: {.callout-tip}
+The `infer::get_p_value()` function uses more human- (as opposed to statistician!) friendly language. You can use words like `"less"` or `"greater"` instead of one-, left-, or right-tailed. 
+:::
+
+```{r}
+income_diffs_null |> 
+  get_p_value(obs_stat = diff_means, direction = "less") |> 
+  mutate(p_value_clean = pvalue(p_value))
+```
+
+This function uses the randomization-based null distribution to calculate the proportion of those simulated statistics that were less than our observed statistic of `r round(abs(diff_means), 1)` medals. It found none. 
+
+We can reject that null hypothesis with a very high level of confidence. If there were really no relationship between income levels and medal tallies, the probability that we would see a statistic as or more extreme than `r round(abs(diff_means), 1)` medals is less than 0.001.
+
+#### Two sample t-tests
+
+Above, we calculated the p-value for our difference of means test by looking at the proportion of the simulated statistics that were more extreme than our observed statistic. A different (more theoretically driven) approach is a t-test. 
+
+The t-test asks whether the difference of means between two groups represents a true difference or merely a random difference. It produces two values as its output: the **t-score** and the **degrees of freedom**. 
+
+The t-score is the ratio of the difference between the two means and the variation that exists within the samples of the two groups. Higher values of the t-score indicate that a large difference exists between the two sampled groups. Formally: 
+  
+$$
+t = \frac{(\bar{x_1} - \bar{x_2})}{\sqrt(\frac{s^2_1}{n_1} + \frac{s^2_2}{n_2})}
+$$
+
+Where $\bar{x_i}$ is the statistic (for example, mean) calculated from group $i$, $s_i$ is the standard deviation of group $i$, and $n_i$ is the size of group $i$. 
+
+We can easily perform the t-test in R:
+
+```{r}
+t_test_medals <- t.test(medals_won ~ income_level, data = medals_gdp_df)
+t_test_medals
+```
+
+This t-test provides the same answer as our simulation-based test: we are very, very unlikely to be able to pull out a sample from our population that had such a large difference of means if there was, in fact, no difference between these two groups. The p-value from this test - `r tidy(t_test_medals) |> pull(p.value) |> round(9)` - is very, very small. 

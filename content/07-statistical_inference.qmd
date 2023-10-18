@@ -18,6 +18,10 @@ execute:
 
 {{< fa book >}} Pollock & Edwards R Companion, Chapter 6
 
+### Suggested 
+
+{{< fa book >}} [Gelman, Hill, and Vehtari *Regression and Other Stories*](https://users.aalto.fi/~ave/ROS.pdf), Chapter 4
+
 ## Section
 
 ### Prerequisites
