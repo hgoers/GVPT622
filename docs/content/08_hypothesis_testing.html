@@ -472,12 +472,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>205 countries competed in the 2016 Summer Olympics. On average, they won 66.8 medals. Every country won at least one medal. The US won the most medals, with an astonishing 719 medals. These data are heavily skewed to the right, with the majority of countries winning a small number of medals.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(olympic_medals_df, <span class="fu">aes</span>(<span class="at">x =</span> medals_won)) <span class="sc">+</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span> </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Number of medals won"</span>,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Count of countries"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="08_hypothesis_testing_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="960"></p>
+</div>
+</div>
 <p>Now we need data on each country’s GDP that year:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>gdp_df <span class="ot">&lt;-</span> <span class="fu">wb_data</span>(<span class="st">"NY.GDP.MKTP.CD"</span>, <span class="at">start_date =</span> <span class="dv">2016</span>, <span class="at">end_date =</span> <span class="dv">2016</span>, <span class="at">return_wide =</span> F) <span class="sc">|&gt;</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(iso3c, <span class="at">gdp =</span> value)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>gdp_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>gdp_df <span class="ot">&lt;-</span> <span class="fu">wb_data</span>(<span class="st">"NY.GDP.MKTP.CD"</span>, <span class="at">start_date =</span> <span class="dv">2016</span>, <span class="at">end_date =</span> <span class="dv">2016</span>, <span class="at">return_wide =</span> F) <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(iso3c, <span class="at">gdp =</span> value)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>gdp_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 217 × 2
    iso3c           gdp
@@ -497,33 +507,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Let’s take a look at that:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gdp_df, <span class="fu">aes</span>(<span class="at">x =</span> gdp <span class="sc">/</span> <span class="fl">1e9</span>)) <span class="sc">+</span> </span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span> </span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">label =</span> <span class="fu">label_dollar</span>()) <span class="sc">+</span> </span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Current GDP (billions of US dollars)"</span>,</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Count"</span>) <span class="sc">+</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gdp_df, <span class="fu">aes</span>(<span class="at">x =</span> gdp <span class="sc">/</span> <span class="fl">1e9</span>)) <span class="sc">+</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span> </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">label =</span> <span class="fu">label_dollar</span>()) <span class="sc">+</span> </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Current GDP (billions of US dollars)"</span>,</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Count"</span>) <span class="sc">+</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="08_hypothesis_testing_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="960"></p>
+<p><img src="08_hypothesis_testing_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="960"></p>
 </div>
 </div>
 <p>We need to define a threshold for national income beyond which we consider a country to be rich. Let’s use the 75th percentile:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>gdp_75th <span class="ot">&lt;-</span> <span class="fu">skim</span>(gdp_df) <span class="sc">|&gt;</span> </span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(skim_variable <span class="sc">==</span> <span class="st">"gdp"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(numeric.p75)</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>gdp_df <span class="ot">&lt;-</span> gdp_df <span class="sc">|&gt;</span> </span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">income_level =</span> <span class="fu">if_else</span>(gdp <span class="sc">&gt;=</span> gdp_75th, <span class="st">"High"</span>, <span class="st">"Medium or low"</span>),</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">income_level =</span> <span class="fu">factor</span>(income_level, <span class="at">ordered =</span> T, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Medium or low"</span>, <span class="st">"High"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>gdp_75th <span class="ot">&lt;-</span> <span class="fu">skim</span>(gdp_df, gdp) <span class="sc">|&gt;</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(numeric.p75)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>gdp_df <span class="ot">&lt;-</span> gdp_df <span class="sc">|&gt;</span> </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">income_level =</span> <span class="fu">if_else</span>(gdp <span class="sc">&gt;=</span> gdp_75th, <span class="st">"High"</span>, <span class="st">"Medium or low"</span>),</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">income_level =</span> <span class="fu">factor</span>(income_level, <span class="at">ordered =</span> T, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Medium or low"</span>, <span class="st">"High"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s join these together to get our full data set:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>medals_gdp_df <span class="ot">&lt;-</span> olympic_medals_df <span class="sc">|&gt;</span> </span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(gdp_df, <span class="at">by =</span> <span class="st">"iso3c"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(income_level)</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>medals_gdp_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>medals_gdp_df <span class="ot">&lt;-</span> olympic_medals_df <span class="sc">|&gt;</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(gdp_df, <span class="at">by =</span> <span class="st">"iso3c"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(income_level)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>medals_gdp_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 197 × 4
    iso3c medals_won           gdp income_level 
@@ -543,23 +552,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Did high-income countries win more medals at the 2016 Summer Olympics than medium- or low-income countries?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(medals_gdp_df, <span class="fu">aes</span>(<span class="at">x =</span> medals_won, <span class="at">y =</span> income_level, <span class="at">fill =</span> income_level)) <span class="sc">+</span> </span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> </span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>) <span class="sc">+</span> </span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_discrete</span>(<span class="at">type =</span> <span class="fu">c</span>(<span class="st">"#D88C9A"</span>, <span class="st">"#8bc5ed"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(medals_gdp_df, <span class="fu">aes</span>(<span class="at">x =</span> gdp <span class="sc">/</span> <span class="fl">1e9</span>, <span class="at">y =</span> medals_won)) <span class="sc">+</span> </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Current GDP (billions of US dollars)"</span>,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Number of medals won"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="08_hypothesis_testing_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="960"></p>
+<p><img src="08_hypothesis_testing_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="960"></p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>medals_avg <span class="ot">&lt;-</span> medals_gdp_df <span class="sc">|&gt;</span> </span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(income_level) <span class="sc">|&gt;</span> </span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n_countries =</span> <span class="fu">n</span>(), </span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">avg_medals =</span> <span class="fu">mean</span>(medals_won, <span class="at">na.rm =</span> T)) <span class="sc">|&gt;</span> </span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">diff_means =</span> avg_medals <span class="sc">-</span> <span class="fu">lead</span>(avg_medals))</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>medals_avg</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(medals_gdp_df, <span class="fu">aes</span>(<span class="at">x =</span> medals_won, <span class="at">y =</span> income_level, <span class="at">fill =</span> income_level)) <span class="sc">+</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>) <span class="sc">+</span> </span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_discrete</span>(<span class="at">type =</span> <span class="fu">c</span>(<span class="st">"#D88C9A"</span>, <span class="st">"#8bc5ed"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="08_hypothesis_testing_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="960"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>medals_avg <span class="ot">&lt;-</span> medals_gdp_df <span class="sc">|&gt;</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(income_level) <span class="sc">|&gt;</span> </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n_countries =</span> <span class="fu">n</span>(), </span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">avg_medals =</span> <span class="fu">mean</span>(medals_won, <span class="at">na.rm =</span> T)) <span class="sc">|&gt;</span> </span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">diff_means =</span> avg_medals <span class="sc">-</span> <span class="fu">lead</span>(avg_medals))</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>medals_avg</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 4
   income_level  n_countries avg_medals diff_means
@@ -568,7 +587,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 2 High                   53       191.        NA </code></pre>
 </div>
 </div>
-<p>It certainly looks like high-income countries won more medals on average rather than medium- and low-income countries. This difference looks pretty substantial, but we still need to confirm that this difference is not due to random error.</p>
+<p>It certainly looks like high-income countries won more medals on average rather than medium- and low-income countries. This difference looks pretty substantial, but we still need to confirm that it is not due to random error.</p>
 <p>You have been introduced to a lot of different ways to answer this question. However, as <a href="https://allendowney.blogspot.com/2016/06/there-is-still-only-one-test.html">Professor Allen Downey writes</a>, there really is only one test:</p>
 <ol type="1">
 <li><p>Compute the test statistic that you are interested in testing,</p></li>
@@ -583,11 +602,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>We are interested in determining whether high-income countries won more models on average than medium- and low-income countries. Therefore, we are interested in the difference in the average number of medals won by high-income countries and medium- and low-income countries.</p>
 <p>Happily, we worked this out above:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>diff_means <span class="ot">&lt;-</span> medals_avg <span class="sc">|&gt;</span> </span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(diff_means) <span class="sc">|&gt;</span> </span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(diff_means)</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>diff_means</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>diff_means <span class="ot">&lt;-</span> medals_avg <span class="sc">|&gt;</span> </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(diff_means) <span class="sc">|&gt;</span> </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(diff_means)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>diff_means</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -167.7358</code></pre>
 </div>
@@ -611,7 +630,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The broad point to take from this is that there are many different ways to think about the null hypothesis. Many of the tests you will use to determine statistical significance bury the decision they make about how to model the null hypothesis. It can be useful to bring that decision to the surface. This will allow you to control what is going on. Simulation-based hypothesis testing requires that you do this explicitly. More traditional tests, including the t-test, are doing this in the background.</p>
+<p>The broad point to take from this is that there are many different ways to create and think about the null hypothesis. Many of the tests you will use to determine statistical significance bury the decision they make about how to model the null hypothesis. It can be useful to bring that decision to the surface. This will allow you to control what is going on. Simulation-based hypothesis testing requires that you do this explicitly. More traditional tests, including the <strong>t-test</strong>, are doing this in the background.</p>
 </div>
 </div>
 </section>
@@ -619,15 +638,15 @@ Note
 <h4 class="anchored" data-anchor-id="step-3-generate-many-simulated-data-sets-from-the-null-hypothesis-model">Step 3: Generate many simulated data sets from the null hypothesis model</h4>
 <p>We are now going to draw 5,000 different random samples from our modeled null world. We are going to use various functions from the fantastic <a href="https://infer.netlify.app/"><code>infer</code> package</a> to do this.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>income_null <span class="ot">&lt;-</span> medals_gdp_df <span class="sc">|&gt;</span>  </span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Set up our DV and IV</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(medals_won <span class="sc">~</span> income_level) <span class="sc">|&gt;</span>  </span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Define our null hypothesis</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hypothesize</span>(<span class="at">null =</span> <span class="st">"independence"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Generate 5000 simulated samples from that null world using permutation</span></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">5000</span>, <span class="at">type =</span> <span class="st">"permute"</span>)</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>income_null</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>income_null <span class="ot">&lt;-</span> medals_gdp_df <span class="sc">|&gt;</span>  </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Set up our DV and IV</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(medals_won <span class="sc">~</span> income_level) <span class="sc">|&gt;</span>  </span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Define our null hypothesis</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hypothesize</span>(<span class="at">null =</span> <span class="st">"independence"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Generate 5000 simulated samples from that null world using permutation</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">5000</span>, <span class="at">type =</span> <span class="st">"permute"</span>)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>income_null</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Response: medals_won (numeric)
 Explanatory: income_level (factor)
@@ -664,50 +683,62 @@ Note
 </div>
 <p>Let’s take a look at some of those samples:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>random_5 <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5000</span>, <span class="dv">5</span>)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>income_null <span class="sc">|&gt;</span> </span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Select five samples at random</span></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(replicate <span class="sc">%in%</span> random_5) <span class="sc">|&gt;</span> </span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Plot the distribution of the # of medals won by these simulated countries</span></span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> medals_won, <span class="at">y =</span> <span class="fu">factor</span>(replicate), <span class="at">fill =</span> income_level)) <span class="sc">+</span> </span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> </span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Number of medals won"</span>,</span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Random sample #"</span>,</span>
-<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">"Income level"</span>) <span class="sc">+</span> </span>
-<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_discrete</span>(<span class="at">type =</span> <span class="fu">c</span>(<span class="st">"#D88C9A"</span>, <span class="st">"#8bc5ed"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="08_hypothesis_testing_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="960"></p>
-</div>
-</div>
-</section>
-<section id="step-4-compute-the-test-statistic-for-each-of-these-null-worlds" class="level4">
-<h4 class="anchored" data-anchor-id="step-4-compute-the-test-statistic-for-each-of-these-null-worlds">Step 4: Compute the test statistic for each of these null worlds</h4>
-<p>Remember, we are interested in the difference in the average number of medals won by high-income countries and medium- and low-income countries. In our sample, we found a difference of 167.7 medals.</p>
-<p>We now need to calculate that difference for each of our samples from our simulated null world. In this world, we would expect there to be no difference, but because of random noise we are likely to occasionally see some years in which high-income countries win some more medals than medium- and low-income countries, and some years where the reverse is the case. As you can see from the graph below, our simulated world reflects this: in most of our random samples of the null world, there is no difference in average medal counts. Other samples have some differences, and very few have large differences.</p>
-<p>We can calculate this difference using <code>infer::calculate()</code>:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>income_diffs_null <span class="ot">&lt;-</span> income_null <span class="sc">|&gt;</span> </span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="st">"diff in means"</span>, <span class="at">order =</span> <span class="fu">c</span>(<span class="st">"Medium or low"</span>, <span class="st">"High"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize</span>(income_diffs_null) <span class="sc">+</span> </span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Simulated difference in average ratings (High income − Medium and low income)"</span>, <span class="at">y =</span> <span class="st">"Count"</span>,</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Simulation-based null distribution of differences in means"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>random_5 <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5000</span>, <span class="dv">5</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>income_null <span class="sc">|&gt;</span> </span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Select five samples at random</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(replicate <span class="sc">%in%</span> random_5) <span class="sc">|&gt;</span> </span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Plot the distribution of the # of medals won by these simulated countries</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> medals_won, <span class="at">y =</span> <span class="fu">factor</span>(replicate), <span class="at">fill =</span> income_level)) <span class="sc">+</span> </span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> </span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Number of medals won"</span>,</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Random sample #"</span>,</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">"Income level"</span>) <span class="sc">+</span> </span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_discrete</span>(<span class="at">type =</span> <span class="fu">c</span>(<span class="st">"#D88C9A"</span>, <span class="st">"#8bc5ed"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="08_hypothesis_testing_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="960"></p>
 </div>
 </div>
-<p>We now have 5,000 simulated differences in the average number of medals won by high-income countries and medium- and low-income countries for our 5,000 samples from our simulated null world. The only thing creating these differences in random noise.</p>
+<p>These are 5 randomly drawn samples from our null hypothesis world. Cool! You can see that the difference between the number of medals won by high- and low- and middle-income countries is generally small (there is a lot of overlap between the two boxplots drawn for each world). We can compare these distributions to those we observe in the actual number of medals countries won in the 2016 Olympics (from above):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(medals_gdp_df, <span class="fu">aes</span>(<span class="at">x =</span> medals_won, <span class="at">y =</span> income_level, <span class="at">fill =</span> income_level)) <span class="sc">+</span> </span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> </span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>) <span class="sc">+</span> </span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_discrete</span>(<span class="at">type =</span> <span class="fu">c</span>(<span class="st">"#D88C9A"</span>, <span class="st">"#8bc5ed"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="08_hypothesis_testing_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="960"></p>
+</div>
+</div>
+<p>Our observed data have a much more pronounced difference. However, you can also see that there are some differences in our samples from our null world. The only thing driving those differences is random chance. This is why we need to run these tests. Just like our coin flips or our random samples of US voters discussed in the previous week, random chance can create real differences between our groups. Even if national income has no effect on the number of medals your country is likely to win, there will still be years in which high-income countries win more medals than low- and medium-income countries and other years in which the inverse is the case.</p>
+</section>
+<section id="step-4-compute-the-test-statistic-for-each-of-these-null-worlds" class="level4">
+<h4 class="anchored" data-anchor-id="step-4-compute-the-test-statistic-for-each-of-these-null-worlds">Step 4: Compute the test statistic for each of these null worlds</h4>
+<p>Remember, we are interested in the difference in the average number of medals won by high-income countries and medium- and low-income countries. In our sample, we found a difference of 167.7 medals.</p>
+<p>We now need to calculate that difference for each of our samples from our simulated null world. In this world, we would expect there to be no difference, but because of random sampling error we are likely to occasionally see some years in which high-income countries win some more medals than medium- and low-income countries, and some years where the inverse is the case. As you can see from the graph below, our simulated null world reflects this: in most of our random samples of the null world, there is no difference in average medal counts. Other samples have some differences, and very few have large differences.</p>
+<p>We can calculate this difference using <code>infer::calculate()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>income_diffs_null <span class="ot">&lt;-</span> income_null <span class="sc">|&gt;</span> </span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="st">"diff in means"</span>, <span class="at">order =</span> <span class="fu">c</span>(<span class="st">"Medium or low"</span>, <span class="st">"High"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize</span>(income_diffs_null) <span class="sc">+</span> </span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Simulated difference in average ratings (High income − Medium and low income)"</span>, <span class="at">y =</span> <span class="st">"Count"</span>,</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Simulation-based null distribution of differences in means"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="08_hypothesis_testing_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="960"></p>
+</div>
+</div>
+<p>We now have 5,000 simulated differences in the average number of medals won by high-income countries and medium- and low-income countries for our 5,000 samples from our simulated null world. The only thing creating these differences is random noise.</p>
 </section>
 <section id="step-5-work-out-whether-our-sample-could-plausibly-exist-in-this-null-world" class="level4">
 <h4 class="anchored" data-anchor-id="step-5-work-out-whether-our-sample-could-plausibly-exist-in-this-null-world">Step 5: Work out whether our sample could plausibly exist in this null world</h4>
-<p>We now have a good idea of the distribution of medals between high-income countries and medium- and low-income countries in a null world in which there was no difference between these groups.</p>
+<p>We now have a good idea of the distribution of medals between high-income countries and medium- and low-income countries in a null world in which there was no difference between these groups other than that created by random chance.</p>
 <p>How likely would we be to see our sample difference of means of 167.7 medals in this null world? Well, first let’s grab our commonly used 95% confidence interval:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>boostrapped_confint <span class="ot">&lt;-</span> <span class="fu">get_confidence_interval</span>(income_diffs_null)</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>boostrapped_confint</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>boostrapped_confint <span class="ot">&lt;-</span> <span class="fu">get_confidence_interval</span>(income_diffs_null)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>boostrapped_confint</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 2
   lower_ci upper_ci
@@ -716,17 +747,18 @@ Note
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize</span>(income_diffs_null) <span class="sc">+</span> </span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shade_confidence_interval</span>(boostrapped_confint, <span class="at">color =</span> <span class="st">"#8bc5ed"</span>, <span class="at">fill =</span> <span class="st">"#85d9d2"</span>) <span class="sc">+</span> </span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Simulated difference in average ratings (High income − Medium and low income)"</span>, <span class="at">y =</span> <span class="st">"Count"</span>,</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Simulation-based null distribution of differences in means"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize</span>(income_diffs_null) <span class="sc">+</span> </span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shade_confidence_interval</span>(boostrapped_confint, <span class="at">color =</span> <span class="st">"#8bc5ed"</span>, <span class="at">fill =</span> <span class="st">"#85d9d2"</span>) <span class="sc">+</span> </span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Simulated difference in average ratings (High income − Medium and low income)"</span>, <span class="at">y =</span> <span class="st">"Count"</span>,</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Simulation-based null distribution of differences in means"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="08_hypothesis_testing_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="960"></p>
+<p><img src="08_hypothesis_testing_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="960"></p>
 </div>
 </div>
+<p>These boundaries capture 95% of the differences between the number of medals won by high- and medium- and low-income countries in our random samples from our null world. Only 5% of the differences found in our 5,000 samples sit outside that shaded area. This equates to 250 statistics: 125 sitting below -40.51 medals and 125 sitting above 37.22. In other words, in only 2.5% of our samples, medium- and low-income countries won 40.51 or more medals more than high-income countries and in only 2.5% of our samples, high-income countries won 37.22 or more medals more than medium- and low-income countries.</p>
 <p>How did we get that confidence interval? These are the 2.5th percentile and 97.5th percentile of the simulated statistics:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(income_diffs_null<span class="sc">$</span>stat, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(income_diffs_null<span class="sc">$</span>stat, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     2.5%     97.5% 
 -40.50862  37.21501 </code></pre>
@@ -735,19 +767,19 @@ Note
 <p>This makes sense! We want to work out the boundary within which 95% of our data fall. So, we just find that directly. I am treating this as a two tailed interval, so we need to account for the remaining 5% of data on both sides of the distribution so we look at the 2.5% and 97.5% boundaries.</p>
 <p>If I wanted to apply a directional interval, I would just find the boundary beyond which 5% of the data fall according to my hypothesis:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(income_diffs_null<span class="sc">$</span>stat, <span class="at">probs =</span> <span class="fl">0.05</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(income_diffs_null<span class="sc">$</span>stat, <span class="at">probs =</span> <span class="fl">0.05</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       5% 
 -34.52208 </code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize</span>(income_diffs_null) <span class="sc">+</span> </span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shade_confidence_interval</span>(<span class="fu">quantile</span>(income_diffs_null<span class="sc">$</span>stat, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.05</span>, <span class="dv">1</span>)), <span class="at">color =</span> <span class="st">"#8bc5ed"</span>, <span class="at">fill =</span> <span class="st">"#85d9d2"</span>) <span class="sc">+</span> </span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Simulated difference in average ratings (High income − Medium and low income)"</span>, <span class="at">y =</span> <span class="st">"Count"</span>,</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Simulation-based null distribution of differences in means"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize</span>(income_diffs_null) <span class="sc">+</span> </span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shade_confidence_interval</span>(<span class="fu">quantile</span>(income_diffs_null<span class="sc">$</span>stat, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.05</span>, <span class="dv">1</span>)), <span class="at">color =</span> <span class="st">"#8bc5ed"</span>, <span class="at">fill =</span> <span class="st">"#85d9d2"</span>) <span class="sc">+</span> </span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Simulated difference in average ratings (High income − Medium and low income)"</span>, <span class="at">y =</span> <span class="st">"Count"</span>,</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Simulation-based null distribution of differences in means"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="08_hypothesis_testing_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="960"></p>
+<p><img src="08_hypothesis_testing_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" width="960"></p>
 </div>
 </div>
 <p>Our hypothesis is directional: we think that richer countries win <em>more</em> medals than poorer countries. If I observe in my sample that medium- and low-income countries have a much higher number of medals on average, I will need to reject my hypothesis that high-income countries win more medals on average. So the band of observed differences that would cause me to reject my hypothesis moves up.</p>
@@ -764,19 +796,19 @@ Note
 <p>Because we are working with actual data points, we don’t have to worry about finding a theoretically-derived confidence interval. We just need to find the boundaries within which 95% of those actual data fall. It’s always a good thing when you don’t have to learn a new formula!</p>
 </div>
 </div>
-<p>In our null world, 95% of the differences in means between countries with these two income levels sit between 40.5 more medals won by high-income countries and 37.2 more medals won by medium- and low-income countries, on average.</p>
+<p>How plausible that, given all of this, we would be able to draw a sample from this null world that would have a difference of means of -167.7 medals?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize</span>(income_diffs_null) <span class="sc">+</span> </span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shade_confidence_interval</span>(boostrapped_confint, <span class="at">color =</span> <span class="st">"#8bc5ed"</span>, <span class="at">fill =</span> <span class="st">"#85d9d2"</span>) <span class="sc">+</span> </span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> diff_means, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"#77002c"</span>) <span class="sc">+</span></span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Simulated difference in average ratings (High income − Medium and low income)"</span>, <span class="at">y =</span> <span class="st">"Count"</span>,</span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Simulation-based null distribution of differences in means"</span>,</span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Red line shows observed difference"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize</span>(income_diffs_null) <span class="sc">+</span> </span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shade_confidence_interval</span>(boostrapped_confint, <span class="at">color =</span> <span class="st">"#8bc5ed"</span>, <span class="at">fill =</span> <span class="st">"#85d9d2"</span>) <span class="sc">+</span> </span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> diff_means, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"#77002c"</span>) <span class="sc">+</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Simulated difference in average ratings (High income − Medium and low income)"</span>, <span class="at">y =</span> <span class="st">"Count"</span>,</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Simulation-based null distribution of differences in means"</span>,</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Red line shows observed difference"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="08_hypothesis_testing_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="960"></p>
+<p><img src="08_hypothesis_testing_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid" width="960"></p>
 </div>
 </div>
-<p>It is; therefore, <em>highly</em> unlikely that we would be able to draw a sample from our population and find a difference of 167.7 medals if there were, in fact, no differences between the average number of medals won by high-income countries and medium- and low-income countries. The graph above illustrates this well. Therefore, we can confidently state that we reject the null hypothesis of no difference. How confidently? To answer this we need to ask one more question of our data.</p>
+<p>It is <em>highly</em> unlikely that we would be able to draw a sample from our population and find a difference of 167.7 medals if there were, in fact, no differences between the average number of medals won by high-income countries and medium- and low-income countries. The graph above illustrates this well. Therefore, we can confidently state that we reject the null hypothesis of no difference. How confidently? To answer this we need to ask one more question of our data.</p>
 <p>Our hypothesis is directional: we think that richer countries win more medals than medium- and low-income countries on average. Therefore, we can use a one-tailed test.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -792,9 +824,9 @@ Tip
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>income_diffs_null <span class="sc">|&gt;</span> </span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_p_value</span>(<span class="at">obs_stat =</span> diff_means, <span class="at">direction =</span> <span class="st">"less"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p_value_clean =</span> <span class="fu">pvalue</span>(p_value))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>income_diffs_null <span class="sc">|&gt;</span> </span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_p_value</span>(<span class="at">obs_stat =</span> diff_means, <span class="at">direction =</span> <span class="st">"less"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p_value_clean =</span> <span class="fu">pvalue</span>(p_value))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 2
   p_value p_value_clean
@@ -816,8 +848,8 @@ t = \frac{(\bar{x_1} - \bar{x_2})}{\sqrt(\frac{s^2_1}{n_1} + \frac{s^2_2}{n_2})}
 <p>Where <span class="math inline">\(\bar{x_i}\)</span> is the statistic (for example, mean) calculated from group <span class="math inline">\(i\)</span>, <span class="math inline">\(s_i\)</span> is the standard deviation of group <span class="math inline">\(i\)</span>, and <span class="math inline">\(n_i\)</span> is the size of group <span class="math inline">\(i\)</span>.</p>
 <p>We can easily perform the t-test in R:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>t_test_medals <span class="ot">&lt;-</span> <span class="fu">t.test</span>(medals_won <span class="sc">~</span> income_level, <span class="at">data =</span> medals_gdp_df)</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>t_test_medals</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>t_test_medals <span class="ot">&lt;-</span> <span class="fu">t.test</span>(medals_won <span class="sc">~</span> income_level, <span class="at">data =</span> medals_gdp_df)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>t_test_medals</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Welch Two Sample t-test

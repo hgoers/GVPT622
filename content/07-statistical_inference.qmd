@@ -22,6 +22,8 @@ execute:
 
 {{< fa book >}} [Gelman, Hill, and Vehtari *Regression and Other Stories*](https://users.aalto.fi/~ave/ROS.pdf), Chapter 4
 
+{{< fa book >}}[Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund, *R for Data Science (2e), Chapter 26: Functions*](https://r4ds.hadley.nz/functions)
+
 ## Section
 
 ### Prerequisites
