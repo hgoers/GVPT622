@@ -14,11 +14,199 @@ execute:
 
 {{< fa book >}} Pollock & Edwards R Companion, Chapter 7
 
-## Class slides
-
-```{=html}
-<iframe class="slide-deck" src="../files/slides/Lecture 9 - Hypothesis Testing II.pdf" width = "100%" height = 600px></iframe>
-```
 ## Section
 
-How can we test hypotheses that ask questions of categorical data? For example, is an individual's level of attendance at religious ceremonies associated with their party identification.
+```{r}
+library(tidyverse)
+library(modelsummary)
+library(infer)
+library(poliscidata)
+```
+
+How can we test hypotheses that ask questions of categorical data? For example, is an individual's level of attendance at religious ceremonies associated with their party identification? Do democracies join more international organizations than non-democracies?
+
+To answer these questions, we need to compare behavior across categories. Are there meaningful differences between categories?
+
+### Federal spending on parks and recreation
+
+We will explore hypothesis testing across categorical variables by answering the question: is an individual's party identification associated with their support for current levels of federal spending on parks and recreation. We will use data from the GSS, obtained using `poliscidata::gss`.
+
+```{r}
+gss <- gss |> 
+  # Select only the relevant columns
+  select(id, partyid_3, natpark) |> 
+  # Remove non-complete responses
+  drop_na()
+```
+
+### Calculating our observed counts
+
+First, we need to look at our observed data. We will make a cross tab of the data using `modelsummary::datasummary_crosstab()`. 
+
+```{r}
+datasummary_crosstab(natpark ~ partyid_3, data = gss)
+```
+
+The GSS surveyed `r nrow(gss) |> scales::comma()` individuals in 2012, asking them of their party identification and level of support for current federal spending on parks and recreation. 
+
+```{r}
+gss |> 
+  # Get the number of respondents in each party who indicated each level of 
+  # support
+  count(partyid_3, natpark) |> 
+  # Convert these counts to proportions by party
+  group_by(partyid_3) |> 
+  mutate(prop = n / sum(n)) |> 
+  # Plot these proportions
+  ggplot(aes(x = natpark, y = prop)) + 
+  geom_col() + 
+  facet_wrap(~ partyid_3) + 
+  labs(x = "Support for spending on parks and recreation",
+       y = "Percentage of respondents") + 
+  theme_minimal() + 
+  scale_y_continuous(labels = scales::label_percent())
+```
+
+Consistent across parties, the majority of people think that the federal government is spending about the right amount on parks and recreation. However, a greater proportion of Democrats think that the government is spending too little on parks than do Republicans. Is this difference significant? 
+
+### Setting up our null world
+
+What would the distribution of respondents across parties and levels of support look like if there was no difference? What are our expected counts for each category in this null world? If we work this out then we can compare these expected values to our observed values. How likely is it that we would observe those values in a world in which there was no significant association between party identification and level of support for current funding of parks and recreation? 
+
+To work this out, we need to consider what number of respondents would fall into each category if the only difference between those counts was due to differences in the size of the groups: the number of people who support each party and the number of people who support each level of funding. 
+
+$$
+Expected\ count = \frac{Row\ total * Column\ total}{N}
+$$
+
+For our data: 
+
+```{r}
+# Calculate the observed count for each category
+obs_values <- count(gss, natpark, partyid_3, name = "obs_n")
+  
+# Calculate the total number of respondents for each party ID
+partyid_3_totals <- count(gss, partyid_3, name = "partyid_total")
+# Calculate the total number of respondents for each support level
+natpark_totals <- count(gss, natpark, name = "natpark_total")
+
+obs_exp_counts <- natpark_totals |> 
+  expand_grid(partyid_3_totals) |> 
+  relocate(partyid_3) |> 
+  # Calculated the expected values
+  mutate(exp_n = (natpark_total * partyid_total) / nrow(gss)) |>
+  # Add the observed values for comparison
+  left_join(obs_values, by = c("partyid_3", "natpark"))
+
+obs_exp_counts
+```
+
+### Comparing that null world to our observed counts
+
+We have now worked out the number of respondents who would fall into each category if their party identification had no effect on their level of support for current federal spending on parks and recreation. We can now compare that expected value to the counts we actually observed in our survey: 
+
+```{r}
+ggplot(obs_exp_counts, aes(y = partyid_3, colour = natpark)) + 
+  geom_segment(aes(x = exp_n, xend = obs_n, yend = partyid_3)) + 
+  geom_point(aes(x = exp_n), shape = 1) + 
+  geom_point(aes(x = obs_n)) + 
+  labs(x = "Number of respondents",
+       y = NULL,
+       colour = "Support for funding levels",
+       caption = "Hollow points represent the expected values, solid points represent the observed values.") + 
+  theme_minimal()
+```
+
+We are very interested in these differences. The greater the difference, the less likely we would be able to conduct a well-run survey and get the proportion of respondents we observed if, in fact, we lived in the null world. How big does this difference need to be before we can confidently reject the null hypothesis of no association? 
+
+### Is this difference significant? 
+
+To answer this question, we first need a single number that accounts for the differences we have observed across our different categories. For this, we can use the chi-square statistic. 
+
+$$
+\chi^2 = \Sigma{\frac{(Observed\ count - Expected\ count)^2}{Expected\ count}}
+$$
+
+This statistic provides us with a summary of the total difference between our observed values and values we would expect if there was no association between party identification and support for current funding levels. 
+
+Let's calculate that for our data: 
+
+```{r}
+chi_sq <- obs_exp_counts |> 
+  mutate(diff = obs_n - exp_n,
+         diff_2 = diff^2,
+         diff_2_standard = diff_2 / exp_n) |> 
+  summarise(chi_sq = sum(diff_2_standard)) |> 
+  pull()
+
+chi_sq
+```
+
+Next, we need to see how likely we would be to observe this difference between our observed and expected values (represented by that chi-squared value) if the null hypothesis were true. 
+
+To do this, we need to calculate our degrees of freedom:
+
+$$
+df = (Number\ of\ rows - 1)(Number\ of\ columns - 1)
+$$
+
+Then we can use `pchisq()` to access the probability that we would observe this difference or a greater difference if the null hypothesis were true. 
+
+```{r}
+pchisq(chi_sq, df = 4, lower.tail = F)
+```
+
+It is *super* unlikely that I would observe these counts in a world in which party identification had no effect on an individual's level of support for current federal spending on parks and recreation. In fact, we can reject the null hypothesis with over 99 percent confidence. 
+
+### A handy shortcut
+
+We can do this whole process using one command in R: 
+
+```{r}
+chisq.test(gss$natpark, gss$partyid_3)
+```
+
+### A simulation approach
+
+Like last week, it can sometimes be helpful to see these tests in action. Let's simulate our null world and compare it to our observation. 
+
+```{r}
+natpark_null <- gss |> 
+  specify(natpark ~ partyid_3) |> 
+  hypothesize(null = "independence") |> 
+  generate(reps = 5000, type = "permute")
+
+natpark_null
+```
+
+We have simulated drawing 5,000 different samples from our null world in which there is no meaningful difference between parties. We created this null world by randomly assigning each respondent with a party identification. If we live in a world in which there is no meaningful effect of party identification on support for current funding levels, respondents' party identification can be shuffled randomly!
+
+These simulated counts represent our expected counts. Therefore, we can calculate the chi-squared statistic of the difference between what we actually observed and these expected counts as we did above. This time, we can use `infer::calculate()`. 
+
+```{r}
+chi_sq_sim <- calculate(natpark_null, stat = "Chisq")
+chi_sq_sim
+```
+
+Now we have the chi-squared statistic for our 5,000 different samples. Let's visualize them: 
+
+```{r}
+visualize(chi_sq_sim)
+```
+
+This follows the chi-squared distribution! When we calculated the p-value of our chi-squared statistic above, we were assuming that this was the case. Here, we are explicitly creating the distribution. Therefore, we can calculate the proportion of these simulated chi-squared statistics from our 5,000 samples from the null world that are equal to or greater than the difference between the expected and observed counts for our data. 
+
+```{r}
+visualize(chi_sq_sim) + 
+  geom_vline(aes(xintercept = chi_sq), colour = "red")
+```
+
+The vertical red line on the graph above shows the chi-squared statistic we calculated earlier. 
+
+We can use `infer::get_p_value()` to calculate the proportion of simulated chi-squared statistics that are greater than or equal to our observed chi-squared statistic:
+
+```{r}
+chi_sq_sim |> 
+  get_p_value(obs_stat = chi_sq, direction = "greater")|> 
+  mutate(p_value_clean = scales::pvalue(p_value))
+```
