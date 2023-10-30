@@ -66,6 +66,8 @@ olympic_medals_df <- olympics_df |>
   slice_max(Year) |> 
   # Include more general country code
   mutate(iso3c = countrycode(Team, "country.name", "iso3c")) |> 
+  # Filter out individuals who didn't win a medal
+  drop_na(Medal) |> 
   # Count the number of medals won by each country (team) that year
   count(iso3c, name = "medals_won")
 
@@ -115,7 +117,7 @@ gdp_75th <- skim(gdp_df, gdp) |>
   pull(numeric.p75)
 
 gdp_df <- gdp_df |> 
-  mutate(income_level = if_else(gdp >= gdp_75th, "High", "Medium or low"),
+  mutate(income_level = if_else(gdp < gdp_75th, "Medium or low", "High"),
          income_level = factor(income_level, ordered = T, levels = c("Medium or low", "High")))
 ```
 
@@ -151,7 +153,7 @@ ggplot(medals_gdp_df, aes(x = medals_won, y = income_level, fill = income_level)
 medals_avg <- medals_gdp_df |> 
   group_by(income_level) |> 
   summarise(n_countries = n(), 
-            avg_medals = mean(medals_won, na.rm = T)) |> 
+            avg_medals = mean(medals_won)) |> 
   mutate(diff_means = avg_medals - lead(avg_medals))
 
 medals_avg
