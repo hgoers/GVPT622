@@ -32,7 +32,7 @@ To answer these questions, we need to compare behavior across categories. Are th
 We will explore hypothesis testing across categorical variables by answering the question: is an individual's party identification associated with their support for current levels of federal spending on parks and recreation. We will use data from the GSS, obtained using `poliscidata::gss`.
 
 ```{r}
-gss <- gss |> 
+gss <- poliscidata::gss |> 
   # Select only the relevant columns
   select(id, partyid_3, natpark) |> 
   # Remove non-complete responses
@@ -50,10 +50,10 @@ datasummary_crosstab(natpark ~ partyid_3, data = gss)
 The GSS surveyed `r nrow(gss) |> scales::comma()` individuals in 2012, asking them of their party identification and level of support for current federal spending on parks and recreation. 
 
 ```{r}
-gss |> 
-  # Get the number of respondents in each party who indicated each level of 
-  # support
-  count(partyid_3, natpark) |> 
+  gss |> 
+    # Get the number of respondents in each party who indicated each level of 
+    # support
+    count(partyid_3, natpark) |> 
   # Convert these counts to proportions by party
   group_by(partyid_3) |> 
   mutate(prop = n / sum(n)) |> 
@@ -122,6 +122,12 @@ We are very interested in these differences. The greater the difference, the les
 ### Is this difference significant? 
 
 To answer this question, we first need a single number that accounts for the differences we have observed across our different categories. For this, we can use the chi-square statistic. 
+
+$$
+\chi_i^A = \frac{sd}{\sqrt{n}} = \hat{p}(1 - \hat{p}) = \bar{x} - \mu_0 = \beta_0 + \beta_1x
+$$
+
+The number is $\Sigma$. 
 
 $$
 \chi^2 = \Sigma{\frac{(Observed\ count - Expected\ count)^2}{Expected\ count}}

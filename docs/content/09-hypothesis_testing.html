@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.353">
+<meta name="generator" content="quarto-1.3.433">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -91,7 +91,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 
@@ -210,6 +211,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Hypothesis Testing III</span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/10-applications.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Applications &amp; Midterm Exam Review II</span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -278,7 +285,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="federal-spending-on-parks-and-recreation">Federal spending on parks and recreation</h3>
 <p>We will explore hypothesis testing across categorical variables by answering the question: is an individual’s party identification associated with their support for current levels of federal spending on parks and recreation. We will use data from the GSS, obtained using <code>poliscidata::gss</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>gss <span class="ot">&lt;-</span> gss <span class="sc">|&gt;</span> </span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>gss <span class="ot">&lt;-</span> poliscidata<span class="sc">::</span>gss <span class="sc">|&gt;</span> </span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Select only the relevant columns</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(id, partyid_3, natpark) <span class="sc">|&gt;</span> </span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Remove non-complete responses</span></span>
@@ -297,7 +304,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <th style="text-align: left;" data-quarto-table-cell-role="th">natpark</th>
 <th style="text-align: left;" data-quarto-table-cell-role="th"></th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">Dem</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">Ind</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">&nbsp;Ind</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">Rep</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">All</th>
 </tr>
@@ -375,10 +382,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>The GSS surveyed 1,856 individuals in 2012, asking them of their party identification and level of support for current federal spending on parks and recreation.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>gss <span class="sc">|&gt;</span> </span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get the number of respondents in each party who indicated each level of </span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># support</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(partyid_3, natpark) <span class="sc">|&gt;</span> </span>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>  gss <span class="sc">|&gt;</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Get the number of respondents in each party who indicated each level of </span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># support</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(partyid_3, natpark) <span class="sc">|&gt;</span> </span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Convert these counts to proportions by party</span></span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(partyid_3) <span class="sc">|&gt;</span> </span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prop =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n)) <span class="sc">|&gt;</span> </span>
@@ -461,6 +468,10 @@ Expected\ count = \frac{Row\ total * Column\ total}{N}
 <h3 class="anchored" data-anchor-id="is-this-difference-significant">Is this difference significant?</h3>
 <p>To answer this question, we first need a single number that accounts for the differences we have observed across our different categories. For this, we can use the chi-square statistic.</p>
 <p><span class="math display">\[
+\chi_i^A = \frac{sd}{\sqrt{n}} = \hat{p}(1 - \hat{p}) = \bar{x} - \mu_0 = \beta_0 + \beta_1x
+\]</span></p>
+<p>The number is <span class="math inline">\(\Sigma\)</span>.</p>
+<p><span class="math display">\[
 \chi^2 = \Sigma{\frac{(Observed\ count - Expected\ count)^2}{Expected\ count}}
 \]</span></p>
 <p>This statistic provides us with a summary of the total difference between our observed values and values we would expect if there was no association between party identification and support for current funding levels.</p>
@@ -524,15 +535,15 @@ Null Hypothesis: independence
 # Groups:   replicate [5,000]
    natpark     partyid_3 replicate
    &lt;fct&gt;       &lt;fct&gt;         &lt;int&gt;
- 1 Too little  Ind               1
- 2 Too little  Ind               1
+ 1 About right Ind               1
+ 2 About right Ind               1
  3 About right Ind               1
  4 About right Rep               1
- 5 Too little  Dem               1
- 6 About right Dem               1
+ 5 About right Dem               1
+ 6 Too little  Dem               1
  7 Too little  Ind               1
- 8 About right Ind               1
- 9 About right Ind               1
+ 8 Too little  Ind               1
+ 9 Too much    Ind               1
 10 About right Dem               1
 # ℹ 9,279,990 more rows</code></pre>
 </div>
@@ -549,16 +560,16 @@ Null Hypothesis: independence
 # A tibble: 5,000 × 2
    replicate  stat
        &lt;int&gt; &lt;dbl&gt;
- 1         1  2.72
- 2         2 10.1 
- 3         3  3.82
- 4         4  3.63
- 5         5  3.92
- 6         6  4.28
- 7         7  4.05
- 8         8  6.39
- 9         9  4.12
-10        10  1.24
+ 1         1 6.50 
+ 2         2 1.73 
+ 3         3 4.19 
+ 4         4 5.10 
+ 5         5 3.78 
+ 6         6 1.68 
+ 7         7 1.60 
+ 8         8 4.47 
+ 9         9 5.99 
+10        10 0.365
 # ℹ 4,990 more rows</code></pre>
 </div>
 </div>
@@ -587,7 +598,7 @@ Null Hypothesis: independence
 <pre><code># A tibble: 1 × 2
   p_value p_value_clean
     &lt;dbl&gt; &lt;chr&gt;        
-1       0 &lt;0.001       </code></pre>
+1  0.0002 &lt;0.001       </code></pre>
 </div>
 </div>
 

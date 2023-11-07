@@ -8,15 +8,709 @@ execute:
   fig-width: 10
 ---
 
-## Readings
-
-### Class
-
-{{< fa graduation-cap >}} Brooks, Deborah Jordan. 2011. “Testing the Double Standard for Candidate Emotionality: Voter Reactions to the Tears and Anger of Male and Female Politicians.” The Journal of Politics 73: 597-615. 
-
-## Class slides
-
-```{=html}
-<iframe class="slide-deck" src="../files/slides/Lecture 10 - Applications II.pdf" width = "100%" height = 600px></iframe>
-```
 ## Section
+
+```{r}
+#| eval: false
+
+install.packages("peacesciencer")
+```
+
+```{r}
+library(tidyverse)
+library(peacesciencer)
+library(ggdist)
+library(MetBrewer)
+library(scales)
+library(janitor)
+library(wbstats)
+library(countrycode)
+library(modelsummary)
+```
+
+Today, we are going to revise what we have learnt about hypothesis testing by working through some relevant examples. 
+
+### A single mean
+
+We know that militarized conflict between states is a very rare event: most country pairings are at peace most of the time. Was the average number of militarized interstate disputes (MIDs) fought between states in 2014 different from 0.0036? 
+
+```{r}
+mid_df <- create_dyadyears(directed = F, subset_years = 2014) |> 
+  add_cow_mids() |> 
+  select(year, ccode1, ccode2, cowmidongoing)
+```
+
+What was the observed average number of MIDs fought between states in 2014?
+
+```{r}
+avg_mid <- mean(mid_df$cowmidongoing)
+avg_mid
+```
+
+Is this difference significant, or simply the product of random noise? What would a world in which the average number of MIDs between states in 2014 was 0.0036 look like? 
+
+::: {.callout-note}
+Remember, our null world is represented by the t-distribution. We center our null world at 0, allowing this to represent our null hypothesis. We work out how certain we are of our statistic using the amount of information we have (represented by the degrees of freedom). Next, we will work out how far away from this centerpoint our observed statistic sits. 
+:::
+
+What are our degrees of freedom? 
+
+```{r}
+df <- nrow(mid_df) - 1
+df
+```
+
+We can use these degrees of freedom to build our null world:
+
+```{r}
+ggplot(tibble(x = rt(1e6, df)), aes(x = x)) + 
+  stat_slab() + 
+  theme_minimal() + 
+  theme(legend.position = "none")
+```
+
+This is what the standardized average number of MIDs pulled from one million samples drawn from our hypothetical null world would look like. The only reason they are not all equal to 0 is random chance. 
+
+We observed an average number of MIDs of `r round(avg_mid, 3)` in 2014. If the null hypothesis were true, how likely would we be to see this average number of MIDs if we pulled a random sample from that null world?
+
+First, we need to set a threshold at which we are happy to accept the risk that we reject a true null hypothesis. Let's use the standard 5%. 
+
+Next, we need to work out where the remaining 95% of these null world means fall. I am going to focus on where 95% of these means fall around the null statistic (of 0). Because we are working with the standardized t-distribution, we can use what we know about that distribution to answer this question. 
+
+::: {.callout-tip}
+The base function `qt()` gives us the t-statistic that sits at a given probability. 
+
+This is simply the area under the t-distribution curve, which represents the proportion of hypothetical t-statistics that are equal to or more extreme than our given point. For example, we want to find the t-statistic corresponding to the point beyond which 97.5% of all possible t-statistics fall. See `lower_boundary` and the graph below. 
+:::
+
+```{r}
+lower_boundary <- qt(0.025, df = df, lower.tail = T)
+lower_boundary
+upper_boundary <- qt(0.025, df = df, lower.tail = F)
+upper_boundary
+```
+
+```{r}
+ggplot(tibble(x = rt(1e6, df)), aes(x = x)) + 
+  stat_slab(aes(fill_ramp = after_stat(x < lower_boundary | x > upper_boundary)),
+            fill = met.brewer("Egypt")[2]) + 
+  theme_minimal() + 
+  theme(legend.position = "none")
+```
+
+Where does our observed mean fall in relation to this null world? First, we need to translate our observed mean into its corresponding t-statistic: 
+
+$$
+t = \frac{\bar{x} - \mu_0}{\frac{s}{\sqrt{n}}}
+$$
+
+::: {.callout-note}
+Above, we centered our null world at 0. So, we need to translate our observed mean into its distance from the null hypothesis mean (represented by 0).
+:::
+
+We know our observed mean, $\bar{x}$: 
+
+```{r}
+avg_mid
+```
+
+And our null mean, $\mu_0$: 
+
+```{r}
+null_mean <- 0.0036
+null_mean
+```
+
+And our sample size, $n$:
+
+```{r}
+sample_size <- nrow(mid_df)
+sample_size
+```
+
+And our sample standard deviation, $s$:
+
+```{r}
+sample_sd <- sd(mid_df$cowmidongoing)
+sample_sd
+```
+
+Therefore, our translated t-statistic is: 
+
+```{r}
+t_stat <- (avg_mid - null_mean) / (sample_sd / sqrt(sample_size))
+t_stat
+```
+
+Where does this sit within our null world? 
+
+```{r}
+ggplot(tibble(x = rt(1e6, df)), aes(x = x)) + 
+  stat_slab(aes(fill_ramp = after_stat(x < lower_boundary | x > upper_boundary)),
+            fill = met.brewer("Egypt")[2]) + 
+  geom_vline(xintercept = t_stat) + 
+  theme_minimal() + 
+  theme(legend.position = "none")
+```
+
+In other worlds, if the null hypothesis were true, how likely would we be to draw a SRS that was as extreme or more extreme than the one we observed?
+
+```{r}
+2*pt(t_stat, df = df)
+```
+
+::: {.callout-tip}
+The base function `pt()` gives is the probability of observing a value equal to or as extreme as the t-statistic we provided. It does the opposite of `qt()`. 
+:::
+
+::: {.callout-note}
+We need to double this probability because it is only providing us the p-value that corresponds with the first t-statistic (the dark blue area shaded to the left of the graph above). 
+:::
+
+If the null hypothesis were true, we would observe an average number of MIDs between states of `r round(avg_mid, 3)` in `r percent(2*pt(t_stat, df = df), accuracy = 0.01)` of an infinite number of samples from that null world. Therefore, we cannot reject the null hypothesis that the average number of MIDs between states in 2014 was 0.0036 with a two-tailed test at the 5% threshold. 
+
+#### One-tailed test
+
+What if our hypothesis was directional? What if I believe that the average number of MIDs between states is less than 0.0036? 
+
+When we talk about the direction of our significance test, we are talking about those boundaries around the null hypothesis. I am still only willing to accept a 5% chance that I reject the null hypothesis when it is in fact true. However, I no longer need to split that 5% chance evenly above and below the null hypothesis. Instead, I can place that whole 5% either above or below my null hypothesis (depending on the direction of my hypothesis). 
+
+In this example, I think that the average number of MIDs between states is less than 0.0036. If my sample has an average number of MIDs *greater* than 0.0036, I should more readily reject my alternative hypothesis that the average number of MIDs is *smaller* than 0.0036. Therefore, I can concentrate my 5% threshold below the null hypothesis:
+
+```{r}
+lower_boundary <- qt(0.05, df = df, lower.tail = T)
+lower_boundary
+```
+
+Visually: 
+
+```{r}
+ggplot(tibble(x = rt(1e6, df)), aes(x = x)) + 
+  stat_slab(aes(fill_ramp = after_stat(x < lower_boundary)),
+            fill = met.brewer("Egypt")[2]) + 
+  theme_minimal() + 
+  theme(legend.position = "none")
+```
+
+Remember, I cannot reject the null hypothesis if it is plausible (there is a 95% chance) that I would observe the mean that I did even if the null hypothesis were true. That 95% is represented by the light blue area on the graph above. The dark blue shaded area is still highlighting where the average count of MIDs drawn from 5% of all possible samples pulled from the null world would fall. 
+
+Our observed average has not changed. Let's put it in this new context: 
+
+```{r}
+ggplot(tibble(x = rt(1e6, df)), aes(x = x)) + 
+  stat_slab(aes(fill_ramp = after_stat(x < lower_boundary)),
+            fill = met.brewer("Egypt")[2]) + 
+  geom_vline(xintercept = t_stat) + 
+  theme_minimal() + 
+  theme(legend.position = "none")
+```
+
+It is unlikely that we would observe this average number of MIDs if, in fact, the null hypothesis were true. How unlikely? 
+
+```{r}
+pt(t_stat, df = df)
+```
+
+If the null hypothesis were true, we would observe an average number of MIDs of `r round(avg_mid, 3)` in `r percent(pt(t_stat, df = df), accuracy = 0.01)` of an infinite number of samples from that null world. Therefore, we can reject the null hypothesis that the average number of MIDs between states in 2014 was 0.0036 with a one-tailed test at the 5% threshold. 
+
+### A single proportion
+
+Are the majority of states in the world democracies? 
+
+```{r}
+dem_df <- ccode_democracy |> 
+  drop_na(polity2) |> 
+  slice_max(year) |> 
+  transmute(ccode, democracy = if_else(polity2 > 5, 1, 0))
+
+dem_df
+```
+
+What proportion of states were democracies in 2017? 
+
+```{r}
+tabyl(dem_df, democracy)
+```
+
+Is this proportion significantly different from 0.5, or is it simply the product of random noise?
+
+To answer this question, we will set up our null world:
+
+```{r}
+ggplot(tibble(x = rnorm(1e6)), aes(x = x)) + 
+  stat_slab() + 
+  theme_minimal() + 
+  theme(legend.position = "none")
+```
+
+::: {.callout-note}
+Remember, we use the normal distribution when examining the difference of proportions. 
+:::
+
+::: {.callout-tip}
+The base function `rnorm()` gives us random values drawn from a normal distribution. By default, `rnorm()` draws from a normal distribution centered at 0 and with a standard deviation of 1. This is perfect for working with z-scores. 
+:::
+
+This is what the standardized proportion of democracies are for 1 million samples drawn from our null world.
+
+Let's see whether we can reject the null hypothesis that the proportion of democracies globally is 0.5 or 50%. I am willing to accept a 5% risk that I reject this null hypothesis when it is, in fact, true. So I now need to work out where 95% of plausible proportions fall in samples drawn from a world in which the proportion of democracies is 0.5.
+
+```{r}
+lower_boundary <- qnorm(0.025)
+lower_boundary
+
+upper_boundary <- qnorm(0.025, lower.tail = F)
+upper_boundary
+```
+
+Let's see this: 
+
+```{r}
+ggplot(tibble(x = rnorm(1e6)), aes(x = x)) + 
+  stat_slab(aes(fill_ramp = after_stat(x < lower_boundary | x > upper_boundary)),
+            fill = met.brewer("Egypt")[2]) + 
+  theme_minimal() + 
+  theme(legend.position = "none")
+```
+
+So, if our observed statistic sits so far from the null hypothesis that there is less than a 5% chance that I could draw a sample with its proportion of democracies, then we have sufficient evidence to reject the null hypothesis at this threshold. We just need to work out where our observed statistic sits on this standardized distribution. 
+
+To do this, we need to translate our observed statistic into its z-score:
+
+$$
+z = \frac{\hat{p} - p_0}{\sqrt{\frac{p_0(1-p_0)}{n}}}
+$$
+
+We know our observed proportion, $\hat{p}$: 
+
+```{r}
+sample_proportion <- dem_df |> 
+  tabyl(democracy) |> 
+  filter(democracy == 1) |> 
+  pull(percent)
+
+sample_proportion
+```
+
+And our null proportion, $p_0$: 
+
+```{r}
+null_proportion <- 0.5
+null_proportion
+```
+
+And our sample size, $n$: 
+
+```{r}
+sample_size <- nrow(dem_df)
+sample_size
+```
+
+Now we can translate our observed proportion into its distance from the null proportion: 
+
+```{r}
+z_score <- (sample_proportion - null_proportion) / sqrt((null_proportion * (1 - null_proportion)) / sample_size)
+z_score
+```
+
+This z-score represents how far from the null proportion our observed proportion sits. Let's take a look: 
+
+```{r}
+ggplot(tibble(x = rnorm(1e6)), aes(x = x)) + 
+  stat_slab(aes(fill_ramp = after_stat(x < lower_boundary | x > upper_boundary)),
+            fill = met.brewer("Egypt")[2]) + 
+  geom_vline(xintercept = z_score) + 
+  theme_minimal() + 
+  theme(legend.position = "none")
+```
+
+In fact, our observed statistic is sufficiently far from the null hypothesis. We can reject that null hypothesis with 95% confidence. 
+
+```{r}
+2*pnorm(z_score, lower.tail = F)
+```
+
+There is a `r percent(2*pnorm(z_score, lower.tail = F))` chance that we would observe a proportion of democracies that was either this far above or below a proportion of 0.5 if the true proportion of democracies was 0.5. This is less than the threshold by which I am willing to reject a true null hypothesis. Therefore, I have sufficient evidence to reject the null hypothesis.   
+
+### Difference of means
+
+Are democracies richer, on average, than non-democracies? 
+
+```{r}
+gdp_df <- wb_data("NY.GDP.MKTP.CD", 
+                  start_date = 2017, 
+                  end_date = 2017, 
+                  return_wide = F) |> 
+  transmute(ccode = countrycode(country, "country.name", "cown"),
+            gdp = value)
+
+dem_gdp_df <- dem_df |> 
+  left_join(gdp_df) |> 
+  drop_na(gdp)
+```
+
+What is the average GDP of democracies and non-democracies? 
+
+```{r}
+dem_gdp_summary <- dem_gdp_df |> 
+  group_by(democracy) |> 
+  summarise(n = n(), 
+            avg_gdp = mean(gdp)) |> 
+  ungroup() |> 
+  mutate(diff_avg_gdp = avg_gdp - lag(avg_gdp))
+
+dem_gdp_summary
+```
+
+It appears that we have support for our hypothesis that democracies are richer than non-democracies on average. How much richer? 
+
+```{r}
+diff_avg <- dem_gdp_summary |> 
+  filter(democracy == 1) |> 
+  pull(diff_avg_gdp)
+
+dollar(diff_avg)
+```
+
+However, we need to confirm that this difference is not the product of random chance. 
+
+First, we need to build our null world. In this world, there is no difference in the average wealth of democracies and non-democracies. We will center our null world at 0. We can use our degrees of freedom to build in uncertainty around that central point.
+
+::: {.callout-note}
+The degrees of freedom for the difference of means is equal to the smaller of the number of observations within each group minus one. 
+:::
+
+```{r}
+n_democracies <- dem_gdp_summary |> 
+  filter(democracy == 1) |> 
+  pull(n)
+
+n_democracies
+
+n_non_democracies <- dem_gdp_summary |> 
+  filter(democracy == 0) |> 
+  pull(n)
+
+n_non_democracies
+```
+
+Our degrees of freedom are equal to the smaller of these two, minus one:
+
+```{r}
+df <- min(n_democracies, n_non_democracies) - 1
+df
+```
+
+Now we have all the information that we need to build our null world: 
+
+```{r}
+ggplot(tibble(x = rt(1e6, df)), aes(x = x)) + 
+  stat_slab() + 
+  theme_minimal() + 
+  theme(legend.position = "none")
+```
+
+I am now happy to accept a 10% risk that I will reject a true null hypothesis. However, I will continue to work with two-tailed tests. Let's work out where 90% of our hypothetical differences of means sit around our null mean of 0.
+
+```{r}
+lower_boundary <- qt(0.05, df = df)
+lower_boundary
+
+upper_boundary <- qt(0.05, df = df, lower.tail = F)
+upper_boundary
+```
+
+Let's visualize those boundaries: 
+
+```{r}
+ggplot(tibble(x = rt(1e6, df)), aes(x = x)) + 
+  stat_slab(aes(fill_ramp = after_stat(x < lower_boundary | x > upper_boundary)),
+            fill = met.brewer("Egypt")[2]) + 
+  theme_minimal() + 
+  theme(legend.position = "none")
+```
+
+Where does our observed difference of means sit along this standardized distribution? To answer this question, we need to translate our observed difference of `r dollar(diff_avg)` into its t-statistic:
+
+$$
+t = \frac{\bar{x_1} - \bar{x_2}}{\sqrt{\frac{s^2_1}{n_1} + \frac{s^2_2}{n_2}}}
+$$
+We know our difference of means, $\bar{x_1} - \bar{x_2}$:
+
+```{r}
+dollar(diff_avg)
+```
+
+And our sample sizes, $n_1$ and $n_2$: 
+
+```{r}
+n_democracies
+n_non_democracies
+```
+
+And our standard deviations, $s_1$ and $s_2$:
+
+```{r}
+s_1 <- dem_gdp_df |> 
+  filter(democracy == 1) |>
+  pull(gdp) |> 
+  sd()
+
+dollar(s_1)
+
+s_2 <- dem_gdp_df |> 
+  filter(democracy == 0) |>
+  pull(gdp) |> 
+  sd()
+
+dollar(s_2)
+```
+
+Therefore, the t-statistic for our observed difference of means is: 
+
+```{r}
+t_stat <- diff_avg / sqrt((s_1^2 / n_democracies) + (s_2^2 / n_non_democracies))
+t_stat
+```
+
+Let's place this observed statistic in the context of the null world: 
+
+```{r}
+ggplot(tibble(x = rt(1e6, df)), aes(x = x)) + 
+  stat_slab(aes(fill_ramp = after_stat(x < lower_boundary | x > upper_boundary)),
+            fill = met.brewer("Egypt")[2]) + 
+  geom_vline(xintercept = t_stat) + 
+  theme_minimal() + 
+  theme(legend.position = "none")
+```
+
+It is plausible that we could observe a difference of means equal to `r dollar(diff_avg)` even if there is no significant difference of means between the wealth of democracies and non-democracies. In fact, there is the following chance that we would observe this difference: 
+
+```{r}
+percent(2 * pt(t_stat, df = df, lower.tail = F))
+```
+
+This sits well above our threshold of a 10% risk that we would reject a true null hypothesis. 
+
+#### T-test shortcut
+
+We get the same result using the base function `t.test()`:
+
+```{r}
+t.test(gdp ~ democracy, data = dem_gdp_df)
+```
+
+::: {.callout-note}
+`t.test()` finds the difference of means by subtracting the average GDP of democracies from that of non-democracies. That is why the t-statistic is negative. 
+:::
+
+### Difference of proportions
+
+Is the proportion of democratic dyads with defense alliances greater than that of non-democratic dyads? 
+
+```{r}
+alliance_df <- create_dyadyears(subset_years = 2010) |> 
+  add_cow_alliance() |> 
+  add_democracy() |> 
+  transmute(ccode1, 
+            ccode2, 
+            cow_defense, 
+            dem_dyad = if_else(polity21 > 5 & polity22 > 5, 1, 0)) |> 
+  drop_na(cow_defense, dem_dyad)
+
+alliance_df
+```
+
+What proportion of democratic and non-democratic dyads have defense alliances? 
+
+```{r}
+alliance_summary <- alliance_df |> 
+  group_by(dem_dyad) |> 
+  summarise(n = n(),
+            n_defense = sum(cow_defense)) |> 
+  ungroup() |> 
+  mutate(prop = n_defense / n,
+         diff_prop = prop - lag(prop))
+
+alliance_summary
+```
+
+The proportion of democratic dyads with defense alliances is greater than that of non-democratic dyads. Is this difference statistically significant? 
+
+Let's set up our null world:
+
+```{r}
+ggplot(tibble(x = rnorm(1e6)), aes(x = x)) + 
+  stat_slab() + 
+  theme_minimal() + 
+  theme(legend.position = "none")
+```
+
+We will stick with our two-tailed test at the 0.1 threshold. Let's find where the other 90% of difference of proportions fall in our null world: 
+
+```{r}
+lower_boundary <- qnorm(0.05)
+lower_boundary
+
+upper_boundary <- qnorm(0.05, lower.tail = F)
+upper_boundary
+```
+
+```{r}
+ggplot(tibble(x = rnorm(1e6)), aes(x = x)) + 
+  stat_slab(aes(fill_ramp = after_stat(x < lower_boundary | x > upper_boundary)),
+            fill = met.brewer("Egypt")[2]) + 
+  theme_minimal() + 
+  theme(legend.position = "none")
+```
+
+Where does our observed difference of `r alliance_summary |> filter(dem_dyad == 1) |> pull(diff_prop) |> percent()` fall?
+
+We need to convert this observed difference into its z-score: 
+
+$$
+z = \frac{\hat{p}_1 - \hat{p}_2}{SE_{D_p}}
+$$
+
+Where: 
+
+$$
+SE_{D_p} = \sqrt{\hat{p}(1-\hat{p})(\frac{1}{n_1} + \frac{1}{n_2})}
+$$
+
+And:
+
+$$
+\hat{p} = \frac{x_1 + x_2}{n_1 + n_2}
+$$
+
+We will take this step-by-step: 
+
+We know the proportion of democratic and non-democratic dyads that have defense alliances: 
+
+```{r}
+alliance_summary
+```
+
+Therefore, we can calculate our pooled estimate: $\hat{p}$:
+
+```{r}
+pooled_p <- sum(alliance_summary$prop)
+pooled_p
+```
+
+And our sample sizes: 
+
+```{r}
+n_dem_dyad <- alliance_summary |> 
+  filter(dem_dyad == 1) |> 
+  pull(n)
+
+n_dem_dyad
+
+n_non_dem_dyad <- alliance_summary |> 
+  filter(dem_dyad == 0) |> 
+  pull(n)
+
+n_non_dem_dyad
+```
+
+Which allows us to calculate our standard error: 
+
+```{r}
+se <- sqrt(pooled_p * (1 - pooled_p) * ((1 / n_dem_dyad) + (1 / n_non_dem_dyad)))
+se
+```
+
+Which allows us to translate our observed difference into its z-score: 
+
+```{r}
+diff_prop <- alliance_summary |> 
+  filter(dem_dyad == 1) |> 
+  pull(diff_prop)
+
+z_score <- diff_prop / se
+z_score
+```
+
+Which we can then put into the context of the null world: 
+
+```{r}
+ggplot(tibble(x = rnorm(1e6)), aes(x = x)) + 
+  stat_slab(aes(fill_ramp = after_stat(x < lower_boundary | x > upper_boundary)),
+            fill = met.brewer("Egypt")[2]) + 
+  geom_vline(xintercept = z_score) + 
+  theme_minimal() + 
+  theme(legend.position = "none")
+```
+
+We are very unlikely to have seen a difference in the proportion of democracies and non-democracies with defense alliances of `r percent(diff_prop)` if there were, in fact, no difference in these proportions. How unlikely? 
+
+```{r}
+2 * pnorm(z_score, lower.tail = F)
+```
+
+Very unlikely!
+
+### Difference of counts
+
+Let's look at this same question, but ask whether democracy shared between countries in a dyad significantly effects the number of defense alliances held by them. 
+
+First, we need to find the observed count of defense alliances split between democratic and non-democratic dyads:
+
+```{r}
+datasummary_crosstab(cow_defense ~ dem_dyad, data = alliance_df)
+```
+
+What would our cross tab look like if democratic dyads had no effect on the number of defense alliances? 
+
+```{r}
+# Calculate the observed count for each category
+obs_values <- count(alliance_df, cow_defense, dem_dyad, name = "obs_n")
+obs_values
+
+# Calculate the total number of dyads that are democratic or non-democratic
+dem_dyad_totals <- count(alliance_df, dem_dyad, name = "dem_dyad_total")
+dem_dyad_totals
+
+# Calculate the total number of defense alliances
+alliance_totals <- count(alliance_df, cow_defense, name = "defense_total")
+alliance_totals
+
+# Work out your observed counts
+obs_exp_counts <- alliance_totals |> 
+  expand_grid(dem_dyad_totals) |> 
+  relocate(dem_dyad) |> 
+  # Calculated the expected values
+  mutate(exp_n = (defense_total * dem_dyad_total) / nrow(alliance_df)) |>
+  # Add the observed values for comparison
+  left_join(obs_values)
+obs_exp_counts
+```
+
+How different are our observed counts from our expected counts? 
+
+```{r}
+chi_sq <- obs_exp_counts |> 
+  mutate(diff = obs_n - exp_n,
+         diff_2 = diff^2,
+         diff_2_standard = diff_2 / exp_n) |> 
+  summarise(chi_sq = sum(diff_2_standard)) |> 
+  pull()
+
+chi_sq
+```
+
+Very different! But is this difference statistically significant? 
+
+```{r}
+pchisq(chi_sq, df = 1, lower.tail = F)
+```
+
+Yes! We are highly unlikely to see such large differences of counts if being a democratic dyad had no effect on states' propensity to enter into a defense agreement.  
+
+#### Chi-square test shortcut
+
+```{r}
+chisq.test(alliance_df$cow_defense, alliance_df$dem_dyad)
+```
