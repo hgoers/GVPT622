@@ -38,6 +38,9 @@ We know that militarized conflict between states is a very rare event: most coun
 mid_df <- create_dyadyears(directed = F, subset_years = 2014) |> 
   add_cow_mids() |> 
   select(year, ccode1, ccode2, cowmidongoing)
+
+mid_df |> 
+  filter(cowmidongoing == 1)
 ```
 
 What was the observed average number of MIDs fought between states in 2014?
@@ -356,7 +359,6 @@ dem_gdp_summary <- dem_gdp_df |>
   group_by(democracy) |> 
   summarise(n = n(), 
             avg_gdp = mean(gdp)) |> 
-  ungroup() |> 
   mutate(diff_avg_gdp = avg_gdp - lag(avg_gdp))
 
 dem_gdp_summary
@@ -509,7 +511,7 @@ t.test(gdp ~ democracy, data = dem_gdp_df)
 Is the proportion of democratic dyads with defense alliances greater than that of non-democratic dyads? 
 
 ```{r}
-alliance_df <- create_dyadyears(subset_years = 2010) |> 
+alliance_df <- create_dyadyears(directed = F, subset_years = 2010) |> 
   add_cow_alliance() |> 
   add_democracy() |> 
   transmute(ccode1, 
@@ -528,7 +530,6 @@ alliance_summary <- alliance_df |>
   group_by(dem_dyad) |> 
   summarise(n = n(),
             n_defense = sum(cow_defense)) |> 
-  ungroup() |> 
   mutate(prop = n_defense / n,
          diff_prop = prop - lag(prop))
 
