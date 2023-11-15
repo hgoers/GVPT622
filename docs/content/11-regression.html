@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -62,6 +96,11 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+<script src="../site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../html/custom.css">
 </head>
@@ -106,7 +145,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Regression I</li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/11-regression.html">Regression I</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -178,6 +217,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Applications &amp; Midterm Exam Review II</span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/11-regression.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Regression I</span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -193,8 +238,15 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#class" id="toc-class" class="nav-link" data-scroll-target="#class">Class</a></li>
   <li><a href="#lab" id="toc-lab" class="nav-link" data-scroll-target="#lab">Lab</a></li>
   </ul></li>
-  <li><a href="#class-slides" id="toc-class-slides" class="nav-link" data-scroll-target="#class-slides">Class slides</a></li>
-  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section">Section</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section">Section</a>
+  <ul>
+  <li><a href="#loading-in-our-data" id="toc-loading-in-our-data" class="nav-link" data-scroll-target="#loading-in-our-data">Loading in our data</a></li>
+  <li><a href="#uncovering-the-relationship-between-two-variables" id="toc-uncovering-the-relationship-between-two-variables" class="nav-link" data-scroll-target="#uncovering-the-relationship-between-two-variables">Uncovering the relationship between two variables</a></li>
+  <li><a href="#uncertainty-around-this-relationship" id="toc-uncertainty-around-this-relationship" class="nav-link" data-scroll-target="#uncertainty-around-this-relationship">Uncertainty around this relationship</a></li>
+  <li><a href="#building-uncertainty-into-our-single-regression-model" id="toc-building-uncertainty-into-our-single-regression-model" class="nav-link" data-scroll-target="#building-uncertainty-into-our-single-regression-model">Building uncertainty into our single regression model</a></li>
+  <li><a href="#connecting-this-to-our-research-question" id="toc-connecting-this-to-our-research-question" class="nav-link" data-scroll-target="#connecting-this-to-our-research-question">Connecting this to our research question</a></li>
+  <li><a href="#reading-our-regression-outputs" id="toc-reading-our-regression-outputs" class="nav-link" data-scroll-target="#reading-our-regression-outputs">Reading our regression outputs</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -229,14 +281,958 @@ ul.task-list li input[type="checkbox"] {
 <p><i class="fa-solid fa-book" aria-label="book"></i> Pollock &amp; Edwards R Companion, Chapter 8</p>
 </section>
 </section>
-<section id="class-slides" class="level2">
-<h2 class="anchored" data-anchor-id="class-slides">Class slides</h2>
-<iframe class="slide-deck" src="../files/slides/Lecture 11 - Regression.pdf" width="100%" height="600px"></iframe>
-</section>
 <section id="section" class="level2">
 <h2 class="anchored" data-anchor-id="section">Section</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"fitzRoy"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fitzRoy)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modelsummary)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggdist)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Today, we are going to explore the linear relationship between two variables. At the end of this session you will be able to describe how those two variables relate to one another, and whether that relationship is statistically significant.</p>
+<p>As usual, we will build our understanding using an example. As an Australian (more specifically, a Victorian), I love AFL. It’s the best sport out there! We’re going to depart from our usual political science examples to explore some interesting relationships in the way AFL is played.</p>
+<p>First, let’s watch this brief introduction to the game:</p>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/rsjJMpI5oh4" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<p>Let’s explore the relationship between disposal efficiency and Dream Team points. Your disposal efficiency describes the percentage of your disposals (kicks, handballs, etc.) that lead to a positive outcome for your team. The Dream Team is a popular fantasy football competition. Each player gets points for various actions they take on the field. For example, you get six Dream Team points for scoring a goal and you lose three points for having a free kick awarded against you. This is a useful proxy measure of a player’s effectiveness on the field.</p>
+<section id="loading-in-our-data" class="level3">
+<h3 class="anchored" data-anchor-id="loading-in-our-data">Loading in our data</h3>
+<p>We are going to explore some different player-level outcomes from the tenth round of the most recent AFLW season. This is the last round played before finals. First, we need to collect our data. The <code>fitzRoy::fetch_player_stats()</code> retrieves some useful variables about each player from the official AFL website.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>afl_df <span class="ot">&lt;-</span> <span class="fu">fetch_player_stats</span>(<span class="dv">2023</span>, <span class="at">round =</span> <span class="dv">10</span>, <span class="at">comp =</span> <span class="st">"AFLW"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>afl_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 378 × 70
+   providerId      utcStartTime           status compSeason.shortName round.name
+   &lt;chr&gt;           &lt;chr&gt;                  &lt;chr&gt;  &lt;chr&gt;                &lt;chr&gt;     
+ 1 CD_M20232641001 2023-11-03T08:45:00.0… CONCL… AFLW Season 8        Round 10  
+ 2 CD_M20232641001 2023-11-03T08:45:00.0… CONCL… AFLW Season 8        Round 10  
+ 3 CD_M20232641001 2023-11-03T08:45:00.0… CONCL… AFLW Season 8        Round 10  
+ 4 CD_M20232641001 2023-11-03T08:45:00.0… CONCL… AFLW Season 8        Round 10  
+ 5 CD_M20232641001 2023-11-03T08:45:00.0… CONCL… AFLW Season 8        Round 10  
+ 6 CD_M20232641001 2023-11-03T08:45:00.0… CONCL… AFLW Season 8        Round 10  
+ 7 CD_M20232641001 2023-11-03T08:45:00.0… CONCL… AFLW Season 8        Round 10  
+ 8 CD_M20232641001 2023-11-03T08:45:00.0… CONCL… AFLW Season 8        Round 10  
+ 9 CD_M20232641001 2023-11-03T08:45:00.0… CONCL… AFLW Season 8        Round 10  
+10 CD_M20232641001 2023-11-03T08:45:00.0… CONCL… AFLW Season 8        Round 10  
+# ℹ 368 more rows
+# ℹ 65 more variables: round.roundNumber &lt;int&gt;, venue.name &lt;chr&gt;,
+#   home.team.name &lt;chr&gt;, home.team.club.name &lt;chr&gt;, away.team.name &lt;chr&gt;,
+#   away.team.club.name &lt;chr&gt;, player.jumperNumber &lt;int&gt;,
+#   player.photoURL &lt;chr&gt;, player.player.position &lt;chr&gt;,
+#   player.player.player.playerId &lt;chr&gt;, player.player.player.captain &lt;lgl&gt;,
+#   player.player.player.playerJumperNumber &lt;int&gt;, …</code></pre>
+</div>
+</div>
+<p>In this round, 378 players played in 9 games. We have access to 70 variables describing how these players performed in this round.</p>
+</section>
+<section id="uncovering-the-relationship-between-two-variables" class="level3">
+<h3 class="anchored" data-anchor-id="uncovering-the-relationship-between-two-variables">Uncovering the relationship between two variables</h3>
+<p>First, we want to determine the direction of the relationship between our variables of interest. When a player’s disposal efficiency increases, do they tend to get a greater or fewer number of Dream Team points?</p>
+<p>We can often identify the direction of the relationship by plotting our data:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(afl_df, <span class="fu">aes</span>(<span class="at">x =</span> disposalEfficiency, <span class="at">y =</span> dreamTeamPoints)) <span class="sc">+</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="11-regression_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="960"></p>
+</div>
+</div>
+<p>The relationship looks positive: as your efficiency increases, so too do your Dream Team points. This makes sense. A good player is more efficient (tends to produce good results from their kicks and handballs). Our Dream Team points are a proxy for an effective player. However, there is a fair bit of noise here. This relationship doesn’t look very strong.</p>
+<p>Next, we want to formalize that relationship. We want to find the line that best fits all of these points. In other words, what line minimizes the distance between itself and all of the observed points marking each player’s Dream Team points and disposal efficiency?</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Remember, this is the basis for Ordinary Least Squares regression.</p>
+</div>
+</div>
+<p>We can use <code>ggplot2::geom_smooth()</code> to fit this line graphically:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(afl_df, <span class="fu">aes</span>(<span class="at">x =</span> disposalEfficiency, <span class="at">y =</span> dreamTeamPoints)) <span class="sc">+</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> F) <span class="sc">+</span> </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="11-regression_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="960"></p>
+</div>
+</div>
+<p>We correctly identified that there is a positive relationship between those two variables. Yay!</p>
+<p>Often we need more information than simply the direction of a relationship. For example, we want to know how pronounced the effect of a one-unit increase in our independent variable will be on our outcome of interest. Here, we want to learn how many additional Dream Team points are associated with a a one percentage point increase in a player’s disposal efficiency, on average.</p>
+<p>We can use <code>lm()</code> to determine this information:</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Remember to put your dependent variable first, then a <code>~</code>, then you independent variable(s).</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">lm</span>(dreamTeamPoints <span class="sc">~</span> disposalEfficiency, <span class="at">data =</span> afl_df)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(m)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = dreamTeamPoints ~ disposalEfficiency, data = afl_df)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-53.618 -17.270  -4.335  14.876  99.525 
+
+Coefficients:
+                   Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)        42.32863    4.57123   9.260   &lt;2e-16 ***
+disposalEfficiency  0.13289    0.07052   1.884   0.0603 .  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 24.99 on 376 degrees of freedom
+Multiple R-squared:  0.009356,  Adjusted R-squared:  0.006722 
+F-statistic: 3.551 on 1 and 376 DF,  p-value: 0.06028</code></pre>
+</div>
+</div>
+<p>Great! We now have a linear regression model of the relationship between a player’s disposal efficiency and their Dream Team points.</p>
+<p>We predict that players that have a disposal efficiency of 0 (none of their disposals result in a good outcome for their team) have, on average, 42.3 Dream Team points. Every one percentage point increase in a player’s efficiency is associated with a gain of 0.13 Dream Team points, on average.</p>
+<p>Great! We can use this information to understand this relationship more meaningfully. For example, we note that a player with a disposal efficiency of 1.33 percentage points greater than another player has, on average, 10 more Dream Team points than the other player.</p>
+</section>
+<section id="uncertainty-around-this-relationship" class="level3">
+<h3 class="anchored" data-anchor-id="uncertainty-around-this-relationship">Uncertainty around this relationship</h3>
+<p>How confident can we be in this modeled relationship? Am I <em>really</em> sure that efficiency has a significant, positive impact on a player’s Dream Team points?</p>
+<p>To answer these questions, we need to draw on everything we have learned about hypothesis testing and inference so far.</p>
+<p>We want to make a claim about the relationship between some outcome and some variables that we think are important determinants of that outcome. Here, we used the observed Dream Team points gained by a player and their disposal efficiency for round 10 in the 2023 season of AFLW to make a broader statement about the relationship between efficiency and Dream Team points. We are not actually interested in the specific relationship between these variables in round 10 of the 2023 season: we want to know whether a player’s efficiency is an important determinant of their Dream Team points generally.</p>
+<p>In other words, we are inferring from a sample a general relationship. You can imagine that if we had a different sample, a linear regression model would have a different set of estimates for our intercept and coefficient. They would (hopefully) look very similar to the ones we found above, but they would be slightly different. For example, imagine that some of the random elements of a game of AFL were different: the wind blew in a different way, the crowd cheered a little louder, a player ran a little faster. These would change the game played in slight and random ways. A player might make a clanger instead of a clean disposal. The wind may blow an otherwise goal into a behind. Consequently, the players’ disposal efficiency would be slightly different. We would subsequently get different model estimates.</p>
+<p>Let’s illustrate this. To be able to access this variation to illustrate our point, I am going to take pure random samples from our 378 players.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We are solidly in the multiverse world with this AFL example. We did not take a random sample of players who played in round 10, collect information on their Dream Team points and efficiency, and fit our regression. Rather, we have information about every player.</p>
+<p>This is also often the case in political science. For example, we have full information on the number of wars fought between countries in the modern era. We also have a lot of data on those countries. We do not; therefore, need to take a sample from that population (unlike pollsters attempting to work out a politician’s level of support from all US voters).</p>
+<p>However, this does not mean that we know with certainty the relationship between our variables of interest. Just as with sport, there is so much randomness that can effect these outcomes. We want to capture and account for that randomness. So, we have to treat these data as samples.</p>
+</div>
+</div>
+<p>Let’s take a completely random sample of 250 players from our data and fit our regression against that sample:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>afl_sample_1 <span class="ot">&lt;-</span> afl_df <span class="sc">|&gt;</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sample_n</span>(<span class="dv">250</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(player.player.player.givenName, </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>         player.player.player.surname,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>         dreamTeamPoints,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>         disposalEfficiency)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>afl_sample_1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 250 × 4
+   player.player.player.givenName player.player.player.surname dreamTeamPoints
+   &lt;chr&gt;                          &lt;chr&gt;                                  &lt;dbl&gt;
+ 1 Simone                         Nalder                                    21
+ 2 Emelia                         Yassir                                    20
+ 3 Maria                          Moloney                                   67
+ 4 Chloe                          Dalton                                    44
+ 5 Renee                          Garing                                    92
+ 6 Gemma                          Houghton                                 103
+ 7 Ebony                          O'Dea                                     47
+ 8 Sophie                         Conway                                    68
+ 9 Jasmin                         Stewart                                   43
+10 Courtney                       Jones                                     43
+# ℹ 240 more rows
+# ℹ 1 more variable: disposalEfficiency &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">lm</span>(dreamTeamPoints <span class="sc">~</span> disposalEfficiency, <span class="at">data =</span> afl_sample_1)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(m)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 5
+  term               estimate std.error statistic  p.value
+  &lt;chr&gt;                 &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+1 (Intercept)          36.9      5.14        7.17 8.34e-12
+2 disposalEfficiency    0.222    0.0801      2.78 5.92e- 3</code></pre>
+</div>
+</div>
+<p>Okay, so we got a different intercept and coefficient estimates than we got above. This is despite the fact that I took a pure random sample from the full set of players. The only thing driving this difference is random chance.</p>
+<p>Let’s do this again. I will take a different random sample of players and fit a regression for them:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>afl_sample_2 <span class="ot">&lt;-</span> afl_df <span class="sc">|&gt;</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sample_n</span>(<span class="dv">250</span>) <span class="sc">|&gt;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(player.player.player.givenName, </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>         player.player.player.surname,</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>         dreamTeamPoints,</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>         disposalEfficiency)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>afl_sample_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 250 × 4
+   player.player.player.givenName player.player.player.surname dreamTeamPoints
+   &lt;chr&gt;                          &lt;chr&gt;                                  &lt;dbl&gt;
+ 1 Kodi                           Jacques                                   50
+ 2 Dana                           East                                      64
+ 3 Cambridge                      McCormick                                 48
+ 4 Lisa                           Whiteley                                  41
+ 5 Keeley                         Kustermann                                24
+ 6 Courtney                       Jones                                     43
+ 7 Mackenzie                      Webb                                      30
+ 8 Jessica                        Low                                       36
+ 9 Madeline                       Keryk                                     22
+10 Cheyenne                       Hammond                                   38
+# ℹ 240 more rows
+# ℹ 1 more variable: disposalEfficiency &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">lm</span>(dreamTeamPoints <span class="sc">~</span> disposalEfficiency, <span class="at">data =</span> afl_sample_2)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(m)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 5
+  term               estimate std.error statistic  p.value
+  &lt;chr&gt;                 &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+1 (Intercept)          41.1      5.23        7.86 1.15e-13
+2 disposalEfficiency    0.163    0.0817      1.99 4.74e- 2</code></pre>
+</div>
+</div>
+<p>Again, we got a different set of coefficients. This is only the result of random chance.</p>
+<p>Let’s go again:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>afl_sample_3 <span class="ot">&lt;-</span> afl_df <span class="sc">|&gt;</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sample_n</span>(<span class="dv">250</span>) <span class="sc">|&gt;</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(player.player.player.givenName, </span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>         player.player.player.surname,</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>         dreamTeamPoints,</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>         disposalEfficiency)</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>afl_sample_3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 250 × 4
+   player.player.player.givenName player.player.player.surname dreamTeamPoints
+   &lt;chr&gt;                          &lt;chr&gt;                                  &lt;dbl&gt;
+ 1 Taylor                         Smith                                     47
+ 2 Alice                          O'Loughlin                                46
+ 3 Zarlie                         Goldsworthy                              103
+ 4 Chelsea                        Biddell                                   58
+ 5 Courtney                       Hodder                                    92
+ 6 Mim                            Strom                                     75
+ 7 Jade                           Ellenger                                  92
+ 8 Zoe                            Wakfer                                    32
+ 9 Isabel                         Huntington                                37
+10 Brooke                         Brown                                     58
+# ℹ 240 more rows
+# ℹ 1 more variable: disposalEfficiency &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">lm</span>(dreamTeamPoints <span class="sc">~</span> disposalEfficiency, <span class="at">data =</span> afl_sample_3)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(m)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 5
+  term               estimate std.error statistic  p.value
+  &lt;chr&gt;                 &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+1 (Intercept)          41.7      5.38        7.76 2.27e-13
+2 disposalEfficiency    0.131    0.0836      1.57 1.17e- 1</code></pre>
+</div>
+</div>
+<p>We can see these differences:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>afl_sample_1 <span class="sc">|&gt;</span> </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sample =</span> <span class="st">"One"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(afl_sample_2, <span class="at">sample =</span> <span class="st">"Two"</span>)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(afl_sample_3, <span class="at">sample =</span> <span class="st">"Three"</span>)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> disposalEfficiency, <span class="at">y =</span> dreamTeamPoints, <span class="at">colour =</span> sample)) <span class="sc">+</span> </span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> F) <span class="sc">+</span> </span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="11-regression_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="960"></p>
+</div>
+</div>
+<p>Let’s do this many times:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>afl_sample_regression <span class="ot">&lt;-</span> <span class="cf">function</span>(i) {</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  afl_sample <span class="ot">&lt;-</span> <span class="fu">sample_n</span>(afl_df, <span class="dv">250</span>)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  m <span class="ot">&lt;-</span> <span class="fu">lm</span>(dreamTeamPoints <span class="sc">~</span> disposalEfficiency, <span class="at">data =</span> afl_sample)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  model_results <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">round =</span> i, <span class="at">model =</span> <span class="fu">tidy</span>(m))</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(model_results)</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>afl_regressions <span class="ot">&lt;-</span> <span class="fu">map</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>, afl_sample_regression, <span class="at">.progress =</span> T) <span class="sc">|&gt;</span> </span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we can take a look at those different regression coefficients:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>afl_regressions <span class="sc">|&gt;</span> </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,000 × 6
+   round term               estimate std.error statistic  p.value
+   &lt;int&gt; &lt;chr&gt;                 &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+ 1     1 (Intercept)         38.7       5.20       7.44  1.61e-12
+ 2     1 disposalEfficiency   0.172     0.0803     2.14  3.35e- 2
+ 3     2 (Intercept)         45.1       5.70       7.92  8.11e-14
+ 4     2 disposalEfficiency   0.0869    0.0873     0.995 3.21e- 1
+ 5     3 (Intercept)         40.5       5.95       6.81  7.23e-11
+ 6     3 disposalEfficiency   0.171     0.0922     1.86  6.40e- 2
+ 7     4 (Intercept)         37.2       5.32       7.00  2.34e-11
+ 8     4 disposalEfficiency   0.192     0.0824     2.34  2.03e- 2
+ 9     5 (Intercept)         41.0       5.73       7.16  9.25e-12
+10     5 disposalEfficiency   0.166     0.0893     1.86  6.38e- 2
+# ℹ 1,990 more rows</code></pre>
+</div>
+</div>
+<p>This shows the intercept and coefficient for the relationship between disposal efficiency and Dream Team points for each of the models we generated from our 1,000 different random samples. Remember, the only thing driving the differences between each model’s intercept and coefficient is random chance.</p>
+<p>Let’s start with the disposal efficiency coefficients:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>afl_regressions <span class="sc">|&gt;</span> </span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(model) <span class="sc">|&gt;</span> </span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"disposalEfficiency"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> estimate)) <span class="sc">+</span> </span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_halfeye</span>() <span class="sc">+</span> </span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">caption =</span> <span class="st">"Median is shown with point. One and two standard deviations are shown by the black bars."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="11-regression_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="960"></p>
+</div>
+</div>
+<p>Here is the distribution of those 1,000 different coefficients for disposal efficiency for each model.</p>
+<p>Next, we can look at the intercepts:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>afl_regressions <span class="sc">|&gt;</span> </span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(model) <span class="sc">|&gt;</span> </span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"(Intercept)"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> estimate)) <span class="sc">+</span> </span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_halfeye</span>() <span class="sc">+</span> </span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">caption =</span> <span class="st">"Median is shown with point. One and two standard deviations are shown by the black bars."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="11-regression_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="960"></p>
+</div>
+</div>
+<p>You can see that one coefficient and estimate is common (represented by the peak of these two density plots) and that other estimates fall roughly symmetrically around this most common estimate.</p>
+<p>In fact, if we ran an infinite number of regressions from an infinite number of random samples from our data, these coefficients would be distributed following the t-distribution.</p>
+<p>We can use this knowledge to focus back on that single regression model that we built right at the start of this session.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">lm</span>(dreamTeamPoints <span class="sc">~</span> disposalEfficiency, <span class="at">data =</span> afl_df)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(m)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 5
+  term               estimate std.error statistic  p.value
+  &lt;chr&gt;                 &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+1 (Intercept)          42.3      4.57        9.26 1.59e-18
+2 disposalEfficiency    0.133    0.0705      1.88 6.03e- 2</code></pre>
+</div>
+</div>
+</section>
+<section id="building-uncertainty-into-our-single-regression-model" class="level3">
+<h3 class="anchored" data-anchor-id="building-uncertainty-into-our-single-regression-model">Building uncertainty into our single regression model</h3>
+<p>Generally, we have a single sample and we use that sample to fit our models. We still need to account for the uncertainty (demonstrated above) created by random chance. We know that from an infinite number of samples, we would fit linear models with coefficients that follow the t-distribution. So, let’s use that knowledge to work out how certain we are of our estimates found above.</p>
+<p>We have our point estimates for our intercept and coefficient:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(m) <span class="sc">|&gt;</span> </span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(term, estimate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  term               estimate
+  &lt;chr&gt;                 &lt;dbl&gt;
+1 (Intercept)          42.3  
+2 disposalEfficiency    0.133</code></pre>
+</div>
+</div>
+<p>These are our best guess at the true linear relationship between disposal efficiency and Dream Team points. Our best guess is that players who have a disposal efficiency of zero have, on average, 42.3 Dream Team points. Every one percentage point increase in a player’s efficiency is associated with a gain of 0.13 Dream Team points, on average.</p>
+<p>Perfect. Let’s set these best guesses as our center points.</p>
+<p>Now, we need to build out the plausible set of intercepts and coefficients that would result from an infinite number of random samples drawn from our population. To do this, we need to work out how spread out these intercepts and coefficients would be from their center points. Formally, this spread is called the <strong>standard deviation</strong>.</p>
+<p>The standard deviation, <span class="math inline">\(s\)</span>, is calculated using two pieces of information. First, it looks at how well our line of best fit (our regression model) fits our observed data. How far are the predicted values (represented by the blue line on the below graph) from the observed values (represented by the black dots)?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(afl_df, <span class="fu">aes</span>(<span class="at">x =</span> disposalEfficiency, <span class="at">y =</span> dreamTeamPoints)) <span class="sc">+</span> </span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> F) <span class="sc">+</span> </span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="11-regression_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="960"></p>
+</div>
+</div>
+<p>We will have more uncertainty around our intercept and coefficient if the distance between the predicted values and observed values is large. This makes sense: if the predicted values and the observed values were very similar, we are unlikely to find a wildly different line of best fit from a different random sample from our population.</p>
+<p>The standard deviation also takes into account the amount of information you have used to generate this intercept and coefficient. Greater sample sizes using less variables result in less uncertainty around those model coefficients.</p>
+<p>In sum, the standard deviation is calculated as:</p>
+<p><span class="math display">\[
+s = \sqrt{\frac{\sum{e_i^2}}{n-k-1}}
+\]</span></p>
+<p>Where <span class="math inline">\(e_i\)</span> is the difference between each predicted value and observed value (the vertical distance between each point and the blue line on the graph above).</p>
+<p><span class="math inline">\(n-k-1\)</span> is the degrees of freedom in the model. It accounts for the amount of information you used to build the model, with <span class="math inline">\(n\)</span> equal to the number of observations you used and <span class="math inline">\(k\)</span> equal to the number of independent variables you included. Here, our <span class="math inline">\(k=1\)</span> because we are only using one independent variable: disposal efficiency.</p>
+<p>We can use this spread to work out our standard errors around our coefficients. Broadly, the standard error places this uncertainty within the context of the model.</p>
+<p>For the intercept, it is:</p>
+<p><span class="math display">\[
+SE_{\beta_0} = s(\sqrt{\frac{1}{n} + \frac{\bar{x}^2}{\sum{(x_i-\bar{x})^2}}})
+\]</span></p>
+<p>For the coefficients, it is:</p>
+<p><span class="math display">\[
+SE_{\beta_1} = \frac{s}{\sqrt{\sum{(x_i-\bar{x})^2}}}
+\]</span></p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You will calculate all of this in the background. Do not worry about memorizing these formulas. I put them here to help build your intuition about what goes into your uncertainty around the relationship you find between your outcome of interest and the variables you think drive that outcome.</p>
+</div>
+</div>
+<p>Happily, <code>broom::tidy()</code> calculates all of this for us:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(m) <span class="sc">|&gt;</span> </span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(term<span class="sc">:</span>std.error)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 3
+  term               estimate std.error
+  &lt;chr&gt;                 &lt;dbl&gt;     &lt;dbl&gt;
+1 (Intercept)          42.3      4.57  
+2 disposalEfficiency    0.133    0.0705</code></pre>
+</div>
+</div>
+<p>Okay, so we have a good sense of the spread around our best guess. Let’s visualize this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">rnorm</span>(<span class="fl">1e6</span>, </span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">mean =</span> <span class="fu">tidy</span>(m) <span class="sc">|&gt;</span> <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"disposalEfficiency"</span>) <span class="sc">|&gt;</span> <span class="fu">pull</span>(estimate),</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd =</span> <span class="fu">tidy</span>(m) <span class="sc">|&gt;</span> <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"disposalEfficiency"</span>) <span class="sc">|&gt;</span> <span class="fu">pull</span>(std.error))</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span> </span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span> </span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_halfeye</span>() <span class="sc">+</span> </span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="11-regression_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="960"></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>There are two things to note here. The first is that I am using the normal distribution, not the t-distribution. As far as I can tell, there isn’t a way to change the center or spread of random draws from the t-distribution in R (done using <code>rt()</code>). So, to illustrate I am using random draws from the normal distribution (done using <code>rnorm()</code>). At these large degrees of freedom, these distributions are almost identical, so we can roll with this.</p>
+<p>Second, I am pulling 1 million random draws from this distribution. In theory, we talk about the distribution of an infinite number of coefficients built from an infinite number of samples. I, obviously, cannot do this, so I use 1 million as my stand-in for infinity.</p>
+</div>
+</div>
+<p>Above, we show the plausible set of coefficients describing the effect of a one percentage point increase in a player’s disposal efficiency on their Dream Team points, on average. Remember, our best guess (taken from our regression model) is that a one percentage point increase in efficiency is associated with a 0.13 increase in a player’s Dream Team points, on average. However, as we saw above when we built 1,000 different models from 1,000 different random samples, it is entirely plausible that we could get different coefficients from a model built from a different sample. These differences are the product of random chance. That’s fine! We just need to acknowledge that.</p>
+<p>Let’s also visualize all of the plausible intercepts we could get:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">rnorm</span>(<span class="fl">1e6</span>, </span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">mean =</span> <span class="fu">tidy</span>(m) <span class="sc">|&gt;</span> <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"(Intercept)"</span>) <span class="sc">|&gt;</span> <span class="fu">pull</span>(estimate),</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd =</span> <span class="fu">tidy</span>(m) <span class="sc">|&gt;</span> <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"(Intercept)"</span>) <span class="sc">|&gt;</span> <span class="fu">pull</span>(std.error))</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span> </span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span> </span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_halfeye</span>() <span class="sc">+</span> </span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="11-regression_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="960"></p>
+</div>
+</div>
+<p>Again, our best guess is that players who have a disposal efficiency of 0 have, on average, 42.3 Dream Team points. This is one of many plausible intercepts that we could generate.</p>
+</section>
+<section id="connecting-this-to-our-research-question" class="level3">
+<h3 class="anchored" data-anchor-id="connecting-this-to-our-research-question">Connecting this to our research question</h3>
+<p>We used our data to uncover an interesting relationship between disposal efficiency and Dream Team points, on average. As your disposal efficiency increases, so too do your Dream Team points. We found that if players who increased their disposal efficiency by one percentage point saw an increase of 0.13 Dream Team points, on average.</p>
+<p>Now, imagine that you are a player and you want to increase your Dream Team points. Do you trust this? Do you really believe that by increasing your disposal efficiency you will increase your Dream Team points? What if, in fact, there is no relationship between these two variables?</p>
+<p>We know from above that there are a range of plausible intercepts and coefficients that result from random chance. Does this plausible range include zero? In other words, is it plausible that there is no relationship between the outcome of interest (Dream Team points) and your independent variable (disposal efficiency)?</p>
+<p>To answer this question, we draw on our knowledge of hypothesis testing.</p>
+<p>First, we need to define what we mean by a plausible range of relationships. Traditionally, we are willing to accept a five percent risk that we declare that there is a relationship between an outcome and an independent variable when there is, in fact, no relationship. Let’s stick with that threshold.</p>
+<p>Okay, so now we need to work out where the other 95 percent of plausible values sit. Let’s start with the coefficient describing the relationship between Dream Team points and disposal efficiency. Here is our representation of the coefficients drawn from an infinite number random samples pulled from our population (it is the same as printed above):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">rnorm</span>(<span class="fl">1e6</span>, </span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">mean =</span> <span class="fu">tidy</span>(m) <span class="sc">|&gt;</span> <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"disposalEfficiency"</span>) <span class="sc">|&gt;</span> <span class="fu">pull</span>(estimate),</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd =</span> <span class="fu">tidy</span>(m) <span class="sc">|&gt;</span> <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"disposalEfficiency"</span>) <span class="sc">|&gt;</span> <span class="fu">pull</span>(std.error))</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span> </span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span> </span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_halfeye</span>() <span class="sc">+</span> </span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="11-regression_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" width="960"></p>
+</div>
+</div>
+<p>Where do 95 percent of these coefficients fall around our best guess? We can use our knowledge of the t-distribution to answer this question.</p>
+<p>We know that center point (our coefficient):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>beta_1 <span class="ot">&lt;-</span> <span class="fu">tidy</span>(m) <span class="sc">|&gt;</span> </span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"disposalEfficiency"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(estimate)</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>beta_1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1328924</code></pre>
+</div>
+</div>
+<p>We know how spread out our alternative coefficients are from that center point (our standard error):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>se_beta_1 <span class="ot">&lt;-</span> <span class="fu">tidy</span>(m) <span class="sc">|&gt;</span> </span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"disposalEfficiency"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(std.error)</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>se_beta_1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.0705205</code></pre>
+</div>
+</div>
+<p>And we know our threshold (5%). We need to translate that threshold into its t-statistic, accounting for the degrees of freedom we have access to:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>sample_size <span class="ot">&lt;-</span> <span class="fu">nrow</span>(afl_df)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>sample_size</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 378</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>no_of_IVs <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>no_of_IVs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> sample_size <span class="sc">-</span> no_of_IVs <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 376</code></pre>
+</div>
+</div>
+<p>Therefore:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>t_stat_95 <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="fl">0.025</span>, <span class="at">df =</span> df, <span class="at">lower.tail =</span> F)</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>t_stat_95</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.966293</code></pre>
+</div>
+</div>
+<p>This is the point beyond which 2.5% of all values along the t-distribution fall.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Remember, we want to find out where 95 percent of these alternative coefficients sit <em>around</em> the center point. So, we need to distribute our remaining five percent between the two tails. That’s why we find the t-statistic beyond which 2.5% of the data fall.</p>
+</div>
+</div>
+<p>Now we can find the boundaries within which 95 percent of these alternative coefficients fall:</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Remember:</p>
+<p><span class="math display">\[
+CI = \beta_1 \pm t*SE_{\beta_1}
+\]</span></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>lower_ci <span class="ot">&lt;-</span> beta_1 <span class="sc">-</span> t_stat_95<span class="sc">*</span>se_beta_1</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>lower_ci</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.005771574</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>upper_ci <span class="ot">&lt;-</span> beta_1 <span class="sc">+</span> t_stat_95<span class="sc">*</span>se_beta_1</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>upper_ci</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2715564</code></pre>
+</div>
+</div>
+<p>Let’s place those in context:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">rnorm</span>(<span class="fl">1e6</span>, </span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">mean =</span> <span class="fu">tidy</span>(m) <span class="sc">|&gt;</span> <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"disposalEfficiency"</span>) <span class="sc">|&gt;</span> <span class="fu">pull</span>(estimate),</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd =</span> <span class="fu">tidy</span>(m) <span class="sc">|&gt;</span> <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"disposalEfficiency"</span>) <span class="sc">|&gt;</span> <span class="fu">pull</span>(std.error))</span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span> </span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span> </span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_slab</span>(<span class="fu">aes</span>(<span class="at">fill_ramp =</span> <span class="fu">after_stat</span>(x <span class="sc">&lt;</span> lower_ci <span class="sc">|</span> x <span class="sc">&gt;</span> upper_ci))) <span class="sc">+</span> </span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="11-regression_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid" width="960"></p>
+</div>
+</div>
+<p>Brilliant! Now we know where 95 percent of all alternative coefficients drawn from a random sample of our population could fall. These are our <em>plausible</em> alternative coefficients.</p>
+<p>So, do these plausible alternatives include zero? In other words, is it plausible that there is no relationship between a player’s disposal efficiency and their Dream Team points?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">rnorm</span>(<span class="fl">1e6</span>, </span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">mean =</span> <span class="fu">tidy</span>(m) <span class="sc">|&gt;</span> <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"disposalEfficiency"</span>) <span class="sc">|&gt;</span> <span class="fu">pull</span>(estimate),</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd =</span> <span class="fu">tidy</span>(m) <span class="sc">|&gt;</span> <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"disposalEfficiency"</span>) <span class="sc">|&gt;</span> <span class="fu">pull</span>(std.error))</span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span> </span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span> </span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_slab</span>(<span class="fu">aes</span>(<span class="at">fill_ramp =</span> <span class="fu">after_stat</span>(x <span class="sc">&lt;</span> lower_ci <span class="sc">|</span> x <span class="sc">&gt;</span> upper_ci))) <span class="sc">+</span> </span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>) <span class="sc">+</span> </span>
+<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
+<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="11-regression_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid" width="960"></p>
+</div>
+</div>
+<p>Yes! A null relationship sits within our plausible set of coefficients for disposal efficiency. We cannot reject the notion that there is no relationship between disposal efficiency and Dream Team points at this threshold.</p>
+<p>What about a more forgiving threshold? What if we are willing to accept a 10 percent chance that we reject a true null relationship?</p>
+<p>First, we need to find this new threshold’s t-statistic:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>t_stat_90 <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="fl">0.05</span>, <span class="at">df =</span> df, <span class="at">lower.tail =</span> F)</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>t_stat_90</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.648916</code></pre>
+</div>
+</div>
+<p>And; therefore, our new boundaries (within which 90 percent of alternative coefficients sit):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>lower_ci <span class="ot">&lt;-</span> beta_1 <span class="sc">-</span> t_stat_90<span class="sc">*</span>se_beta_1</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>lower_ci</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.01661001</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>upper_ci <span class="ot">&lt;-</span> beta_1 <span class="sc">+</span> t_stat_90<span class="sc">*</span>se_beta_1</span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>upper_ci</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2491748</code></pre>
+</div>
+</div>
+<p>Do these contain a null relationship?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">rnorm</span>(<span class="fl">1e6</span>, </span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">mean =</span> <span class="fu">tidy</span>(m) <span class="sc">|&gt;</span> <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"disposalEfficiency"</span>) <span class="sc">|&gt;</span> <span class="fu">pull</span>(estimate),</span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd =</span> <span class="fu">tidy</span>(m) <span class="sc">|&gt;</span> <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"disposalEfficiency"</span>) <span class="sc">|&gt;</span> <span class="fu">pull</span>(std.error))</span>
+<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span> </span>
+<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span> </span>
+<span id="cb61-7"><a href="#cb61-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_slab</span>(<span class="fu">aes</span>(<span class="at">fill_ramp =</span> <span class="fu">after_stat</span>(x <span class="sc">&lt;</span> lower_ci <span class="sc">|</span> x <span class="sc">&gt;</span> upper_ci))) <span class="sc">+</span> </span>
+<span id="cb61-8"><a href="#cb61-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>) <span class="sc">+</span> </span>
+<span id="cb61-9"><a href="#cb61-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
+<span id="cb61-10"><a href="#cb61-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="11-regression_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid" width="960"></p>
+</div>
+</div>
+<p>No! So, if we are happy to accept a 10 percent risk that we will reject a true null relationship, we can reject the null hypothesis that there is no relationship between disposal efficiency and Dream Team points. We can tell the players that we have found a statistically significant relationship between disposal efficiency and Dream Team points at the 0.1 threshold.</p>
+<p>We can approach this question from the other direction. If the null hypothesis were true, how likely would we be to see our estimate?</p>
+<p>First, let’s set up our null world:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">rt</span>(<span class="fl">1e6</span>, <span class="at">df =</span> df)</span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span> </span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span> </span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_slab</span>() <span class="sc">+</span> </span>
+<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
+<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="11-regression_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid" width="960"></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>I am back to random draws from our t-distribution.</p>
+</div>
+</div>
+<p>Here, we have centered our distribution of alternative coefficients (resulting only from differences in our samples brought about by random chance) at zero. We are in the null world: there is no relationship between disposal efficiency and Dream Team points.</p>
+<p>Where does the estimate we found in our sample sit within this null world? First, we need to translate that observed estimate into its t-statistic:</p>
+<p><span class="math display">\[
+t = \frac{\beta_1}{SE_{\beta_1}}
+\]</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>t_stat <span class="ot">&lt;-</span> beta_1 <span class="sc">/</span> se_beta_1</span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>t_stat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.884451</code></pre>
+</div>
+</div>
+<p>Let’s place this in the context of the null world:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">rt</span>(<span class="fl">1e6</span>, <span class="at">df =</span> df)</span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span> </span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span> </span>
+<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_slab</span>() <span class="sc">+</span> </span>
+<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> t_stat) <span class="sc">+</span> </span>
+<span id="cb65-7"><a href="#cb65-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
+<span id="cb65-8"><a href="#cb65-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="11-regression_files/figure-html/unnamed-chunk-37-1.png" class="img-fluid" width="960"></p>
+</div>
+</div>
+<p>How likely is it that I would get this coefficient or a more extreme coefficient if we did, in fact, live in the null world? In other words, what proportion of these alternative coefficients (highlighted in dark gray on the graph below) are equal to or greater than our observed estimate?</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Remember that we are conducting a two-tailed test of our null hypothesis. We need to be open to the estimate being greater <em>or</em> smaller than the null.</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">rt</span>(<span class="fl">1e6</span>, <span class="at">df =</span> df)</span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span> </span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span> </span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_slab</span>(<span class="fu">aes</span>(<span class="at">fill_ramp =</span> <span class="fu">after_stat</span>(x <span class="sc">&lt;</span> <span class="sc">-</span>t_stat <span class="sc">|</span> x <span class="sc">&gt;</span> t_stat))) <span class="sc">+</span> </span>
+<span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> t_stat) <span class="sc">+</span> </span>
+<span id="cb66-7"><a href="#cb66-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
+<span id="cb66-8"><a href="#cb66-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="11-regression_files/figure-html/unnamed-chunk-38-1.png" class="img-fluid" width="960"></p>
+</div>
+</div>
+<p>The proportion of alternative coefficients that are equal to or more extreme than the one we observed is:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>p_value <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">pt</span>(t_stat, <span class="at">df =</span> df, <span class="at">lower.tail =</span> F)</span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>p_value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.06027518</code></pre>
+</div>
+</div>
+<p>We would observe an estimate of 0.133 or a more extreme estimate 6% of the time if the null hypothesis were true. When we are only happy to accept a five percent chance that we would reject a true null hypothesis, we cannot reject that null hypothesis. If, on the other hand, we are happy to accept a 10 percent chance that we reject a true null hypothesis, we can reject it.</p>
+</section>
+<section id="reading-our-regression-outputs" class="level3">
+<h3 class="anchored" data-anchor-id="reading-our-regression-outputs">Reading our regression outputs</h3>
+<p>Let’s return to our original model:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(m)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 5
+  term               estimate std.error statistic  p.value
+  &lt;chr&gt;                 &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+1 (Intercept)          42.3      4.57        9.26 1.59e-18
+2 disposalEfficiency    0.133    0.0705      1.88 6.03e- 2</code></pre>
+</div>
+</div>
+<p>We now have information on every component of this output.</p>
+<p>We can translate these estimates, in the <code>estimate</code> column. Our model suggests that players that have a disposal efficiency of 0 (none of their disposals result in a good outcome for their team) have, on average, 42.3 Dream Team points. Every one percentage point increase in a player’s efficiency is associated with a gain of 0.13 Dream Team points, on average.</p>
+<p>We know that these estimates are our best guess of the true linear relationship between Dream Team points and disposal efficiency. Our best guess may be different from the true relationship because of random chance. How confident are we of that best guess? Well, we know from the standard error (<code>std.error</code>) how spread out around that best guess alternative coefficients sit.</p>
+<p>We know where our estimate (translated into its t-statistic, or <code>statistic</code>) sits within the null world.</p>
+<p>And finally, we know the probability (<code>p.value</code>) that we would observe the estimate we found if it were actually equal to zero.</p>
+<p>All of that work we did above is replicated here, in this one line of code. In fact, we can also add our confidence intervals around our estimate to the <code>broom::tidy()</code> output:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(m, <span class="at">conf.int =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 7
+  term               estimate std.error statistic  p.value conf.low conf.high
+  &lt;chr&gt;                 &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1 (Intercept)          42.3      4.57        9.26 1.59e-18 33.3        51.3  
+2 disposalEfficiency    0.133    0.0705      1.88 6.03e- 2 -0.00577     0.272</code></pre>
+</div>
+</div>
+<p>These are exactly as we manually calculated above.</p>
+<p>What would this all look like in a published article?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(m,</span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">coef_rename =</span> <span class="fu">c</span>(<span class="st">"disposalEfficiency"</span> <span class="ot">=</span> <span class="st">"Disposal efficiency"</span>),</span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">statistic =</span> <span class="fu">c</span>(<span class="st">"std.error"</span>, <span class="st">"p.value"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">&nbsp;(1)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: center;">42.329</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: center;">(4.571)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: center;">(&lt;0.001)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Disposal efficiency</td>
+<td style="text-align: center;">0.133</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: center;">(0.071)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; box-shadow: 0px 1.5px;"></td>
+<td style="text-align: center; box-shadow: 0px 1.5px;">(0.060)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Num.Obs.</td>
+<td style="text-align: center;">378</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">R2</td>
+<td style="text-align: center;">0.009</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">R2 Adj.</td>
+<td style="text-align: center;">0.007</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AIC</td>
+<td style="text-align: center;">3510.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">BIC</td>
+<td style="text-align: center;">3521.8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Log.Lik.</td>
+<td style="text-align: center;">−1751.992</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">F</td>
+<td style="text-align: center;">3.551</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">RMSE</td>
+<td style="text-align: center;">24.93</td>
+</tr>
+</tbody>
+</table>
 
 
+</div>
+</div>
+<p>Increasingly, people are including confidence intervals:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(m,</span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">coef_rename =</span> <span class="fu">c</span>(<span class="st">"disposalEfficiency"</span> <span class="ot">=</span> <span class="st">"Disposal efficiency"</span>),</span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">statistic =</span> <span class="fu">c</span>(<span class="st">"conf.int"</span>, <span class="st">"p.value"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">&nbsp;(1)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: center;">42.329</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: center;">[33.340, 51.317]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: center;">(&lt;0.001)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Disposal efficiency</td>
+<td style="text-align: center;">0.133</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: center;">[−0.006, 0.272]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; box-shadow: 0px 1.5px;"></td>
+<td style="text-align: center; box-shadow: 0px 1.5px;">(0.060)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Num.Obs.</td>
+<td style="text-align: center;">378</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">R2</td>
+<td style="text-align: center;">0.009</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">R2 Adj.</td>
+<td style="text-align: center;">0.007</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AIC</td>
+<td style="text-align: center;">3510.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">BIC</td>
+<td style="text-align: center;">3521.8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Log.Lik.</td>
+<td style="text-align: center;">−1751.992</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">F</td>
+<td style="text-align: center;">3.551</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">RMSE</td>
+<td style="text-align: center;">24.93</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+<p>Or presenting their regression results graphically:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">modelplot</span>(m,</span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">coef_rename =</span> <span class="fu">c</span>(<span class="st">"disposalEfficiency"</span> <span class="ot">=</span> <span class="st">"Disposal efficiency"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="11-regression_files/figure-html/unnamed-chunk-44-1.png" class="img-fluid" width="960"></p>
+</div>
+</div>
+
+
+</section>
 </section>
 
 </main> <!-- /main -->
