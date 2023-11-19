@@ -95,6 +95,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-WKJ9E8EHM1"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-WKJ9E8EHM1', { 'anonymize_ip': true});
+</script>
 
 <script src="../site_libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
@@ -469,8 +478,8 @@ Note
 <pre><code># A tibble: 2 × 5
   term               estimate std.error statistic  p.value
   &lt;chr&gt;                 &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-1 (Intercept)          36.9      5.14        7.17 8.34e-12
-2 disposalEfficiency    0.222    0.0801      2.78 5.92e- 3</code></pre>
+1 (Intercept)          35.7      5.15        6.94 3.34e-11
+2 disposalEfficiency    0.245    0.0803      3.05 2.54e- 3</code></pre>
 </div>
 </div>
 <p>Okay, so we got a different intercept and coefficient estimates than we got above. This is despite the fact that I took a pure random sample from the full set of players. The only thing driving this difference is random chance.</p>
@@ -490,8 +499,8 @@ Note
  1 Kodi                           Jacques                                   50
  2 Dana                           East                                      64
  3 Cambridge                      McCormick                                 48
- 4 Lisa                           Whiteley                                  41
- 5 Keeley                         Kustermann                                24
+ 4 Rachelle                       Martin                                    74
+ 5 Madison                        Newman                                    94
  6 Courtney                       Jones                                     43
  7 Mackenzie                      Webb                                      30
  8 Jessica                        Low                                       36
@@ -509,8 +518,8 @@ Note
 <pre><code># A tibble: 2 × 5
   term               estimate std.error statistic  p.value
   &lt;chr&gt;                 &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-1 (Intercept)          41.1      5.23        7.86 1.15e-13
-2 disposalEfficiency    0.163    0.0817      1.99 4.74e- 2</code></pre>
+1 (Intercept)          43.0      5.29        8.13 2.07e-14
+2 disposalEfficiency    0.130    0.0821      1.59 1.14e- 1</code></pre>
 </div>
 </div>
 <p>Again, we got a different set of coefficients. This is only the result of random chance.</p>
@@ -549,8 +558,8 @@ Note
 <pre><code># A tibble: 2 × 5
   term               estimate std.error statistic  p.value
   &lt;chr&gt;                 &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-1 (Intercept)          41.7      5.38        7.76 2.27e-13
-2 disposalEfficiency    0.131    0.0836      1.57 1.17e- 1</code></pre>
+1 (Intercept)          41.4      5.41        7.65 4.52e-13
+2 disposalEfficiency    0.146    0.0843      1.73 8.52e- 2</code></pre>
 </div>
 </div>
 <p>We can see these differences:</p>
@@ -596,16 +605,16 @@ Note
 <pre><code># A tibble: 2,000 × 6
    round term               estimate std.error statistic  p.value
    &lt;int&gt; &lt;chr&gt;                 &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
- 1     1 (Intercept)         38.7       5.20       7.44  1.61e-12
- 2     1 disposalEfficiency   0.172     0.0803     2.14  3.35e- 2
- 3     2 (Intercept)         45.1       5.70       7.92  8.11e-14
- 4     2 disposalEfficiency   0.0869    0.0873     0.995 3.21e- 1
- 5     3 (Intercept)         40.5       5.95       6.81  7.23e-11
- 6     3 disposalEfficiency   0.171     0.0922     1.86  6.40e- 2
- 7     4 (Intercept)         37.2       5.32       7.00  2.34e-11
- 8     4 disposalEfficiency   0.192     0.0824     2.34  2.03e- 2
- 9     5 (Intercept)         41.0       5.73       7.16  9.25e-12
-10     5 disposalEfficiency   0.166     0.0893     1.86  6.38e- 2
+ 1     1 (Intercept)         39.4       5.16       7.64  4.70e-13
+ 2     1 disposalEfficiency   0.152     0.0795     1.91  5.68e- 2
+ 3     2 (Intercept)         45.9       5.70       8.05  3.37e-14
+ 4     2 disposalEfficiency   0.0684    0.0867     0.789 4.31e- 1
+ 5     3 (Intercept)         43.6       6.00       7.26  4.88e-12
+ 6     3 disposalEfficiency   0.120     0.0929     1.30  1.96e- 1
+ 7     4 (Intercept)         38.3       5.33       7.19  7.49e-12
+ 8     4 disposalEfficiency   0.171     0.0823     2.08  3.90e- 2
+ 9     5 (Intercept)         40.6       5.70       7.12  1.15e-11
+10     5 disposalEfficiency   0.170     0.0890     1.91  5.76e- 2
 # ℹ 1,990 more rows</code></pre>
 </div>
 </div>

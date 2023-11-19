@@ -95,6 +95,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-WKJ9E8EHM1"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-WKJ9E8EHM1', { 'anonymize_ip': true});
+</script>
 
 
 <link rel="stylesheet" href="../html/custom.css">
@@ -517,7 +526,7 @@ Note
 <div class="cell-output cell-output-stdout">
 <pre><code>{html_node}
 &lt;table class="table table-striped table-sm"&gt;
-[1] &lt;tbody&gt;\n&lt;tr&gt;\n&lt;td&gt;&lt;a href="http://undocs.org/en/S/RES/2711(2023)"&gt;S/RES/ ...</code></pre>
+[1] &lt;tbody&gt;\n&lt;tr&gt;\n&lt;td&gt;&lt;a href="http://undocs.org/en/S/RES/2712(2023)"&gt;S/RES/ ...</code></pre>
 </div>
 </div>
 <p>We have filtered the whole HTML document to only the table we want to select. We don’t want to work with this table in HTML. Let’s convert it into a data frame. We can use the very helpful <code>httr2::html_table()</code> function to extract this tabular data and convert it:</p>
@@ -526,20 +535,20 @@ Note
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_element</span>(<span class="st">"table.table-striped.table-sm"</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_table</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 40 × 3
+<pre><code># A tibble: 41 × 3
    X1                X2               X3                                        
    &lt;chr&gt;             &lt;chr&gt;            &lt;chr&gt;                                     
- 1 S/RES/2711 (2023) 15 November 2023 The situation in Somalia                  
- 2 S/RES/2710 (2023) 15 November 2023 The situation in Somalia                  
- 3 S/RES/2709 (2023) 15 November 2023 The situation in the Central African Repu…
- 4 S/RES/2708 (2023) 14 November 2023 Reports of the Secretary-General on the S…
- 5 S/RES/2707 (2023) 14 November 2023 The situation in the Middle East (2140 sa…
- 6 S/RES/2706 (2023) 2 November 2023  The situation in Bosnia and Herzegovina   
- 7 S/RES/2705 (2023) 31 October 2023  The situation in Somalia (UNSOM)          
- 8 S/RES/2704 (2023) 30 October 2023  Identical letters dated 19 January 2016 f…
- 9 S/RES/2703 (2023) 30 October 2023  The situation concerning Western Sahara (…
-10 S/RES/2702 (2023) 30 October 2023  The situation in Libya (UNSMIL)           
-# ℹ 30 more rows</code></pre>
+ 1 S/RES/2712 (2023) 15 November 2023 The situation in the Middle East, includi…
+ 2 S/RES/2711 (2023) 15 November 2023 The situation in Somalia                  
+ 3 S/RES/2710 (2023) 15 November 2023 The situation in Somalia                  
+ 4 S/RES/2709 (2023) 15 November 2023 The situation in the Central African Repu…
+ 5 S/RES/2708 (2023) 14 November 2023 Reports of the Secretary-General on the S…
+ 6 S/RES/2707 (2023) 14 November 2023 The situation in the Middle East (2140 sa…
+ 7 S/RES/2706 (2023) 2 November 2023  The situation in Bosnia and Herzegovina   
+ 8 S/RES/2705 (2023) 31 October 2023  The situation in Somalia (UNSOM)          
+ 9 S/RES/2704 (2023) 30 October 2023  Identical letters dated 19 January 2016 f…
+10 S/RES/2703 (2023) 30 October 2023  The situation concerning Western Sahara (…
+# ℹ 31 more rows</code></pre>
 </div>
 </div>
 <p>Awesome! We now have a table of all of the resolutions passed by the UNSC this year. Let’s clean it up a bit:</p>
@@ -553,20 +562,20 @@ Note
 <span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>unsc_res_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 40 × 3
+<pre><code># A tibble: 41 × 3
    id                date_adoped      title                                     
    &lt;chr&gt;             &lt;chr&gt;            &lt;chr&gt;                                     
- 1 S/RES/2711 (2023) 15 November 2023 The situation in Somalia                  
- 2 S/RES/2710 (2023) 15 November 2023 The situation in Somalia                  
- 3 S/RES/2709 (2023) 15 November 2023 The situation in the Central African Repu…
- 4 S/RES/2708 (2023) 14 November 2023 Reports of the Secretary-General on the S…
- 5 S/RES/2707 (2023) 14 November 2023 The situation in the Middle East (2140 sa…
- 6 S/RES/2706 (2023) 2 November 2023  The situation in Bosnia and Herzegovina   
- 7 S/RES/2705 (2023) 31 October 2023  The situation in Somalia (UNSOM)          
- 8 S/RES/2704 (2023) 30 October 2023  Identical letters dated 19 January 2016 f…
- 9 S/RES/2703 (2023) 30 October 2023  The situation concerning Western Sahara (…
-10 S/RES/2702 (2023) 30 October 2023  The situation in Libya (UNSMIL)           
-# ℹ 30 more rows</code></pre>
+ 1 S/RES/2712 (2023) 15 November 2023 The situation in the Middle East, includi…
+ 2 S/RES/2711 (2023) 15 November 2023 The situation in Somalia                  
+ 3 S/RES/2710 (2023) 15 November 2023 The situation in Somalia                  
+ 4 S/RES/2709 (2023) 15 November 2023 The situation in the Central African Repu…
+ 5 S/RES/2708 (2023) 14 November 2023 Reports of the Secretary-General on the S…
+ 6 S/RES/2707 (2023) 14 November 2023 The situation in the Middle East (2140 sa…
+ 7 S/RES/2706 (2023) 2 November 2023  The situation in Bosnia and Herzegovina   
+ 8 S/RES/2705 (2023) 31 October 2023  The situation in Somalia (UNSOM)          
+ 9 S/RES/2704 (2023) 30 October 2023  Identical letters dated 19 January 2016 f…
+10 S/RES/2703 (2023) 30 October 2023  The situation concerning Western Sahara (…
+# ℹ 31 more rows</code></pre>
 </div>
 </div>
 <p>For more information on web-scraping, I recommend reading the <a href="https://rvest.tidyverse.org/articles/rvest.html"><em>Web scraping 101</em> article</a> in the <code>rvest</code> documentation.</p>

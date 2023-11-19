@@ -4,6 +4,7 @@ project:
 
 website:
   title: "GVPT622"
+  google-analytics: "G-WKJ9E8EHM1"
 
   favicon: "/files/img/hex-testudo.png"
 
