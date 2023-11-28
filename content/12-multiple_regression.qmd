@@ -1,11 +1,12 @@
 ---
-title: "Regression Analysis II"
+title: "Multiple Regression"
 toc-depth: 4
 execute: 
   warning: false
   message: false
   echo: true
   fig-width: 10
+bibliography: references.bib
 ---
 
 ## Readings
@@ -18,9 +19,320 @@ execute:
 
 {{< fa book >}} Pollock & Edwards R Companion, Chapter 9
 
-## Class slides
-
-```{=html}
-<iframe class="slide-deck" src="../files/slides/Lecture 12 - Multiple Regression.pdf" width = "100%" height = 600px></iframe>
-```
 ## Section
+
+```{r}
+#| eval: false
+
+install.packages("plotly")
+```
+
+```{r}
+library(tidyverse)
+library(wbstats)
+library(broom)
+library(modelsummary)
+library(marginaleffects)
+library(plotly)
+library(ggdist)
+```
+
+Let's take a look at the determinants of citizens' average life expectancy. Suppose that we hypothesize that the greater proportion of a country's GDP that it spends on healthcare, the more years its citizens should expect to live, on average. Let's build a simple linear regression model of some observed data. 
+
+### Binary linear regression model
+
+First, we can gather our data from the World Bank Data Center:
+
+```{r}
+health_df <- wb_data(
+  indicator = c("SP.DYN.LE00.IN", "SH.XPD.CHEX.GD.ZS"),
+  start_date = 2016,
+  end_date = 2016
+) |> 
+  rename(
+    life_exp = SP.DYN.LE00.IN,
+    health_expend = SH.XPD.CHEX.GD.ZS
+  ) 
+
+health_df
+```
+
+Next, we fit our linear regression model: 
+
+```{r}
+m <- lm(life_exp ~ health_expend, data = health_df)
+
+summary(m)
+```
+
+Let's make this a bit easier to read: 
+
+```{r}
+modelsummary(m, 
+             coef_rename = c(health_expend = "Health expenditure (% GDP)"),
+             statistic = c("t = {statistic}", "SE = {std.error}", "conf.int"))
+  
+```
+
+Our model suggests a positive and significant relationship between the proportion that a country spends of its GDP on its healthcare and its citizens' average life expectancy. This relationship is statistically significant. Every one percentage point increase in a country's health expenditure is associated with an increase of `r tidy(m) |> filter(term == "logged_gdp_per_cap") |> pull(estimate) |> round(2)` years for the average citizen's life expectancy, on average. 
+
+We can plot the predicted life expectancy of a country for all plausible values of health expenditure using `marginaleffects::plot_predictions()`: 
+
+```{r}
+plot_predictions(m, condition = "health_expend")
+```
+
+But remember all the way back to our session on the [relationship between two variables](https://hgoers.github.io/GVPT622/content/03-bivariate_relationships.html). We know from the Gapminder Project that a country's life expectancy is strongly associated with its wealth (measured in terms of its GDP per capita). What if the wealth of a country's citizens also contributes to their average life expectancy? Further, what if the relationship between a country's health expenditure and its life expectancy is, in fact, driven by its citizen's wealth? We can use multiple linear regression to answer these questions. 
+
+### Multiple linear regression model
+
+We can easily incorporate additional independent variables into our linear regression model. First, we need to collect data on each country's GDP per capita. 
+
+```{r}
+gdp_per_cap_df <- wb_data(
+  indicator = "NY.GDP.PCAP.CD",
+  start_date = 2016,
+  end_date = 2016
+) |> 
+  transmute(iso3c, date, gdp_per_cap = NY.GDP.PCAP.CD, logged_gdp_per_cap = log(gdp_per_cap))
+
+gdp_per_cap_df
+```
+
+We can join those data to our previous dataset using `dplyr::left_join()`: 
+
+```{r}
+health_gdp_df <- health_df |> 
+  left_join(gdp_per_cap_df, by = c("iso3c", "date"))
+
+health_gdp_df
+```
+
+::: {.callout-note}
+Remember, the relationship between a country's average life expectancy and its GDP per capita is not linear:
+
+```{r}
+ggplot(health_gdp_df, aes(x = gdp_per_cap, y = life_exp)) + 
+  geom_point() + 
+  theme_minimal()
+```
+
+
+We can log transform the GDP per capita to create a more linear relationship: 
+
+```{r}
+ggplot(health_gdp_df, aes(x = logged_gdp_per_cap, y = life_exp)) + 
+  geom_point() + 
+  theme_minimal()
+```
+:::
+
+### Fitting a multiple linear regression model
+
+Let's update our previous binary linear regression model to include each country's logged GDP per capita: 
+
+```{r}
+m_multi <- lm(life_exp ~ logged_gdp_per_cap + health_expend, data = health_gdp_df)
+
+summary(m_multi)
+```
+
+```{r}
+modelsummary(m_multi, 
+             coef_rename = c(logged_gdp_per_cap = "GDP per capita (logged)",
+                             health_expend = "Health expenditure (% GDP)"),
+             statistic = c("t = {statistic}", "SE = {std.error}", "conf.int"))
+  
+```
+
+You can immediately see the rather stark effect of including a country's (logged) GDP per capita on the statistical significance of the relationship between health expenditure and life expectancy. We will get to that shortly, but first let's explore what we have built. 
+
+### The line(ear plane) of best fit
+
+Like our binary linear regression model, this multiple regression model finds the linear equation that minimizes the distance between itself and the observed values. However, this model minimizes the distance between itself and each observed value for both the country's logged GDP per capita and health expenditure.   
+
+```{r}
+#| fig-height: 12
+
+plot_ly(health_gdp_df, 
+        x = ~ logged_gdp_per_cap, 
+        y = ~ health_expend, 
+        z = ~ life_exp, 
+        type = "scatter3d", 
+        mode = "markers",
+        alpha = 0.5)
+```
+
+::: {.callout-tip}
+This graph is interactive! Have a play around. 
+:::
+
+Our multiple linear regression model finds the **linear plane** that minimizes the distance between itself and each of these observed values: 
+
+```{r}
+#| fig-height: 12
+#| code-fold: true
+#| code-summary: "Show the code"
+
+# Get all plotted points for logged GDP per capita
+points_gdp <- seq(min(health_gdp_df$logged_gdp_per_cap, na.rm = T), 
+                  max(health_gdp_df$logged_gdp_per_cap, na.rm = T), 
+                  by = 1)
+
+# Get all plotted points for health expenditure
+points_health <- seq(min(health_gdp_df$health_expend, na.rm = T),
+                     max(health_gdp_df$health_expend, na.rm = T),
+                     by = 1)
+
+# Get the predicted values for life expectancy from the model
+new_df <- crossing(
+  logged_gdp_per_cap = points_gdp,
+  health_expend = points_health
+)
+
+pred_values <- augment(m_multi, newdata = new_df) |> 
+  pull(.fitted)
+
+pred_values_matrix <- matrix(pred_values, nrow = length(points_health), ncol = length(points_gdp))
+
+# Plot the plane
+plot_ly() |> 
+  add_surface(x = points_gdp, 
+              y = points_health,
+              z = pred_values_matrix,
+              colors = "pink") |> 
+  add_markers(x = health_gdp_df$logged_gdp_per_cap, 
+              y = health_gdp_df$health_expend,
+              z = health_gdp_df$life_exp,
+              type = "scatter3d",
+              alpha = 0.75) |> 
+  layout(showlegend = FALSE)
+```
+
+This line of best fit provides us with an expected average life expectancy for every combination of a country's plausible logged GDP per capita and heath expenditure. 
+
+### Interpreting the coefficients
+
+Let's return to our model: 
+
+```{r}
+modelsummary(m_multi, 
+             coef_rename = c(logged_gdp_per_cap = "GDP per capita (logged)",
+                             health_expend = "Health expenditure (% GDP)"),
+             statistic = c("t = {statistic}", "SE = {std.error}", "conf.int"))
+  
+```
+
+How can we interpret the association between each independent variable and our outcome of interest? 
+
+##### The intercept
+
+Generally: 
+
+> The expected value of $Y$, **on average and holding all else at zero**. 
+
+Our model: 
+
+> A country with a logged GDP per capita of zero and which spends zero percent of its GDP on healthcare is expected to have an average life expectancy of `r tidy(m_multi) |> filter(term == "(Intercept)") |> pull(estimate) |> round(2)` years, on average. 
+
+##### The coefficients
+
+Generally: 
+
+> A one-unit change in $X_j$ is associated with a $\beta_j$-unit effect on $Y$, **on average and holding all else constant**.
+
+Our model: 
+
+> A one-unit increase in a country's logged GDP per capita is associated with an increase in its average life expectancy of `r tidy(m_multi) |> filter(term == "logged_gdp_per_cap") |> pull(estimate) |> round(2)` years, on average and holding all else constant. 
+
+> A one percentage point increase in a country's healthcare expenditure is associated with an increase in its average life expectancy of `r tidy(m_multi) |> filter(term == "health_expend") |> pull(estimate) |> round(2)` years, on average and holding all else constant. 
+
+### Predicting our outcome
+
+We can use our model to predict a country's average life expectancy based on its (logged) GDP per capita and health expenditure. 
+
+For example, what is our predicted average life expectancy for a country with a GDP per capita of $20,000 and a health expenditure of 10 percent of its GDP? We can use `broom::augment()` to answer this question: 
+
+```{r}
+pred <- augment(m_multi, 
+                newdata = tibble(logged_gdp_per_cap = log(20000), 
+                                 health_expend = 10))
+pred
+```
+
+We expect that this country would have an average life expectancy of `r round(pred$.fitted, 1)` years. 
+
+::: {.callout-tip}
+If you head back up to the interactive linear plane graph, you can find the predicted values for all of the included combinations of logged GDP per capita and health expenditure. 
+:::
+
+### How confident are we in our estimates? 
+
+#### Statistical significance of our estimates
+
+We interpret the statistical significance of our estimates exactly as we did with our binary regression model. If the null hypothesis were true, our estimates scaled against their standard errors would fall along a t-distribution. We can see how far our observed estimates scaled against their standard errors (or the t-statistic) falls from zero. In other words, we can calculate the probability that we would observe our estimate or a more extreme estimate if there was, in fact, no relationship between our independent variable and the outcome. 
+
+We can use `broom::tidy()` to calculate these t-statistics and their associated p-values: 
+
+```{r}
+tidy(m_multi)
+```
+
+::: {.callout-note}
+We will not discuss how to calculate the standard error for our estimates in this course. You can look forward to that in GVPT722.
+:::
+
+#### Confidence intervals around our estimates
+
+We know that our coefficient estimates are merely point estimates of the true association between a country's logged GDP per capita or health expenditure and its average life expectancy. Using a different simple random sample from our population, we would find different point estimates of these relationships. Let's build out the range of plausible coefficient estimates.
+
+We are working with the expected average value of $Y$ for each $X_j$. Therefore, our coefficient estimates drawn from our null world will follow a t-distribution. We can calculate our confidence interval around our estimated $\beta_j$ using the usual (if more generalized): 
+
+$$
+CI_{\beta_j} = \beta_j \pm t*SE_{\beta_j}
+$$
+
+We can also use `broom::tidy()` to calculate our confidence intervals: 
+
+```{r}
+tidy(m_multi, conf.int = T)
+```
+
+### How confident are we in our model overall?
+
+#### $R^2$
+
+The $R^2$ value tells us the total amount of variation in our outcome that is explained by the model as a whole. In other words, how much variation in $Y$ is explained by variation in all $X_j$s.
+
+We can use `broom::glance()` to calculate this: 
+
+```{r}
+glance(m_multi) |> 
+  select(r.squared)
+```
+
+#### F-test
+
+The F-test asks whether the entire regression model adds predictive power. Formally, it tests whether all of the coefficients are equal to zero. 
+
+$$
+H_0: \beta_1 = \beta_2 = \beta_3 = ... \beta_k = 0
+$$
+
+Generally, when the null hypothesis is true, the ratio of the total sum of squares (the **F-statistic**) follows the **F-distribution**. Therefore, we can determine the likelihood that we would find our observed ratio of the total sum of squares if the true ratio of the total sum of squares were zero. 
+
+::: {.callout-tip}
+This is the same logic as the T-test. 
+:::
+
+::: callout-note
+@gelman2020 do not recommend using an F-test. Like the t-test, the F-test asks whether our coefficients are significantly different from zero. There are two issues with this approach. First, there are very few circumstances in which we would expect the association between two variables to be exactly zero. Therefore, this approach asks us to reject something that we do not seriously believe to ever be true. Second, significance tests are sensitive to the amount of data you use. With a large enough $n$ you can reject any null hypothesis.
+
+For their recommended approaches, please refer to their section on cross validation.
+:::
+
+The F-test is printed at the bottom of the `summary()` output:
+
+```{r}
+summary(m_multi)
+```

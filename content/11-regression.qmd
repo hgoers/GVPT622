@@ -1,5 +1,5 @@
 ---
-title: "Regression I"
+title: "Regression"
 toc-depth: 4
 execute: 
   warning: false
@@ -38,30 +38,30 @@ set.seed(1234)
 
 Today, we are going to explore the linear relationship between two variables. At the end of this session you will be able to describe how those two variables relate to one another, and whether that relationship is statistically significant.
 
-As usual, we will build our understanding using an example. As an Australian (more specifically, a Victorian), I love AFL. It's the best sport out there! We're going to depart from our usual political science examples to explore some interesting relationships in the way AFL is played. 
+As usual, we will build our understanding using an example. As an Australian (more specifically, a Victorian), I love AFL. It's the best sport out there! We're going to depart from our usual political science examples to explore some interesting relationships in the way AFL is played.
 
 First, let's watch this brief introduction to the game:
 
 {{< video https://www.youtube.com/watch?v=rsjJMpI5oh4 >}}
 
-Let's explore the relationship between disposal efficiency and Dream Team points. Your disposal efficiency describes the percentage of your disposals (kicks, handballs, etc.) that lead to a positive outcome for your team. The Dream Team is a popular fantasy football competition. Each player gets points for various actions they take on the field. For example, you get six Dream Team points for scoring a goal and you lose three points for having a free kick awarded against you. This is a useful proxy measure of a player's effectiveness on the field. 
+Let's explore the relationship between disposal efficiency and Dream Team points. Your disposal efficiency describes the percentage of your disposals (kicks, handballs, etc.) that lead to a positive outcome for your team. The Dream Team is a popular fantasy football competition. Each player gets points for various actions they take on the field. For example, you get six Dream Team points for scoring a goal and you lose three points for having a free kick awarded against you. This is a useful proxy measure of a player's effectiveness on the field.
 
 ### Loading in our data
 
-We are going to explore some different player-level outcomes from the tenth round of the most recent AFLW season. This is the last round played before finals. First, we need to collect our data. The `fitzRoy::fetch_player_stats()` retrieves some useful variables about each player from the official AFL website. 
+We are going to explore some different player-level outcomes from the tenth round of the most recent AFLW season. This is the last round played before finals. First, we need to collect our data. The `fitzRoy::fetch_player_stats()` retrieves some useful variables about each player from the official AFL website.
 
 ```{r}
 afl_df <- fetch_player_stats(2023, round = 10, comp = "AFLW")
 afl_df
 ```
 
-In this round, `r nrow(afl_df)` players played in `r afl_df |> distinct(home.team.name) |> nrow()` games. We have access to `r ncol(afl_df)` variables describing how these players performed in this round. 
+In this round, `r nrow(afl_df)` players played in `r afl_df |> distinct(home.team.name) |> nrow()` games. We have access to `r ncol(afl_df)` variables describing how these players performed in this round.
 
 ### Uncovering the relationship between two variables
 
-First, we want to determine the direction of the relationship between our variables of interest. When a player's disposal efficiency increases, do they tend to get a greater or fewer number of Dream Team points? 
+First, we want to determine the direction of the relationship between our variables of interest. When a player's disposal efficiency increases, do they tend to get a greater or fewer number of Dream Team points?
 
-We can often identify the direction of the relationship by plotting our data: 
+We can often identify the direction of the relationship by plotting our data:
 
 ```{r}
 ggplot(afl_df, aes(x = disposalEfficiency, y = dreamTeamPoints)) + 
@@ -69,15 +69,15 @@ ggplot(afl_df, aes(x = disposalEfficiency, y = dreamTeamPoints)) +
   theme_minimal()
 ```
 
-The relationship looks positive: as your efficiency increases, so too do your Dream Team points. This makes sense. A good player is more efficient (tends to produce good results from their kicks and handballs). Our Dream Team points are a proxy for an effective player. However, there is a fair bit of noise here. This relationship doesn't look very strong. 
+The relationship looks positive: as your efficiency increases, so too do your Dream Team points. This makes sense. A good player is more efficient (tends to produce good results from their kicks and handballs). Our Dream Team points are a proxy for an effective player. However, there is a fair bit of noise here. This relationship doesn't look very strong.
 
-Next, we want to formalize that relationship. We want to find the line that best fits all of these points. In other words, what line minimizes the distance between itself and all of the observed points marking each player's Dream Team points and disposal efficiency? 
+Next, we want to formalize that relationship. We want to find the line that best fits all of these points. In other words, what line minimizes the distance between itself and all of the observed points marking each player's Dream Team points and disposal efficiency?
 
-::: {.callout-tip}
-Remember, this is the basis for Ordinary Least Squares regression. 
+::: callout-tip
+Remember, this is the basis for Ordinary Least Squares regression.
 :::
 
-We can use `ggplot2::geom_smooth()` to fit this line graphically: 
+We can use `ggplot2::geom_smooth()` to fit this line graphically:
 
 ```{r}
 ggplot(afl_df, aes(x = disposalEfficiency, y = dreamTeamPoints)) + 
@@ -88,12 +88,12 @@ ggplot(afl_df, aes(x = disposalEfficiency, y = dreamTeamPoints)) +
 
 We correctly identified that there is a positive relationship between those two variables. Yay!
 
-Often we need more information than simply the direction of a relationship. For example, we want to know how pronounced the effect of a one-unit increase in our independent variable will be on our outcome of interest. Here, we want to learn how many additional Dream Team points are associated with a a one percentage point increase in a player's disposal efficiency, on average. 
+Often we need more information than simply the direction of a relationship. For example, we want to know how pronounced the effect of a one-unit increase in our independent variable will be on our outcome of interest. Here, we want to learn how many additional Dream Team points are associated with a a one percentage point increase in a player's disposal efficiency, on average.
 
-We can use `lm()` to determine this information: 
+We can use `lm()` to determine this information:
 
-::: {.callout-tip}
-Remember to put your dependent variable first, then a `~`, then you independent variable(s).  
+::: callout-tip
+Remember to put your dependent variable first, then a `~`, then you independent variable(s).
 :::
 
 ```{r}
@@ -101,33 +101,33 @@ m <- lm(dreamTeamPoints ~ disposalEfficiency, data = afl_df)
 summary(m)
 ```
 
-Great! We now have a linear regression model of the relationship between a player's disposal efficiency and their Dream Team points. 
+Great! We now have a linear regression model of the relationship between a player's disposal efficiency and their Dream Team points.
 
-We predict that players that have a disposal efficiency of 0 (none of their disposals result in a good outcome for their team) have, on average, `r tidy(m) |> filter(term == "(Intercept)") |> pull(estimate) |> round(1)` Dream Team points. Every one percentage point increase in a player's efficiency is associated with a gain of `r tidy(m) |> filter(term == "disposalEfficiency") |> pull(estimate) |> round(2)` Dream Team points, on average. 
+We predict that players that have a disposal efficiency of 0 (none of their disposals result in a good outcome for their team) have, on average, `r tidy(m) |> filter(term == "(Intercept)") |> pull(estimate) |> round(1)` Dream Team points. Every one percentage point increase in a player's efficiency is associated with a gain of `r tidy(m) |> filter(term == "disposalEfficiency") |> pull(estimate) |> round(2)` Dream Team points, on average.
 
 Great! We can use this information to understand this relationship more meaningfully. For example, we note that a player with a disposal efficiency of `r round(tidy(m) |> filter(term == "disposalEfficiency") |> pull(estimate) * 10, 2)` percentage points greater than another player has, on average, 10 more Dream Team points than the other player.
 
 ### Uncertainty around this relationship
 
-How confident can we be in this modeled relationship? Am I *really* sure that efficiency has a significant, positive impact on a player's Dream Team points? 
+How confident can we be in this modeled relationship? Am I *really* sure that efficiency has a significant, positive impact on a player's Dream Team points?
 
-To answer these questions, we need to draw on everything we have learned about hypothesis testing and inference so far. 
+To answer these questions, we need to draw on everything we have learned about hypothesis testing and inference so far.
 
-We want to make a claim about the relationship between some outcome and some variables that we think are important determinants of that outcome. Here, we used the observed Dream Team points gained by a player and their disposal efficiency for round 10 in the 2023 season of AFLW to make a broader statement about the relationship between efficiency and Dream Team points. We are not actually interested in the specific relationship between these variables in round 10 of the 2023 season: we want to know whether a player's efficiency is an important determinant of their Dream Team points generally. 
+We want to make a claim about the relationship between some outcome and some variables that we think are important determinants of that outcome. Here, we used the observed Dream Team points gained by a player and their disposal efficiency for round 10 in the 2023 season of AFLW to make a broader statement about the relationship between efficiency and Dream Team points. We are not actually interested in the specific relationship between these variables in round 10 of the 2023 season: we want to know whether a player's efficiency is an important determinant of their Dream Team points generally.
 
-In other words, we are inferring from a sample a general relationship. You can imagine that if we had a different sample, a linear regression model would have a different set of estimates for our intercept and coefficient. They would (hopefully) look very similar to the ones we found above, but they would be slightly different. For example, imagine that some of the random elements of a game of AFL were different: the wind blew in a different way, the crowd cheered a little louder, a player ran a little faster. These would change the game played in slight and random ways. A player might make a clanger instead of a clean disposal. The wind may blow an otherwise goal into a behind. Consequently, the players' disposal efficiency would be slightly different. We would subsequently get different model estimates. 
+In other words, we are inferring from a sample a general relationship. You can imagine that if we had a different sample, a linear regression model would have a different set of estimates for our intercept and coefficient. They would (hopefully) look very similar to the ones we found above, but they would be slightly different. For example, imagine that some of the random elements of a game of AFL were different: the wind blew in a different way, the crowd cheered a little louder, a player ran a little faster. These would change the game played in slight and random ways. A player might make a clanger instead of a clean disposal. The wind may blow an otherwise goal into a behind. Consequently, the players' disposal efficiency would be slightly different. We would subsequently get different model estimates.
 
-Let's illustrate this. To be able to access this variation to illustrate our point, I am going to take pure random samples from our `r nrow(afl_df)` players.  
+Let's illustrate this. To be able to access this variation to illustrate our point, I am going to take pure random samples from our `r nrow(afl_df)` players.
 
-::: {.callout-note}
-We are solidly in the multiverse world with this AFL example. We did not take a random sample of players who played in round 10, collect information on their Dream Team points and efficiency, and fit our regression. Rather, we have information about every player. 
+::: callout-note
+We are solidly in the multiverse world with this AFL example. We did not take a random sample of players who played in round 10, collect information on their Dream Team points and efficiency, and fit our regression. Rather, we have information about every player.
 
 This is also often the case in political science. For example, we have full information on the number of wars fought between countries in the modern era. We also have a lot of data on those countries. We do not; therefore, need to take a sample from that population (unlike pollsters attempting to work out a politician's level of support from all US voters).
 
-However, this does not mean that we know with certainty the relationship between our variables of interest. Just as with sport, there is so much randomness that can effect these outcomes. We want to capture and account for that randomness. So, we have to treat these data as samples. 
+However, this does not mean that we know with certainty the relationship between our variables of interest. Just as with sport, there is so much randomness that can effect these outcomes. We want to capture and account for that randomness. So, we have to treat these data as samples.
 :::
 
-Let's take a completely random sample of 250 players from our data and fit our regression against that sample: 
+Let's take a completely random sample of 250 players from our data and fit our regression against that sample:
 
 ```{r}
 afl_sample_1 <- afl_df |> 
@@ -145,9 +145,9 @@ m <- lm(dreamTeamPoints ~ disposalEfficiency, data = afl_sample_1)
 tidy(m)
 ```
 
-Okay, so we got a different intercept and coefficient estimates than we got above. This is despite the fact that I took a pure random sample from the full set of players. The only thing driving this difference is random chance. 
+Okay, so we got a different intercept and coefficient estimates than we got above. This is despite the fact that I took a pure random sample from the full set of players. The only thing driving this difference is random chance.
 
-Let's do this again. I will take a different random sample of players and fit a regression for them: 
+Let's do this again. I will take a different random sample of players and fit a regression for them:
 
 ```{r}
 afl_sample_2 <- afl_df |> 
@@ -165,7 +165,7 @@ m <- lm(dreamTeamPoints ~ disposalEfficiency, data = afl_sample_2)
 tidy(m)
 ```
 
-Again, we got a different set of coefficients. This is only the result of random chance. 
+Again, we got a different set of coefficients. This is only the result of random chance.
 
 Let's go again:
 
@@ -185,7 +185,7 @@ m <- lm(dreamTeamPoints ~ disposalEfficiency, data = afl_sample_3)
 tidy(m)
 ```
 
-We can see these differences: 
+We can see these differences:
 
 ```{r}
 afl_sample_1 |> 
@@ -202,7 +202,7 @@ afl_sample_1 |>
   theme_minimal()
 ```
 
-Let's do this many times: 
+Let's do this many times:
 
 ```{r}
 afl_sample_regression <- function(i) {
@@ -221,16 +221,16 @@ afl_regressions <- map(1:1000, afl_sample_regression, .progress = T) |>
   bind_rows()
 ```
 
-Now we can take a look at those different regression coefficients: 
+Now we can take a look at those different regression coefficients:
 
 ```{r}
 afl_regressions |> 
   unnest(model)
 ```
 
-This shows the intercept and coefficient for the relationship between disposal efficiency and Dream Team points for each of the models we generated from our 1,000 different random samples. Remember, the only thing driving the differences between each model's intercept and coefficient is random chance. 
+This shows the intercept and coefficient for the relationship between disposal efficiency and Dream Team points for each of the models we generated from our 1,000 different random samples. Remember, the only thing driving the differences between each model's intercept and coefficient is random chance.
 
-Let's start with the disposal efficiency coefficients:  
+Let's start with the disposal efficiency coefficients:
 
 ```{r}
 afl_regressions |> 
@@ -242,9 +242,9 @@ afl_regressions |>
   labs(caption = "Median is shown with point. One and two standard deviations are shown by the black bars.")
 ```
 
-Here is the distribution of those 1,000 different coefficients for disposal efficiency for each model. 
+Here is the distribution of those 1,000 different coefficients for disposal efficiency for each model.
 
-Next, we can look at the intercepts:  
+Next, we can look at the intercepts:
 
 ```{r}
 afl_regressions |> 
@@ -256,11 +256,11 @@ afl_regressions |>
   labs(caption = "Median is shown with point. One and two standard deviations are shown by the black bars.")
 ```
 
-You can see that one coefficient and estimate is common (represented by the peak of these two density plots) and that other estimates fall roughly symmetrically around this most common estimate. 
+You can see that one coefficient and estimate is common (represented by the peak of these two density plots) and that other estimates fall roughly symmetrically around this most common estimate.
 
-In fact, if we ran an infinite number of regressions from an infinite number of random samples from our data, these coefficients would be distributed following the t-distribution. 
+In fact, if we ran an infinite number of regressions from an infinite number of random samples from our data, these coefficients would be distributed following the t-distribution.
 
-We can use this knowledge to focus back on that single regression model that we built right at the start of this session. 
+We can use this knowledge to focus back on that single regression model that we built right at the start of this session.
 
 ```{r}
 m <- lm(dreamTeamPoints ~ disposalEfficiency, data = afl_df)
@@ -269,22 +269,22 @@ tidy(m)
 
 ### Building uncertainty into our single regression model
 
-Generally, we have a single sample and we use that sample to fit our models. We still need to account for the uncertainty (demonstrated above) created by random chance. We know that from an infinite number of samples, we would fit linear models with coefficients that follow the t-distribution. So, let's use that knowledge to work out how certain we are of our estimates found above. 
+Generally, we have a single sample and we use that sample to fit our models. We still need to account for the uncertainty (demonstrated above) created by random chance. We know that from an infinite number of samples, we would fit linear models with coefficients that follow the t-distribution. So, let's use that knowledge to work out how certain we are of our estimates found above.
 
-We have our point estimates for our intercept and coefficient: 
+We have our point estimates for our intercept and coefficient:
 
 ```{r}
 tidy(m) |> 
   select(term, estimate)
 ```
 
-These are our best guess at the true linear relationship between disposal efficiency and Dream Team points. Our best guess is that players who have a disposal efficiency of zero have, on average, `r tidy(m) |> filter(term == "(Intercept)") |> pull(estimate) |> round(1)` Dream Team points. Every one percentage point increase in a player's efficiency is associated with a gain of `r tidy(m) |> filter(term == "disposalEfficiency") |> pull(estimate) |> round(2)` Dream Team points, on average. 
+These are our best guess at the true linear relationship between disposal efficiency and Dream Team points. Our best guess is that players who have a disposal efficiency of zero have, on average, `r tidy(m) |> filter(term == "(Intercept)") |> pull(estimate) |> round(1)` Dream Team points. Every one percentage point increase in a player's efficiency is associated with a gain of `r tidy(m) |> filter(term == "disposalEfficiency") |> pull(estimate) |> round(2)` Dream Team points, on average.
 
-Perfect. Let's set these best guesses as our center points. 
+Perfect. Let's set these best guesses as our center points.
 
-Now, we need to build out the plausible set of intercepts and coefficients that would result from an infinite number of random samples drawn from our population. To do this, we need to work out how spread out these intercepts and coefficients would be from their center points. Formally, this spread is called the **standard deviation**.  
+Now, we need to build out the plausible set of intercepts and coefficients that would result from an infinite number of random samples drawn from our population. To do this, we need to work out how spread out these intercepts and coefficients would be from their center points. Formally, this spread is called the **standard deviation**.
 
-The standard deviation, $s$, is calculated using two pieces of information. First, it looks at how well our line of best fit (our regression model) fits our observed data. How far are the predicted values (represented by the blue line on the below graph) from the observed values (represented by the black dots)? 
+The standard deviation, $s$, is calculated using two pieces of information. First, it looks at how well our line of best fit (our regression model) fits our observed data. How far are the predicted values (represented by the blue line on the below graph) from the observed values (represented by the black dots)?
 
 ```{r}
 ggplot(afl_df, aes(x = disposalEfficiency, y = dreamTeamPoints)) + 
@@ -293,46 +293,46 @@ ggplot(afl_df, aes(x = disposalEfficiency, y = dreamTeamPoints)) +
   theme_minimal()
 ```
 
-We will have more uncertainty around our intercept and coefficient if the distance between the predicted values and observed values is large. This makes sense: if the predicted values and the observed values were very similar, we are unlikely to find a wildly different line of best fit from a different random sample from our population. 
+We will have more uncertainty around our intercept and coefficient if the distance between the predicted values and observed values is large. This makes sense: if the predicted values and the observed values were very similar, we are unlikely to find a wildly different line of best fit from a different random sample from our population.
 
-The standard deviation also takes into account the amount of information you have used to generate this intercept and coefficient. Greater sample sizes using less variables result in less uncertainty around those model coefficients. 
+The standard deviation also takes into account the amount of information you have used to generate this intercept and coefficient. Greater sample sizes using less variables result in less uncertainty around those model coefficients.
 
-In sum, the standard deviation is calculated as: 
+In sum, the standard deviation is calculated as:
 
 $$
 s = \sqrt{\frac{\sum{e_i^2}}{n-k-1}}
 $$
 
-Where $e_i$ is the difference between each predicted value and observed value (the vertical distance between each point and the blue line on the graph above). 
+Where $e_i$ is the difference between each predicted value and observed value (the vertical distance between each point and the blue line on the graph above).
 
-$n-k-1$ is the degrees of freedom in the model. It accounts for the amount of information you used to build the model, with $n$ equal to the number of observations you used and $k$ equal to the number of independent variables you included. Here, our $k=1$ because we are only using one independent variable: disposal efficiency. 
+$n-k-1$ is the degrees of freedom in the model. It accounts for the amount of information you used to build the model, with $n$ equal to the number of observations you used and $k$ equal to the number of independent variables you included. Here, our $k=1$ because we are only using one independent variable: disposal efficiency.
 
-We can use this spread to work out our standard errors around our coefficients. Broadly, the standard error places this uncertainty within the context of the model. 
+We can use this spread to work out our standard errors around our coefficients. Broadly, the standard error places this uncertainty within the context of the model.
 
-For the intercept, it is: 
+For the intercept, it is:
 
 $$
 SE_{\beta_0} = s(\sqrt{\frac{1}{n} + \frac{\bar{x}^2}{\sum{(x_i-\bar{x})^2}}})
 $$
 
-For the coefficients, it is: 
+For the coefficients, it is:
 
 $$
 SE_{\beta_1} = \frac{s}{\sqrt{\sum{(x_i-\bar{x})^2}}}
 $$
 
-::: {.callout-tip}
-You will calculate all of this in the background. Do not worry about memorizing these formulas. I put them here to help build your intuition about what goes into your uncertainty around the relationship you find between your outcome of interest and the variables you think drive that outcome. 
+::: callout-tip
+You will calculate all of this in the background. Do not worry about memorizing these formulas. I put them here to help build your intuition about what goes into your uncertainty around the relationship you find between your outcome of interest and the variables you think drive that outcome.
 :::
 
-Happily, `broom::tidy()` calculates all of this for us: 
+Happily, `broom::tidy()` calculates all of this for us:
 
 ```{r}
 tidy(m) |> 
   select(term:std.error)
 ```
 
-Okay, so we have a good sense of the spread around our best guess. Let's visualize this: 
+Okay, so we have a good sense of the spread around our best guess. Let's visualize this:
 
 ```{r}
 tibble(
@@ -345,15 +345,15 @@ tibble(
   theme_minimal()
 ```
 
-::: {.callout-note}
-There are two things to note here. The first is that I am using the normal distribution, not the t-distribution. As far as I can tell, there isn't a way to change the center or spread of random draws from the t-distribution in R (done using `rt()`). So, to illustrate I am using random draws from the normal distribution (done using `rnorm()`). At these large degrees of freedom, these distributions are almost identical, so we can roll with this. 
+::: callout-note
+There are two things to note here. The first is that I am using the normal distribution, not the t-distribution. As far as I can tell, there isn't a way to change the center or spread of random draws from the t-distribution in R (done using `rt()`). So, to illustrate I am using random draws from the normal distribution (done using `rnorm()`). At these large degrees of freedom, these distributions are almost identical, so we can roll with this.
 
-Second, I am pulling 1 million random draws from this distribution. In theory, we talk about the distribution of an infinite number of coefficients built from an infinite number of samples. I, obviously, cannot do this, so I use 1 million as my stand-in for infinity. 
+Second, I am pulling 1 million random draws from this distribution. In theory, we talk about the distribution of an infinite number of coefficients built from an infinite number of samples. I, obviously, cannot do this, so I use 1 million as my stand-in for infinity.
 :::
 
-Above, we show the plausible set of coefficients describing the effect of a one percentage point increase in a player's disposal efficiency on their Dream Team points, on average. Remember, our best guess (taken from our regression model) is that a one percentage point increase in efficiency is associated with a `r tidy(m) |> filter(term == "disposalEfficiency") |> pull(estimate) |> round(2)` increase in a player's Dream Team points, on average. However, as we saw above when we built 1,000 different models from 1,000 different random samples, it is entirely plausible that we could get different coefficients from a model built from a different sample. These differences are the product of random chance. That's fine! We just need to acknowledge that.  
+Above, we show the plausible set of coefficients describing the effect of a one percentage point increase in a player's disposal efficiency on their Dream Team points, on average. Remember, our best guess (taken from our regression model) is that a one percentage point increase in efficiency is associated with a `r tidy(m) |> filter(term == "disposalEfficiency") |> pull(estimate) |> round(2)` increase in a player's Dream Team points, on average. However, as we saw above when we built 1,000 different models from 1,000 different random samples, it is entirely plausible that we could get different coefficients from a model built from a different sample. These differences are the product of random chance. That's fine! We just need to acknowledge that.
 
-Let's also visualize all of the plausible intercepts we could get: 
+Let's also visualize all of the plausible intercepts we could get:
 
 ```{r}
 tibble(
@@ -370,17 +370,17 @@ Again, our best guess is that players who have a disposal efficiency of 0 have, 
 
 ### Connecting this to our research question
 
-We used our data to uncover an interesting relationship between disposal efficiency and Dream Team points, on average. As your disposal efficiency increases, so too do your Dream Team points. We found that if players who increased their disposal efficiency by one percentage point saw an increase of `r tidy(m) |> filter(term == "disposalEfficiency") |> pull(estimate) |> round(2)` Dream Team points, on average. 
+We used our data to uncover an interesting relationship between disposal efficiency and Dream Team points, on average. As your disposal efficiency increases, so too do your Dream Team points. We found that if players who increased their disposal efficiency by one percentage point saw an increase of `r tidy(m) |> filter(term == "disposalEfficiency") |> pull(estimate) |> round(2)` Dream Team points, on average.
 
-Now, imagine that you are a player and you want to increase your Dream Team points. Do you trust this? Do you really believe that by increasing your disposal efficiency you will increase your Dream Team points? What if, in fact, there is no relationship between these two variables? 
+Now, imagine that you are a player and you want to increase your Dream Team points. Do you trust this? Do you really believe that by increasing your disposal efficiency you will increase your Dream Team points? What if, in fact, there is no relationship between these two variables?
 
-We know from above that there are a range of plausible intercepts and coefficients that result from random chance. Does this plausible range include zero? In other words, is it plausible that there is no relationship between the outcome of interest (Dream Team points) and your independent variable (disposal efficiency)? 
+We know from above that there are a range of plausible intercepts and coefficients that result from random chance. Does this plausible range include zero? In other words, is it plausible that there is no relationship between the outcome of interest (Dream Team points) and your independent variable (disposal efficiency)?
 
-To answer this question, we draw on our knowledge of hypothesis testing. 
+To answer this question, we draw on our knowledge of hypothesis testing.
 
-First, we need to define what we mean by a plausible range of relationships. Traditionally, we are willing to accept a five percent risk that we declare that there is a relationship between an outcome and an independent variable when there is, in fact, no relationship. Let's stick with that threshold. 
+First, we need to define what we mean by a plausible range of relationships. Traditionally, we are willing to accept a five percent risk that we declare that there is a relationship between an outcome and an independent variable when there is, in fact, no relationship. Let's stick with that threshold.
 
-Okay, so now we need to work out where the other 95 percent of plausible values sit. Let's start with the coefficient describing the relationship between Dream Team points and disposal efficiency. Here is our representation of the coefficients drawn from an infinite number random samples pulled from our population (it is the same as printed above): 
+Okay, so now we need to work out where the other 95 percent of plausible values sit. Let's start with the coefficient describing the relationship between Dream Team points and disposal efficiency. Here is our representation of the coefficients drawn from an infinite number random samples pulled from our population (it is the same as printed above):
 
 ```{r}
 tibble(
@@ -393,7 +393,7 @@ tibble(
   theme_minimal()
 ```
 
-Where do 95 percent of these coefficients fall around our best guess? We can use our knowledge of the t-distribution to answer this question. 
+Where do 95 percent of these coefficients fall around our best guess? We can use our knowledge of the t-distribution to answer this question.
 
 We know that center point (our coefficient):
 
@@ -413,7 +413,7 @@ se_beta_1 <- tidy(m) |>
 se_beta_1
 ```
 
-And we know our threshold (5%). We need to translate that threshold into its t-statistic, accounting for the degrees of freedom we have access to: 
+And we know our threshold (5%). We need to translate that threshold into its t-statistic, accounting for the degrees of freedom we have access to:
 
 ```{r}
 sample_size <- nrow(afl_df)
@@ -426,22 +426,22 @@ df <- sample_size - no_of_IVs - 1
 df
 ```
 
-Therefore: 
+Therefore:
 
 ```{r}
 t_stat_95 <- qt(0.025, df = df, lower.tail = F)
 t_stat_95
 ```
 
-This is the point beyond which 2.5% of all values along the t-distribution fall. 
+This is the point beyond which 2.5% of all values along the t-distribution fall.
 
-::: {.callout-tip}
-Remember, we want to find out where 95 percent of these alternative coefficients sit *around* the center point. So, we need to distribute our remaining five percent between the two tails. That's why we find the t-statistic beyond which 2.5% of the data fall. 
+::: callout-tip
+Remember, we want to find out where 95 percent of these alternative coefficients sit *around* the center point. So, we need to distribute our remaining five percent between the two tails. That's why we find the t-statistic beyond which 2.5% of the data fall.
 :::
 
 Now we can find the boundaries within which 95 percent of these alternative coefficients fall:
 
-::: {.callout-note}
+::: callout-note
 Remember:
 
 $$
@@ -457,7 +457,7 @@ upper_ci <- beta_1 + t_stat_95*se_beta_1
 upper_ci
 ```
 
-Let's place those in context: 
+Let's place those in context:
 
 ```{r}
 tibble(
@@ -471,9 +471,9 @@ tibble(
   theme(legend.position = "none")
 ```
 
-Brilliant! Now we know where 95 percent of all alternative coefficients drawn from a random sample of our population could fall. These are our *plausible* alternative coefficients. 
+Brilliant! Now we know where 95 percent of all alternative coefficients drawn from a random sample of our population could fall. These are our *plausible* alternative coefficients.
 
-So, do these plausible alternatives include zero? In other words, is it plausible that there is no relationship between a player's disposal efficiency and their Dream Team points? 
+So, do these plausible alternatives include zero? In other words, is it plausible that there is no relationship between a player's disposal efficiency and their Dream Team points?
 
 ```{r}
 tibble(
@@ -488,11 +488,11 @@ tibble(
   theme(legend.position = "none")
 ```
 
-Yes! A null relationship sits within our plausible set of coefficients for disposal efficiency. We cannot reject the notion that there is no relationship between disposal efficiency and Dream Team points at this threshold. 
+Yes! A null relationship sits within our plausible set of coefficients for disposal efficiency. We cannot reject the notion that there is no relationship between disposal efficiency and Dream Team points at this threshold.
 
-What about a more forgiving threshold? What if we are willing to accept a 10 percent chance that we reject a true null relationship? 
+What about a more forgiving threshold? What if we are willing to accept a 10 percent chance that we reject a true null relationship?
 
-First, we need to find this new threshold's t-statistic: 
+First, we need to find this new threshold's t-statistic:
 
 ```{r}
 t_stat_90 <- qt(0.05, df = df, lower.tail = F)
@@ -509,7 +509,7 @@ upper_ci <- beta_1 + t_stat_90*se_beta_1
 upper_ci
 ```
 
-Do these contain a null relationship? 
+Do these contain a null relationship?
 
 ```{r}
 tibble(
@@ -524,9 +524,9 @@ tibble(
   theme(legend.position = "none")
 ```
 
-No! So, if we are happy to accept a 10 percent risk that we will reject a true null relationship, we can reject the null hypothesis that there is no relationship between disposal efficiency and Dream Team points. We can tell the players that we have found a statistically significant relationship between disposal efficiency and Dream Team points at the 0.1 threshold. 
+No! So, if we are happy to accept a 10 percent risk that we will reject a true null relationship, we can reject the null hypothesis that there is no relationship between disposal efficiency and Dream Team points. We can tell the players that we have found a statistically significant relationship between disposal efficiency and Dream Team points at the 0.1 threshold.
 
-We can approach this question from the other direction. If the null hypothesis were true, how likely would we be to see our estimate? 
+We can approach this question from the other direction. If the null hypothesis were true, how likely would we be to see our estimate?
 
 First, let's set up our null world:
 
@@ -540,11 +540,11 @@ tibble(
   theme(legend.position = "none")
 ```
 
-::: {.callout-note}
-I am back to random draws from our t-distribution. 
+::: callout-note
+I am back to random draws from our t-distribution.
 :::
 
-Here, we have centered our distribution of alternative coefficients (resulting only from differences in our samples brought about by random chance) at zero. We are in the null world: there is no relationship between disposal efficiency and Dream Team points. 
+Here, we have centered our distribution of alternative coefficients (resulting only from differences in our samples brought about by random chance) at zero. We are in the null world: there is no relationship between disposal efficiency and Dream Team points.
 
 Where does the estimate we found in our sample sit within this null world? First, we need to translate that observed estimate into its t-statistic:
 
@@ -557,7 +557,7 @@ t_stat <- beta_1 / se_beta_1
 t_stat
 ```
 
-Let's place this in the context of the null world: 
+Let's place this in the context of the null world:
 
 ```{r}
 tibble(
@@ -570,10 +570,10 @@ tibble(
   theme(legend.position = "none")
 ```
 
-How likely is it that I would get this coefficient or a more extreme coefficient if we did, in fact, live in the null world? In other words, what proportion of these alternative coefficients (highlighted in dark gray on the graph below) are equal to or greater than our observed estimate? 
+How likely is it that I would get this coefficient or a more extreme coefficient if we did, in fact, live in the null world? In other words, what proportion of these alternative coefficients (highlighted in dark gray on the graph below) are equal to or greater than our observed estimate?
 
-::: {.callout-tip}
-Remember that we are conducting a two-tailed test of our null hypothesis. We need to be open to the estimate being greater *or* smaller than the null. 
+::: callout-tip
+Remember that we are conducting a two-tailed test of our null hypothesis. We need to be open to the estimate being greater *or* smaller than the null.
 :::
 
 ```{r}
@@ -587,42 +587,42 @@ tibble(
   theme(legend.position = "none")
 ```
 
-The proportion of alternative coefficients that are equal to or more extreme than the one we observed is: 
+The proportion of alternative coefficients that are equal to or more extreme than the one we observed is:
 
 ```{r}
 p_value <- 2 * pt(t_stat, df = df, lower.tail = F)
 p_value
 ```
 
-We would observe an estimate of `r round(beta_1, 3)` or a more extreme estimate `r scales::percent(p_value)` of the time if the null hypothesis were true. When we are only happy to accept a five percent chance that we would reject a true null hypothesis, we cannot reject that null hypothesis. If, on the other hand, we are happy to accept a 10 percent chance that we reject a true null hypothesis, we can reject it.  
+We would observe an estimate of `r round(beta_1, 3)` or a more extreme estimate `r scales::percent(p_value)` of the time if the null hypothesis were true. When we are only happy to accept a five percent chance that we would reject a true null hypothesis, we cannot reject that null hypothesis. If, on the other hand, we are happy to accept a 10 percent chance that we reject a true null hypothesis, we can reject it.
 
 ### Reading our regression outputs
 
-Let's return to our original model: 
+Let's return to our original model:
 
 ```{r}
 tidy(m)
 ```
 
-We now have information on every component of this output. 
+We now have information on every component of this output.
 
-We can translate these estimates, in the `estimate` column. Our model suggests that players that have a disposal efficiency of 0 (none of their disposals result in a good outcome for their team) have, on average, `r tidy(m) |> filter(term == "(Intercept)") |> pull(estimate) |> round(1)` Dream Team points. Every one percentage point increase in a player's efficiency is associated with a gain of `r tidy(m) |> filter(term == "disposalEfficiency") |> pull(estimate) |> round(2)` Dream Team points, on average. 
+We can translate these estimates, in the `estimate` column. Our model suggests that players that have a disposal efficiency of 0 (none of their disposals result in a good outcome for their team) have, on average, `r tidy(m) |> filter(term == "(Intercept)") |> pull(estimate) |> round(1)` Dream Team points. Every one percentage point increase in a player's efficiency is associated with a gain of `r tidy(m) |> filter(term == "disposalEfficiency") |> pull(estimate) |> round(2)` Dream Team points, on average.
 
-We know that these estimates are our best guess of the true linear relationship between Dream Team points and disposal efficiency. Our best guess may be different from the true relationship because of random chance. How confident are we of that best guess? Well, we know from the standard error (`std.error`) how spread out around that best guess alternative coefficients sit. 
+We know that these estimates are our best guess of the true linear relationship between Dream Team points and disposal efficiency. Our best guess may be different from the true relationship because of random chance. How confident are we of that best guess? Well, we know from the standard error (`std.error`) how spread out around that best guess alternative coefficients sit.
 
-We know where our estimate (translated into its t-statistic, or `statistic`) sits within the null world. 
+We know where our estimate (translated into its t-statistic, or `statistic`) sits within the null world.
 
-And finally, we know the probability (`p.value`) that we would observe the estimate we found if it were actually equal to zero. 
+And finally, we know the probability (`p.value`) that we would observe the estimate we found if it were actually equal to zero.
 
-All of that work we did above is replicated here, in this one line of code. In fact, we can also add our confidence intervals around our estimate to the `broom::tidy()` output: 
+All of that work we did above is replicated here, in this one line of code. In fact, we can also add our confidence intervals around our estimate to the `broom::tidy()` output:
 
 ```{r}
 tidy(m, conf.int = T)
 ```
 
-These are exactly as we manually calculated above. 
+These are exactly as we manually calculated above.
 
-What would this all look like in a published article? 
+What would this all look like in a published article?
 
 ```{r}
 modelsummary(m,
@@ -630,7 +630,7 @@ modelsummary(m,
              statistic = c("std.error", "p.value"))
 ```
 
-Increasingly, people are including confidence intervals: 
+Increasingly, people are including confidence intervals:
 
 ```{r}
 modelsummary(m,
@@ -638,7 +638,7 @@ modelsummary(m,
              statistic = c("conf.int", "p.value"))
 ```
 
-Or presenting their regression results graphically: 
+Or presenting their regression results graphically:
 
 ```{r}
 modelplot(m,
