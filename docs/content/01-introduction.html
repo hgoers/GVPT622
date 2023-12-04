@@ -247,7 +247,6 @@ gtag('config', 'G-WKJ9E8EHM1', { 'anonymize_ip': true});
   <ul class="collapse">
   <li><a href="#lab" id="toc-lab" class="nav-link" data-scroll-target="#lab">Lab</a></li>
   </ul></li>
-  <li><a href="#class-slides" id="toc-class-slides" class="nav-link" data-scroll-target="#class-slides">Class slides</a></li>
   <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section">Section</a>
   <ul class="collapse">
   <li><a href="#introduction-to-quarto-and-markdown" id="toc-introduction-to-quarto-and-markdown" class="nav-link" data-scroll-target="#introduction-to-quarto-and-markdown">Introduction to Quarto and markdown</a></li>
@@ -287,22 +286,19 @@ gtag('config', 'G-WKJ9E8EHM1', { 'anonymize_ip': true});
 <p><i class="fa-solid fa-book" aria-label="book"></i> Pollock &amp; Edwards R Companion, Chapter 1</p>
 </section>
 </section>
-<section id="class-slides" class="level2">
-<h2 class="anchored" data-anchor-id="class-slides">Class slides</h2>
-<iframe class="slide-deck" src="../files/slides/Lecture 1- Introduction.pdf" width="100%" height="600px"></iframe>
-</section>
 <section id="section" class="level2">
 <h2 class="anchored" data-anchor-id="section">Section</h2>
 <section id="introduction-to-quarto-and-markdown" class="level3">
 <h3 class="anchored" data-anchor-id="introduction-to-quarto-and-markdown">Introduction to Quarto and markdown</h3>
-<p>Quarto provides you with a tool that allows you to create fully reproducible research outputs. It allows you to combine your code, results, and prose into one document that can output in many different format. All of the materials I produced for this class and Maths Camp were created using Quarto.</p>
-<p>You can use Quarto from RStudio.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> Here is a screen shot of a Quarto document (extension <code>.qmd</code>) and its HTML output. You can render a Quarto document to many different types of formats, including PDF and MS Word.</p>
+<p>Quarto is a tool that helps you to create fully reproducible research outputs. It allows you to combine your code, results, and prose in one document. For example, this website - with all of its R code, prose, and visualizations - was created using Quarto.</p>
+<p>You can use Quarto from RStudio.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> Below is a screen shot of a Quarto document (file extension <code>.qmd</code>) and its HTML output. You can render a Quarto document to many different types of formats, including PDF and MS Word.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="img/rstudio-hello.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">Source: <a href="https://quarto.org/docs/get-started/hello/rstudio.html">Quarto</a></figcaption>
 </figure>
 </div>
+<p>Let’s make a new Quarto document, including some R code and prose.</p>
 </section>
 <section id="a-new-quarto-document" class="level3">
 <h3 class="anchored" data-anchor-id="a-new-quarto-document">A new Quarto document</h3>
@@ -310,10 +306,22 @@ gtag('config', 'G-WKJ9E8EHM1', { 'anonymize_ip': true});
 <p><img src="img/new_quarto.png" class="img-fluid"></p>
 <p>Fill in the relevant fields:</p>
 <p><img src="img/new_quarto_2.png" class="img-fluid"></p>
-<p>It will have a <code>.qmd</code> extension. This is the Quarto document extension.</p>
-<p>The new document will have some introductory text and other things in it. Importantly, it will have a YAML section. This section (written in YAML) includes all of the metadata for your document. It includes the title, author, format in which it will rendered, and the default editor.</p>
+<p>Your new document will have a <code>.qmd</code> file extension. It will also already contain some text and code. Most of this is demonstrative and can be deleted. However, the top section is very important and should be kept. This section (written in <a href="https://yaml.org/">YAML</a>) includes the metadata for your document. By default, it includes the title, author, format in which it will rendered, and the default RStudio editor.</p>
+<div class="callout callout-style-default callout-caution callout-titled" title="Exercise">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Switch your output (<code>format</code>) from HTML to PDF.</p>
+</div>
+</div>
 <p><img src="img/yaml.png" class="img-fluid"></p>
-<p>There are two ways to work with and view Quarto documents. The default editor is <code>visual</code>, which follows a more “what-you-see-is-what-you-get” style. Alternatively, you can edit in <code>source</code>, which looks more like a raw script. To switch between the two, you can use the <code>Source</code> and <code>Visual</code> icons in the top left hand side of the screen.</p>
+<p>There are two ways to work with and view Quarto documents. The default editor is <code>visual</code>, which follows a more “what-you-see-is-what-you-get” style. If you have worked a lot with MS Word documents or Google Docs, this interface will look familiar. Alternatively, you can edit in <code>source</code>, which looks more like a raw script. To switch between the two, you can use the <code>Source</code> and <code>Visual</code> icons in the top left hand side of the screen.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -324,17 +332,29 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>I find myself switching between these two formats all the time. The visual editor is much easier to work in when writing, but it can be a bit buggy when it comes to formatting my work and writing code. I work in source when I am doing those two things.</p>
+<p>I find myself switching between these two formats all the time. The <code>visual</code> editor is much easier to work in when writing, but it can be a bit buggy when it comes to writing code. I work in <code>source</code> when I am writing and running R code.</p>
 </div>
 </div>
 </section>
 <section id="rendering-your-document" class="level3">
 <h3 class="anchored" data-anchor-id="rendering-your-document">Rendering your document</h3>
 <p>To render your document into your chosen format (in this case: HTML), you need to hit the Render icon in the document’s top bar. This will produce a HTML version of your Quarto document in the same folder in which you saved your Quarto document.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>You can preview your document in RStudio by changing your settings to <strong>Preview in Viewer Pane</strong>.</p>
 <p><img src="img/preview.png" class="img-fluid"></p>
 <p>Now, whenever you render your document a preview of it will show up in the <code>Viewer</code> pane (which is in the same place as your <code>Files</code>, <code>Plots</code>, and <code>Help</code> panes).</p>
 <p><img src="img/preview_2.png" class="img-fluid"></p>
+</div>
+</div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -353,7 +373,19 @@ Note
 <h3 class="anchored" data-anchor-id="writing-prose-in-quarto">Writing prose in Quarto</h3>
 <p>You can write prose as you would in any other text editor in Quarto. When you are in the Visual editor model, Quarto provides you with the shortcut keys for many of the formats you use in other text editors, including MS Word and Google Docs. You can also use your usual keyboard shortcuts.</p>
 <p>In the Source editor mode, you will need to use markdown. Markdown is a lightweight markup language that allows you to format plain text. It gives you a lot of control over the format of your text documents (similar to Latex).</p>
-<p>Here is the link for a <a href="https://www.markdowntutorial.com/">great Markdown tutorial</a>. It takes about 10 minutes to complete, so we will play around in there now.</p>
+<div class="callout callout-style-default callout-caution callout-titled" title="Exercise">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Complete this <a href="https://www.markdowntutorial.com/">great Markdown tutorial</a>.</p>
+</div>
+</div>
 </section>
 <section id="running-code-in-quarto" class="level3">
 <h3 class="anchored" data-anchor-id="running-code-in-quarto">Running code in Quarto</h3>
@@ -361,6 +393,7 @@ Note
 <section id="code-chunks" class="level4">
 <h4 class="anchored" data-anchor-id="code-chunks">Code chunks</h4>
 <p>A code chunk starts with <code>```{r}</code> and ends with <code>```</code>. You can then write whole “chunks” of code that will output in your rendered document.</p>
+<p>For example, I will load the <code>tidyverse</code> R package into my current session:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: true</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -385,21 +418,21 @@ Note
 </section>
 <section id="in-line-code" class="level4">
 <h4 class="anchored" data-anchor-id="in-line-code">In-line code</h4>
-<p>Alternatively, you often want to reference numbers or results in your prose. For example, I may be writing up the data section of a paper and want to specify that my data set includes 100 observations. If I were to write this in normally and then go away and collect more data, I would need to come back and update this number manually. I may do this several times (very tedious) or I may miss a time (we are all human). In-line coding allows you to include R code in your prose.</p>
-<p>You include R code directly in your prose using the expression: `r `. For example:</p>
+<p>Alternatively, you often want to reference numbers or results in your prose. For example, I may be writing up the data section of a paper and want to specify that my data set includes 100 observations. If I were to write this in normally and then go away and collect more data, I would need to come back and update this number manually to reflect my new number of observations. I may do this several times (very tedious) or I may miss a time (we are all human). In-line coding allows you to make these updates programmatically.</p>
+<p>You include R code directly in your prose using the expression: <code>r</code>. For example:</p>
 <p><img src="img/in_line.png" class="img-fluid"></p>
 <p>Will render as: There are 234 observations in our data. No need to go and update this reference if that number changes!</p>
-<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Note
+Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><code>scales</code> is a great package for formatting numbers.</p>
+<p><code>scales</code> is a great R package for formatting numbers.</p>
 <p>For example, R will output raw numbers such as <code>1000000000</code> and <code>8932348920</code>. <code>scales</code> allows you to format these numbers so they are easier to read: <code>scales::comma(1000000000)</code> gives you 1,000,000,000 and <code>scales::dollar(8932348920)</code> gives you $8,932,348,920.</p>
 </div>
 </div>
