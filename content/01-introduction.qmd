@@ -43,7 +43,11 @@ Fill in the relevant fields:
 Your new document will have a `.qmd` file extension. It will also already contain some text and code. Most of this is demonstrative and can be deleted. However, the top section is very important and should be kept. This section (written in [YAML](https://yaml.org/)) includes the metadata for your document. By default, it includes the title, author, format in which it will rendered, and the default RStudio editor.
 
 ::: {.callout-caution title="Exercise"}
-Switch your output (`format`) from HTML to PDF.
+Switch your output (`format`) from HTML to PDF by changing `html` to `pdf`.
+:::
+
+::: callout-tip
+A full list of the formats to which you can render your Quarto document is provided [here](https://quarto.org/docs/output-formats/all-formats.html#documents).
 :::
 
 ![](img/yaml.png)
@@ -56,7 +60,7 @@ I find myself switching between these two formats all the time. The `visual` edi
 
 ### Rendering your document
 
-To render your document into your chosen format (in this case: HTML), you need to hit the Render icon in the document's top bar. This will produce a HTML version of your Quarto document in the same folder in which you saved your Quarto document.
+To render your document into your chosen format (in this case: HTML), you need to hit the Render icon in the document's top bar. This will produce an HTML version of your Quarto document in the same folder in which you saved your Quarto document.
 
 ::: callout-tip
 You can preview your document in RStudio by changing your settings to **Preview in Viewer Pane**.
@@ -84,7 +88,7 @@ Complete this [great Markdown tutorial](https://www.markdowntutorial.com/).
 
 ### Running code in Quarto
 
-You can also run code from within your Quarto document. You can do this through a code chunk or in-line code. I will step through both options now.
+You can also run code from within your Quarto document. You can do this through a **code chunk** or **in-line code**. I will step through both options now.
 
 #### Code chunks
 
@@ -98,7 +102,7 @@ For example, I will load the `tidyverse` R package into my current session:
 library(tidyverse)
 ```
 
-You can specify your chunk options using `#|` at the start of the line. For example, above I specified that I wanted the code in the code chunk to be shown when I render my document. You can hide the code by changing the chunk option `echo` to `false`. There are many different chunk options that you can control. [A full list can be found here.](https://quarto.org/docs/computations/execution-options.html)
+You can specify your **chunk options** using `#|` at the start of the line. For example, above I specified that I wanted the code in the code chunk to be shown when I render my document. You can hide the code by changing the chunk option `echo` to `false`. There are many different chunk options that you can control. [A full list can be found here.](https://quarto.org/docs/computations/execution-options.html)
 
 You can set the chunk options in the individual chunks, as show above. Alternatively, you can set them universally in the YAML section at the top of your Quarto document using the `execute` command. For example:
 
@@ -117,7 +121,7 @@ Code chunks are useful for running large amounts of code. Commonly, I use them t
 
 #### In-line code
 
-Alternatively, you often want to reference numbers or results in your prose. For example, I may be writing up the data section of a paper and want to specify that my data set includes 100 observations. If I were to write this in normally and then go away and collect more data, I would need to come back and update this number manually to reflect my new number of observations. I may do this several times (very tedious) or I may miss a time (we are all human). In-line coding allows you to make these updates programmatically.
+You will often want to reference numbers or results in your prose. For example, I may be writing up the data section of a paper and want to specify that my data set includes 100 observations. If I were to write this in normally and then go away and collect more data, I would need to come back and update this number manually to reflect my new number of observations. I may do this several times (very tedious) or I may miss a time (we are all human). In-line coding allows you to make these updates programmatically.
 
 You include R code directly in your prose using the expression: `r`. For example:
 
@@ -130,3 +134,5 @@ Will render as: There are `r nrow(mpg)` observations in our data. No need to go 
 
 For example, R will output raw numbers such as `1000000000` and `8932348920`. `scales` allows you to format these numbers so they are easier to read: `scales::comma(1000000000)` gives you `r scales::comma(1000000000)` and `scales::dollar(8932348920)` gives you `r scales::dollar(8932348920)`.
 :::
+
+You can use Quarto to produce all kinds of fully reproducible documents, including journal articles and reports. You can also use it to produce very professional-looking presentations. Finally, you can even use it to produce websites. In fact, all of the resources provided to you here were produced in Quarto.

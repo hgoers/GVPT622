@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.433">
+<meta name="generator" content="quarto-1.3.450">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -606,15 +606,15 @@ HEADS TAILS
 <span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(nes_sample)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  caseid dem
-1   5377   0
-2   5948   0
-3   5144   0
-4   3483   1
-5   4773   0
-6   4340   0</code></pre>
+1   5144   0
+2   3483   1
+3   4773   0
+4   4340   0
+5   6385   0
+6    288   0</code></pre>
 </div>
 </div>
-<p>In this sample, 39.73% of respondents identify as Democrats. This is our best guess at our parameter of interest: the proportion of US voters who identify as Democrats.</p>
+<p>In this sample, 39.77% of respondents identify as Democrats. This is our best guess at our parameter of interest: the proportion of US voters who identify as Democrats.</p>
 <p>Using what we know from above, what would our distribution of proportions look like if this was not the (average) proportion drawn from one trial but instead it was the average proportion drawn from an infinite number of identical trials? Well, those proportions would be normally distributed around that center point. To fill in that blank, we need one additional piece of information: the standard deviation (or spread) of those points around that center point.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -633,7 +633,7 @@ Note
 <p><span class="math display">\[
 se(\hat{p}) = \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}
 \]</span></p>
-<p>Where <span class="math inline">\(\hat{p}\)</span> is the sample proportion (here: 0.397).</p>
+<p>Where <span class="math inline">\(\hat{p}\)</span> is the sample proportion (here: 0.398).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>p_hat <span class="ot">&lt;-</span> <span class="fu">tabyl</span>(nes_sample, dem) <span class="sc">|&gt;</span> </span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(dem <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">|&gt;</span> </span>
@@ -643,7 +643,7 @@ se(\hat{p}) = \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}
 <span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>se <span class="ot">&lt;-</span> <span class="fu">sqrt</span>((p_hat <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p_hat)) <span class="sc">/</span> n)</span>
 <span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>se</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.008934196</code></pre>
+<pre><code>[1] 0.00893547</code></pre>
 </div>
 </div>
 <p>Now, let’s use this information to draw many different hypothetical proportions of respondents who identify as Democrats in many different hypothetical samples.</p>
@@ -663,12 +663,12 @@ se(\hat{p}) = \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>lower_68 <span class="ot">&lt;-</span> p_hat <span class="sc">-</span> <span class="dv">1</span> <span class="sc">*</span> se</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>lower_68</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.3883991</code></pre>
+<pre><code>[1] 0.3887312</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>upper_68 <span class="ot">&lt;-</span> p_hat <span class="sc">+</span> <span class="dv">1</span> <span class="sc">*</span> se</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>upper_68</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.4062675</code></pre>
+<pre><code>[1] 0.4066021</code></pre>
 </div>
 </div>
 <p>These boundaries are marked by the thick black line on the graph above.</p>
@@ -677,12 +677,12 @@ se(\hat{p}) = \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>lower_95 <span class="ot">&lt;-</span> p_hat <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> se</span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>lower_95</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.3798223</code></pre>
+<pre><code>[1] 0.3801531</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>upper_95 <span class="ot">&lt;-</span> p_hat <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> se</span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>upper_95</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.4148444</code></pre>
+<pre><code>[1] 0.4151802</code></pre>
 </div>
 </div>
 <p>These boundaries are marked by the thinner black line on the graph above.</p>

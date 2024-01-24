@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.433">
+<meta name="generator" content="quarto-1.3.450">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -748,8 +748,8 @@ z = \frac{\hat{p} - p_0}{\sqrt{\frac{p_0(1-p_0)}{n}}}
 <pre><code># A tibble: 2 × 4
   democracy     n       avg_gdp  diff_avg_gdp
       &lt;dbl&gt; &lt;int&gt;         &lt;dbl&gt;         &lt;dbl&gt;
-1         0    66 311946240266.           NA 
-2         1    94 629871757552. 317925517286.</code></pre>
+1         0    66 312069490079.           NA 
+2         1    94 630228943432. 318159453352.</code></pre>
 </div>
 </div>
 <p>It appears that we have support for our hypothesis that democracies are richer than non-democracies on average. How much richer?</p>
@@ -760,7 +760,7 @@ z = \frac{\hat{p} - p_0}{\sqrt{\frac{p_0(1-p_0)}{n}}}
 <span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dollar</span>(diff_avg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "$317,925,517,286"</code></pre>
+<pre><code>[1] "$318,159,453,352"</code></pre>
 </div>
 </div>
 <p>However, we need to confirm that this difference is not the product of random chance.</p>
@@ -838,14 +838,14 @@ Note
 <p><img src="10-applications_files/figure-html/unnamed-chunk-38-1.png" class="img-fluid" width="960"></p>
 </div>
 </div>
-<p>Where does our observed difference of means sit along this standardized distribution? To answer this question, we need to translate our observed difference of $317,925,517,286 into its t-statistic:</p>
+<p>Where does our observed difference of means sit along this standardized distribution? To answer this question, we need to translate our observed difference of $318,159,453,352 into its t-statistic:</p>
 <p><span class="math display">\[
 t = \frac{\bar{x_1} - \bar{x_2}}{\sqrt{\frac{s^2_1}{n_1} + \frac{s^2_2}{n_2}}}
 \]</span> We know our difference of means, <span class="math inline">\(\bar{x_1} - \bar{x_2}\)</span>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dollar</span>(diff_avg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "$317,925,517,286"</code></pre>
+<pre><code>[1] "$318,159,453,352"</code></pre>
 </div>
 </div>
 <p>And our sample sizes, <span class="math inline">\(n_1\)</span> and <span class="math inline">\(n_2\)</span>:</p>
@@ -868,7 +868,7 @@ t = \frac{\bar{x_1} - \bar{x_2}}{\sqrt{\frac{s^2_1}{n_1} + \frac{s^2_2}{n_2}}}
 <span id="cb78-5"><a href="#cb78-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb78-6"><a href="#cb78-6" aria-hidden="true" tabindex="-1"></a><span class="fu">dollar</span>(s_1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "$2,136,617,020,447"</code></pre>
+<pre><code>[1] "$2,136,652,251,442"</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>s_2 <span class="ot">&lt;-</span> dem_gdp_df <span class="sc">|&gt;</span> </span>
 <span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(democracy <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">|&gt;</span></span>
@@ -877,7 +877,7 @@ t = \frac{\bar{x_1} - \bar{x_2}}{\sqrt{\frac{s^2_1}{n_1} + \frac{s^2_2}{n_2}}}
 <span id="cb80-5"><a href="#cb80-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb80-6"><a href="#cb80-6" aria-hidden="true" tabindex="-1"></a><span class="fu">dollar</span>(s_2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "$1,519,657,858,673"</code></pre>
+<pre><code>[1] "$1,519,635,841,936"</code></pre>
 </div>
 </div>
 <p>Therefore, the t-statistic for our observed difference of means is:</p>
@@ -885,7 +885,7 @@ t = \frac{\bar{x_1} - \bar{x_2}}{\sqrt{\frac{s^2_1}{n_1} + \frac{s^2_2}{n_2}}}
 <div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>t_stat <span class="ot">&lt;-</span> diff_avg <span class="sc">/</span> <span class="fu">sqrt</span>((s_1<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> n_democracies) <span class="sc">+</span> (s_2<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> n_non_democracies))</span>
 <span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a>t_stat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.099861</code></pre>
+<pre><code>[1] 1.100666</code></pre>
 </div>
 </div>
 <p>Let’s place this observed statistic in the context of the null world:</p>
@@ -900,7 +900,7 @@ t = \frac{\bar{x_1} - \bar{x_2}}{\sqrt{\frac{s^2_1}{n_1} + \frac{s^2_2}{n_2}}}
 <p><img src="10-applications_files/figure-html/unnamed-chunk-43-1.png" class="img-fluid" width="960"></p>
 </div>
 </div>
-<p>It is plausible that we could observe a difference of means equal to $317,925,517,286 even if there is no significant difference of means between the wealth of democracies and non-democracies. In fact, there is the following chance that we would observe this difference:</p>
+<p>It is plausible that we could observe a difference of means equal to $318,159,453,352 even if there is no significant difference of means between the wealth of democracies and non-democracies. In fact, there is the following chance that we would observe this difference:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="fu">percent</span>(<span class="dv">2</span> <span class="sc">*</span> <span class="fu">pt</span>(t_stat, <span class="at">df =</span> df, <span class="at">lower.tail =</span> F))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -918,13 +918,13 @@ t = \frac{\bar{x_1} - \bar{x_2}}{\sqrt{\frac{s^2_1}{n_1} + \frac{s^2_2}{n_2}}}
     Welch Two Sample t-test
 
 data:  gdp by democracy
-t = -1.0999, df = 157.96, p-value = 0.2731
+t = -1.1007, df = 157.96, p-value = 0.2727
 alternative hypothesis: true difference in means between group 0 and group 1 is not equal to 0
 95 percent confidence interval:
- -888846131778  252995097205
+ -889082071772  252763165067
 sample estimates:
 mean in group 0 mean in group 1 
-   311946240266    629871757552 </code></pre>
+   312069490079    630228943432 </code></pre>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">

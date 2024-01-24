@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.433">
+<meta name="generator" content="quarto-1.3.450">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -317,7 +317,20 @@ Exercise
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Switch your output (<code>format</code>) from HTML to PDF.</p>
+<p>Switch your output (<code>format</code>) from HTML to PDF by changing <code>html</code> to <code>pdf</code>.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A full list of the formats to which you can render your Quarto document is provided <a href="https://quarto.org/docs/output-formats/all-formats.html#documents">here</a>.</p>
 </div>
 </div>
 <p><img src="img/yaml.png" class="img-fluid"></p>
@@ -338,7 +351,7 @@ Note
 </section>
 <section id="rendering-your-document" class="level3">
 <h3 class="anchored" data-anchor-id="rendering-your-document">Rendering your document</h3>
-<p>To render your document into your chosen format (in this case: HTML), you need to hit the Render icon in the document’s top bar. This will produce a HTML version of your Quarto document in the same folder in which you saved your Quarto document.</p>
+<p>To render your document into your chosen format (in this case: HTML), you need to hit the Render icon in the document’s top bar. This will produce an HTML version of your Quarto document in the same folder in which you saved your Quarto document.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -389,7 +402,7 @@ Exercise
 </section>
 <section id="running-code-in-quarto" class="level3">
 <h3 class="anchored" data-anchor-id="running-code-in-quarto">Running code in Quarto</h3>
-<p>You can also run code from within your Quarto document. You can do this through a code chunk or in-line code. I will step through both options now.</p>
+<p>You can also run code from within your Quarto document. You can do this through a <strong>code chunk</strong> or <strong>in-line code</strong>. I will step through both options now.</p>
 <section id="code-chunks" class="level4">
 <h4 class="anchored" data-anchor-id="code-chunks">Code chunks</h4>
 <p>A code chunk starts with <code>```{r}</code> and ends with <code>```</code>. You can then write whole “chunks” of code that will output in your rendered document.</p>
@@ -399,7 +412,7 @@ Exercise
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>You can specify your chunk options using <code>#|</code> at the start of the line. For example, above I specified that I wanted the code in the code chunk to be shown when I render my document. You can hide the code by changing the chunk option <code>echo</code> to <code>false</code>. There are many different chunk options that you can control. <a href="https://quarto.org/docs/computations/execution-options.html">A full list can be found here.</a></p>
+<p>You can specify your <strong>chunk options</strong> using <code>#|</code> at the start of the line. For example, above I specified that I wanted the code in the code chunk to be shown when I render my document. You can hide the code by changing the chunk option <code>echo</code> to <code>false</code>. There are many different chunk options that you can control. <a href="https://quarto.org/docs/computations/execution-options.html">A full list can be found here.</a></p>
 <p>You can set the chunk options in the individual chunks, as show above. Alternatively, you can set them universally in the YAML section at the top of your Quarto document using the <code>execute</code> command. For example:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{yaml}</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">execute</span><span class="kw">:</span></span>
@@ -418,7 +431,7 @@ Exercise
 </section>
 <section id="in-line-code" class="level4">
 <h4 class="anchored" data-anchor-id="in-line-code">In-line code</h4>
-<p>Alternatively, you often want to reference numbers or results in your prose. For example, I may be writing up the data section of a paper and want to specify that my data set includes 100 observations. If I were to write this in normally and then go away and collect more data, I would need to come back and update this number manually to reflect my new number of observations. I may do this several times (very tedious) or I may miss a time (we are all human). In-line coding allows you to make these updates programmatically.</p>
+<p>You will often want to reference numbers or results in your prose. For example, I may be writing up the data section of a paper and want to specify that my data set includes 100 observations. If I were to write this in normally and then go away and collect more data, I would need to come back and update this number manually to reflect my new number of observations. I may do this several times (very tedious) or I may miss a time (we are all human). In-line coding allows you to make these updates programmatically.</p>
 <p>You include R code directly in your prose using the expression: <code>r</code>. For example:</p>
 <p><img src="img/in_line.png" class="img-fluid"></p>
 <p>Will render as: There are 234 observations in our data. No need to go and update this reference if that number changes!</p>
@@ -436,6 +449,7 @@ Tip
 <p>For example, R will output raw numbers such as <code>1000000000</code> and <code>8932348920</code>. <code>scales</code> allows you to format these numbers so they are easier to read: <code>scales::comma(1000000000)</code> gives you 1,000,000,000 and <code>scales::dollar(8932348920)</code> gives you $8,932,348,920.</p>
 </div>
 </div>
+<p>You can use Quarto to produce all kinds of fully reproducible documents, including journal articles and reports. You can also use it to produce very professional-looking presentations. Finally, you can even use it to produce websites. In fact, all of the resources provided to you here were produced in Quarto.</p>
 
 
 </section>

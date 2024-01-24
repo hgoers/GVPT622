@@ -36,7 +36,7 @@ library(janitor)
 set.seed(1234)
 ```
 
-::: {.callout-note}
+::: callout-note
 Today, we are working with randomness and chance. To make sure we are all working with the same randomness and chance, you need to set your seed! `set.seed()` sets the random number generator state in which R will operate for this session. The draws we make in the session are still random, but they will be the same random draw each time we take it. This is important for replication, so you will use it outside of class.
 :::
 
@@ -64,7 +64,7 @@ repeat_trials <- sample(possible_outcomes, size = 10, replace = T, prob = c(0.5,
 repeat_trials
 ```
 
-::: {.callout-tip}
+::: callout-tip
 We want to sample with replacement, so we include the argument `replace = T`. This just means that we include all possible outcomes in every draw. If we sampled without replacement, we would remove each outcome from the sample after it has been selected in a previous draw.
 
 For example, imagine you have 10 different colored marbles in a bag. You pull out a marble and record its color. If you want to sample with replacement, you put the marble you just pulled out back into the bag before you take your next draw. This means that you can draw that same marble out again in the subsequent draws.
@@ -126,8 +126,8 @@ In fact, if we flip a coin twice many times (say, 10 times), we will probably ge
 trial_two_flips <- tibble(trial = 1:10) |> 
   rowwise() |> 
   mutate(outcome = list(sample(possible_outcomes, 2, replace = T, prob = c(0.5, 0.5)))) |> 
-  unnest_wider(outcome) |> 
-  rename("flip_1" = `...1`, "flip_2" = `...2`)
+  unnest_wider(outcome, names_sep = "_") |> 
+  rename("flip_1" = outcome_1, "flip_2" = outcome_2)
 
 trial_two_flips
 ```
@@ -142,7 +142,7 @@ Let's try this out.
 
 First, let's flip the coin 10 times:
 
-::: {.callout-note}
+::: callout-note
 The red dots are sitting at `{0.5,0.5}`. We are aiming for this true probability distribution.
 :::
 
@@ -210,9 +210,9 @@ So, after all of that how can you avoid doing the dishes? Sadly (and as expected
 
 ### Conditional probability
 
-Will it rain tomorrow? To answer this question, you may want to gather information about rain trends over time. 
+Will it rain tomorrow? To answer this question, you may want to gather information about rain trends over time.
 
-You may look at the number of times it rained this month last year. Say this is the record of rain days this month last year:  
+You may look at the number of times it rained this month last year. Say this is the record of rain days this month last year:
 
 ```{r}
 month_rain <- tibble(
@@ -225,26 +225,26 @@ month_rain <- tibble(
 month_rain
 ```
 
-::: {.callout-tip}
+::: callout-tip
 `rbinom()` allows us to take a random draw from 0 and 1.
 :::
 
-One way you could answer this question is working out the probability of rain across that month. On what proportion of days that month did it rain? 
+One way you could answer this question is working out the probability of rain across that month. On what proportion of days that month did it rain?
 
 ```{r}
 tabyl(month_rain, rain)
 ```
 
-Using this information, we may guess that there is a `r tabyl(month_rain, rain) |> filter(rain == 1) |> pull(percent) |> percent()` chance of rain on any given day in this month. Therefore, you predict that it will not rain tomorrow. 
+Using this information, we may guess that there is a `r tabyl(month_rain, rain) |> filter(rain == 1) |> pull(percent) |> percent()` chance of rain on any given day in this month. Therefore, you predict that it will not rain tomorrow.
 
-But what if you notice that it tends to rain multiple days in a row? In other words, the chance of rain tomorrow is higher if it rains today. You can use this information to more accurately predict whether it will rain tomorrow. Instead of looking at all days in the month, you can look only at the days of the month that were preceded by rain days: 
+But what if you notice that it tends to rain multiple days in a row? In other words, the chance of rain tomorrow is higher if it rains today. You can use this information to more accurately predict whether it will rain tomorrow. Instead of looking at all days in the month, you can look only at the days of the month that were preceded by rain days:
 
 ```{r}
 month_rain |> 
   filter(lag(rain) == 1)
 ```
 
-On what proportion of these days did it rain? 
+On what proportion of these days did it rain?
 
 ```{r}
 month_rain |> 
@@ -252,23 +252,23 @@ month_rain |>
   tabyl(rain)
 ```
 
-Using this information, you determine that it rained on `r month_rain |> filter(lag(rain) == 1) |> tabyl(rain) |> filter(rain == 1) |> pull(percent) |> percent()` of days that were preceded by rain days. If you are currently rugged up in front of a fire enjoying watching a storm raging outside your window, you will predict that there is a `r month_rain |> filter(lag(rain) == 1) |> tabyl(rain) |> filter(rain == 1) |> pull(percent) |> percent()` chance of it raining tomorrow. You, therefore, predict that it will rain tomorrow. 
+Using this information, you determine that it rained on `r month_rain |> filter(lag(rain) == 1) |> tabyl(rain) |> filter(rain == 1) |> pull(percent) |> percent()` of days that were preceded by rain days. If you are currently rugged up in front of a fire enjoying watching a storm raging outside your window, you will predict that there is a `r month_rain |> filter(lag(rain) == 1) |> tabyl(rain) |> filter(rain == 1) |> pull(percent) |> percent()` chance of it raining tomorrow. You, therefore, predict that it will rain tomorrow.
 
-Conditional probability can help us use all the information we have about the conditions under which an event will occur to update our beliefs about the likelihood of that event occurring. 
+Conditional probability can help us use all the information we have about the conditions under which an event will occur to update our beliefs about the likelihood of that event occurring.
 
 ### A note on different ways to think about probability
 
-It can sometimes help to be introduced to different ways of thinking about these concepts. There are two common approaches to understanding probability: frequentist and Bayesian. Frequentists interpret probabilities as the proportion of an event occurring over an infinite number of identical trials. Therefore, if the probability of getting a head when you flip a fair coin is 50%, this is simply the proportion of times that we would get a head if we flipped a coin infinitely many times. We have adopted the frequentist approach throughout this session.  
+It can sometimes help to be introduced to different ways of thinking about these concepts. There are two common approaches to understanding probability: frequentist and Bayesian. Frequentists interpret probabilities as the proportion of an event occurring over an infinite number of identical trials. Therefore, if the probability of getting a head when you flip a fair coin is 50%, this is simply the proportion of times that we would get a head if we flipped a coin infinitely many times. We have adopted the frequentist approach throughout this session.
 
-Bayesians interpret probability differently. They interpret probability to be your belief about the relative likelihood of an event occuring. Your belief is informed by your knowledge of the event and your observations of what has happened in the past. 
+Bayesians interpret probability differently. They interpret probability to be your belief about the relative likelihood of an event occuring. Your belief is informed by your knowledge of the event and your observations of what has happened in the past.
 
-To illustrate, let's consider how what each of these schools would predict in a coin flip. 
+To illustrate, let's consider how what each of these schools would predict in a coin flip.
 
-A frequentist and a Bayesian walk into a bar. I ask them to predict the outcome of a coin flip. This coin may, or may not, be fair. 
+A frequentist and a Bayesian walk into a bar. I ask them to predict the outcome of a coin flip. This coin may, or may not, be fair.
 
-Before I flip the coin, I ask each to predict the outcome. The frequestist refuses to provide a prediction: they will wait until I have flipped the coin many times and they have observed the outcome of those flips to provide me with their guess. The Bayesian, on the other hand, happily offers up a prediction: heads. When I ask them why, they say that they think that assuming the coin is fair is a good starting point. The majority of coins in the world are fair coins and they have met me before and think that I am a trustworthy person. Assuming the coin is fair, they randomly decide to predict heads. 
+Before I flip the coin, I ask each to predict the outcome. The frequestist refuses to provide a prediction: they will wait until I have flipped the coin many times and they have observed the outcome of those flips to provide me with their guess. The Bayesian, on the other hand, happily offers up a prediction: heads. When I ask them why, they say that they think that assuming the coin is fair is a good starting point. The majority of coins in the world are fair coins and they have met me before and think that I am a trustworthy person. Assuming the coin is fair, they randomly decide to predict heads.
 
-I then flip the coin and let the two observe the outcome: 
+I then flip the coin and let the two observe the outcome:
 
 ```{r}
 #| echo: false
@@ -276,11 +276,11 @@ I then flip the coin and let the two observe the outcome:
 sample(possible_outcomes, size = 1, prob = c(0.3, 0.7))
 ```
 
-I ask the two if they want to update their predictions. Again, the frequentist refuses, saying that they do not have enough information to make a prediction. 
+I ask the two if they want to update their predictions. Again, the frequentist refuses, saying that they do not have enough information to make a prediction.
 
 The Bayesian considers. Their prior assumption was that the coin is fair: there is a 50% chance the coin will land on heads and a 50% chance the coin will land on tails. They have now observed a tails. This does not rule out the possibility that the coin is fair. Nor does it rule out the possibility that the coin is unfair and will always land on tails. It does; however, rule out the possibility that the coin will always land on heads. If that were the case, we would never observe tails. On balance, they decide to update their belief about the likelihood of the coin landing on tails to slightly higher than before. They now suggest that the coin will land on tails with a 55% chance.
 
-I flip the coin again: 
+I flip the coin again:
 
 ```{r}
 #| echo: false
@@ -290,7 +290,7 @@ sample(possible_outcomes, size = 1, prob = c(0.3, 0.7))
 
 Tails again! The frequentist is still not happy to provide a prediction. The Bayesian thinks again. They increasingly believe that the coin is not biased towards heads. They update their belief again, suggesting that the coin will land on tails with a 60% chance.
 
-The frequentist is getting annoyed and asks me to flip the coin a hundred times: 
+The frequentist is getting annoyed and asks me to flip the coin a hundred times:
 
 ```{r}
 #| echo: false
@@ -299,9 +299,9 @@ sample(possible_outcomes, size = 100, replace = T, prob = c(0.3, 0.7)) |>
   table()
 ```
 
-We now have 102 data points: the two prior flips and the 100 most recent flips. Of those 102 flips, 69 have been tails and 33 have been heads. The Bayesian updates their beliefs once again: based on both their prior and the distribution of observed flips, they believe that the coin has a 65% chance of landing on tails. 
+We now have 102 data points: the two prior flips and the 100 most recent flips. Of those 102 flips, 69 have been tails and 33 have been heads. The Bayesian updates their beliefs once again: based on both their prior and the distribution of observed flips, they believe that the coin has a 65% chance of landing on tails.
 
-The frequestist is now willing to make a prediction: they infer from the outcome of these 102 flips that the coin will land on tails `r percent(0.6764706)` of the time. They therefore predict that the next flip will land on tails, but would like me to flip the coin many more times before they are confident in that inference. I oblige: 
+The frequestist is now willing to make a prediction: they infer from the outcome of these 102 flips that the coin will land on tails `r percent(0.6764706)` of the time. They therefore predict that the next flip will land on tails, but would like me to flip the coin many more times before they are confident in that inference. I oblige:
 
 ```{r}
 #| echo: false
@@ -310,9 +310,9 @@ sample(possible_outcomes, size = 1e6, replace = T, prob = c(0.3, 0.7)) |>
   table()
 ```
 
-Flipping the coin an additional 1 million times provides the two statisticians with 1,000,102 data points. The Bayesian updates their beliefs based on their prior assumption (an even coin) and these 1,000,102 observed outcomes. They believe that there is a 70% chance that the coin will land on tails. They predict tails. 
+Flipping the coin an additional 1 million times provides the two statisticians with 1,000,102 data points. The Bayesian updates their beliefs based on their prior assumption (an even coin) and these 1,000,102 observed outcomes. They believe that there is a 70% chance that the coin will land on tails. They predict tails.
 
-The frequestist will now make a confident prediction. They infer from the outcome of these 1,000,102 flips that the coin will land on tails `r percent((699827 + 69) / 1000102)` of the time. They therefore predict that the next flip will land on tails. They think that they will be right 70% of the time. 
+The frequestist will now make a confident prediction. They infer from the outcome of these 1,000,102 flips that the coin will land on tails `r percent((699827 + 69) / 1000102)` of the time. They therefore predict that the next flip will land on tails. They think that they will be right 70% of the time.
 
 ### What does this all have to do with political science?
 
