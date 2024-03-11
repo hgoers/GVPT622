@@ -484,8 +484,8 @@ Note
 <pre><code># A tibble: 2 × 5
   term               estimate std.error statistic  p.value
   &lt;chr&gt;                 &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-1 (Intercept)          36.8      5.20        7.07 1.54e-11
-2 disposalEfficiency    0.215    0.0810      2.65 8.47e- 3</code></pre>
+1 (Intercept)          37.7      5.23        7.21 6.57e-12
+2 disposalEfficiency    0.205    0.0817      2.51 1.27e- 2</code></pre>
 </div>
 </div>
 <p>Okay, so we got a different intercept and coefficient estimates than we got above. This is despite the fact that I took a pure random sample from the full set of players. The only thing driving this difference is random chance.</p>
@@ -524,8 +524,8 @@ Note
 <pre><code># A tibble: 2 × 5
   term               estimate std.error statistic  p.value
   &lt;chr&gt;                 &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-1 (Intercept)          41.3      5.32        7.75 2.31e-13
-2 disposalEfficiency    0.165    0.0827      2.00 4.71e- 2</code></pre>
+1 (Intercept)          41.8      5.35        7.83 1.46e-13
+2 disposalEfficiency    0.153    0.0830      1.85 6.59e- 2</code></pre>
 </div>
 </div>
 <p>Again, we got a different set of coefficients. This is only the result of random chance.</p>
@@ -564,8 +564,8 @@ Note
 <pre><code># A tibble: 2 × 5
   term               estimate std.error statistic  p.value
   &lt;chr&gt;                 &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-1 (Intercept)          42.3      5.40        7.84 1.35e-13
-2 disposalEfficiency    0.126    0.0838      1.50 1.34e- 1</code></pre>
+1 (Intercept)          40.6      5.41        7.52 1.02e-12
+2 disposalEfficiency    0.156    0.0838      1.86 6.38e- 2</code></pre>
 </div>
 </div>
 <p>We can see these differences:</p>
@@ -611,16 +611,16 @@ Note
 <pre><code># A tibble: 2,000 × 6
    round term               estimate std.error statistic  p.value
    &lt;int&gt; &lt;chr&gt;                 &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
- 1     1 (Intercept)         39.1       5.25       7.45  1.51e-12
- 2     1 disposalEfficiency   0.172     0.0811     2.12  3.54e- 2
- 3     2 (Intercept)         45.6       5.74       7.94  6.85e-14
- 4     2 disposalEfficiency   0.0719    0.0871     0.826 4.10e- 1
- 5     3 (Intercept)         43.9       5.90       7.44  1.68e-12
- 6     3 disposalEfficiency   0.110     0.0912     1.21  2.28e- 1
- 7     4 (Intercept)         37.8       5.35       7.08  1.51e-11
- 8     4 disposalEfficiency   0.190     0.0829     2.29  2.29e- 2
- 9     5 (Intercept)         42.2       5.69       7.43  1.80e-12
-10     5 disposalEfficiency   0.140     0.0884     1.58  1.16e- 1
+ 1     1 (Intercept)         39.0       5.17       7.55  8.32e-13
+ 2     1 disposalEfficiency   0.174     0.0802     2.17  3.06e- 2
+ 3     2 (Intercept)         45.7       5.80       7.88  1.05e-13
+ 4     2 disposalEfficiency   0.0690    0.0880     0.784 4.34e- 1
+ 5     3 (Intercept)         41.8       5.92       7.06  1.62e-11
+ 6     3 disposalEfficiency   0.146     0.0914     1.60  1.11e- 1
+ 7     4 (Intercept)         35.3       5.39       6.54  3.41e-10
+ 8     4 disposalEfficiency   0.238     0.0833     2.86  4.56e- 3
+ 9     5 (Intercept)         39.9       5.68       7.03  1.97e-11
+10     5 disposalEfficiency   0.182     0.0883     2.06  4.07e- 2
 # ℹ 1,990 more rows</code></pre>
 </div>
 </div>
@@ -1148,6 +1148,10 @@ Tip
 <td style="text-align: center;">−1751.992</td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;">F</td>
+<td style="text-align: center;">3.551</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">RMSE</td>
 <td style="text-align: center;">24.93</td>
 </tr>
@@ -1220,6 +1224,10 @@ Tip
 <td style="text-align: center;">−1751.992</td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;">F</td>
+<td style="text-align: center;">3.551</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">RMSE</td>
 <td style="text-align: center;">24.93</td>
 </tr>
