@@ -18,12 +18,12 @@ course-logo: /files/img/hex-testudo.png
 ::: {.g-col-12 .g-col-sm-6 .g-col-md-4}
 ### Professor
 
--   {{< fa user >}}   [{{< var professor.name >}}](%7B%7B%3C%20var%20instructor.url%20%3E%7D%7D)
+-   {{< fa user >}}   [{{< var professor.name >}}]({{< var instructor.url >}})
 -   {{< fa envelope >}}   <a href="mailto:{{< var professor.email >}}">{{< var professor.email >}}</a>
 
 ### Teaching Assistant
 
--   {{< fa user >}}   [{{< var instructor.name >}}](%7B%7B%3C%20var%20instructor.url%20%3E%7D%7D)
+-   {{< fa user >}}   [{{< var instructor.name >}}]({{< var instructor.url >}})
 -   {{< fa university >}}   {{< var instructor.office >}}
 -   {{< fa envelope >}}   <a href="mailto:{{< var instructor.email >}}">{{< var instructor.email >}}</a>
 -   {{< fa brands github >}}   [{{< var instructor.github >}}](https://github.com/hgoers)
@@ -45,7 +45,6 @@ course-logo: /files/img/hex-testudo.png
 
 -   {{< fa clock >}}   {{< var office.time >}}
 -   {{< fa location-dot >}}   [{{< var office.location >}}](https://umd.zoom.us/j/94914196966)
-
 :::
 
 ::: {.g-col-12 .g-col-md-4 .contact-policy}
