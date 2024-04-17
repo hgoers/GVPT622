@@ -1,5 +1,422 @@
 ---
 title: "Introduction"
+format:
+  html:
+    code-link: true
+toc-depth: 4
+execute: 
+  warning: false
+  message: false
+  echo: true
+  fig-width: 10
 ---
 
-Welcome to GVPT622!
+Welcome to GVPT622! This semester you will be introduced to the statistical concepts you will need as you progress through you PhD in Political Science and beyond. These concepts will be introduced to you in an accessible way. We will also illustrate how they work using real-world political science examples. You are encouraged to ask as many questions as you have, and to work with each other to learn and apply these new skills.  
+
+## Predicting the outcome of the 2024 US Presidential election
+
+As part of your work in this lab, each of you will attempt to predict the outcome of the 2024 US Presidential election. Specifically, you are going to provide your best guess of the proportion of US voters who will cast their vote for President Biden.
+
+You can use whatever information you like to inform your prediction. You will each come up with your own best guess informed by your own model, but you can - of course - collaborate with your colleagues when generating ideas as to what to include.
+
+You will present your best guess to the class and me ahead of the election. The student whose guess is closest to the true proportion of US voters who cast their vote for President Biden will receive a special prize.[^1]
+
+[^1]: This will probably be a chocolate bar. Please don't get your hopes too high!
+
+As we work through this semester's content, you will have the opportunity to use your new statistics and data analysis knowledge to improve your guess. I will playing along too, demonstrating how I would use these concepts and R to answer this question.
+
+Let's get started!
+
+### What happened last time?
+
+To get you started, I suggest that we take a look at the proportion of US voters who voted for President Biden last election. This seems like a good starting point. Why? Well, the same candidates ran against each other in that election. Also, I suspect that US voters tend to behave similarly to how they behaved in the previous election, particularly when they are presented with similar options to those they chose between in that previous election.
+
+What proportion of US voters voted for President Biden in 2020? To answer this question, we will look at state-level returns for elections to the US presidency. These data are provided by the [MIT Election Data and Science Lab](https://electionlab.mit.edu/). I suspect that you will become very familiar with their excellent work over the course of this semester.
+
+::: callout-caution
+## Exercise
+
+Head over to the MIT Election Lab's [About](https://electionlab.mit.edu/about) and [Data](https://electionlab.mit.edu/data) pages to see what information you can access.
+:::
+
+To access, clean, and analyse these data, we are going to use a series of functions from the `tidyverse` R packages loaded in below:
+
+::: {.callout-tip collapse="true"}
+## Installing packages
+
+If you have not already done so, please install the following packages:
+
+```{r}
+#| eval: false
+
+install.packages(c("tidyverse", "here"))
+```
+
+Please remember that you only need to do this once (unless you want to update the package). Do not include this command in your [R script](https://r4ds.hadley.nz/workflow-scripts.html). Rather, run it in your console.
+:::
+
+```{r}
+library(tidyverse)
+```
+
+### Accessing previous election results
+
+We are going to download and use the MIT Election Lab's `U.S. President 1976-2020` dataset. You can find it on their [Data page](https://electionlab.mit.edu/data).
+
+The data are stored on the [Harvard Dataverse](https://dataverse.harvard.edu/). This is a data sharing platform used commonly by academics to share their data and other replication files. When you publish your research, you might provide your data and R scripts to the public using this platform.
+
+We are going to download the `1976-2020-president.tab` file from the [`U.S. President 1976-2020` page](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/42MVDX).
+
+::: callout-note
+You will need to provide your information to access the data. Please use your UMD credentials (instead of your personal ones).
+:::
+
+Once you have downloaded the `1976-2020-president.csv` file, you need to move it into your current [RProject folder](https://r4ds.had.co.nz/workflow-projects.html). I like to store raw data in a sub-folder called `data-raw` (I store cleaned data in a sub-folder called `data`), but you can place the file anywhere you like within this project.
+
+::: callout-note
+Manually downloading files can be tedious, especially when they are updated regularly. Happily, the [Harvard Dataverse has an API](https://guides.dataverse.org/en/latest/api/) that allows us to access its data sets programmatically. Working with APIs can be a little tricky, and require a few more R skills than you may currently have. We will learn how to work with this API in later weeks.
+:::
+
+### Importing data
+
+We now have access to the state-level returns for elections to the US presidency from 1976 to 2020. All we need to do is read them in!
+
+To do that, you are going to provide the file's location (as a [string](https://r4ds.had.co.nz/strings.html?q=string#strings)) as the first argument in the function `read_csv()`.
+
+#### Dynamic filepaths
+
+Your file will be stored somewhere on your local computer. This means that this file path is going to be different for each of us (and each computer!). For example, my version of `1976-2020-president.csv` is stored here:
+
+```{r}
+#| echo: false
+
+here::here("content", "data", "1976-2020-president.csv")
+```
+
+If I include that file path as the argument in `read_csv()` the code will run and I will have read the data set into my current R session. Happy days!
+
+However, when I share this code with you (or when I try to run it on a different computer) I will get an error! It will say:
+
+```{r}
+#| echo: false
+
+print("Error: '/Users/harrietgoers/Documents/GVPT622/content/data/1976-2020-president.csv' does not exist.")
+```
+
+That's because this file path is unique to my computer. That's a problem because I want my scripts to run on anyone's computer. Happily, we have a solution: `here::here()`!
+
+The `here()` function from the [`here` R package](https://here.r-lib.org/) places you within the top-level directory of your current project, no matter which computer you are working from. This makes for much more robust code.
+
+For example, I am currently working from my GVPT622 RProject (the project that stores all of the scripts that build this website!). From that top-level directory, I have stored `1976-2020-president.csv` in a sub-folder called `data`, which is located in a sub-folder called `content`. So, all I need to do is leave that trail of breadcrumbs for `here::here()` to follow:
+
+```{r}
+here::here("content", "data", "1976-2020-president.csv")
+```
+
+Now, if I sent you this RProject folder and you were to run this script, `here::here()` would change part of the file path unique to my computer (`/Users/harrietgoers/Documents/`) to reflect where you have stored this RProject on your computer. No more annoying errors! Yay!
+
+So, we are going to use this more robust file referencing process to tell `read_csv()` where our data are located:
+
+::: callout-tip
+Make sure to adjust your breadcrumbs to reflect your own folder structure.
+:::
+
+```{r}
+read_csv(here::here("content", "data", "1976-2020-president.csv"))
+```
+
+Brilliant! You just read into R your first file. But how do we use it?
+
+### Objects
+
+When we read a data set into our current R session, we want to assign it as an [object](https://r4ds.had.co.nz/workflow-basics.html?q=object#whats-in-a-name). We can then use and modify this object as we like.
+
+I am going to assign this data set to an object named `prev_state_lvl_results`:
+
+```{r}
+prev_state_lvl_results <- read_csv(here::here("content", "data", "1976-2020-president.csv"))
+```
+
+This means that I can now use the data set by simply running:
+
+```{r}
+prev_state_lvl_results
+```
+
+Let's take a look at that object. We get some pretty useful information from this print out. From it we learn that we have `r nrow(prev_state_lvl_results) |> scales::comma()` rows and `r ncol(prev_state_lvl_results)` columns of data. What does this mean?
+
+Well, this data set provides us with information for each election from 1976 to 2020. It provides the number of votes cast in each state for each presidential candidate in each of those races. Therefore, each row provides us with data for each candidate in each state and in each election. For example, the first row of our data set provides information on...
+
+```{r}
+slice(prev_state_lvl_results, 1)
+```
+
+Jimmy Carter in the 1976 Alabama race.
+
+::: callout-caution
+## Exercise
+
+Which race, state, and candidate does the 100th row refer to?
+:::
+
+::: {.callout-caution collapse="true"}
+## Answer
+
+```{r}
+slice(prev_state_lvl_results, 100)
+```
+
+Roger Macbride's race in Kansas in 1976.
+:::
+
+We refer to this as our **unit of observation**. More succinctly, I would say that our unit of observation is candidate-state-election year. We have information on `r nrow(prev_state_lvl_results) |> scales::comma()` different candidate-state-election years.
+
+How much information do we have on each of these candidate-state-election years? This data set includes `r ncol(prev_state_lvl_results)` **variables**. They include the election year (`year`), the candidate's name (`candidate`), their party (`party_detailed`), the number of votes they received in each state (`candidarevotes`), and the total number of votes cast in that state (`totalvotes`).
+
+You get a quick summary of these data using the function `glimpse()`:
+
+```{r}
+glimpse(prev_state_lvl_results)
+```
+
+### Types of data
+
+What are those three-letter abbreviations next to the column names? They are the data type. Data types really matter, particularly when running statistical analysis in R. Here we have three different types of data:
+
+```{r}
+#| echo: false
+
+tibble(
+  `Data type` = c("dbl", "chr", "lgl"),
+  `Description` = c("Double, or numbers with decimals (1.0, 33.5, 7.67)",
+                    'Character, or letters, words, sentences ("A", "cat", "5")',
+                    "Logical (TRUE, FALSE)")
+) |> 
+  knitr::kable()
+```
+
+In an effort not to be too boring, we will talk about data types as we walk through working with data (today and over the coming weeks). It is important to note now that each column can only contain one data type. For example, a column that contains doubles (or numbers) cannot also include characters (or words). This makes working with data a lot easier. Imagine trying to find the average of a column and including a character in that calculation!
+
+### What proportion of US voters voted for each candidate?
+
+We have data on the total number of people in each state who voted for each candidate and the total number of people who voted in each state. We want to find the proportion of US voters who voted for President Biden in the 2020 election. How do we get from here to there?
+
+Let's start by calculating the total number of US voters nationally who voted for each candidate in each election and the total number of people who voted in each election nationally. To do this, we need to aggregate from the state-level to the national-level.
+
+We are going to use [`group_by()`](https://dplyr.tidyverse.org/reference/group_by.html) to group our data together by candidate and election year. That will allow us to calculate the sum (using the aptly named `sum()` function) for each candidate in each election.
+
+Because we are aggregating our data, we use the `summarize()` (or `summarise()`, if you aren't American!) to return only one **observation** (or row) for each candidate in each election.
+
+::: callout-caution
+## Exercise
+
+What will be our new unit of observation?
+:::
+
+::: {.callout-caution collapse="true"}
+## Answer
+
+Candidate-election year.
+:::
+
+```{r}
+prev_nat_lvl_results <- prev_state_lvl_results |> 
+  # Divide the dataset up by election year and candidate
+  group_by(year, candidate) |> 
+  # Calculate the total number of voters who voted in each of these groups
+  summarise(nationalcandidatevotes = sum(candidatevotes), 
+            nationaltotalvotes = sum(totalvotes)) |> 
+  # Ungroup our data
+  ungroup()
+
+prev_nat_lvl_results
+```
+
+I have stored this new data set as an object called `prev_nat_lvl_results`. If you look over to your **environment** (in the box that is probably located in the top right hand corner of your RStudio), you should now see two objects: `prev_state_lvl_results` and `prev_nat_lvl_results`.
+
+You might have noticed that this new data set is smaller than the state-level one. This is good! We now have an aggregate count of the number of US voters across the US who voted for each candidate in each election.
+
+What do we find? The first row tells us that across the entire US, Thomas J. Anderson received only `r prev_nat_lvl_results |> slice(1) |> pull(nationalcandidatevotes) |> scales::comma()` votes in the 1976 US Presidential Election.
+
+Who received the most votes that year?
+
+```{r}
+prev_nat_lvl_results |> 
+  # Only include data from the 1976 election
+  filter(year == 1976) |> 
+  # Find the maximum number of votes cast for a candidate in that election
+  slice_max(nationalcandidatevotes)
+```
+
+Jimmy Carter, who received `r prev_nat_lvl_results |> filter(year == 1976) |> slice_max(nationalcandidatevotes) |> pull(nationalcandidatevotes) |> scales::comma()` votes.
+
+How did each candidate do in this election? We can easily answer this question by visualizing our data:
+
+```{r}
+prev_nat_lvl_results |> 
+  # Only include the 1976 Presidential Election
+  filter(year == 1976) |> 
+  # Plot votes cast by candidate
+  ggplot(aes(x = nationalcandidatevotes / 1e06, y = candidate)) + 
+  geom_col() + 
+  # Make the plot more readable
+  theme_minimal() + 
+  theme(plot.title.position = "plot",
+        plot.title = element_text(face = "bold")) +
+  # Include informative labels
+  labs(x = "Number of votes cast (millions)",
+       y = "Candidate",
+       title = "Total votes cast nationally for each candidate in the 1976 Presidential Election",
+       caption = "Source: MIT Election Lab (2023)")
+```
+
+`ggplot()` has (by default) ordered our y-axis by reverse alphabethical order. Let's use a more useful order: the number of votes cast for each candidate. Let's also get rid of those votes cast for no candidate (`NA`).
+
+```{r}
+prev_nat_lvl_results |> 
+  filter(year == 1976) |> 
+  drop_na(candidate) |> 
+  ggplot(aes(x = nationalcandidatevotes / 1e06, y = reorder(candidate, nationalcandidatevotes))) + 
+  geom_col() + 
+  theme_minimal() + 
+  theme(plot.title.position = "plot",
+        plot.title = element_text(face = "bold")) +
+  labs(x = "Number of votes cast (millions)",
+       y = "Candidate",
+       title = "Total votes cast nationally for each candidate in the 1976 Presidential Election",
+       caption = "Source: MIT Election Lab (2023)")
+```
+
+As expected, the Democratic and Republican candidates received the vast majority of votes cast. What proportion of votes did they receive?
+
+Let's go back to our full data set:
+
+```{r}
+prev_nat_lvl_results
+```
+
+You may have noticed that we have different numbers indicating the total number of votes cast nationally in each election (`nationaltotalvotes`). In 1976 alone we have `r prev_nat_lvl_results |> filter(year == 1976) |> distinct(nationaltotalvotes) |> nrow()` different answers ranging from `r prev_nat_lvl_results |> filter(year == 1976) |> slice_min(nationaltotalvotes) |> pull(nationaltotalvotes) |> scales::comma()` to `r prev_nat_lvl_results |> filter(year == 1976) |> slice_max(nationaltotalvotes) |> pull(nationaltotalvotes) |> unique() |> scales::comma()` to the question "how many people voted in this election nationally?". We should have one answer! What is going on?
+
+::: callout-caution
+## Exercise
+
+Before you read on, see if you can answer this question. Not everyone is an Americanist (or American), so I will give you some hints:
+
+-   Notice how the number recorded in that `nationaltotalvotes` column for the Democractic candidate (Jimmy Carter) and Republican candidate (Gerald Ford) are the same.
+
+-   Notice also that all other candidates have smaller numbers recorded in `nationaltotalvotes`.
+
+-   Finally, think back to the unit of observation with which we started: state-candidate-election year.
+:::
+
+Why do we get several different answers to the question "how many people voted in the national election?" when we calculate the sum total of people who voted in every state? Because not all candidates were included in all states' ballots. The independents and smaller party candidates did not run in several states. The only two candidates to run in all 50 states and DC were the Democratic and Republican ones.
+
+To double check this, we can count the number of states in which each candidate ran. We go back to our state-level results:
+
+```{r}
+prev_state_lvl_results |> 
+  filter(year == 1976) |>
+  distinct(candidate, state) |> 
+  group_by(candidate) |> 
+  count()
+```
+
+Or in visual form:
+
+```{r}
+prev_state_lvl_results |> 
+  filter(year == 1976) |> 
+  distinct(candidate, state) |> 
+  group_by(candidate) |> 
+  count() |> 
+  ggplot(aes(x = n, y = reorder(candidate, n))) + 
+  geom_col() + 
+  theme_minimal() + 
+  theme(plot.title.position = "plot",
+        plot.title = element_text(face = "bold")) + 
+  labs(x = "Number of states",
+       y = "Candidate",
+       title = "Number of states in which each candidate ran in the 1976 US Presidential Election")
+```
+
+So, when we sum together the total number of votes cast in each state in which each candidate ran, we get different answers depending on the number of states in which each candidate ran.
+
+The lesson here is that you need to really know your data and your subject matter. Your knowledge as a political scientist is so relevant to your empirical work.
+
+So, going forward, I am going to assume that the total number of votes cast in each election is reflected by the total number of votes cast in all of the states in which either the Republican or Democratic candidate ran. This is because I assume that these parties ran in every state in every election. Is this assumption valid? Let's use the data to find out!
+
+We know that there are 51 states or territories in which votes are cast for the US President. This number has not changed between 1976 and 2020. So, we need to confirm that both the Republican and Democractic candidates ran in 51 states and territories every election.
+
+```{r}
+prev_state_lvl_results |> 
+  # Only include the official D or R candidates
+  filter(party_simplified %in% c("DEMOCRAT", "REPUBLICAN")) |> 
+  distinct(year, state) |> 
+  count(year)
+```
+
+Yes! We know that the total number of votes cast in states and territories in which the Republican or Democrat ran represents the total number of votes cast nationally. They ran in every state or territory in which votes were cast for the US President in all elections between 1976 and 2020.
+
+Okay, let's get that national total for each election:
+
+```{r}
+national_total_votes <- prev_state_lvl_results |> 
+  # Only need one candidate's data 
+  filter(party_simplified == "DEMOCRAT") |>
+  # Calculate the national total for each election
+  group_by(year) |> 
+  summarise(nationaltotalvotes = sum(totalvotes))
+
+national_total_votes
+```
+
+Or visually:
+
+```{r}
+ggplot(national_total_votes, aes(x = year, y = nationaltotalvotes / 1e6)) + 
+  geom_line() + 
+  geom_point() + 
+  theme_minimal() + 
+  theme(plot.title.position = "plot",
+        plot.title = element_text(face = "bold")) + 
+  labs(x = "Year",
+       y = "Number of votes cast (millions)",
+       title = "Total number of votes cast in US Presidential Elections, 1976-2020",
+       caption = "Source: MIT Election Lab (2023)")
+```
+
+We can now update our national-level data to reflect the true total number of people who voted nationally:
+
+```{r}
+prev_nat_lvl_results <- prev_nat_lvl_results |> 
+  # Remove the inconsistent data
+  select(-nationaltotalvotes) |>
+  # Merge with the true national total
+  left_join(national_total_votes, by = join_by(year))
+
+prev_nat_lvl_results
+```
+
+That looks better!
+
+Now we have all of the information we need to calculate the proportion of US voters who voted for each candidate in each election:
+
+```{r}
+prev_nat_lvl_results <- mutate(prev_nat_lvl_results, 
+                               prop_votes = nationalcandidatevotes / nationaltotalvotes)
+
+prev_nat_lvl_results
+```
+
+And finally, we can answer our original question: what proportion of US voters voted for President Biden in the last US Presidential election?
+
+```{r}
+prev_nat_lvl_results |> 
+  filter(year == 2020, candidate == "BIDEN, JOSEPH R. JR")
+```
+
+So, at the end of this first week, my current best guess of the proportion of US voters who will vote for President Biden in the 2024 US Presidential election is `r prev_nat_lvl_results |> filter(year == 2020, candidate == "BIDEN, JOSEPH R. JR") |>  pull(prop_votes) |> round(3)`, or `r prev_nat_lvl_results |> filter(year == 2020, candidate == "BIDEN, JOSEPH R. JR") |>  pull(prop_votes) |> scales::percent(accuracy = 0.1)`. This is based on my assumption that last year's election is similar to this upcoming one because the same candidates are running against each other. I also assume that US voters behave similarly to the way they did in each previous election.
+
+Are you skeptical of my assumptions? Why? Do you think my logic is sound? If not, how could you improve it? What additional information would you need to provide a better guess? How will you use that additional information to inform your better guess?
+
+Welcome to your PhD in political science!

@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.3.450">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
-<title>GVPT622 - Applications &amp; Midterm Exam Review</title>
+<title>GVPT622 - Estimating Causal Effects with Randomized Experiments</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,8 +17,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
-
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
@@ -40,8 +70,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
-<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
-<script id="quarto-search-options" type="application/json">{
+<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -60,27 +89,18 @@ ul.task-list li input[type="checkbox"] {
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script>
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-WKJ9E8EHM1"></script>
-
-<script type="text/javascript">
+}</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-WKJ9E8EHM1"></script><script type="text/javascript">
 
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-WKJ9E8EHM1', { 'anonymize_ip': true});
-</script>
-
-
-<link rel="stylesheet" href="../html/custom.css">
+</script><link rel="stylesheet" href="../html/custom.css">
 </head>
-
 <body class="nav-sidebar docked nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
-      <div class="navbar-container container-fluid">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg navbar-dark "><div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">GVPT622</span>
@@ -92,7 +112,7 @@ gtag('config', 'G-WKJ9E8EHM1', { 'anonymize_ip': true});
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item">
+<li class="nav-item">
     <a class="nav-link" href="../index.html" rel="" target="">
  <span class="menu-text">Home</span></a>
   </li>  
@@ -101,29 +121,23 @@ gtag('config', 'G-WKJ9E8EHM1', { 'anonymize_ip': true});
  <span class="menu-text">Content</span></a>
   </li>  
 </ul>
-            <div class="quarto-navbar-tools">
+<div class="quarto-navbar-tools">
 </div>
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
-    </nav>
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
+    </nav><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/01-introduction.html">Course</a></li><li class="breadcrumb-item"><a href="../content/05-applications.html">Applications &amp; Midterm Exam Review</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Estimating Causal Effects with Randomized Experiments</li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
-    <div class="sidebar-menu-container"> 
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto"><div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item sidebar-item-section">
+<li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
  <span class="menu-text">Course</span></a>
@@ -131,8 +145,8 @@ gtag('config', 'G-WKJ9E8EHM1', { 'anonymize_ip': true});
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../content/01-introduction.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction</span></a>
@@ -152,7 +166,7 @@ gtag('config', 'G-WKJ9E8EHM1', { 'anonymize_ip': true});
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/05-applications.html" class="sidebar-item-text sidebar-link active">
+  <a href="../content/05-applications.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Applications &amp; Midterm Exam Review</span></a>
   </div>
 </li>
@@ -199,7 +213,7 @@ gtag('config', 'G-WKJ9E8EHM1', { 'anonymize_ip': true});
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
@@ -208,38 +222,30 @@ gtag('config', 'G-WKJ9E8EHM1', { 'anonymize_ip': true});
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../resources/quarto.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction to Quarto and markdown</span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
     </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+</div>
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#readings" id="toc-readings" class="nav-link active" data-scroll-target="#readings">Readings</a>
-  <ul>
-  <li><a href="#class" id="toc-class" class="nav-link" data-scroll-target="#class">Class</a></li>
-  </ul></li>
-  </ul>
-</nav>
+<li><a href="#set-up" id="toc-set-up" class="nav-link active" data-scroll-target="#set-up">Set up</a></li>
+  <li><a href="#increasing-voter-turnout" id="toc-increasing-voter-turnout" class="nav-link" data-scroll-target="#increasing-voter-turnout">Increasing voter turnout</a></li>
+  </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Applications &amp; Midterm Exam Review</h1>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title">Estimating Causal Effects with Randomized Experiments</h1>
 </div>
 
 
@@ -252,21 +258,63 @@ gtag('config', 'G-WKJ9E8EHM1', { 'anonymize_ip': true});
   </div>
   
 
-</header>
+</header><section id="set-up" class="level2"><h2 class="anchored" data-anchor-id="set-up">Set up</h2>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="increasing-voter-turnout" class="level2"><h2 class="anchored" data-anchor-id="increasing-voter-turnout">Increasing voter turnout</h2>
+<p>Imagine that you work for a not-for-profit that aims to increase voter turnout to US elections. You have a good idea: you think that sending out mailers to individuals that inform them of the location of their closest polling booth will increase the likelihood that they will go out and vote in the next election.</p>
+<p>Your manager pushes back: they want evidence that this mailer program will work before they distribute expensive pamphlets. What do you do?</p>
+<p>Your goal is to work out whether the mailer increases voter turnout in a given election. Ideally, you would be able to observe whether or not each individual voter turns out to vote after receiving the mailer <em>and</em> after not receiving the mailer. If you observed that a lot of people who, absent of receiving the mailer, would not vote, changed their behavior after receiving the mailer, then you have direct evidence that the mailer increased voter turnout. The only difference in this ideal world is the individual receiving the mailer.</p>
+<p>To illustrate, let’s imagine that there are 1,000 citizens within electorate A. You create two parallel electorate As. In the first, you do not distribute mailers to anyone. You then observe whether or not they go out to vote:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,000 × 2
+   citizen_id voted_no_mailer
+        &lt;int&gt;           &lt;int&gt;
+ 1          1               0
+ 2          2               1
+ 3          3               0
+ 4          4               1
+ 5          5               1
+ 6          6               0
+ 7          7               1
+ 8          8               0
+ 9          9               0
+10         10               0
+# ℹ 990 more rows</code></pre>
+</div>
+</div>
+<p>You observe a voter turnout rate of 28%.</p>
+<p>In the second parallel electorate A, you distribute mailers to everyone. You record whether or not they went out and voted:</p>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">electorate_a</span> <span class="op">&lt;-</span> <span class="va">electorate_a</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>voted_mailer <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">rbinom</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="fl">1</span>, prob <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">electorate_a</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,000 × 3
+   citizen_id voted_no_mailer voted_mailer
+        &lt;int&gt;           &lt;int&gt;        &lt;int&gt;
+ 1          1               0            0
+ 2          2               1            0
+ 3          3               0            0
+ 4          4               1            0
+ 5          5               1            1
+ 6          6               0            1
+ 7          7               1            1
+ 8          8               0            0
+ 9          9               0            1
+10         10               0            0
+# ℹ 990 more rows</code></pre>
+</div>
+</div>
+<p>In this version of electorate A, you observe a voter turnout rate of 50%.</p>
+<p>In this slightly sci-fi set-up, these are the same people going about the same lives. The only difference between these two parallel electorate As is the distribution of the mailer. That’s it! Therefore, this is direct evidence of the effect of the mailer on voter turnout. And it’s a big difference: the mailer directly increased voter turnout by 22%. You should definitely distribute those mailers!</p>
+<p>Sadly though, we are unable to produce two parellel universes in which to produce evidence of the effectiveness of the mailer campaign.</p>
 
-<section id="readings" class="level2">
-<h2 class="anchored" data-anchor-id="readings">Readings</h2>
-<section id="class" class="level3">
-<h3 class="anchored" data-anchor-id="class">Class</h3>
-<p><i class="fa-solid fa-graduation-cap" aria-label="graduation-cap"></i> Segal, Jeffrey A. &amp; Albert D. Cover. 1989. “Ideological Values and the Votes of U.S. Supreme Court Justices.” American Political Science Review 83(2): 557-565.</p>
-<p><i class="fa-solid fa-graduation-cap" aria-label="graduation-cap"></i> Sondheimer, Rachel Milstein &amp; Donald P. Green. 2010. “Using Experiments to Estimate the Effects of Education on Voter Turnout.” American Journal of Political Science 54(1): 174-189.</p>
 
-
-</section>
-</section>
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -500,16 +548,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
+<footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">Content <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> 2023 by <a href="https://www.harrietgoers.com">Harriet Goers</a> <br> All content licensed under a <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> <i class="fa-brands fa-creative-commons-by" aria-label="creative-commons-by"></i> <i class="fa-brands fa-creative-commons-nc" aria-label="creative-commons-nc"></i> <a href="https://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-Non Commercial 4.0 International license (CC BY-NC 4.0)</a></div>   
     <div class="nav-footer-center">
       &nbsp;
     </div>
-    <div class="nav-footer-right">Made with <i class="fa-brands fa-r-project" aria-label="r-project"></i> and <a href="https://quarto.org/">Quarto</a><br> <a href="https://www.andrewheiss.com/teaching/">Heavily inspired by course websites built by Dr Andrew Heiss</a></div>
+    <div class="nav-footer-right">Made with <i class="fa-brands fa-r-project" aria-label="r-project"></i> and <a href="https://quarto.org/">Quarto</a><br><a href="https://www.andrewheiss.com/teaching/">Heavily inspired by course websites built by Dr Andrew Heiss</a></div>
   </div>
 </footer>
-
 
 
 </body></html>
