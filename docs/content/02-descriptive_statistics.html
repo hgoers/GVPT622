@@ -294,7 +294,7 @@ gtag('config', 'G-WKJ9E8EHM1', { 'anonymize_ip': true});
   </ul>
 </li>
   <li><a href="#next-week" id="toc-next-week" class="nav-link" data-scroll-target="#next-week">Next week</a></li>
-  </ul></nav>
+  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/hgoers/GVPT622/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
@@ -947,16 +947,16 @@ range = min - max
 <pre><code># A tibble: 1,000,000 × 1
          x
      &lt;dbl&gt;
- 1  0.636 
- 2  0.869 
- 3  0.271 
- 4 -1.68  
- 5 -0.0813
- 6 -2.35  
- 7  1.51  
- 8  1.38  
- 9 -0.489 
-10 -0.758 
+ 1  1.06  
+ 2  2.05  
+ 3  2.81  
+ 4 -0.0280
+ 5  1.46  
+ 6 -0.555 
+ 7 -3.50  
+ 8  2.74  
+ 9 -1.21  
+10  2.29  
 # ℹ 999,990 more rows</code></pre>
 </div>
 </div>
@@ -966,16 +966,16 @@ range = min - max
 <pre><code># A tibble: 1,000,000 × 1
          x
      &lt;dbl&gt;
- 1  0.286 
- 2 -0.792 
- 3 -1.69  
- 4  1.26  
- 5  1.51  
- 6  0.293 
- 7 -1.87  
- 8 -0.0316
- 9 -0.591 
-10  0.844 
+ 1 -0.0482
+ 2  1.03  
+ 3 -0.234 
+ 4  0.444 
+ 5  1.37  
+ 6  2.26  
+ 7 -0.362 
+ 8  0.431 
+ 9  0.591 
+10  1.73  
 # ℹ 999,990 more rows</code></pre>
 </div>
 </div>
@@ -1028,18 +1028,18 @@ Tip
 <span><span class="va">wide_var_calc</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1,000,000 × 4
-         x    mean    diff  diff_2
-     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
- 1  0.636  0.00191  0.634  0.401  
- 2  0.869  0.00191  0.867  0.752  
- 3  0.271  0.00191  0.269  0.0722 
- 4 -1.68   0.00191 -1.68   2.83   
- 5 -0.0813 0.00191 -0.0832 0.00693
- 6 -2.35   0.00191 -2.36   5.55   
- 7  1.51   0.00191  1.51   2.28   
- 8  1.38   0.00191  1.37   1.89   
- 9 -0.489  0.00191 -0.491  0.241  
-10 -0.758  0.00191 -0.760  0.578  
+         x      mean    diff    diff_2
+     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;
+ 1  1.06   -0.000366  1.06    1.12    
+ 2  2.05   -0.000366  2.05    4.19    
+ 3  2.81   -0.000366  2.81    7.88    
+ 4 -0.0280 -0.000366 -0.0276  0.000762
+ 5  1.46   -0.000366  1.46    2.12    
+ 6 -0.555  -0.000366 -0.555   0.308   
+ 7 -3.50   -0.000366 -3.50   12.2     
+ 8  2.74   -0.000366  2.74    7.51    
+ 9 -1.21   -0.000366 -1.21    1.47    
+10  2.29   -0.000366  2.29    5.26    
 # ℹ 999,990 more rows</code></pre>
 </div>
 </div>
@@ -1049,7 +1049,7 @@ Tip
 <span></span>
 <span><span class="va">wide_var</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 4.002098</code></pre>
+<pre><code>[1] 3.990991</code></pre>
 </div>
 </div>
 <p>We can compare this to the variance for our narrower distribution.</p>
@@ -1065,7 +1065,7 @@ Tip
 <span></span>
 <span><span class="va">narrow_var</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.001091</code></pre>
+<pre><code>[1] 1.0006</code></pre>
 </div>
 </div>
 <p>It is, in fact, smaller!</p>
@@ -1074,14 +1074,14 @@ Tip
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">var</a></span><span class="op">(</span><span class="va">wide_dist</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         x
-x 4.002098</code></pre>
+x 3.990991</code></pre>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">var</a></span><span class="op">(</span><span class="va">narrow_dist</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>         x
-x 1.001091</code></pre>
+<pre><code>       x
+x 1.0006</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -1096,26 +1096,26 @@ x TRUE</code></pre>
 <div class="cell">
 <div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">wide_var</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 2.000525</code></pre>
+<pre><code>[1] 1.997747</code></pre>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">narrow_var</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.000545</code></pre>
+<pre><code>[1] 1.0003</code></pre>
 </div>
 </div>
 <p>You can get this directly using <code><a href="https://rdrr.io/r/stats/sd.html">sd()</a></code>:</p>
 <div class="cell">
 <div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">wide_dist</span><span class="op">$</span><span class="va">x</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 2.000525</code></pre>
+<pre><code>[1] 1.997747</code></pre>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">narrow_dist</span><span class="op">$</span><span class="va">x</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.000545</code></pre>
+<pre><code>[1] 1.0003</code></pre>
 </div>
 </div>
 </section></section></section><section id="next-week" class="level2"><h2 class="anchored" data-anchor-id="next-week">Next week</h2>

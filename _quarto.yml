@@ -5,6 +5,8 @@ project:
 website:
   title: "GVPT622"
   google-analytics: "G-WKJ9E8EHM1"
+  repo-url: https://github.com/hgoers/GVPT622
+  repo-actions: [issue]
 
   favicon: "/files/img/hex-testudo.png"
 
