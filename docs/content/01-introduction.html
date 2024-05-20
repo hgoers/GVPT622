@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.553">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>GVPT622 - Introduction</title>
 <style>
@@ -19,7 +19,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -76,7 +76,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -85,6 +91,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -100,8 +107,8 @@ gtag('config', 'G-WKJ9E8EHM1', { 'anonymize_ip': true});
 <body class="nav-sidebar docked nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg navbar-dark "><div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">GVPT622</span>
     </a>
@@ -113,29 +120,29 @@ gtag('config', 'G-WKJ9E8EHM1', { 'anonymize_ip': true});
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
 <li class="nav-item">
-    <a class="nav-link" href="../index.html" rel="" target="">
- <span class="menu-text">Home</span></a>
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../content/01-introduction.html" rel="" target="" aria-current="page">
- <span class="menu-text">Content</span></a>
+    <a class="nav-link active" href="../content/01-introduction.html" aria-current="page"> 
+<span class="menu-text">Content</span></a>
   </li>  
 </ul>
-<div class="quarto-navbar-tools">
+</div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
 </div>
-          </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/01-introduction.html">Course</a></li><li class="breadcrumb-item"><a href="../content/01-introduction.html">Introduction</a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/01-introduction.html">Course</a></li><li class="breadcrumb-item"><a href="../content/01-introduction.html">Introduction</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
     </div>
   </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto"><div class="sidebar-menu-container"> 
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto"><div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
 <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
@@ -156,6 +163,15 @@ gtag('config', 'G-WKJ9E8EHM1', { 'anonymize_ip': true});
   <div class="sidebar-item-container"> 
   <a href="../content/02-descriptive_statistics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Descriptive Statistics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+ <span class="menu-text">content/03-surveys.qmd</span>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/03-bivariate_relationships.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Relationships Between Two Variables</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -233,7 +249,7 @@ gtag('config', 'G-WKJ9E8EHM1', { 'anonymize_ip': true});
 </li>
     </ul>
 </div>
-</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
@@ -255,10 +271,10 @@ gtag('config', 'G-WKJ9E8EHM1', { 'anonymize_ip': true});
   <li><a href="#what-proportion-of-us-voters-voted-for-each-candidate" id="toc-what-proportion-of-us-voters-voted-for-each-candidate" class="nav-link" data-scroll-target="#what-proportion-of-us-voters-voted-for-each-candidate">What proportion of US voters voted for each candidate?</a></li>
   </ul>
 </li>
-  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/hgoers/GVPT622/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/hgoers/GVPT622/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/01-introduction.html">Course</a></li><li class="breadcrumb-item"><a href="../content/01-introduction.html">Introduction</a></li></ol></nav><div class="quarto-title">
 <h1 class="title">Introduction</h1>
 </div>
 
@@ -272,16 +288,21 @@ gtag('config', 'G-WKJ9E8EHM1', { 'anonymize_ip': true});
   </div>
   
 
-</header><p>Welcome to GVPT622! This semester you will be introduced to the statistical concepts you will need as you progress through you PhD in Political Science and beyond. These concepts will be introduced to you in an accessible way. We will also illustrate how they work using real-world political science examples. You are encouraged to ask as many questions as you have, and to work with each other to learn and apply these new skills.</p>
+
+</header><p>Welcome to GVPT622! This semester you will be introduced to the statistical concepts you will need as you progress through you PhD in Political Science and beyond. We will illustrate how they work using real-world political science examples. You are encouraged to ask as many questions as you have, and to work with each other to learn and apply these new skills.</p>
 <section id="predicting-the-outcome-of-the-2024-us-presidential-election" class="level2"><h2 class="anchored" data-anchor-id="predicting-the-outcome-of-the-2024-us-presidential-election">Predicting the outcome of the 2024 US Presidential election</h2>
-<p>As part of your work in this lab, each of you will attempt to predict the outcome of the 2024 US Presidential election. Specifically, you are going to provide your best guess of the proportion of US voters who will cast their vote for President Biden.</p>
-<p>You can use whatever information you like to inform your prediction. You will each come up with your own best guess informed by your own model, but you can - of course - collaborate with your colleagues when generating ideas as to what to include.</p>
-<p>You will present your best guess to the class and me ahead of the election. The student whose guess is closest to the true proportion of US voters who cast their vote for President Biden will receive a special prize.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
-<p>As we work through this semester’s content, you will have the opportunity to use your new statistics and data analysis knowledge to improve your guess. I will playing along too, demonstrating how I would use these concepts and R to answer this question.</p>
-<p>Let’s get started!</p>
+<p>In November, the US voting public will cast their vote for the next US President. Who do you think will receive the most votes? What information did you use to make this guess?</p>
+<p>I guess that President Biden will receive the most votes across the US. Why?</p>
+<ol type="1">
+<li><p>I assume that an individual’s demographics (their gender, level of education, income, county of residence, etc.) are good predictors of their vote in US Presidential elections.</p></li>
+<li><p>I assume that the factors connecting demographics to an individual’s political preferences have not changed in the intervening years between the last election and this one.</p></li>
+<li><p>I assume that individuals view their choice for President identically to how they viewed this choice at the last election. This is because the two major parties are fielding the same candidate they did in this previous election.</p></li>
+<li><p>I assume that the US voting public looks similar to how it did during the last election.</p></li>
+<li><p>Therefore, I predict that the distribution of votes will be identical to last election’s results; President Biden will once again receive the greatest number of votes.</p></li>
+</ol>
+<p>There are some pretty wild assumptions undergirding my prediction. Setting any issues you have with those assumptions aside, let’s check one of my factual statements: President Biden won the majority of the votes cast in the last US Presidential Election.</p>
 <section id="what-happened-last-time" class="level3"><h3 class="anchored" data-anchor-id="what-happened-last-time">What happened last time?</h3>
-<p>To get you started, I suggest that we take a look at the proportion of US voters who voted for President Biden last election. This seems like a good starting point. Why? Well, the same candidates ran against each other in that election. Also, I suspect that US voters tend to behave similarly to how they behaved in the previous election, particularly when they are presented with similar options to those they chose between in that previous election.</p>
-<p>What proportion of US voters voted for President Biden in 2020? To answer this question, we will look at state-level returns for elections to the US presidency. These data are provided by the <a href="https://electionlab.mit.edu/">MIT Election Data and Science Lab</a>. I suspect that you will become very familiar with their excellent work over the course of this semester.</p>
+<p>What proportion of US voters voted for President Biden in 2020? To answer this question, we will look at state-level returns for elections for the US presidency. These data are provided by the <a href="https://electionlab.mit.edu/">MIT Election Data and Science Lab</a>.</p>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -649,7 +670,10 @@ Answer
 <span>       title <span class="op">=</span> <span class="st">"Total votes cast nationally for each candidate in the 1976 Presidential Election"</span>,</span>
 <span>       caption <span class="op">=</span> <span class="st">"Source: MIT Election Lab (2023)"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="01-introduction_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="960"></p>
+<div>
+<figure class="figure"><p><img src="01-introduction_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
 </div>
 </div>
 <p><code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> has (by default) ordered our y-axis by reverse alphabethical order. Let’s use a more useful order: the number of votes cast for each candidate. Let’s also get rid of those votes cast for no candidate (<code>NA</code>).</p>
@@ -667,7 +691,10 @@ Answer
 <span>       title <span class="op">=</span> <span class="st">"Total votes cast nationally for each candidate in the 1976 Presidential Election"</span>,</span>
 <span>       caption <span class="op">=</span> <span class="st">"Source: MIT Election Lab (2023)"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="01-introduction_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="960"></p>
+<div>
+<figure class="figure"><p><img src="01-introduction_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>As expected, the Democratic and Republican candidates received the vast majority of votes cast. What proportion of votes did they receive?</p>
@@ -757,7 +784,10 @@ Exercise
 <span>       y <span class="op">=</span> <span class="st">"Candidate"</span>,</span>
 <span>       title <span class="op">=</span> <span class="st">"Number of states in which each candidate ran in the 1976 US Presidential Election"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="01-introduction_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="960"></p>
+<div>
+<figure class="figure"><p><img src="01-introduction_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>So, when we sum together the total number of votes cast in each state in which each candidate ran, we get different answers depending on the number of states in which each candidate ran.</p>
@@ -830,7 +860,10 @@ Exercise
 <span>       title <span class="op">=</span> <span class="st">"Total number of votes cast in US Presidential Elections, 1976-2020"</span>,</span>
 <span>       caption <span class="op">=</span> <span class="st">"Source: MIT Election Lab (2023)"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="01-introduction_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="960"></p>
+<div>
+<figure class="figure"><p><img src="01-introduction_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>We can now update our national-level data to reflect the true total number of people who voted nationally:</p>
@@ -894,15 +927,12 @@ Exercise
 1  2020 BIDEN, JOSEPH R. JR               81268908          158528503      0.513</code></pre>
 </div>
 </div>
-<p>So, at the end of this first week, my current best guess of the proportion of US voters who will vote for President Biden in the 2024 US Presidential election is 0.513, or 51.3%. This is based on my assumption that last year’s election is similar to this upcoming one because the same candidates are running against each other. I also assume that US voters behave similarly to the way they did in each previous election.</p>
+<p>So, following my logic set up above, my best guess of the proportion of US voters who will vote for President Biden in the 2024 US Presidential election is 0.513, or 51.3%. This is based on my assumption that last year’s election is similar to this upcoming one because the same candidates are running against each other. I also assume that US voters behave similarly to the way they did in each previous election.</p>
 <p>Are you skeptical of my assumptions? Why? Do you think my logic is sound? If not, how could you improve it? What additional information would you need to provide a better guess? How will you use that additional information to inform your better guess?</p>
 <p>Welcome to your PhD in political science!</p>
 
 
-</section></section><div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
-<ol>
-<li id="fn1"><p>This will probably be a chocolate bar. Please don’t get your hopes too high!<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol></section></div></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -981,10 +1011,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -994,8 +1041,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1007,7 +1063,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1051,6 +1230,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1076,6 +1256,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1137,11 +1343,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
-    <div class="nav-footer-left">Content <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> 2023 by <a href="https://www.harrietgoers.com">Harriet Goers</a> <br> All content licensed under a <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> <i class="fa-brands fa-creative-commons-by" aria-label="creative-commons-by"></i> <i class="fa-brands fa-creative-commons-nc" aria-label="creative-commons-nc"></i> <a href="https://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-Non Commercial 4.0 International license (CC BY-NC 4.0)</a></div>   
+    <div class="nav-footer-left">
+<p>Content <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> 2023 by <a href="https://www.harrietgoers.com">Harriet Goers</a> <br> All content licensed under a <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> <i class="fa-brands fa-creative-commons-by" aria-label="creative-commons-by"></i> <i class="fa-brands fa-creative-commons-nc" aria-label="creative-commons-nc"></i> <a href="https://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-Non Commercial 4.0 International license (CC BY-NC 4.0)</a></p>
+</div>   
     <div class="nav-footer-center">
       &nbsp;
-    </div>
-    <div class="nav-footer-right">Made with <i class="fa-brands fa-r-project" aria-label="r-project"></i> and <a href="https://quarto.org/">Quarto</a><br><a href="https://www.andrewheiss.com/teaching/">Heavily inspired by course websites built by Dr Andrew Heiss</a></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/hgoers/GVPT622/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>Made with <i class="fa-brands fa-r-project" aria-label="r-project"></i> and <a href="https://quarto.org/">Quarto</a><br><a href="https://www.andrewheiss.com/teaching/">Heavily inspired by course websites built by Dr Andrew Heiss</a></p>
+</div>
   </div>
 </footer>
 

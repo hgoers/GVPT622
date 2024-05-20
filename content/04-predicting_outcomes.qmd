@@ -1,0 +1,38 @@
+---
+title: "Predicting Outcomes Using Linear Regression"
+format:
+  html:
+    code-link: true
+toc-depth: 4
+execute: 
+  warning: false
+  message: false
+  echo: true
+  fig-width: 10
+---
+
+```{r}
+library(tidyverse)
+library(poliscidata)
+```
+
+```{r}
+ggplot(states, aes(x = ba_or_more / 100, y = vep12_turnout / 100)) + 
+  geom_point() + 
+  theme_minimal() + 
+  labs(x = "Percent of population with at least a Bachelors degree",
+       y = "Voter turnout rate") + 
+  scale_x_continuous(labels = scales::percent) + 
+  scale_y_continuous(labels = scales::percent)
+```
+
+```{r}
+ggplot(states, aes(x = ba_or_more / 100, y = vep12_turnout / 100)) + 
+  geom_point() + 
+  geom_smooth(method = "lm", se = F) + 
+  theme_minimal() + 
+  labs(x = "Percent of population with at least a Bachelors degree",
+       y = "Voter turnout rate") + 
+  scale_x_continuous(labels = scales::percent) + 
+  scale_y_continuous(labels = scales::percent)
+```

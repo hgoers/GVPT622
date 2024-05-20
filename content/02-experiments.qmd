@@ -17,38 +17,3 @@ execute:
 library(tidyverse)
 ```
 
-## Increasing voter turnout
-
-Imagine that you work for a not-for-profit that aims to increase voter turnout to US elections. You have a good idea: you think that sending out mailers to individuals that inform them of the location of their closest polling booth will increase the likelihood that they will go out and vote in the next election.
-
-Your manager pushes back: they want evidence that this mailer program will work before they distribute expensive pamphlets. What do you do?
-
-Your goal is to work out whether the mailer increases voter turnout in a given election. Ideally, you would be able to observe whether or not each individual voter turns out to vote after receiving the mailer *and* after not receiving the mailer. If you observed that a lot of people who, absent of receiving the mailer, would not vote, changed their behavior after receiving the mailer, then you have direct evidence that the mailer increased voter turnout. The only difference in this ideal world is the individual receiving the mailer.
-
-To illustrate, let's imagine that there are 1,000 citizens within electorate A. You create two parallel electorate As. In the first, you do not distribute mailers to anyone. You then observe whether or not they go out to vote: 
-
-```{r}
-#| echo: false
-
-electorate_a <- tibble(citizen_id = 1:1000,
-                       voted_no_mailer = rbinom(1000, 1, prob = 0.25))
-
-electorate_a
-```
-
-You observe a voter turnout rate of `r electorate_a |> janitor::tabyl(voted_no_mailer) |> filter(voted_no_mailer == 1) |> pull(percent) |> scales::percent()`. 
-
-In the second parallel electorate A, you distribute mailers to everyone. You record whether or not they went out and voted: 
-
-```{r}
-electorate_a <- electorate_a |> 
-  mutate(voted_mailer = rbinom(1000, 1, prob = 0.5))
-
-electorate_a
-```
-
-In this version of electorate A, you observe a voter turnout rate of `r electorate_a |> janitor::tabyl(voted_mailer) |> filter(voted_mailer == 1) |> pull(percent) |> scales::percent()`. 
-
-In this slightly sci-fi set-up, these are the same people going about the same lives. The only difference between these two parallel electorate As is the distribution of the mailer. That's it! Therefore, this is direct evidence of the effect of the mailer on voter turnout. And it's a big difference: the mailer directly increased voter turnout by `r scales::percent(electorate_a |> janitor::tabyl(voted_mailer) |> filter(voted_mailer == 1) |> pull(percent) - electorate_a |> janitor::tabyl(voted_no_mailer) |> filter(voted_no_mailer == 1) |> pull(percent))`. You should definitely distribute those mailers!
-
-Sadly though, we are unable to produce two parellel universes in which to produce evidence of the effectiveness of the mailer campaign.

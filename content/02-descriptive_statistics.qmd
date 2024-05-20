@@ -20,7 +20,11 @@ library(scales)
 library(patchwork)
 ```
 
-You will need access to the following R packages to complete this week's activities. If you have not already done so, please install or update them by running the following:
+You will need access to the following R packages to complete this week's activities:
+
+::: {.callout-tip collapse="true"}
+## Installing packages
+If you have not already done so, please install or update them by running the following:
 
 ```{r}
 #| eval: false
@@ -33,7 +37,7 @@ install.packages(c("tidyverse",
                    "countrycode"))
 ```
 
-You will then need to load them into your current session:
+:::
 
 ```{r}
 library(tidyverse)

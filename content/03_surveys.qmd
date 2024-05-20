@@ -1,0 +1,13 @@
+---
+title: "Inferring Population Characteristics via Survey Research"
+format:
+  html:
+    code-link: true
+toc-depth: 4
+execute: 
+  warning: false
+  message: false
+  echo: true
+  fig-width: 10
+---
+

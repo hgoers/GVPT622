@@ -11,27 +11,29 @@ execute:
   fig-width: 10
 ---
 
-Welcome to GVPT622! This semester you will be introduced to the statistical concepts you will need as you progress through you PhD in Political Science and beyond. These concepts will be introduced to you in an accessible way. We will also illustrate how they work using real-world political science examples. You are encouraged to ask as many questions as you have, and to work with each other to learn and apply these new skills.  
+Welcome to GVPT622! This semester you will be introduced to the statistical concepts you will need as you progress through you PhD in Political Science and beyond. We will illustrate how they work using real-world political science examples. You are encouraged to ask as many questions as you have, and to work with each other to learn and apply these new skills.  
 
 ## Predicting the outcome of the 2024 US Presidential election
 
-As part of your work in this lab, each of you will attempt to predict the outcome of the 2024 US Presidential election. Specifically, you are going to provide your best guess of the proportion of US voters who will cast their vote for President Biden.
+In November, the US voting public will cast their vote for the next US President. Who do you think will receive the most votes? What information did you use to make this guess? 
 
-You can use whatever information you like to inform your prediction. You will each come up with your own best guess informed by your own model, but you can - of course - collaborate with your colleagues when generating ideas as to what to include.
+I guess that President Biden will receive the most votes across the US. Why? 
 
-You will present your best guess to the class and me ahead of the election. The student whose guess is closest to the true proportion of US voters who cast their vote for President Biden will receive a special prize.[^1]
+1.    I assume that an individual's demographics (their gender, level of education, income, county of residence, etc.) are good predictors of their vote in US Presidential elections.
 
-[^1]: This will probably be a chocolate bar. Please don't get your hopes too high!
+2.    I assume that the factors connecting demographics to an individual's political preferences have not changed in the intervening years between the last election and this one. 
 
-As we work through this semester's content, you will have the opportunity to use your new statistics and data analysis knowledge to improve your guess. I will playing along too, demonstrating how I would use these concepts and R to answer this question.
+3.    I assume that individuals view their choice for President identically to how they viewed this choice at the last election. This is because the two major parties are fielding the same candidate they did in this previous election. 
 
-Let's get started!
+4.    I assume that the US voting public looks similar to how it did during the last election. 
+
+5.    Therefore, I predict that the distribution of votes will be identical to last election's results; President Biden will once again receive the greatest number of votes. 
+
+There are some pretty wild assumptions undergirding my prediction. Setting any issues you have with those assumptions aside, let's check one of my factual statements: President Biden won the majority of the votes cast in the last US Presidential Election. 
 
 ### What happened last time?
 
-To get you started, I suggest that we take a look at the proportion of US voters who voted for President Biden last election. This seems like a good starting point. Why? Well, the same candidates ran against each other in that election. Also, I suspect that US voters tend to behave similarly to how they behaved in the previous election, particularly when they are presented with similar options to those they chose between in that previous election.
-
-What proportion of US voters voted for President Biden in 2020? To answer this question, we will look at state-level returns for elections to the US presidency. These data are provided by the [MIT Election Data and Science Lab](https://electionlab.mit.edu/). I suspect that you will become very familiar with their excellent work over the course of this semester.
+What proportion of US voters voted for President Biden in 2020? To answer this question, we will look at state-level returns for elections for the US presidency. These data are provided by the [MIT Election Data and Science Lab](https://electionlab.mit.edu/). 
 
 ::: callout-caution
 ## Exercise
@@ -415,7 +417,7 @@ prev_nat_lvl_results |>
   filter(year == 2020, candidate == "BIDEN, JOSEPH R. JR")
 ```
 
-So, at the end of this first week, my current best guess of the proportion of US voters who will vote for President Biden in the 2024 US Presidential election is `r prev_nat_lvl_results |> filter(year == 2020, candidate == "BIDEN, JOSEPH R. JR") |>  pull(prop_votes) |> round(3)`, or `r prev_nat_lvl_results |> filter(year == 2020, candidate == "BIDEN, JOSEPH R. JR") |>  pull(prop_votes) |> scales::percent(accuracy = 0.1)`. This is based on my assumption that last year's election is similar to this upcoming one because the same candidates are running against each other. I also assume that US voters behave similarly to the way they did in each previous election.
+So, following my logic set up above, my best guess of the proportion of US voters who will vote for President Biden in the 2024 US Presidential election is `r prev_nat_lvl_results |> filter(year == 2020, candidate == "BIDEN, JOSEPH R. JR") |>  pull(prop_votes) |> round(3)`, or `r prev_nat_lvl_results |> filter(year == 2020, candidate == "BIDEN, JOSEPH R. JR") |>  pull(prop_votes) |> scales::percent(accuracy = 0.1)`. This is based on my assumption that last year's election is similar to this upcoming one because the same candidates are running against each other. I also assume that US voters behave similarly to the way they did in each previous election.
 
 Are you skeptical of my assumptions? Why? Do you think my logic is sound? If not, how could you improve it? What additional information would you need to provide a better guess? How will you use that additional information to inform your better guess?
 
