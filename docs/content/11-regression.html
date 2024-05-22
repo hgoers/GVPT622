@@ -212,6 +212,12 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../content/01-predicting_outcomes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Predicting outcomes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../content/02-descriptive_statistics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Descriptive Statistics</span></a>
   </div>
@@ -533,7 +539,7 @@ Note
    player.player.player.givenName player.player.player.surname dreamTeamPoints
    &lt;chr&gt;                          &lt;chr&gt;                                  &lt;dbl&gt;
  1 Simone                         Nalder                                    21
- 2 Emelia                         Yassir                                    20
+ 2 Jemima                         Woods                                     24
  3 Ashleigh                       Saint                                     76
  4 Chloe                          Dalton                                    44
  5 Renee                          Garing                                    92
@@ -541,7 +547,7 @@ Note
  7 Jasmin                         Stewart                                   43
  8 Sophie                         Conway                                    68
  9 Hannah                         Ewings                                    22
-10 Courtney                       Jones                                     43
+10 Sarah                          Hosking                                   61
 # ℹ 240 more rows
 # ℹ 1 more variable: disposalEfficiency &lt;dbl&gt;</code></pre>
 </div>
@@ -554,8 +560,8 @@ Note
 <pre><code># A tibble: 2 × 5
   term               estimate std.error statistic  p.value
   &lt;chr&gt;                 &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-1 (Intercept)          36.8      5.20        7.07 1.54e-11
-2 disposalEfficiency    0.215    0.0810      2.65 8.47e- 3</code></pre>
+1 (Intercept)          36.2      5.11        7.08 1.44e-11
+2 disposalEfficiency    0.210    0.0795      2.64 8.94e- 3</code></pre>
 </div>
 </div>
 <p>Okay, so we got a different intercept and coefficient estimates than we got above. This is despite the fact that I took a pure random sample from the full set of players. The only thing driving this difference is random chance.</p>
@@ -577,7 +583,7 @@ Note
  3 Cambridge                      McCormick                                 48
  4 Rachelle                       Martin                                    74
  5 Madison                        Newman                                    94
- 6 Courtney                       Jones                                     43
+ 6 Sarah                          Hosking                                   61
  7 Mackenzie                      Webb                                      30
  8 Jessica                        Low                                       36
  9 Erin                           Phillips                                  76
@@ -594,8 +600,8 @@ Note
 <pre><code># A tibble: 2 × 5
   term               estimate std.error statistic  p.value
   &lt;chr&gt;                 &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-1 (Intercept)          41.3      5.32        7.75 2.31e-13
-2 disposalEfficiency    0.165    0.0827      2.00 4.71e- 2</code></pre>
+1 (Intercept)          41.7      5.29        7.88 1.03e-13
+2 disposalEfficiency    0.160    0.0821      1.95 5.29e- 2</code></pre>
 </div>
 </div>
 <p>Again, we got a different set of coefficients. This is only the result of random chance.</p>
@@ -634,8 +640,8 @@ Note
 <pre><code># A tibble: 2 × 5
   term               estimate std.error statistic  p.value
   &lt;chr&gt;                 &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-1 (Intercept)          42.3      5.40        7.84 1.35e-13
-2 disposalEfficiency    0.126    0.0838      1.50 1.34e- 1</code></pre>
+1 (Intercept)         44.2       5.48        8.07 3.13e-14
+2 disposalEfficiency   0.0996    0.0850      1.17 2.43e- 1</code></pre>
 </div>
 </div>
 <p>We can see these differences:</p>
@@ -685,16 +691,16 @@ Note
 <pre><code># A tibble: 2,000 × 6
    round term               estimate std.error statistic  p.value
    &lt;int&gt; &lt;chr&gt;                 &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
- 1     1 (Intercept)         39.1       5.25       7.45  1.51e-12
- 2     1 disposalEfficiency   0.172     0.0811     2.12  3.54e- 2
- 3     2 (Intercept)         45.6       5.74       7.94  6.85e-14
- 4     2 disposalEfficiency   0.0719    0.0871     0.826 4.10e- 1
- 5     3 (Intercept)         43.9       5.90       7.44  1.68e-12
- 6     3 disposalEfficiency   0.110     0.0912     1.21  2.28e- 1
- 7     4 (Intercept)         37.8       5.35       7.08  1.51e-11
- 8     4 disposalEfficiency   0.190     0.0829     2.29  2.29e- 2
- 9     5 (Intercept)         42.2       5.69       7.43  1.80e-12
-10     5 disposalEfficiency   0.140     0.0884     1.58  1.16e- 1
+ 1     1 (Intercept)         39.9       5.28       7.55  8.25e-13
+ 2     1 disposalEfficiency   0.148     0.0814     1.82  7.05e- 2
+ 3     2 (Intercept)         46.0       5.66       8.12  2.26e-14
+ 4     2 disposalEfficiency   0.0636    0.0859     0.740 4.60e- 1
+ 5     3 (Intercept)         45.9       5.94       7.72  2.80e-13
+ 6     3 disposalEfficiency   0.0815    0.0916     0.889 3.75e- 1
+ 7     4 (Intercept)         38.9       5.29       7.36  2.73e-12
+ 8     4 disposalEfficiency   0.168     0.0821     2.05  4.13e- 2
+ 9     5 (Intercept)         41.1       5.74       7.16  9.09e-12
+10     5 disposalEfficiency   0.160     0.0895     1.79  7.51e- 2
 # ℹ 1,990 more rows</code></pre>
 </div>
 </div>

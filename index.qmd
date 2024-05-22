@@ -19,13 +19,13 @@ course-logo: /files/img/hex-testudo.png
 ### Professor
 
 -   {{< fa user >}}   [{{< var professor.name >}}]({{< var instructor.url >}})
--   {{< fa envelope >}}   <a href="mailto:{{< var professor.email >}}">{{< var professor.email >}}</a>
+-   {{< fa envelope >}}   `{{< var professor.email >}}`{=html}
 
 ### Teaching Assistant
 
 -   {{< fa user >}}   [{{< var instructor.name >}}]({{< var instructor.url >}})
 -   {{< fa university >}}   {{< var instructor.office >}}
--   {{< fa envelope >}}   <a href="mailto:{{< var instructor.email >}}">{{< var instructor.email >}}</a>
+-   {{< fa envelope >}}   `{{< var instructor.email >}}`{=html}
 -   {{< fa brands github >}}   [{{< var instructor.github >}}](https://github.com/hgoers)
 :::
 
