@@ -17,20 +17,20 @@ instructor:
 
 course:
   number: "GVPT622"
-  semester: "Fall 2023"
-  time: "Monday, 12:30 - 3:15 PM"
-  location: "Tydings Building, Room 1111"
-  dates: "August 28 - 11 December"
+  semester: "Fall 2024"
+  time: "Thursday, 2:00pm - 4:45pm"
+  location: "TYD1111"
+  dates: "August 26 - 11 December"
   github: "https://github.com/hgoers/GVPT622"
   url: "https://evalsp23.classes.andrewheiss.com"
-  copyright_year: "2023"
+  copyright_year: "2024"
   
 lab:
-  time: "Friday, 3:00 - 5:00 PM"
+  time: "Friday, 10:00am - 12:00pm"
   location: "TYD1111"
 
 office:
-  time: "Wednesday, 10:00 - 11:00 AM"
+  time: "Tuesday, 11:00am - 12:00pm"
   location: "Zoom"
 
 university:

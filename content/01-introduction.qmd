@@ -12,7 +12,7 @@ execute:
 bibliography: references.bib
 ---
 
-Welcome to GVPT622! This semester, we will introduce you to the statistical concepts you will need to provide compelling empirical evidence of your theories and to engage critically with the evidence provided by others in support of their arguments. We will illustrate how these concepts work using real-world examples. You are encouraged to ask as many questions as you have, and to work with each other to learn and apply these new skills.
+Welcome to GVPT622! This semester, we will introduce you to the statistical concepts you need to provide compelling empirical evidence of your theories and to engage critically with the evidence provided by others in support of their arguments. We will illustrate how these concepts work using real-world examples. You are encouraged to ask as many questions as you have, and to work with each other to learn and apply these new skills.
 
 During the weekly lectures, you will be introduced to statistical concepts and proofs. You will then apply these new-found skills during our weekly lab sessions. These sessions will focus on two outcomes:
 

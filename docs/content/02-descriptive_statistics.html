@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.553">
+<meta name="generator" content="quarto-1.3.450">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>GVPT622 - Descriptive Statistics</title>
 <style>
@@ -19,7 +19,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -76,13 +76,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 50,
-  "keyboard-shortcut": [
-    "f",
-    "/",
-    "s"
-  ],
-  "show-item-context": false,
+  "limit": 20,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -91,7 +85,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
-    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -102,38 +95,13 @@ window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-WKJ9E8EHM1', { 'anonymize_ip': true});
-</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script><link rel="stylesheet" href="../html/custom.css">
+</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><link rel="stylesheet" href="../html/custom.css">
 </head>
 <body class="nav-sidebar docked nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
-      <div class="navbar-brand-container mx-auto">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg navbar-dark "><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">GVPT622</span>
     </a>
@@ -145,29 +113,29 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
 <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
-<span class="menu-text">Home</span></a>
+    <a class="nav-link" href="../index.html" rel="" target="">
+ <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../content/01-introduction.html" aria-current="page"> 
-<span class="menu-text">Content</span></a>
+    <a class="nav-link active" href="../content/01-introduction.html" rel="" target="" aria-current="page">
+ <span class="menu-text">Content</span></a>
   </li>  
 </ul>
-</div> <!-- /navcollapse -->
-          <div class="quarto-navbar-tools">
+<div class="quarto-navbar-tools">
 </div>
+          </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/01-introduction.html">Course</a></li><li class="breadcrumb-item"><a href="../content/02-descriptive_statistics.html">Descriptive Statistics</a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Descriptive Statistics</li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
     </div>
   </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto"><div class="sidebar-menu-container"> 
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto"><div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
 <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
@@ -182,87 +150,6 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="../content/01-introduction.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/01-predicting_outcomes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Predicting outcomes</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/02-descriptive_statistics.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Descriptive Statistics</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/02-experiments.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Estimating Causal Effects with Randomized Experiments</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
- <span class="menu-text">content/03-surveys.qmd</span>
-  </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/03-bivariate_relationships.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Relationships Between Two Variables</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/04-research_design.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Research Design</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/05-applications.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Applications &amp; Midterm Exam Review</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/06-probability_theory.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Probability Theory</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/07-statistical_inference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Hypothesis Testing I</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/08_hypothesis_testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Hypothesis Testing II</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/09-hypothesis_testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Hypothesis Testing III</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/10-applications.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Applications &amp; Midterm Exam Review II</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/11-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Regression</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/12-multiple_regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Multiple Regression</span></a>
   </div>
 </li>
       </ul>
@@ -286,7 +173,7 @@ window.Quarto = {
 </li>
     </ul>
 </div>
-</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
@@ -347,10 +234,10 @@ window.Quarto = {
   </ul>
 </li>
   <li><a href="#next-week" id="toc-next-week" class="nav-link" data-scroll-target="#next-week">Next week</a></li>
-  </ul><div class="toc-actions"><ul><li><a href="https://github.com/hgoers/GVPT622/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
+  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/hgoers/GVPT622/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/01-introduction.html">Course</a></li><li class="breadcrumb-item"><a href="../content/02-descriptive_statistics.html">Descriptive Statistics</a></li></ol></nav><div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
 <h1 class="title">Descriptive Statistics</h1>
 </div>
 
@@ -363,7 +250,6 @@ window.Quarto = {
     
   </div>
   
-
 
 </header><section id="set-up" class="level2"><h2 class="anchored" data-anchor-id="set-up">Set up</h2>
 <p>You will need access to the following R packages to complete this week’s activities:</p>
@@ -630,10 +516,7 @@ Tip
 <span>    y <span class="op">=</span> <span class="st">"Age bracket"</span></span>
 <span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="02-descriptive_statistics_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="960"></p>
-</figure>
-</div>
+<p><img src="02-descriptive_statistics_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="960"></p>
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -675,7 +558,7 @@ Tip
  4 American Samoa      East Asia &amp; Pacific         2020 NA   
  5 Andorra             Europe &amp; Central Asia       2020  2.86
  6 Angola              Sub-Saharan Africa          2020  2.74
- 7 Antigua and Barbuda Latin America &amp; Caribbean   2020 NA   
+ 7 Antigua and Barbuda Latin America &amp; Caribbean   2020  2.99
  8 Argentina           Latin America &amp; Caribbean   2020  5.28
  9 Armenia             Europe &amp; Central Asia       2020  2.71
 10 Aruba               Latin America &amp; Caribbean   2020 NA   
@@ -710,10 +593,7 @@ Note
 <span>    y <span class="op">=</span> <span class="st">"Count"</span></span>
 <span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="02-descriptive_statistics_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="960"></p>
-</figure>
-</div>
+<p><img src="02-descriptive_statistics_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="960"></p>
 </div>
 </div>
 <p>If we pick a narrower bin width, we will see more fine-grained detail about the distribution of our data:</p>
@@ -726,10 +606,7 @@ Note
 <span>    y <span class="op">=</span> <span class="st">"Count"</span></span>
 <span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="02-descriptive_statistics_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="960"></p>
-</figure>
-</div>
+<p><img src="02-descriptive_statistics_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="960"></p>
 </div>
 </div>
 </section><section id="density-curves" class="level4"><h4 class="anchored" data-anchor-id="density-curves">Density curves</h4>
@@ -744,10 +621,7 @@ Note
 <span>    y <span class="op">=</span> <span class="st">"Density"</span></span>
 <span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="02-descriptive_statistics_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="960"></p>
-</figure>
-</div>
+<p><img src="02-descriptive_statistics_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="960"></p>
 </div>
 </div>
 </section></section><section id="understanding-distributions" class="level3"><h3 class="anchored" data-anchor-id="understanding-distributions">Understanding distributions</h3>
@@ -771,10 +645,7 @@ Note
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="02-descriptive_statistics_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="960"></p>
-</figure>
-</div>
+<p><img src="02-descriptive_statistics_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="960"></p>
 </div>
 </div>
 </section><section id="right-skewed-distribution" class="level4"><h4 class="anchored" data-anchor-id="right-skewed-distribution">Right-skewed distribution</h4>
@@ -782,10 +653,7 @@ Note
 <p>Examples of right-skewed data include countries’ GDP.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="02-descriptive_statistics_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="960"></p>
-</figure>
-</div>
+<p><img src="02-descriptive_statistics_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="960"></p>
 </div>
 </div>
 </section><section id="left-skewed-distribution" class="level4"><h4 class="anchored" data-anchor-id="left-skewed-distribution">Left-skewed distribution</h4>
@@ -793,10 +661,7 @@ Note
 <p>Examples of left-skewed data include democracies’ election turn-out rates.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="02-descriptive_statistics_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="960"></p>
-</figure>
-</div>
+<p><img src="02-descriptive_statistics_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="960"></p>
 </div>
 </div>
 </section></section><section id="measures-of-central-tendency-mean-median-and-mode" class="level3"><h3 class="anchored" data-anchor-id="measures-of-central-tendency-mean-median-and-mode">Measures of central tendency: mean, median, and mode</h3>
@@ -811,7 +676,7 @@ Note
 <div class="cell">
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">perc_edu</span><span class="op">$</span><span class="va">value</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 4.661807</code></pre>
+<pre><code>[1] 4.571329</code></pre>
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -834,7 +699,7 @@ Tip
 <div class="cell">
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/median.html">median</a></span><span class="op">(</span><span class="va">perc_edu</span><span class="op">$</span><span class="va">value</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 4.500023</code></pre>
+<pre><code>[1] 4.50287</code></pre>
 </div>
 </div>
 </section><section id="mode" class="level4"><h4 class="anchored" data-anchor-id="mode">Mode</h4>
@@ -868,28 +733,19 @@ Note
 <p>Normally distributed values <em>have the same <span style="color:#EEABC4;">mean</span> and <span style="color:#4582EC;">median</span></em>.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="02-descriptive_statistics_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="960"></p>
-</figure>
-</div>
+<p><img src="02-descriptive_statistics_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="960"></p>
 </div>
 </div>
 <p>For right skewed data, <em>the <span style="color:#EEABC4;">mean</span> is greater than the <span style="color:#4582EC;">median</span></em>.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="02-descriptive_statistics_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="960"></p>
-</figure>
-</div>
+<p><img src="02-descriptive_statistics_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="960"></p>
 </div>
 </div>
 <p>For left skewed data, <em>the <span style="color:#EEABC4;">mean</span> is smaller than the <span style="color:#4582EC;">median</span></em>.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="02-descriptive_statistics_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="960"></p>
-</figure>
-</div>
+<p><img src="02-descriptive_statistics_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="960"></p>
 </div>
 </div>
 <section id="five-number-summary" class="level4"><h4 class="anchored" data-anchor-id="five-number-summary">Five number summary</h4>
@@ -973,22 +829,22 @@ Note
 </tr></thead>
 <tbody><tr class="odd">
 <td style="text-align: left;">data</td>
-<td style="text-align: right;">57</td>
-<td style="text-align: right;">0.74</td>
-<td style="text-align: right;">4.66</td>
-<td style="text-align: right;">1.87</td>
+<td style="text-align: right;">58</td>
+<td style="text-align: right;">0.73</td>
+<td style="text-align: right;">4.57</td>
+<td style="text-align: right;">1.66</td>
 <td style="text-align: right;">1.37</td>
-<td style="text-align: right;">3.41</td>
+<td style="text-align: right;">3.34</td>
 <td style="text-align: right;">4.5</td>
-<td style="text-align: right;">5.57</td>
-<td style="text-align: right;">13.78</td>
-<td style="text-align: left;">▆▇▂▁▁</td>
+<td style="text-align: right;">5.54</td>
+<td style="text-align: right;">10.54</td>
+<td style="text-align: left;">▃▇▅▁▁</td>
 </tr></tbody>
 </table>
 </div>
 </div>
-<p>We have 217 rows (because our unit of observation is a country, we can read this as 217 countries). We are missing education spending values for 57 of those countries (see <code>n_missing</code>), giving us a complete rate of 74% (see <code>complete_rate</code>).</p>
-<p>The country that spent the least on education as a percent of its GDP in 2020 was Haiti, which spent 1.4% (see <code>p0</code>). The country that spent the most was the Marshall Islands, which spent 13.8% (see <code>p100</code>). The average percent of GDP spent on education in 2020 was 4.7% (see <code>mean</code>) and the median was 4.5% (see <code>p50</code>).</p>
+<p>We have 217 rows (because our unit of observation is a country, we can read this as 217 countries). We are missing education spending values for 58 of those countries (see <code>n_missing</code>), giving us a complete rate of 73% (see <code>complete_rate</code>).</p>
+<p>The country that spent the least on education as a percent of its GDP in 2020 was Haiti, which spent 1.4% (see <code>p0</code>). The country that spent the most was the Micronesia, Fed. Sts., which spent 10.5% (see <code>p100</code>). The average percent of GDP spent on education in 2020 was 4.6% (see <code>mean</code>) and the median was 4.5% (see <code>p50</code>).</p>
 <p>This description was a bit unwieldy. To get a better sense of our data, we can visualize it.</p>
 </section><section id="box-plots" class="level4"><h4 class="anchored" data-anchor-id="box-plots">Box plots</h4>
 <p>Box plots (sometimes referred to as box and whisker plots) visualize the five number summary (with bonus features) nicely.</p>
@@ -1004,10 +860,7 @@ Note
 <span>    y <span class="op">=</span> <span class="cn">NULL</span></span>
 <span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="02-descriptive_statistics_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="960"></p>
-</figure>
-</div>
+<p><img src="02-descriptive_statistics_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" width="960"></p>
 </div>
 </div>
 <p>The box in the graph above displays the 25th percentile, the median, and the 75th percentile values. The tails show you all the data up to a range 1.5 times the <strong>interquartile range (IQR)</strong>, or the 75th percentile minus the 25th percentile (or the upper edge of the box minus the lower edge of the box). If the smallest or largest values fall below or above (respectively) 1.5 times the IQR, the tail ends at that value.</p>
@@ -1037,7 +890,7 @@ range = min - max
 <div class="cell">
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">perc_edu</span><span class="op">$</span><span class="va">value</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">perc_edu</span><span class="op">$</span><span class="va">value</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 12.40843</code></pre>
+<pre><code>[1] 9.168</code></pre>
 </div>
 </div>
 </section><section id="variance" class="level4"><h4 class="anchored" data-anchor-id="variance">Variance</h4>
@@ -1049,16 +902,16 @@ range = min - max
 <pre><code># A tibble: 1,000,000 × 1
         x
     &lt;dbl&gt;
- 1  2.28 
- 2 -2.62 
- 3 -0.257
- 4  0.798
- 5  1.14 
- 6  2.83 
- 7  0.780
- 8  1.64 
- 9 -2.23 
-10  2.64 
+ 1 -1.01 
+ 2  0.397
+ 3  1.36 
+ 4 -1.20 
+ 5 -0.700
+ 6 -1.21 
+ 7  0.193
+ 8 -1.76 
+ 9 -0.208
+10  1.39 
 # ℹ 999,990 more rows</code></pre>
 </div>
 </div>
@@ -1066,28 +919,25 @@ range = min - max
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">narrow_dist</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1,000,000 × 1
-        x
-    &lt;dbl&gt;
- 1  2.81 
- 2  0.413
- 3  1.25 
- 4 -0.775
- 5  0.495
- 6  2.16 
- 7  0.955
- 8  0.268
- 9  0.695
-10 -1.24 
+          x
+      &lt;dbl&gt;
+ 1  1.24   
+ 2 -0.169  
+ 3  0.920  
+ 4 -1.95   
+ 5 -2.03   
+ 6  0.430  
+ 7  0.550  
+ 8 -0.0190 
+ 9  0.00492
+10  0.595  
 # ℹ 999,990 more rows</code></pre>
 </div>
 </div>
 <p>Let’s plot these datasets:</p>
 <div class="cell">
 <div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="02-descriptive_statistics_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid figure-img" width="960"></p>
-</figure>
-</div>
+<p><img src="02-descriptive_statistics_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid" width="960"></p>
 </div>
 </div>
 <p>Despite both having the same center point and number of observations, the data are much more spread out around that center point in the top graph (of <code>wide_dist</code>).</p>
@@ -1135,16 +985,16 @@ Tip
 <pre><code># A tibble: 1,000,000 × 4
         x     mean   diff diff_2
     &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
- 1  2.28  -0.00188  2.28  5.21  
- 2 -2.62  -0.00188 -2.62  6.88  
- 3 -0.257 -0.00188 -0.255 0.0651
- 4  0.798 -0.00188  0.800 0.640 
- 5  1.14  -0.00188  1.14  1.31  
- 6  2.83  -0.00188  2.83  8.00  
- 7  0.780 -0.00188  0.782 0.611 
- 8  1.64  -0.00188  1.64  2.69  
- 9 -2.23  -0.00188 -2.23  4.95  
-10  2.64  -0.00188  2.64  6.98  
+ 1 -1.01  0.000732 -1.01  1.02  
+ 2  0.397 0.000732  0.396 0.157 
+ 3  1.36  0.000732  1.36  1.84  
+ 4 -1.20  0.000732 -1.20  1.44  
+ 5 -0.700 0.000732 -0.701 0.491 
+ 6 -1.21  0.000732 -1.21  1.46  
+ 7  0.193 0.000732  0.192 0.0370
+ 8 -1.76  0.000732 -1.76  3.08  
+ 9 -0.208 0.000732 -0.209 0.0438
+10  1.39  0.000732  1.39  1.93  
 # ℹ 999,990 more rows</code></pre>
 </div>
 </div>
@@ -1154,7 +1004,7 @@ Tip
 <span></span>
 <span><span class="va">wide_var</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 3.997551</code></pre>
+<pre><code>[1] 3.994675</code></pre>
 </div>
 </div>
 <p>We can compare this to the variance for our narrower distribution.</p>
@@ -1170,7 +1020,7 @@ Tip
 <span></span>
 <span><span class="va">narrow_var</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.9991474</code></pre>
+<pre><code>[1] 1.002004</code></pre>
 </div>
 </div>
 <p>It is, in fact, smaller!</p>
@@ -1179,14 +1029,14 @@ Tip
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">var</a></span><span class="op">(</span><span class="va">wide_dist</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         x
-x 3.997551</code></pre>
+x 3.994675</code></pre>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">var</a></span><span class="op">(</span><span class="va">narrow_dist</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>          x
-x 0.9991474</code></pre>
+<pre><code>         x
+x 1.002004</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -1201,26 +1051,26 @@ x TRUE</code></pre>
 <div class="cell">
 <div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">wide_var</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.999388</code></pre>
+<pre><code>[1] 1.998668</code></pre>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">narrow_var</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.9995736</code></pre>
+<pre><code>[1] 1.001001</code></pre>
 </div>
 </div>
 <p>You can get this directly using <code><a href="https://rdrr.io/r/stats/sd.html">sd()</a></code>:</p>
 <div class="cell">
 <div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">wide_dist</span><span class="op">$</span><span class="va">x</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.999388</code></pre>
+<pre><code>[1] 1.998668</code></pre>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">narrow_dist</span><span class="op">$</span><span class="va">x</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.9995736</code></pre>
+<pre><code>[1] 1.001001</code></pre>
 </div>
 </div>
 </section></section></section><section id="next-week" class="level2"><h2 class="anchored" data-anchor-id="next-week">Next week</h2>
@@ -1306,27 +1156,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+  function tippyHover(el, contentFn) {
     const config = {
       allowHTML: true,
+      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1336,17 +1169,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start',
+      placement: 'bottom-start'
     };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1358,130 +1182,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
-    }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
-          }
-        }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
-        }
-        return container.innerHTML
-      } else {
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(note);
-        }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
-      }
-    }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
-          }
-        } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
-          .then(res => res.text())
-          .then(html => {
-            const parser = new DOMParser();
-            const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
-            if (note !== null) {
-              const html = processXRef(id, note);
-              instance.setContent(html);
-            } 
-          }).finally(() => {
-            instance.enable();
-            instance.show();
-          });
-        }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
+      return note.innerHTML;
     });
   }
       let selectedAnnoteEl;
@@ -1525,7 +1226,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
-            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1551,32 +1251,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1638,15 +1312,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
-    <div class="nav-footer-left">
-<p>Content <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> 2023 by <a href="https://www.harrietgoers.com">Harriet Goers</a> <br> All content licensed under a <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> <i class="fa-brands fa-creative-commons-by" aria-label="creative-commons-by"></i> <i class="fa-brands fa-creative-commons-nc" aria-label="creative-commons-nc"></i> <a href="https://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-Non Commercial 4.0 International license (CC BY-NC 4.0)</a></p>
-</div>   
+    <div class="nav-footer-left">Content <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> 2024 by <a href="https://www.harrietgoers.com">Harriet Goers</a> <br> All content licensed under a <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> <i class="fa-brands fa-creative-commons-by" aria-label="creative-commons-by"></i> <i class="fa-brands fa-creative-commons-nc" aria-label="creative-commons-nc"></i> <a href="https://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-Non Commercial 4.0 International license (CC BY-NC 4.0)</a></div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/hgoers/GVPT622/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div>
-    <div class="nav-footer-right">
-<p>Made with <i class="fa-brands fa-r-project" aria-label="r-project"></i> and <a href="https://quarto.org/">Quarto</a><br><a href="https://www.andrewheiss.com/teaching/">Heavily inspired by course websites built by Dr Andrew Heiss</a></p>
-</div>
+    </div>
+    <div class="nav-footer-right">Made with <i class="fa-brands fa-r-project" aria-label="r-project"></i> and <a href="https://quarto.org/">Quarto</a><br><a href="https://www.andrewheiss.com/teaching/">Heavily inspired by course websites built by Dr Andrew Heiss</a></div>
   </div>
 </footer>
 
