@@ -177,6 +177,12 @@ gtag('config', 'G-WKJ9E8EHM1', { 'anonymize_ip': true});
  <span class="menu-text">Introduction</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/02-descriptive_statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Descriptive Statistics</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -421,15 +427,15 @@ Note
    player.player.player.givenName player.player.player.surname dreamTeamPoints
    &lt;chr&gt;                          &lt;chr&gt;                                  &lt;dbl&gt;
  1 Simone                         Nalder                                    21
- 2 Jemima                         Woods                                     24
- 3 Maria                          Moloney                                   67
+ 2 Emelia                         Yassir                                    20
+ 3 Ashleigh                       Saint                                     76
  4 Chloe                          Dalton                                    44
  5 Renee                          Garing                                    92
- 6 Julia                          Teakle                                    44
- 7 Ebony                          O'Dea                                     47
+ 6 Ebony                          O'Dea                                     47
+ 7 Jasmin                         Stewart                                   43
  8 Sophie                         Conway                                    68
- 9 Yasmin                         Duursma                                    8
-10 Sarah                          Hosking                                   61
+ 9 Hannah                         Ewings                                    22
+10 Courtney                       Jones                                     43
 # ℹ 240 more rows
 # ℹ 1 more variable: disposalEfficiency &lt;dbl&gt;</code></pre>
 </div>
@@ -442,8 +448,8 @@ Note
 <pre><code># A tibble: 2 × 5
   term               estimate std.error statistic  p.value
   &lt;chr&gt;                 &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-1 (Intercept)          36.5      4.90        7.44 1.69e-12
-2 disposalEfficiency    0.191    0.0760      2.51 1.27e- 2</code></pre>
+1 (Intercept)          36.8      5.20        7.07 1.54e-11
+2 disposalEfficiency    0.215    0.0810      2.65 8.47e- 3</code></pre>
 </div>
 </div>
 <p>Okay, so we got a different intercept and coefficient estimates than we got above. This is despite the fact that I took a pure random sample from the full set of players. The only thing driving this difference is random chance.</p>
@@ -463,13 +469,13 @@ Note
  1 Kodi                           Jacques                                   50
  2 Dana                           East                                      64
  3 Cambridge                      McCormick                                 48
- 4 Caitlin                        Gould                                     42
- 5 Keeley                         Kustermann                                24
- 6 Sarah                          Hosking                                   61
+ 4 Rachelle                       Martin                                    74
+ 5 Madison                        Newman                                    94
+ 6 Courtney                       Jones                                     43
  7 Mackenzie                      Webb                                      30
  8 Jessica                        Low                                       36
- 9 Madeline                       Keryk                                     22
-10 Gemma                          Houghton                                 103
+ 9 Erin                           Phillips                                  76
+10 Justine                        Mules                                     35
 # ℹ 240 more rows
 # ℹ 1 more variable: disposalEfficiency &lt;dbl&gt;</code></pre>
 </div>
@@ -482,8 +488,8 @@ Note
 <pre><code># A tibble: 2 × 5
   term               estimate std.error statistic  p.value
   &lt;chr&gt;                 &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-1 (Intercept)          43.4      5.49        7.90 9.30e-14
-2 disposalEfficiency    0.138    0.0848      1.63 1.04e- 1</code></pre>
+1 (Intercept)          41.3      5.32        7.75 2.31e-13
+2 disposalEfficiency    0.165    0.0827      2.00 4.71e- 2</code></pre>
 </div>
 </div>
 <p>Again, we got a different set of coefficients. This is only the result of random chance.</p>
@@ -503,7 +509,7 @@ Note
  1 Taylor                         Smith                                     47
  2 Alice                          O'Loughlin                                46
  3 Zarlie                         Goldsworthy                              103
- 4 Danielle                       Ponter                                    72
+ 4 Chelsea                        Biddell                                   58
  5 Courtney                       Hodder                                    92
  6 Mim                            Strom                                     75
  7 Jade                           Ellenger                                  92
@@ -522,8 +528,8 @@ Note
 <pre><code># A tibble: 2 × 5
   term               estimate std.error statistic  p.value
   &lt;chr&gt;                 &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-1 (Intercept)          43.0      5.40        7.95 6.44e-14
-2 disposalEfficiency    0.113    0.0836      1.35 1.77e- 1</code></pre>
+1 (Intercept)          42.3      5.40        7.84 1.35e-13
+2 disposalEfficiency    0.126    0.0838      1.50 1.34e- 1</code></pre>
 </div>
 </div>
 <p>We can see these differences:</p>
@@ -569,16 +575,16 @@ Note
 <pre><code># A tibble: 2,000 × 6
    round term               estimate std.error statistic  p.value
    &lt;int&gt; &lt;chr&gt;                 &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
- 1     1 (Intercept)         38.9       5.31       7.32  3.51e-12
- 2     1 disposalEfficiency   0.172     0.0820     2.10  3.69e- 2
- 3     2 (Intercept)         46.7       5.63       8.30  6.95e-15
- 4     2 disposalEfficiency   0.0494    0.0860     0.575 5.66e- 1
- 5     3 (Intercept)         41.0       5.87       6.98  2.68e-11
- 6     3 disposalEfficiency   0.163     0.0905     1.80  7.28e- 2
- 7     4 (Intercept)         38.7       5.38       7.19  7.40e-12
- 8     4 disposalEfficiency   0.178     0.0830     2.15  3.26e- 2
- 9     5 (Intercept)         38.1       5.80       6.56  3.15e-10
-10     5 disposalEfficiency   0.226     0.0908     2.49  1.35e- 2
+ 1     1 (Intercept)         39.1       5.25       7.45  1.51e-12
+ 2     1 disposalEfficiency   0.172     0.0811     2.12  3.54e- 2
+ 3     2 (Intercept)         45.6       5.74       7.94  6.85e-14
+ 4     2 disposalEfficiency   0.0719    0.0871     0.826 4.10e- 1
+ 5     3 (Intercept)         43.9       5.90       7.44  1.68e-12
+ 6     3 disposalEfficiency   0.110     0.0912     1.21  2.28e- 1
+ 7     4 (Intercept)         37.8       5.35       7.08  1.51e-11
+ 8     4 disposalEfficiency   0.190     0.0829     2.29  2.29e- 2
+ 9     5 (Intercept)         42.2       5.69       7.43  1.80e-12
+10     5 disposalEfficiency   0.140     0.0884     1.58  1.16e- 1
 # ℹ 1,990 more rows</code></pre>
 </div>
 </div>
