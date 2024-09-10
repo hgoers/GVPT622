@@ -12,10 +12,6 @@ execute:
 bibliography: references.bib
 ---
 
-::: {.callout-warning}
-DRAFT - DRAFT - DRAFT
-:::
-
 ## Set up
 
 ```{r}
@@ -24,9 +20,9 @@ library(tidyverse)
 
 ## Introduction
 
-Political scientists use empirical analysis to explore whether their theories play out in the real-world. Broadly, there are two ways to do this: experiments and observational studies. In experiments, the researcher controls how variables change and observes their effects in a controlled setting. In observational studies, the researcher has no control over how important variables change. They must simply observe these changes and their effects.
+Political scientists use empirical analysis to determine whether their theories play out in the real-world. Broadly, there are two ways to do this: experiments and observational studies. In experiments, the researcher controls how important variables change, observing their effects in a controlled setting. In observational studies, the researcher has no control over how important variables change. They must simply observe these changes and their effects.
 
-Experiments remain the "gold standard" for evaluating causal explanations of outcomes. Observational studies are; however, much more common. We will discuss both this week.
+Experiments remain the "gold standard" for evaluating causal explanations of outcomes. However, observational studies are much more common. We will discuss both this week.
 
 ## Experiments
 
@@ -146,7 +142,7 @@ sim_heights <- tibble(
 sim_heights
 ```
 
-These 1,000 have a range of different heights ranging from `r round(min(sim_heights$height))` cm to a towering `r round(max(sim_heights$height))` cm. Let's take a look at them: 
+These 1,000 have heights ranging from `r round(min(sim_heights$height))` cm to a towering `r round(max(sim_heights$height))` cm. Let's take a look at them: 
 
 ```{r}
 ggplot(sim_heights, aes(x = height)) + 
@@ -256,6 +252,12 @@ Imagine that the group (which has limited funds) decides to monitor stations in 
 Here, we would observe that the cheating party receives a high vote share in both monitored and non-monitored stations. It received high levels of support from voters in the city (who voted at stations that were disproportionately likely to be monitored and less likely to be ballot-stuffed) and (ill-gotten) high levels of support from voters in the regions (who voted at stations that were disproportionately less likely to be monitored and more likely to be ballot-stuffed). From this we might conclude that election monitors have no substantial effect on election-day fraud: there is no large difference in the cheating party's vote share between those stations that were monitored and those that were not. 
 
 However, we have not actually tested our theory! Not all is lost with observational data. We just need to be very careful about controlling for those variables that might be influencing both our treatment (monitored or not) and outcome (vote share for the cheating party). 
+
+Let's create some data to illustrate this point. 
+
+::: {.callout-tip}
+I will discuss the various methods I am using to generate these data in class. For now, you can note that I make the cheating party's vote share at stations increasingly small under the following conditions: from stations that are in the city and not monitored, in the city and monitored, in the regions and not monitored, and in the regions and monitored. 
+:::
 
 ```{r}
 vec_in_city <- rbinom(1763, 1, 0.3)
