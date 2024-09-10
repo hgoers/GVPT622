@@ -536,7 +536,7 @@ We now have a good sense of some of the features of our data. Another useful thi
 The **range** is the difference between the largest and smallest value.
 
 $$
-range = min - max
+range = max - min
 $$
 
 ```{r}

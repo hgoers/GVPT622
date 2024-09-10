@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.3.450">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>GVPT622 - Estimating Causal Effects with Randomized Experiments</title>
+<title>GVPT622 - Research Design</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -51,7 +51,26 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
@@ -95,7 +114,7 @@ window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-WKJ9E8EHM1', { 'anonymize_ip': true});
-</script><link rel="stylesheet" href="../html/custom.css">
+</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><link rel="stylesheet" href="../html/custom.css">
 </head>
 <body class="nav-sidebar docked nav-fixed">
 
@@ -129,7 +148,7 @@ gtag('config', 'G-WKJ9E8EHM1', { 'anonymize_ip': true});
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Estimating Causal Effects with Randomized Experiments</li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/01-introduction.html">Course</a></li><li class="breadcrumb-item"><a href="../content/02-experiments.html">Research Design</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -156,6 +175,12 @@ gtag('config', 'G-WKJ9E8EHM1', { 'anonymize_ip': true});
   <div class="sidebar-item-container"> 
   <a href="../content/02-descriptive_statistics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Descriptive Statistics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/02-experiments.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Research Design</span></a>
   </div>
 </li>
       </ul>
@@ -186,11 +211,20 @@ gtag('config', 'G-WKJ9E8EHM1', { 'anonymize_ip': true});
    
   <ul>
 <li><a href="#set-up" id="toc-set-up" class="nav-link active" data-scroll-target="#set-up">Set up</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+  <li>
+<a href="#experiments" id="toc-experiments" class="nav-link" data-scroll-target="#experiments">Experiments</a>
+  <ul>
+<li><a href="#average-causal-effects" id="toc-average-causal-effects" class="nav-link" data-scroll-target="#average-causal-effects">Average causal effects</a></li>
+  </ul>
+</li>
+  <li><a href="#observational-studies" id="toc-observational-studies" class="nav-link" data-scroll-target="#observational-studies">Observational studies</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
   </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/hgoers/GVPT622/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title">Estimating Causal Effects with Randomized Experiments</h1>
+<h1 class="title">Research Design</h1>
 </div>
 
 
@@ -203,13 +237,443 @@ gtag('config', 'G-WKJ9E8EHM1', { 'anonymize_ip': true});
   </div>
   
 
-</header><section id="set-up" class="level2"><h2 class="anchored" data-anchor-id="set-up">Set up</h2>
+</header><div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>DRAFT - DRAFT - DRAFT</p>
+</div>
+</div>
+<section id="set-up" class="level2"><h2 class="anchored" data-anchor-id="set-up">Set up</h2>
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section><section id="introduction" class="level2"><h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Political scientists use empirical analysis to explore whether their theories play out in the real-world. Broadly, there are two ways to do this: experiments and observational studies. In experiments, the researcher controls how variables change and observes their effects in a controlled setting. In observational studies, the researcher has no control over how important variables change. They must simply observe these changes and their effects.</p>
+<p>Experiments remain the “gold standard” for evaluating causal explanations of outcomes. Observational studies are; however, much more common. We will discuss both this week.</p>
+</section><section id="experiments" class="level2"><h2 class="anchored" data-anchor-id="experiments">Experiments</h2>
+<p>In <em>The Observer Effect in International Politics: Evidence from a Natural Experiment</em>, <span class="citation" data-cites="hyde2007">Hyde (<a href="#ref-hyde2007" role="doc-biblioref">2007</a>)</span> explores whether international election monitoring increases the chances that those elections will be free and fair. Specifically, she wants to determine whether international monitors reduce the prevalence of fraud occurring at the polling stations to which they are assigned. To test this, she used an <strong>experiment</strong>.</p>
+<p>During the 2003 presidential elections in Armenia, international monitors were randomly assigned to polling stations. If election monitors significantly reduce a bad actor’s ability to rig an election on election day, their vote share in monitored booths should be lower than that in which their behavior was not observed. In her words (page 39):</p>
+<blockquote class="blockquote">
+<p>“If the presence of international observers causes a reduction in election-day fraud, the effect of observers should be visible at the subnational level by comparing polling stations that were visited by observers with those that were not visited. More specifically, if international monitoring reduces election day fraud directly, all else held equal, the cheating parties should gain less of their ill-gotten vote share in polling stations that were visited by international monitors.”</p>
+</blockquote>
+<p>In summary, following from her theory (provided in the paper), she argues that the presence of international observers at a polling station <em>causes</em> less election-day fraud at that station:</p>
+<p><span class="math display">\[
+Election\ monitoring \rightarrow Less\ election\ day\ fraud
+\]</span></p>
+<p>How can experiments help prove this? Hyde was interested in estimating the effect of election monitoring on each individual polling station. Was the vote share the cheating parties received at a monitored station significantly smaller than it would have been if the monitors were not there? Unfortunately for Hyde (and all researchers hoping to identify the causes of outcomes of interest), we cannot observe the counter-factual: the vote share cheating parties would have received if the monitor were not there.</p>
+<p>Ideally, we could operate in parallel worlds: one in which all stations were monitored, and one in which none were. For each polling station, <span class="math inline">\(i\)</span>, of the 1,763 that were set up for the 2003 election we would record the vote share the cheating party received without election monitors and that they received with election monitors:</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>I made these data up! These are not the data collected by <span class="citation" data-cites="hyde2007">Hyde (<a href="#ref-hyde2007" role="doc-biblioref">2007</a>)</span>. I have made them extreme for illustrative purposes.</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">vec_cheating_party_monitoring</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Beta.html">rbeta</a></span><span class="op">(</span><span class="fl">1763</span>, <span class="fl">2</span>, <span class="fl">11</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span>, <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="va">vec_cheating_party_no_monitoring</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Beta.html">rbeta</a></span><span class="op">(</span><span class="fl">1763</span>, <span class="fl">6</span>, <span class="fl">4</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span>, <span class="fl">2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">sim_election_monitoring</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>station_id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">1763</span>, </span>
+<span>                                  cheating_party_monitoring <span class="op">=</span> <span class="va">vec_cheating_party_monitoring</span>,</span>
+<span>                                  cheating_party_no_monitoring <span class="op">=</span> <span class="va">vec_cheating_party_no_monitoring</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">sim_election_monitoring</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,763 × 3
+   station_id cheating_party_monitoring cheating_party_no_monitoring
+        &lt;int&gt;                     &lt;dbl&gt;                        &lt;dbl&gt;
+ 1          1                     11.8                          71.6
+ 2          2                     16.0                          79.8
+ 3          3                      7.36                         51.4
+ 4          4                      7.9                          52.2
+ 5          5                     11.7                          69.4
+ 6          6                      7.78                         82.4
+ 7          7                      8.33                         64.6
+ 8          8                     22.5                          51.0
+ 9          9                     12.7                          60.8
+10         10                      3.58                         53.1
+# ℹ 1,753 more rows</code></pre>
+</div>
+</div>
+<p>We could then compare these two vote shares and determine whether the election monitors substantially drove down the cheating parties’ vote shares:</p>
+<div class="cell">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sim_election_monitoring</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>difference <span class="op">=</span> <span class="va">cheating_party_monitoring</span> <span class="op">-</span> <span class="va">cheating_party_no_monitoring</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,763 × 4
+   station_id cheating_party_monitoring cheating_party_no_monitoring difference
+        &lt;int&gt;                     &lt;dbl&gt;                        &lt;dbl&gt;      &lt;dbl&gt;
+ 1          1                     11.8                          71.6      -59.8
+ 2          2                     16.0                          79.8      -63.8
+ 3          3                      7.36                         51.4      -44.0
+ 4          4                      7.9                          52.2      -44.3
+ 5          5                     11.7                          69.4      -57.6
+ 6          6                      7.78                         82.4      -74.6
+ 7          7                      8.33                         64.6      -56.2
+ 8          8                     22.5                          51.0      -28.6
+ 9          9                     12.7                          60.8      -48.1
+10         10                      3.58                         53.1      -49.5
+# ℹ 1,753 more rows</code></pre>
+</div>
+</div>
+<p>The election monitors are the <em>only</em> difference between these two parallel worlds. Therefore, we could definitively state that they <em>caused</em> these differences in vote shares. Those differences are large, so we could confidently say that election monitors substantially reduce the vote share received by the cheating party at each polling station.</p>
+<p>We cannot, of course, create parallel worlds. We only observe the <strong>factual outcome</strong>: each party’s vote share at a given station under whichever condition (monitored or not) it received in reality. We never observe the <strong>counter-factual outcome</strong>: each party’s vote share at a given station under the other condition.</p>
+<p>In Hyde’s case, she only has the cheating party’s vote share at a given station under whichever condition it received:</p>
+<div class="cell">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">vec_monitored</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">rbinom</a></span><span class="op">(</span><span class="fl">1763</span>, <span class="fl">1</span>, <span class="fl">0.5</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">sim_factual_monitoring</span> <span class="op">&lt;-</span> <span class="va">sim_election_monitoring</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>monitored <span class="op">=</span> <span class="va">vec_monitored</span>,</span>
+<span>         cheating_party_monitoring <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">monitored</span> <span class="op">==</span> <span class="fl">1</span>, <span class="va">cheating_party_monitoring</span>, <span class="cn">NA_real_</span><span class="op">)</span>,</span>
+<span>         cheating_party_no_monitoring <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">monitored</span> <span class="op">==</span> <span class="fl">0</span>, <span class="va">cheating_party_no_monitoring</span>, <span class="cn">NA_real_</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/relocate.html">relocate</a></span><span class="op">(</span><span class="va">monitored</span>, .after <span class="op">=</span> <span class="va">station_id</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">sim_factual_monitoring</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,763 × 4
+   station_id monitored cheating_party_monitoring cheating_party_no_monitoring
+        &lt;int&gt;     &lt;int&gt;                     &lt;dbl&gt;                        &lt;dbl&gt;
+ 1          1         0                     NA                            71.6
+ 2          2         0                     NA                            79.8
+ 3          3         1                      7.36                         NA  
+ 4          4         1                      7.9                          NA  
+ 5          5         1                     11.7                          NA  
+ 6          6         0                     NA                            82.4
+ 7          7         1                      8.33                         NA  
+ 8          8         1                     22.5                          NA  
+ 9          9         1                     12.7                          NA  
+10         10         1                      3.58                         NA  
+# ℹ 1,753 more rows</code></pre>
+</div>
+</div>
+<p>So, how do we work out whether election monitors deter or prevent election-day fraud?</p>
+<section id="average-causal-effects" class="level3"><h3 class="anchored" data-anchor-id="average-causal-effects">Average causal effects</h3>
+<p>We need to find good approximations of the counter-factuals for each polling station. To do this, we need to move away from focusing on the individual polling stations and, instead, look at the average vote share across all stations that were monitored compared to that across all stations that were not monitored.</p>
+<p>Let’s look back at our impossible parallel worlds:</p>
+<div class="cell">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sim_election_monitoring</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,763 × 3
+   station_id cheating_party_monitoring cheating_party_no_monitoring
+        &lt;int&gt;                     &lt;dbl&gt;                        &lt;dbl&gt;
+ 1          1                     11.8                          71.6
+ 2          2                     16.0                          79.8
+ 3          3                      7.36                         51.4
+ 4          4                      7.9                          52.2
+ 5          5                     11.7                          69.4
+ 6          6                      7.78                         82.4
+ 7          7                      8.33                         64.6
+ 8          8                     22.5                          51.0
+ 9          9                     12.7                          60.8
+10         10                      3.58                         53.1
+# ℹ 1,753 more rows</code></pre>
+</div>
+</div>
+<p>The cheating party’s average vote share if all stations were monitored is 15.58%.</p>
+<p>In R:</p>
+<div class="cell">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sim_election_monitoring</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">cheating_party_monitoring</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 15.58164</code></pre>
+</div>
+</div>
+<p>And its average vote share if no stations were monitored is a whopping 60.01%.</p>
+<p>In R:</p>
+<div class="cell">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sim_election_monitoring</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">cheating_party_no_monitoring</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 60.00874</code></pre>
+</div>
+</div>
+<p>We can conclude from these parallel worlds that, on average, election monitors caused a 44.43% reduction in the cheating party’s vote share at any given polling station.</p>
+<p>Again, we can’t split the world into two parallel worlds for our political science experiments. Instead we need to find an appropriate proxy for those counter-factual vote shares. The best way to do this is using a <strong>randomized experiment</strong> (also sometimes referred to as a <strong>randomized control trial</strong>).</p>
+<p>The ultimate goal is to find two groups that are, on average, identical prior to the treatment. Then, once we treat one of the groups, we can infer that any differences between these two previously identical groups were <em>caused by</em> our treatment.</p>
+<p>The best way to do this is to randomly assign individual actors to a <strong>treatment</strong> or <strong>control group</strong>. Here, we randomly decide whether each given polling station will be monitored. Above, I used R to do this (using the <code><a href="https://rdrr.io/r/stats/Binomial.html">rbinom()</a></code> function). Those stations that will be monitored make up the <strong>treatment group</strong>. Those that will not be monitored make up the <strong>control group</strong>.</p>
+<p>Why is randomization the best way to ensure that both of our groups are identical prior to treatment? Because it ensures that the only thing that systematically distinguishes the treatment from the control group is that those stations will be monitored. Yes, there are differences between each individual polling station (for example, its geographic location, size, or turn-out) that will have an effect on each party’s vote share. But, <em>because the treatment was dispursed randomly</em>, the two groups (monitored or not) can be compared, on average. Random treatment makes the treatment and control groups, on average, identical to each other.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Don’t take my word for it
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>To illustrate this point, let’s briefly step away from the 2003 Armenian election. Say I have a group of 1,000 different people. All I know or care about them is their height.</p>
+<p>Let’s create this group of 1,000 people:</p>
+<div class="cell">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sim_heights</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
+<span>  id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">1000</span>,</span>
+<span>  height <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="fl">170</span>, <span class="fl">6</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">sim_heights</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,000 × 2
+      id height
+   &lt;int&gt;  &lt;dbl&gt;
+ 1     1   174.
+ 2     2   160.
+ 3     3   177.
+ 4     4   163.
+ 5     5   165.
+ 6     6   172.
+ 7     7   169.
+ 8     8   169.
+ 9     9   168.
+10    10   172.
+# ℹ 990 more rows</code></pre>
+</div>
+</div>
+<p>These 1,000 have a range of different heights ranging from 147 cm to a towering 189 cm. Let’s take a look at them:</p>
+<div class="cell">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">sim_heights</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">height</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Height (cm)"</span>,</span>
+<span>       y <span class="op">=</span> <span class="st">"Count"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="02-experiments_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="960"></p>
+</div>
+</div>
+<p>Let’s split this group up entirely randomly:</p>
+<div class="cell">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">assigned_heights</span> <span class="op">&lt;-</span> <span class="va">sim_heights</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rowwise.html">rowwise</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>assignment <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">rbinom</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">assigned_heights</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,000 × 3
+# Rowwise: 
+      id height assignment
+   &lt;int&gt;  &lt;dbl&gt;      &lt;int&gt;
+ 1     1   174.          1
+ 2     2   160.          0
+ 3     3   177.          1
+ 4     4   163.          0
+ 5     5   165.          1
+ 6     6   172.          1
+ 7     7   169.          1
+ 8     8   169.          1
+ 9     9   168.          1
+10    10   172.          0
+# ℹ 990 more rows</code></pre>
+</div>
+</div>
+<p>And calculate the average heights of those groups:</p>
+<div class="cell">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">assigned_heights</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">assignment</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>mean_height <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">height</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  assignment mean_height
+       &lt;int&gt;       &lt;dbl&gt;
+1          0        170.
+2          1        170.</code></pre>
+</div>
+</div>
+<p>Pretty close to identical (they are off by a small number of hundreths of a centimeter)! Remember, the only difference between these groups is their random assignment.</p>
+<p>Let’s do it again to make sure it wasn’t a fluke:</p>
+<div class="cell">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sim_heights</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rowwise.html">rowwise</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>assignment <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">rbinom</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">assignment</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>mean_height <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">height</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  assignment mean_height
+       &lt;int&gt;       &lt;dbl&gt;
+1          0        170.
+2          1        170.</code></pre>
+</div>
+</div>
+<p>Close again! We will talk about the <strong>law of large numbers</strong> and the <strong>central limit theorem</strong> in coming classes, but it is sufficient for now to say that if we did this many, many times, the averages of these two groups would be increasingly similar. For now, I will do this an additional 1,000 times:</p>
+<div class="cell">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">random_assignments</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">trial</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="va">sim_heights</span> <span class="op">|&gt;</span> </span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rowwise.html">rowwise</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>assignment <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">rbinom</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">assignment</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>mean_height <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">height</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>trial_no <span class="op">=</span> <span class="va">trial</span><span class="op">)</span></span>
+<span>  </span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1000</span>, <span class="va">random_assignments</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html">bind_rows</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">assignment</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>mean_mean_height <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">mean_height</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  assignment mean_mean_height
+       &lt;int&gt;            &lt;dbl&gt;
+1          0             170.
+2          1             170.</code></pre>
+</div>
+</div>
+<p>In theory, if we did this an infinite number of times, those averages would be identical.</p>
+</div>
+</div>
+<p>Remember, our goal is to create two groups of polling stations that are, on average, identical prior to the treatment. We can do this by randomly assigning each station to be monitored or not.</p>
+<p>This allows us to treat the cheating party’s average vote share across all monitored stations as indicative of its vote share across all stations if they were all monitored. Similarly, we can treat the cheating party’s average vote share across all non-monitored stations as indicative of its vote share across all stations if none were monitored. The difference between these two average vote shares is our <strong>average treatment effect</strong>. In other words, the difference between the average vote share across monitored stations and that across non-monitored stations represents the effect of international monitoring on election-day fraud. This method is call the <strong>difference-of-means</strong> test.</p>
+<p>Let’s look at our observed data set:</p>
+<div class="cell">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sim_factual_monitoring</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,763 × 4
+   station_id monitored cheating_party_monitoring cheating_party_no_monitoring
+        &lt;int&gt;     &lt;int&gt;                     &lt;dbl&gt;                        &lt;dbl&gt;
+ 1          1         0                     NA                            71.6
+ 2          2         0                     NA                            79.8
+ 3          3         1                      7.36                         NA  
+ 4          4         1                      7.9                          NA  
+ 5          5         1                     11.7                          NA  
+ 6          6         0                     NA                            82.4
+ 7          7         1                      8.33                         NA  
+ 8          8         1                     22.5                          NA  
+ 9          9         1                     12.7                          NA  
+10         10         1                      3.58                         NA  
+# ℹ 1,753 more rows</code></pre>
+</div>
+</div>
+<p>First, we find the average across our treatment and control groups:</p>
+<div class="cell">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sim_averages</span> <span class="op">&lt;-</span> <span class="va">sim_factual_monitoring</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>cheating_party_monitoring <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">cheating_party_monitoring</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
+<span>            cheating_party_no_monitoring <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">cheating_party_no_monitoring</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">sim_averages</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+  cheating_party_monitoring cheating_party_no_monitoring
+                      &lt;dbl&gt;                        &lt;dbl&gt;
+1                      15.0                         60.4</code></pre>
+</div>
+</div>
+<p>Then we find the difference between these two vote shares:</p>
+<div class="cell">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sim_averages</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>difference <span class="op">=</span> <span class="va">cheating_party_monitoring</span> <span class="op">-</span> <span class="va">cheating_party_no_monitoring</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+  cheating_party_monitoring cheating_party_no_monitoring difference
+                      &lt;dbl&gt;                        &lt;dbl&gt;      &lt;dbl&gt;
+1                      15.0                         60.4      -45.4</code></pre>
+</div>
+</div>
+<p>We can say that, on average, election monitors reduced the cheating party’s vote share by 45.38 percentage points. This difference is substantial!<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> It is the difference between a land-slide win and an embarrassing loss.</p>
+<p>Experiments are wonderful because they allow us to control which variables change and which are held constant. In turn, this allows us to isolate which variables cause changes to our outcome of interest. However, we cannot always run experiments to test our theories. When this is the case (which it often is), we need to rely on observational data to test whether our theories play out in the real-world.</p>
+</section></section><section id="observational-studies" class="level2"><h2 class="anchored" data-anchor-id="observational-studies">Observational studies</h2>
+<p>Observational studies are attempts to learn about the effect of a change in some variable on our outcome of interest. However, unlike in experiments, we cannot control when or how those variables change. We can only observe and record their changes and corresponding changes to our outcome of interest.</p>
+<p>Generally, you cannot make causal statements about findings made using observational studies. For example, if election monitors were not assigned randomly to polling stations in the 2003 Armenian Presidential elections, Hyde could not claim that these monitors <em>caused</em>, on average, a reducing in vote share for the cheating party. Instead, she could only claim that monitors were <em>associated with</em> a reduction in vote share for the cheating party.</p>
+<p>Why is this the case? In observational studies, it is rarely the case that our groups (treatment and control) were identical prior to their treatment. For example, imagine if the decision to monitor each polling station was not random. Instead, the international monitoring group made the decision as to whether to monitor a station based on logistical reasons.</p>
+<p>Imagine that the group (which has limited funds) decides to monitor stations in cities, which are close to transport hubs and have lots of accommodation options. Imagine also that our cheating party actually enjoys a lot of legitimate support in cities. Instead, it directs its limited pool of thugs and ballot-stuffers out to the regions where it anticipates having a very low vote share.</p>
+<p>Here, we would observe that the cheating party receives a high vote share in both monitored and non-monitored stations. It received high levels of support from voters in the city (who voted at stations that were disproportionately likely to be monitored and less likely to be ballot-stuffed) and (ill-gotten) high levels of support from voters in the regions (who voted at stations that were disproportionately less likely to be monitored and more likely to be ballot-stuffed). From this we might conclude that election monitors have no substantial effect on election-day fraud: there is no large difference in the cheating party’s vote share between those stations that were monitored and those that were not.</p>
+<p>However, we have not actually tested our theory! Not all is lost with observational data. We just need to be very careful about controlling for those variables that might be influencing both our treatment (monitored or not) and outcome (vote share for the cheating party).</p>
+<div class="cell">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">vec_in_city</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">rbinom</a></span><span class="op">(</span><span class="fl">1763</span>, <span class="fl">1</span>, <span class="fl">0.3</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">sim_observed_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>station_id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">1763</span>,</span>
+<span>       in_city <span class="op">=</span> <span class="va">vec_in_city</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rowwise.html">rowwise</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>monitored <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">in_city</span> <span class="op">==</span> <span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">rbinom</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0.6</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">rbinom</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span>, </span>
+<span>         cheating_party_vote_share <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span><span class="va">in_city</span> <span class="op">==</span> <span class="fl">0</span> <span class="op">&amp;</span> <span class="va">monitored</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Beta.html">rbeta</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">11</span><span class="op">)</span>,</span>
+<span>                                               <span class="va">in_city</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">&amp;</span> <span class="va">monitored</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Beta.html">rbeta</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">4</span>, <span class="fl">4</span><span class="op">)</span>,</span>
+<span>                                               <span class="va">in_city</span> <span class="op">==</span> <span class="fl">0</span> <span class="op">&amp;</span> <span class="va">monitored</span> <span class="op">==</span> <span class="fl">0</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Beta.html">rbeta</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">4</span><span class="op">)</span>,</span>
+<span>                                               <span class="va">in_city</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">&amp;</span> <span class="va">monitored</span> <span class="op">==</span> <span class="fl">0</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Beta.html">rbeta</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">6</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">sim_observed_data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,763 × 4
+# Rowwise: 
+   station_id in_city monitored cheating_party_vote_share
+        &lt;int&gt;   &lt;int&gt;     &lt;int&gt;                     &lt;dbl&gt;
+ 1          1       0         0                     0.104
+ 2          2       0         0                     0.279
+ 3          3       0         0                     0.289
+ 4          4       0         0                     0.518
+ 5          5       1         1                     0.370
+ 6          6       1         0                     0.677
+ 7          7       1         1                     0.670
+ 8          8       1         1                     0.381
+ 9          9       0         0                     0.439
+10         10       0         0                     0.132
+# ℹ 1,753 more rows</code></pre>
+</div>
+</div>
+<p>What is the difference in average vote shares between stations that were monitored and those that were not?</p>
+<div class="cell">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">avg_diff_observed</span> <span class="op">&lt;-</span> <span class="va">sim_observed_data</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">monitored</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>avg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">cheating_party_vote_share</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">avg_diff_observed</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  monitored   avg
+      &lt;int&gt; &lt;dbl&gt;
+1         0 0.381
+2         1 0.351</code></pre>
+</div>
+</div>
+<p>A relatively small 3% reduction in vote share. But what happens if we control for whether the station was in the city or not?</p>
+<div class="cell">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sim_observed_data</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">monitored</span>, <span class="va">in_city</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>avg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">cheating_party_vote_share</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">in_city</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">in_city</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>difference <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/percent_format.html">percent</a></span><span class="op">(</span><span class="va">avg</span> <span class="op">-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/lead-lag.html">lag</a></span><span class="op">(</span><span class="va">avg</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 4
+# Groups:   in_city [2]
+  monitored in_city   avg difference
+      &lt;int&gt;   &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;     
+1         0       0 0.328 &lt;NA&gt;      
+2         1       0 0.157 -17%      
+3         0       1 0.613 &lt;NA&gt;      
+4         1       1 0.502 -11%      </code></pre>
+</div>
+</div>
+<p>When we compare similar (if not identical) groups, we find a much larger effect. We have attempted to correct for dissimilarities between our groups prior to treatment. In doing so, we get a much better understanding of the role international election monitors play in deterring or preventing election-day fraud.</p>
+</section><section id="conclusion" class="level2"><h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>At the end of the day, we are attempting to prove that our theories of how a change in some variable - for example, international election monitoring - causes a change in some outcome of interest - here, election-day fraud. We can only do this when we identify two groups (our treatment and control) that are identical to each other except for the treatment.</p>
+<p>In absence of our ability to create parallel worlds, our best shot at this is through randomized experiments. When we assign our subjects to be treated (monitored) or stay as controls (not monitored) in a completely random way, we end up with two groups that are identical prior to the treatment. We can then confidently say that our treatment <em>caused</em> the difference between the average outcome in our two groups.</p>
+<p>Oftentimes, we cannot run experiments to test our theories. Instead, we must rely on observational studies. We use careful analysis to ensure that we get as close to identical groups as we can prior to their treatment. We can then look at the average differences between these carefully constructed groups to glean whether our outcome of interest is substantially different (on average) between those that were treated and those that were not.</p>
 
 
-</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+
+</section><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-hyde2007" class="csl-entry" role="listitem">
+Hyde, Susan D. 2007. <span>“The Observer Effect in International Politics: Evidence from a Natural Experiment.”</span> <em>World Politics</em> 60 (1): 37–63. <a href="http://www.jstor.org/stable/40060180">http://www.jstor.org/stable/40060180</a>.
+</div>
+</div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+<ol>
+<li id="fn1"><p>Sometimes this doesn’t work. Sometimes, you will randomly assign two groups and they will be very different from each other. Please don’t get distracted by this just yet. As long as you have a large population from which you are drawing, this should be <em>very unlikely</em>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Please remember, I made these data up. Do not go away from this thinking that the 2003 Armenian election was this badly corrupt.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol></section></div></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
