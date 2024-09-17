@@ -150,7 +150,7 @@ gtag('config', 'G-WKJ9E8EHM1', { 'anonymize_ip': true});
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Relationships Between Two Variables</li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/01-introduction.html">Course</a></li><li class="breadcrumb-item"><a href="../content/03-bivariate_relationships.html">Relationships Between Two Variables</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -189,6 +189,12 @@ gtag('config', 'G-WKJ9E8EHM1', { 'anonymize_ip': true});
  <span class="menu-text">Research Design</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/03-bivariate_relationships.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Relationships Between Two Variables</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -218,18 +224,12 @@ gtag('config', 'G-WKJ9E8EHM1', { 'anonymize_ip': true});
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#readings" id="toc-readings" class="nav-link active" data-scroll-target="#readings">Readings</a>
+  <li><a href="#set-up" id="toc-set-up" class="nav-link active" data-scroll-target="#set-up">Set up</a>
   <ul class="collapse">
-  <li><a href="#class" id="toc-class" class="nav-link" data-scroll-target="#class">Class</a></li>
-  <li><a href="#lab" id="toc-lab" class="nav-link" data-scroll-target="#lab">Lab</a></li>
-  </ul></li>
-  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section">Section</a>
-  <ul class="collapse">
-  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites">Prerequisites</a></li>
   <li><a href="#how-will-what-you-learn-this-week-help-your-research" id="toc-how-will-what-you-learn-this-week-help-your-research" class="nav-link" data-scroll-target="#how-will-what-you-learn-this-week-help-your-research">How will what you learn this week help your research?</a></li>
   <li><a href="#bivariate-relationships" id="toc-bivariate-relationships" class="nav-link" data-scroll-target="#bivariate-relationships">Bivariate relationships</a></li>
   <li><a href="#collecting-our-data" id="toc-collecting-our-data" class="nav-link" data-scroll-target="#collecting-our-data">Collecting our data</a></li>
-  <li><a href="#what-is-the-relationship-between-two-variables" id="toc-what-is-the-relationship-between-two-variables" class="nav-link" data-scroll-target="#what-is-the-relationship-between-two-variables">What is the relationship between two variables?</a></li>
+  <li><a href="#what-is-the-relationship-between-these-two-variables" id="toc-what-is-the-relationship-between-these-two-variables" class="nav-link" data-scroll-target="#what-is-the-relationship-between-these-two-variables">What is the relationship between these two variables?</a></li>
   <li><a href="#how-can-we-measure-the-strength-of-that-relationship" id="toc-how-can-we-measure-the-strength-of-that-relationship" class="nav-link" data-scroll-target="#how-can-we-measure-the-strength-of-that-relationship">How can we measure the strength of that relationship?</a></li>
   <li><a href="#building-a-generalizable-description-of-this-relationship" id="toc-building-a-generalizable-description-of-this-relationship" class="nav-link" data-scroll-target="#building-a-generalizable-description-of-this-relationship">Building a generalizable description of this relationship</a></li>
   <li><a href="#ols-and-linear-regression" id="toc-ols-and-linear-regression" class="nav-link" data-scroll-target="#ols-and-linear-regression">OLS and linear regression</a></li>
@@ -238,7 +238,6 @@ gtag('config', 'G-WKJ9E8EHM1', { 'anonymize_ip': true});
   <li><a href="#measuring-error-in-our-model" id="toc-measuring-error-in-our-model" class="nav-link" data-scroll-target="#measuring-error-in-our-model">Measuring error in our model</a></li>
   <li><a href="#a-model-wide-value-for-error" id="toc-a-model-wide-value-for-error" class="nav-link" data-scroll-target="#a-model-wide-value-for-error">A model-wide value for error</a></li>
   <li><a href="#modelling-relationships-among-categorical-variables" id="toc-modelling-relationships-among-categorical-variables" class="nav-link" data-scroll-target="#modelling-relationships-among-categorical-variables">Modelling relationships among categorical variables</a></li>
-  <li><a href="#next-week" id="toc-next-week" class="nav-link" data-scroll-target="#next-week">Next week</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/hgoers/GVPT622/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
@@ -263,23 +262,26 @@ gtag('config', 'G-WKJ9E8EHM1', { 'anonymize_ip': true});
 
 </header>
 
-<section id="readings" class="level2">
-<h2 class="anchored" data-anchor-id="readings">Readings</h2>
-<section id="class" class="level3">
-<h3 class="anchored" data-anchor-id="class">Class</h3>
-<p><i class="fa-solid fa-book" aria-label="book"></i> Pollock &amp; Edwards, Chapter 3</p>
-</section>
-<section id="lab" class="level3">
-<h3 class="anchored" data-anchor-id="lab">Lab</h3>
-<p><i class="fa-solid fa-book" aria-label="book"></i> Pollock &amp; Edwards R Companion, Chapters 4-5</p>
-</section>
-</section>
-<section id="section" class="level2">
-<h2 class="anchored" data-anchor-id="section">Section</h2>
-<section id="prerequisites" class="level3">
-<h3 class="anchored" data-anchor-id="prerequisites">Prerequisites</h3>
+<section id="set-up" class="level2">
+<h2 class="anchored" data-anchor-id="set-up">Set up</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Installing packages
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>If you have not already done so, please install or update these packages by running the following in your console:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"broom"</span>, <span class="st">"janitor"</span>, <span class="st">"ggridges"</span>, <span class="st">"modelsummary"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"broom"</span>, <span class="st">"ggridges"</span>, <span class="st">"modelsummary"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
@@ -291,12 +293,11 @@ gtag('config', 'G-WKJ9E8EHM1', { 'anonymize_ip': true});
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggridges)</span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modelsummary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
 <section id="how-will-what-you-learn-this-week-help-your-research" class="level3">
 <h3 class="anchored" data-anchor-id="how-will-what-you-learn-this-week-help-your-research">How will what you learn this week help your research?</h3>
 <p>As usual, we start with an interesting question. You have some outcome of interest and you think that there is an important determinant of that outcome that no one has yet identified. Or perhaps the relationship between some heavily chewed over determinant and the outcome of interest is misunderstood. We are steadily building up your ability to determine empirically the relationship between that determinant and the outcome of interest.</p>
 <p>Simply put (and there really is no need to over-complicate this), we have two or more variables: an outcome of interest (the dependent variable) and a set of independent variables that we theorize are important determinants of that outcome. We can use empirical analysis to understand 1) how the dependent and independent variables change in relation to one another, and 2) whether this relationship is strong enough that we should declare (though 12,000-word journal articles or by shouting from rooftops) that whenever we want to change or understand that outcome, we <em>must</em> consider these important independent variables.</p>
-<p>Last week, we discussed various tools that you can use to explore your data. You can develop a very good understanding of each of the individual variables. This exploration is very important for building your intuition and, by extension, your expertise in the question at hand. These tools also allow you to identify unusual data points (or outliers).</p>
+<p>Previously, we discussed various tools that you can use to explore your data. This is very important for building your intuition and, by extension, your expertise in the question at hand. These tools also allow you to identify unusual data points (or outliers).</p>
 <p>This week, we will make the next step. We will explore how two variables relate to each other. How do they move with each other: when one goes up, does the other go down, up, or not really move? How strong is this association?</p>
 <p>This exploration is particularly important for you to do with regard to the independent variable(s) that are the focal point of your theory and, therefore, your contribution to our understanding of the messy spaghetti bowl of things that determine your outcome of interest. Just as it is important for you to spend some time understanding the shape of your variables (using the tools we discussed last week), you must also start to understand the shape of the relationship between the outcome you are trying to understand or predict and the factors you think are important determinants of that outcome.</p>
 <p>Let’s begin!</p>
@@ -346,8 +347,8 @@ gtag('config', 'G-WKJ9E8EHM1', { 'anonymize_ip': true});
 </div>
 </div>
 </section>
-<section id="what-is-the-relationship-between-two-variables" class="level3">
-<h3 class="anchored" data-anchor-id="what-is-the-relationship-between-two-variables">What is the relationship between two variables?</h3>
+<section id="what-is-the-relationship-between-these-two-variables" class="level3">
+<h3 class="anchored" data-anchor-id="what-is-the-relationship-between-these-two-variables">What is the relationship between these two variables?</h3>
 <p>What is the relationship between a country’s average life expectancy and its GDP per capita? The easiest way to determine this is to visualize these two variables.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gapminder_df, <span class="fu">aes</span>(<span class="at">x =</span> gdp_per_cap, <span class="at">y =</span> life_exp)) <span class="sc">+</span> </span>
@@ -360,7 +361,7 @@ gtag('config', 'G-WKJ9E8EHM1', { 'anonymize_ip': true});
 <p><img src="03-bivariate_relationships_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="960"></p>
 </div>
 </div>
-<p>There seems to be a good case that there is a strong relationship between a country’s GDP per capita (wealth) and its average life expectancy (health).</p>
+<p>There seems to be a good case that there is a strong relationship between a country’s GDP per capita (wealth) and its average life expectancy (health). It appears that we expect citizens that live in countries that have larger GPD per capita to live longer, on average. But this relationship is not linear (a straight line drawn through them will not summarise this very well).</p>
 <p>Because we want to explore linear relationships at this stage of the course, we will look at the logged GDP per capita variable:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gapminder_df, <span class="fu">aes</span>(<span class="at">x =</span> log_gdp_per_cap, <span class="at">y =</span> life_exp)) <span class="sc">+</span> </span>
@@ -393,8 +394,23 @@ Note
 <h3 class="anchored" data-anchor-id="how-can-we-measure-the-strength-of-that-relationship">How can we measure the strength of that relationship?</h3>
 <p>Now we need some way of measuring the strength of the relationship. In other words, what amount of the variation in countries’ average life expectancy is associated with variation in their GDP per capita? We can measure the strength of this association using correlations. The <strong>correlation coefficient</strong> tells us how closely variables relate to one another. It tells us both the strength and direction of the association.</p>
 <ul>
-<li><p>Strength: how closely are these values tied to one another. Measured from 0 to |1|, with values closer to 0 indicating a very weak relationship and values closer to |1| indicating a very strong relationship.</p></li>
-<li><p>Direction: do both <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> change in the same direction? Positive correlations show that when <span class="math inline">\(X\)</span> increases (decreases), so does <span class="math inline">\(Y\)</span>. Negative correlations show that when <span class="math inline">\(X\)</span> increases (decreases), <span class="math inline">\(Y\)</span> decreases (increases). In other words, they move in different directions.</p></li>
+<li>Strength: how closely are these values tied to one another. Measured from 0 to |1|, with values closer to 0 indicating a very weak relationship and values closer to |1| indicating a very strong relationship.</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>What are those funny looking |s? They represent the absolute value, which is shorthand for the number regardless of its sign. To demonstrate, |1| is the absolute value of 1 and -1.</p>
+</div>
+</div>
+<ul>
+<li>Direction: do both <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> change in the same direction? Positive correlations show that when <span class="math inline">\(X\)</span> increases (decreases), so does <span class="math inline">\(Y\)</span>. Negative correlations show that when <span class="math inline">\(X\)</span> increases (decreases), <span class="math inline">\(Y\)</span> decreases (increases). In other words, they move in different directions.</li>
 </ul>
 <p>What is the correlation between logged GDP per capita and life expectancy?</p>
 <div class="cell">
@@ -633,7 +649,7 @@ life Exp_x = 32.9 + 4.5 * logGdpPerCap_x + \epsilon
 </div>
 <p>Note that OLS regression, particularly linear regression, requires that you make a lot of important assumptions about the relationship between your two variables. These were discussed in detail in the lecture. For example, we assume that the best line to fit is straight. We also assume that the best way to generate and describe the relationship across all observations is to fit the line that minimizes the distance between itself and the observed values or dots.</p>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -642,7 +658,7 @@ Note
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>There are other approaches to determining the “best” line. These include maximum likelihood estimation (discussed in detail in GVPT729) and Bayesian statistics. We won’t discuss these approaches in this class or in GVPT722. It’s worth noting here; however, that OLS regression requires a whole bunch of assumptions that may or may not be appropriate to your research question or theory. This class prepares you to grapple with those questions and appropriately use these tools in your own research.</p>
 </div>
@@ -1165,13 +1181,9 @@ R^2 = \frac{ESS}{TSS} = \frac{\Sigma(\hat{y}_i - \bar{y})^2}{\Sigma(y_i - \bar{y
 </div>
 </div>
 <p>As expected, Democrats appear to respond least favourably to the Republican Party, followed by Independents, and Republicans. This is demonstrated by both the mean comparison table and density plots.</p>
-</section>
-</section>
-<section id="next-week" class="level3">
-<h3 class="anchored" data-anchor-id="next-week">Next week</h3>
-<p>We will discuss research design.</p>
 
 
+</section>
 </section>
 </section>
 

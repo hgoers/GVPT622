@@ -7,19 +7,7 @@ execute:
   fig-width: 10
 ---
 
-## Readings
-
-### Class
-
-{{< fa book >}} Pollock & Edwards, Chapter 3
-
-### Lab
-
-{{< fa book >}} Pollock & Edwards R Companion, Chapters 4-5
-
-## Section
-
-### Prerequisites
+## Set up
 
 ```{r}
 #| echo: false
@@ -27,11 +15,17 @@ execute:
 library(scales)
 ```
 
+::: {.callout-tip collapse="true"}
+## Installing packages
+
+If you have not already done so, please install or update these packages by running the following in your console:
+
 ```{r}
 #| eval: false 
 
-install.packages(c("broom", "janitor", "ggridges", "modelsummary"))
+install.packages(c("broom", "ggridges", "modelsummary"))
 ```
+:::
 
 ```{r}
 library(tidyverse)
@@ -50,7 +44,7 @@ As usual, we start with an interesting question. You have some outcome of intere
 
 Simply put (and there really is no need to over-complicate this), we have two or more variables: an outcome of interest (the dependent variable) and a set of independent variables that we theorize are important determinants of that outcome. We can use empirical analysis to understand 1) how the dependent and independent variables change in relation to one another, and 2) whether this relationship is strong enough that we should declare (though 12,000-word journal articles or by shouting from rooftops) that whenever we want to change or understand that outcome, we *must* consider these important independent variables.
 
-Last week, we discussed various tools that you can use to explore your data. You can develop a very good understanding of each of the individual variables. This exploration is very important for building your intuition and, by extension, your expertise in the question at hand. These tools also allow you to identify unusual data points (or outliers).
+Previously, we discussed various tools that you can use to explore your data. This is very important for building your intuition and, by extension, your expertise in the question at hand. These tools also allow you to identify unusual data points (or outliers).
 
 This week, we will make the next step. We will explore how two variables relate to each other. How do they move with each other: when one goes up, does the other go down, up, or not really move? How strong is this association?
 
@@ -92,7 +86,7 @@ gapminder_df <- wb_data(
 gapminder_df
 ```
 
-### What is the relationship between two variables?
+### What is the relationship between these two variables?
 
 What is the relationship between a country's average life expectancy and its GDP per capita? The easiest way to determine this is to visualize these two variables.
 
@@ -105,7 +99,7 @@ ggplot(gapminder_df, aes(x = gdp_per_cap, y = life_exp)) +
   scale_x_continuous(labels = label_dollar())
 ```
 
-There seems to be a good case that there is a strong relationship between a country's GDP per capita (wealth) and its average life expectancy (health).
+There seems to be a good case that there is a strong relationship between a country's GDP per capita (wealth) and its average life expectancy (health). It appears that we expect citizens that live in countries that have larger GPD per capita to live longer, on average. But this relationship is not linear (a straight line drawn through them will not summarise this very well). 
 
 Because we want to explore linear relationships at this stage of the course, we will look at the logged GDP per capita variable:
 
@@ -131,6 +125,10 @@ Well, that was easy! What is the relationship between health and wealth? They in
 Now we need some way of measuring the strength of the relationship. In other words, what amount of the variation in countries' average life expectancy is associated with variation in their GDP per capita? We can measure the strength of this association using correlations. The **correlation coefficient** tells us how closely variables relate to one another. It tells us both the strength and direction of the association.
 
 -   Strength: how closely are these values tied to one another. Measured from 0 to \|1\|, with values closer to 0 indicating a very weak relationship and values closer to \|1\| indicating a very strong relationship.
+
+::: {.callout-tip}
+What are those funny looking \|s? They represent the absolute value, which is shorthand for the number regardless of its sign. To demonstrate, \|1\| is the absolute value of 1 and -1. 
+:::
 
 -   Direction: do both $X$ and $Y$ change in the same direction? Positive correlations show that when $X$ increases (decreases), so does $Y$. Negative correlations show that when $X$ increases (decreases), $Y$ decreases (increases). In other words, they move in different directions.
 
@@ -673,6 +671,3 @@ nes |>
 
 As expected, Democrats appear to respond least favourably to the Republican Party, followed by Independents, and Republicans. This is demonstrated by both the mean comparison table and density plots.
 
-### Next week
-
-We will discuss research design.
