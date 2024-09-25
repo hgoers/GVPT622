@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>GVPT622 - Applications &amp; Midterm Exam Review</title>
+<title>GVPT622 - Applications &amp; Review</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,7 +20,60 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -71,6 +124,9 @@ gtag('js', new Date());
 gtag('config', 'G-WKJ9E8EHM1', { 'anonymize_ip': true});
 </script>
 
+<script src="../site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
 
 <link rel="stylesheet" href="../html/custom.css">
 </head>
@@ -111,7 +167,7 @@ gtag('config', 'G-WKJ9E8EHM1', { 'anonymize_ip': true});
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Applications &amp; Midterm Exam Review</li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/01-introduction.html">Course</a></li><li class="breadcrumb-item"><a href="../content/05-applications.html">Applications &amp; Review</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -156,6 +212,12 @@ gtag('config', 'G-WKJ9E8EHM1', { 'anonymize_ip': true});
  <span class="menu-text">Relationships Between Two Variables</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/05-applications.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Applications &amp; Review</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -185,10 +247,12 @@ gtag('config', 'G-WKJ9E8EHM1', { 'anonymize_ip': true});
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#readings" id="toc-readings" class="nav-link active" data-scroll-target="#readings">Readings</a>
-  <ul>
-  <li><a href="#class" id="toc-class" class="nav-link" data-scroll-target="#class">Class</a></li>
-  </ul></li>
+  <li><a href="#set-up" id="toc-set-up" class="nav-link active" data-scroll-target="#set-up">Set up</a></li>
+  <li><a href="#the-data" id="toc-the-data" class="nav-link" data-scroll-target="#the-data">The data</a></li>
+  <li><a href="#dependent-variable" id="toc-dependent-variable" class="nav-link" data-scroll-target="#dependent-variable">Dependent variable</a></li>
+  <li><a href="#independent-variable" id="toc-independent-variable" class="nav-link" data-scroll-target="#independent-variable">Independent variable</a></li>
+  <li><a href="#the-relationship-between-fdi-and-pcj-institutions" id="toc-the-relationship-between-fdi-and-pcj-institutions" class="nav-link" data-scroll-target="#the-relationship-between-fdi-and-pcj-institutions">The relationship between FDI and PCJ institutions</a></li>
+  <li><a href="#other-important-factors" id="toc-other-important-factors" class="nav-link" data-scroll-target="#other-important-factors">Other important factors</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/hgoers/GVPT622/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -197,7 +261,7 @@ gtag('config', 'G-WKJ9E8EHM1', { 'anonymize_ip': true});
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Applications &amp; Midterm Exam Review</h1>
+<h1 class="title">Applications &amp; Review</h1>
 </div>
 
 
@@ -212,18 +276,503 @@ gtag('config', 'G-WKJ9E8EHM1', { 'anonymize_ip': true});
 
 </header>
 
-<section id="readings" class="level2">
-<h2 class="anchored" data-anchor-id="readings">Readings</h2>
-<section id="class" class="level3">
-<h3 class="anchored" data-anchor-id="class">Class</h3>
-<p><i class="fa-solid fa-graduation-cap" aria-label="graduation-cap"></i> Segal, Jeffrey A. &amp; Albert D. Cover. 1989. “Ideological Values and the Votes of U.S. Supreme Court Justices.” American Political Science Review 83(2): 557-565.</p>
-<p><i class="fa-solid fa-graduation-cap" aria-label="graduation-cap"></i> Sondheimer, Rachel Milstein &amp; Donald P. Green. 2010. “Using Experiments to Estimate the Effects of Education on Voter Turnout.” American Journal of Political Science 54(1): 174-189.</p>
+<section id="set-up" class="level2">
+<h2 class="anchored" data-anchor-id="set-up">Set up</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Installing packages
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>If you have not already done so, please install or update these packages by running the following in your console:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"broom"</span>, <span class="st">"ggridges"</span>, <span class="st">"modelsummary"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(polisciols)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modelsummary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><span class="citation" data-cites="appel2012">Appel and Loyle (<a href="#ref-appel2012" role="doc-biblioref">2012</a>)</span> (two wonderful UMD GVPT alumni) wanted to know more about why some states that are emerging from conflict set up post-conflict justice (PCJ) institutions. These institutions include courts that prosecute crimes committed during conflict, truth and reconciliation commissions, and other accountability procedures. They argue that leaders of post-conflict states, desperate for injections of foreign capital into their beleaguered economies, will set these up - in part - to send a costly and credible signal to foreign investors that these new leaders are committed to political stability and successful reconstruction.</p>
+<p>Today, we are going to use the tools you have learnt so far in this course to explore the empirics sitting behind their published research.</p>
+</section>
+<section id="the-data" class="level2">
+<h2 class="anchored" data-anchor-id="the-data">The data</h2>
+<p>We will use their data. You can access it through the <code>ebj</code> data set in the <code>polisciols</code> R package:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(ebj)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 95 × 19
+      id ccode country_name      pcj      net_fdi_inflows gdp_per_capita     gdp
+   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;             &lt;fct&gt;              &lt;dbl&gt;          &lt;dbl&gt;   &lt;dbl&gt;
+ 1    71    41 Haiti             No inst…           -9.80          1182. 8.41e 9
+ 2    71    41 Haiti             No inst…            6.60          1089. 8.06e 9
+ 3   154    52 Trinidad &amp; Tobago No inst…          510.            7743. 9.54e 9
+ 4   102    70 Mexico            No inst…         -341.            6895. 6.28e11
+ 5   102    70 Mexico            No inst…         6461.            7780. 7.31e11
+ 6    67    90 Guatemala         PCJ ins…          431.            3062. 3.13e10
+ 7   141    92 El Salvador       No inst…           -7             2093. 9.76e 9
+ 8   141    92 El Salvador       PCJ ins…          264.            3045. 1.67e10
+ 9   116    93 Nicaragua         No inst…            2.70          1302. 4.24e 9
+10   116    93 Nicaragua         PCJ ins…          337.            1350. 5.59e 9
+# ℹ 85 more rows
+# ℹ 12 more variables: gdp_per_capita_growth &lt;dbl&gt;, ex_rate_fluc &lt;dbl&gt;,
+#   cap_account_openness &lt;dbl&gt;, labor &lt;dbl&gt;, f_life_exp &lt;dbl&gt;, polity2 &lt;dbl&gt;,
+#   pol_constraints &lt;dbl&gt;, conflict_duration &lt;dbl&gt;, damage &lt;dbl&gt;,
+#   peace_agreement &lt;fct&gt;, victory &lt;fct&gt;, cold_war &lt;fct&gt;</code></pre>
+</div>
+</div>
+<p>Their unit of observation is post-conflict country 10-year period. They have collected data on 95 of these periods. They include all post-conflict periods for developing countries that concluded an internal armed conflict with at least 25 battle-related deaths in the period between 1970 and 2001.</p>
+<p>Many countries, including Haiti and Mexico, have multiple conflicts between 1970 and 2001 from which they emerged. We can calculate the number of post-conflict periods included for each country using the following code:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ebj <span class="sc">|&gt;</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(country_name) <span class="sc">|&gt;</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          country_name n
+1            Argentina 1
+2           Bangladesh 1
+3 Bosnia &amp; Herzegovina 1
+4         Burkina Faso 1
+5              Burundi 1
+6             Cambodia 1</code></pre>
+</div>
+</div>
+<p>This makes for an unwieldy table. Let’s visualize these data to get a better sense of our observations:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>ebj <span class="sc">|&gt;</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(country_name) <span class="sc">|&gt;</span> </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> n, <span class="at">y =</span> <span class="fu">reorder</span>(country_name, n))) <span class="sc">+</span> </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span> </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Number of post-conflict periods"</span>,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="05-applications_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="960"></p>
+</div>
+</div>
+<p>Senegal and Iran fall back into conflict the most across this time period. Most commonly; however, countries only experience one post-conflict period during this time.</p>
+</section>
+<section id="dependent-variable" class="level2">
+<h2 class="anchored" data-anchor-id="dependent-variable">Dependent variable</h2>
+<p>From their theory, <span class="citation" data-cites="appel2012">Appel and Loyle (<a href="#ref-appel2012" role="doc-biblioref">2012</a>)</span> pose the following hypothesis:</p>
+<blockquote class="blockquote">
+<p>FDI is likely to be greater in a post-conflict state where there is a PCJ compared with a post-conflict state that lacks a similar justice institution.</p>
+</blockquote>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>FDI stands for foreign direct investment. It measures the total value of ownership stakes held by foreign companies or individuals.</p>
+</div>
+</div>
+<p>They are, therefore, interested in exploring changes to FDI in post-conflict states with PCJ institutions compared to that in post-conflict states without them. Specifically, they measure net FDI inflows (measured as the total FDI inflows minus total FDI outflows of capital) over the 10-year period following the end of the conflict.</p>
+<p>Among post-conflict states, what is the spread of net FDI inflows? Let’s start by calculating the five-number summary:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>ebj <span class="sc">|&gt;</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">skim</span>(net_fdi_inflows)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<table style="width: auto;" class="table table-condensed">
+<caption>
+Data summary
+</caption>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Name
+</td>
+<td style="text-align:left;">
+ebj
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Number of rows
+</td>
+<td style="text-align:left;">
+95
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Number of columns
+</td>
+<td style="text-align:left;">
+19
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+_______________________
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Column type frequency:
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+numeric
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+________________________
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Group variables
+</td>
+<td style="text-align:left;">
+None
+</td>
+</tr>
+</tbody>
+
+</table>
+<p><strong>Variable type: numeric</strong></p>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+skim_variable
+</th>
+<th style="text-align:right;">
+n_missing
+</th>
+<th style="text-align:right;">
+complete_rate
+</th>
+<th style="text-align:right;">
+mean
+</th>
+<th style="text-align:right;">
+sd
+</th>
+<th style="text-align:right;">
+p0
+</th>
+<th style="text-align:right;">
+p25
+</th>
+<th style="text-align:right;">
+p50
+</th>
+<th style="text-align:right;">
+p75
+</th>
+<th style="text-align:right;">
+p100
+</th>
+<th style="text-align:left;">
+hist
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+net_fdi_inflows
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+759.15
+</td>
+<td style="text-align:right;">
+2910.95
+</td>
+<td style="text-align:right;">
+-1858.91
+</td>
+<td style="text-align:right;">
+-0.57
+</td>
+<td style="text-align:right;">
+38.29
+</td>
+<td style="text-align:right;">
+408.25
+</td>
+<td style="text-align:right;">
+24836.79
+</td>
+<td style="text-align:left;">
+▇▁▁▁▁
+</td>
+</tr>
+</tbody>
+
+</table>
+</div>
+</div>
+<p>On average, post-conflict states appear to receive $759.15 million more in FDI inflows than their domestic investors invest overseas. However, the differences between the states in our data appear to be huge! One poor country (Indonesia) lost $1,858.91 million in investment compared to what it received. Russia, on the other hand, racked in $24,836.79 million in net investment.</p>
+<p>We can get a better sense of this spread by visualizing our data:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ebj, <span class="fu">aes</span>(<span class="at">x =</span> net_fdi_inflows)) <span class="sc">+</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Net FDI inflows"</span>) <span class="sc">+</span> </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> dollar)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="05-applications_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="960"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ebj, <span class="fu">aes</span>(<span class="at">x =</span> net_fdi_inflows)) <span class="sc">+</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Net FDI inflows"</span>,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Count"</span>) <span class="sc">+</span> </span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> dollar)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="05-applications_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="960"></p>
+</div>
+</div>
+<p>There’s a lot of variance! Some countries appear to receive an extremely large increase in net FDI flows in the 10 years following the end of conflict. However, most appear to be hovering around no substantial increase at all.</p>
+</section>
+<section id="independent-variable" class="level2">
+<h2 class="anchored" data-anchor-id="independent-variable">Independent variable</h2>
+<p>The authors argue that we should expect to see a lot of variance. Countries that do not establish PCJ institutions and, therefore, do not signal to investors their commitment to political stability should expect to receive fewer inflows of FDI than their more reconciliatory peers.</p>
+<p>How many post-conflict periods involved at least one PCJ institution? We can quickly answer this using a frequency table:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tabyl</span>(ebj, pcj)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              pcj  n   percent
+  No institutions 77 0.8105263
+ PCJ institutions 18 0.1894737</code></pre>
+</div>
+</div>
+<p>The majority of post-conflict periods did not include a PCJ institution.</p>
+</section>
+<section id="the-relationship-between-fdi-and-pcj-institutions" class="level2">
+<h2 class="anchored" data-anchor-id="the-relationship-between-fdi-and-pcj-institutions">The relationship between FDI and PCJ institutions</h2>
+<p>Did the periods that included PCJ institutions tend to receive higher net FDI inflows than their less reconciliatory counterparts?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>ebj <span class="sc">|&gt;</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(pcj) <span class="sc">|&gt;</span> </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg_net_fdi =</span> <span class="fu">dollar</span>(<span class="fu">mean</span>(net_fdi_inflows)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  pcj              avg_net_fdi
+  &lt;fct&gt;            &lt;chr&gt;      
+1 No institutions  $425.01    
+2 PCJ institutions $2,188.52  </code></pre>
+</div>
+</div>
+<p>Yes! States that established a PCJ institution received higher net FDI inflows, on average, compared to those that did not. This difference looks large!</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>ebj <span class="sc">|&gt;</span> </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(pcj) <span class="sc">|&gt;</span> </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg_net_fdi =</span> <span class="fu">mean</span>(net_fdi_inflows)) <span class="sc">|&gt;</span> </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">difference =</span> avg_net_fdi <span class="sc">-</span> <span class="fu">lag</span>(avg_net_fdi),</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>         <span class="fu">across</span>(avg_net_fdi<span class="sc">:</span>difference, <span class="sc">~</span> <span class="fu">dollar</span>(.x)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 3
+  pcj              avg_net_fdi difference
+  &lt;fct&gt;            &lt;chr&gt;       &lt;chr&gt;     
+1 No institutions  $425.01     &lt;NA&gt;      
+2 PCJ institutions $2,188.52   $1,763.52 </code></pre>
+</div>
+</div>
+<p>Let’s look at all of our data within this context:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ebj, <span class="fu">aes</span>(<span class="at">x =</span> net_fdi_inflows, <span class="at">y =</span> pcj)) <span class="sc">+</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Net FDI inflows"</span>,</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="cn">NULL</span>) <span class="sc">+</span> </span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> dollar)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="05-applications_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="960"></p>
+</div>
+</div>
+<p>We can see differences between our groups, but I wonder if these differences are being driven by those outliers. Specifically, I am interested in seeing whether this relationship holds if I exclude Russia from the analysis:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>ebj_no_russia <span class="ot">&lt;-</span> <span class="fu">filter</span>(ebj, country_name <span class="sc">!=</span> <span class="st">"Russia"</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>ebj_no_russia <span class="sc">|&gt;</span> </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(pcj) <span class="sc">|&gt;</span> </span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg_net_fdi =</span> <span class="fu">mean</span>(net_fdi_inflows)) <span class="sc">|&gt;</span> </span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">difference =</span> avg_net_fdi <span class="sc">-</span> <span class="fu">lag</span>(avg_net_fdi),</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>         <span class="fu">across</span>(avg_net_fdi<span class="sc">:</span>difference, <span class="sc">~</span> <span class="fu">dollar</span>(.x)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 3
+  pcj              avg_net_fdi difference
+  &lt;fct&gt;            &lt;chr&gt;       &lt;chr&gt;     
+1 No institutions  $411.94     &lt;NA&gt;      
+2 PCJ institutions $856.27     $444.33   </code></pre>
+</div>
+</div>
+<p>The difference is still substantial (remember, those are <em>millions</em> of dollars). Post-conflict periods that included PCJ institutions received, on average, almost double the net FDI inflows compared to those that did not include these institutions. However, the size of this difference is much smaller.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ebj_no_russia, <span class="fu">aes</span>(<span class="at">x =</span> net_fdi_inflows, <span class="at">y =</span> pcj)) <span class="sc">+</span> </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Net FDI inflows"</span>,</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="cn">NULL</span>) <span class="sc">+</span> </span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> dollar)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="05-applications_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="960"></p>
+</div>
+</div>
+</section>
+<section id="other-important-factors" class="level2">
+<h2 class="anchored" data-anchor-id="other-important-factors">Other important factors</h2>
+<p>Let’s take a look now at some other factors that may be increasing the chances that a post-conflict period includes a PCJ institution and that foreign investors may be willing to venture into these vulnerable states.</p>
+<p>One potentially confounding factor <span class="citation" data-cites="appel2012">Appel and Loyle (<a href="#ref-appel2012" role="doc-biblioref">2012</a>)</span> account for is whether the conflict ended with a peace agreement. It is plausible that peace agreements are stuck on the condition of PCJ institutions being established. It is also plausible that foreign investors will view peace as more durable when it is decisively won.</p>
+<p>Let’s first look at whether conflicts that ended in a peace agreement are more likely to include a PCJ institution in the post-conflict period.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">datasummary_crosstab</span>(pcj <span class="sc">~</span> peace_agreement, <span class="at">data =</span> ebj, </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">statistic =</span> <span class="dv">1</span> <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> N <span class="sc">+</span> <span class="fu">Percent</span>(<span class="st">"col"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">pcj</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">No agreement</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Peace agreement</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">All</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">No institutions</td>
+<td style="text-align: left;">N</td>
+<td style="text-align: right;">70</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">77</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">% col</td>
+<td style="text-align: right;">89.7</td>
+<td style="text-align: right;">41.2</td>
+<td style="text-align: right;">81.1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PCJ institutions</td>
+<td style="text-align: left;">N</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">18</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">% col</td>
+<td style="text-align: right;">10.3</td>
+<td style="text-align: right;">58.8</td>
+<td style="text-align: right;">18.9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">All</td>
+<td style="text-align: left;">N</td>
+<td style="text-align: right;">78</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">95</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">% col</td>
+<td style="text-align: right;">100.0</td>
+<td style="text-align: right;">100.0</td>
+<td style="text-align: right;">100.0</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+<p>Although we are working with a very small number of cases (only 17 post-conflict periods involved a peace agreement), we can see some support for our intuition. The majority of conflicts that ended with a peace agreement included a PCJ in the post-conflict period (58.8%). On the other hand, the vast majority of conflicts that ended without agreement included no institutions in the post-conflict period (89.7%).</p>
+<p>Now, let’s ask whether peace agreements are also associated with lower levels of net FDI inflows.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>ebj <span class="sc">|&gt;</span> </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(peace_agreement) <span class="sc">|&gt;</span> </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg_net_fdi =</span> <span class="fu">mean</span>(net_fdi_inflows)) <span class="sc">|&gt;</span> </span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">difference =</span> avg_net_fdi <span class="sc">-</span> <span class="fu">lag</span>(avg_net_fdi),</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>         <span class="fu">across</span>(avg_net_fdi<span class="sc">:</span>difference, <span class="sc">~</span> <span class="fu">dollar</span>(.x)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 3
+  peace_agreement avg_net_fdi difference
+  &lt;fct&gt;           &lt;chr&gt;       &lt;chr&gt;     
+1 No agreement    $869.95     &lt;NA&gt;      
+2 Peace agreement $250.74     -$619.21  </code></pre>
+</div>
+</div>
+<p>This difference looks large. It appears that foreign investors have more confidence in peace won decisively by one side than in those that end in a mediated agreement.</p>
+<p>Now that we suspect that peace agreements may also have a substantial effect on net FDI inflows post-conflict states tend to receive, we should account for them. To do this, we want to compare like-for-like.</p>
+<p>First, I want to look at all post-conflict periods that involved no peace agreements. I then ask whether net FDI inflows different substantially between periods that included PCJ institutions and those that did not. I find that they are! Among states emerging from conflict without a peace agreement, those that established at least one PCJ institution received, on average, $3,989 million more in net FDI inflows compared to those that did not establish one. That’s a lot of money!</p>
+<p>Repeating this process among post-conflict periods that did not involve a peace agreement, I again find support for Appel and Loyle’s hypothesis. States that established PCJ institutions during this time tended to receive $311.93 million more in net FDI inflows than those that did not.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>ebj <span class="sc">|&gt;</span> </span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(pcj, peace_agreement) <span class="sc">|&gt;</span> </span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg_net_fdi =</span> <span class="fu">mean</span>(net_fdi_inflows)) <span class="sc">|&gt;</span> </span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(peace_agreement) <span class="sc">|&gt;</span> </span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">difference =</span> avg_net_fdi <span class="sc">-</span> <span class="fu">lag</span>(avg_net_fdi),</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>         <span class="fu">across</span>(avg_net_fdi<span class="sc">:</span>difference, <span class="sc">~</span> <span class="fu">dollar</span>(.x))) <span class="sc">|&gt;</span> </span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(peace_agreement)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 4
+# Groups:   peace_agreement [2]
+  pcj              peace_agreement avg_net_fdi difference
+  &lt;fct&gt;            &lt;fct&gt;           &lt;chr&gt;       &lt;chr&gt;     
+1 No institutions  No agreement    $460.78     &lt;NA&gt;      
+2 PCJ institutions No agreement    $4,450.20   $3,989.41 
+3 No institutions  Peace agreement $67.25      &lt;NA&gt;      
+4 PCJ institutions Peace agreement $379.18     $311.93   </code></pre>
+</div>
+</div>
+<p>So, even when we account for this potential confounding factor, we find support for Appel and Loyle’s hypothesis.</p>
+
 
 
 </section>
-</section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-appel2012" class="csl-entry" role="listitem">
+Appel, Benjamin J, and Cyanne E Loyle. 2012. <span>“The Economic Benefits of Justice: Post-Conflict Justice and Foreign Direct Investment.”</span> <em>Journal of Peace Research</em> 49 (5): 685–99. <a href="https://doi.org/10.1177/0022343312450044">https://doi.org/10.1177/0022343312450044</a>.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
