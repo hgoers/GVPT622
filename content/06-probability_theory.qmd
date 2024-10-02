@@ -8,19 +8,7 @@ execute:
   fig-width: 10
 ---
 
-## Readings
-
-### Class
-
-{{< fa book >}} Pollock & Edwards, Chapter 5
-
-### Lab
-
-{{< fa book >}} Pollock & Edwards R Companion, Chapter 6
-
-## Section
-
-### Prerequisites
+### Set up
 
 ```{r}
 #| echo: false
@@ -60,7 +48,8 @@ For example, you can flip the coin 10 times and record the results of each flip.
 
 ```{r}
 
-repeat_trials <- sample(possible_outcomes, size = 10, replace = T, prob = c(0.5, 0.5))
+repeat_trials <- sample(possible_outcomes, size = 10, 
+                        replace = T, prob = c(0.5, 0.5))
 repeat_trials
 ```
 
@@ -237,7 +226,7 @@ tabyl(month_rain, rain)
 
 Using this information, we may guess that there is a `r tabyl(month_rain, rain) |> filter(rain == 1) |> pull(percent) |> percent()` chance of rain on any given day in this month. Therefore, you predict that it will not rain tomorrow.
 
-But what if you notice that it tends to rain multiple days in a row? In other words, the chance of rain tomorrow is higher if it rains today. You can use this information to more accurately predict whether it will rain tomorrow. Instead of looking at all days in the month, you can look only at the days of the month that were preceded by rain days:
+But what if you notice that it tends to rain multiple days in a row? In other words, the chance of rain tomorrow is higher if it rained today. You can use this information to more accurately predict whether it will rain tomorrow. Instead of looking at all days in the month, you can look only at the days of the month that were preceded by rain days:
 
 ```{r}
 month_rain |> 

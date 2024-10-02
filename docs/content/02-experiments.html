@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.5.57">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>GVPT622 - Research Design</title>
+<title>Research Design – GVPT622</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,7 +19,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -30,7 +30,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -55,6 +55,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -95,7 +96,13 @@ div.csl-indent {
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -104,6 +111,7 @@ div.csl-indent {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -114,53 +122,78 @@ window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-WKJ9E8EHM1', { 'anonymize_ip': true});
-</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><link rel="stylesheet" href="../html/custom.css">
+</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script><link rel="stylesheet" href="../html/custom.css">
 </head>
 <body class="nav-sidebar docked nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg navbar-dark "><div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">GVPT622</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
 <li class="nav-item">
-    <a class="nav-link" href="../index.html" rel="" target="">
- <span class="menu-text">Home</span></a>
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../content/01-introduction.html" rel="" target="" aria-current="page">
- <span class="menu-text">Content</span></a>
+    <a class="nav-link active" href="../content/01-introduction.html" aria-current="page"> 
+<span class="menu-text">Content</span></a>
   </li>  
 </ul>
-<div class="quarto-navbar-tools">
+</div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
 </div>
-          </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/01-introduction.html">Course</a></li><li class="breadcrumb-item"><a href="../content/02-experiments.html">Research Design</a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/01-introduction.html">Course</a></li><li class="breadcrumb-item"><a href="../content/02-experiments.html">Research Design</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
     </div>
   </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto"><div class="sidebar-menu-container"> 
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto"><div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
 <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">Course</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -195,13 +228,19 @@ gtag('config', 'G-WKJ9E8EHM1', { 'anonymize_ip': true});
  <span class="menu-text">Applications &amp; Review</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/06-probability_theory.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Probability Theory</span></a>
+  </div>
+</li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
  <span class="menu-text">Additional resources</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -216,7 +255,7 @@ gtag('config', 'G-WKJ9E8EHM1', { 'anonymize_ip': true});
 </li>
     </ul>
 </div>
-</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
@@ -232,10 +271,10 @@ gtag('config', 'G-WKJ9E8EHM1', { 'anonymize_ip': true});
 </li>
   <li><a href="#observational-studies" id="toc-observational-studies" class="nav-link" data-scroll-target="#observational-studies">Observational studies</a></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
-  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/hgoers/GVPT622/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/hgoers/GVPT622/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/01-introduction.html">Course</a></li><li class="breadcrumb-item"><a href="../content/02-experiments.html">Research Design</a></li></ol></nav><div class="quarto-title">
 <h1 class="title">Research Design</h1>
 </div>
 
@@ -248,6 +287,7 @@ gtag('config', 'G-WKJ9E8EHM1', { 'anonymize_ip': true});
     
   </div>
   
+
 
 </header><section id="set-up" class="level2"><h2 class="anchored" data-anchor-id="set-up">Set up</h2>
 <div class="cell">
@@ -294,16 +334,16 @@ Note
 <pre><code># A tibble: 1,763 × 3
    station_id cheating_party_monitoring cheating_party_no_monitoring
         &lt;int&gt;                     &lt;dbl&gt;                        &lt;dbl&gt;
- 1          1                     12.7                          41.1
- 2          2                     17.4                          49.0
- 3          3                     21.6                          61.8
- 4          4                      7.84                         48.5
- 5          5                     29.8                          49.2
- 6          6                     22.8                          96.5
- 7          7                     44.1                          83.7
- 8          8                     24.1                          57.8
- 9          9                     19.3                          35.8
-10         10                      7.14                         60.5
+ 1          1                      0.14                         46.3
+ 2          2                      3.41                         86.8
+ 3          3                     25.0                          56.7
+ 4          4                     20.5                          53.4
+ 5          5                      6.15                         63.3
+ 6          6                     14.0                          93.3
+ 7          7                     18.0                          43.9
+ 8          8                     30                            50.7
+ 9          9                     15.1                          81.5
+10         10                     24.9                          64.6
 # ℹ 1,753 more rows</code></pre>
 </div>
 </div>
@@ -315,16 +355,16 @@ Note
 <pre><code># A tibble: 1,763 × 4
    station_id cheating_party_monitoring cheating_party_no_monitoring difference
         &lt;int&gt;                     &lt;dbl&gt;                        &lt;dbl&gt;      &lt;dbl&gt;
- 1          1                     12.7                          41.1      -28.4
- 2          2                     17.4                          49.0      -31.6
- 3          3                     21.6                          61.8      -40.2
- 4          4                      7.84                         48.5      -40.7
- 5          5                     29.8                          49.2      -19.4
- 6          6                     22.8                          96.5      -73.7
- 7          7                     44.1                          83.7      -39.6
- 8          8                     24.1                          57.8      -33.7
- 9          9                     19.3                          35.8      -16.6
-10         10                      7.14                         60.5      -53.4
+ 1          1                      0.14                         46.3      -46.2
+ 2          2                      3.41                         86.8      -83.4
+ 3          3                     25.0                          56.7      -31.7
+ 4          4                     20.5                          53.4      -32.9
+ 5          5                      6.15                         63.3      -57.2
+ 6          6                     14.0                          93.3      -79.3
+ 7          7                     18.0                          43.9      -25.9
+ 8          8                     30                            50.7      -20.7
+ 9          9                     15.1                          81.5      -66.4
+10         10                     24.9                          64.6      -39.7
 # ℹ 1,753 more rows</code></pre>
 </div>
 </div>
@@ -345,16 +385,16 @@ Note
 <pre><code># A tibble: 1,763 × 4
    station_id monitored cheating_party_monitoring cheating_party_no_monitoring
         &lt;int&gt;     &lt;int&gt;                     &lt;dbl&gt;                        &lt;dbl&gt;
- 1          1         1                     12.7                          NA  
- 2          2         0                     NA                            49.0
- 3          3         0                     NA                            61.8
- 4          4         1                      7.84                         NA  
- 5          5         0                     NA                            49.2
- 6          6         0                     NA                            96.5
- 7          7         0                     NA                            83.7
- 8          8         1                     24.1                          NA  
- 9          9         0                     NA                            35.8
-10         10         0                     NA                            60.5
+ 1          1         1                      0.14                         NA  
+ 2          2         0                     NA                            86.8
+ 3          3         1                     25.0                          NA  
+ 4          4         1                     20.5                          NA  
+ 5          5         0                     NA                            63.3
+ 6          6         0                     NA                            93.3
+ 7          7         0                     NA                            43.9
+ 8          8         1                     30                            NA  
+ 9          9         1                     15.1                          NA  
+10         10         0                     NA                            64.6
 # ℹ 1,753 more rows</code></pre>
 </div>
 </div>
@@ -368,40 +408,40 @@ Note
 <pre><code># A tibble: 1,763 × 3
    station_id cheating_party_monitoring cheating_party_no_monitoring
         &lt;int&gt;                     &lt;dbl&gt;                        &lt;dbl&gt;
- 1          1                     12.7                          41.1
- 2          2                     17.4                          49.0
- 3          3                     21.6                          61.8
- 4          4                      7.84                         48.5
- 5          5                     29.8                          49.2
- 6          6                     22.8                          96.5
- 7          7                     44.1                          83.7
- 8          8                     24.1                          57.8
- 9          9                     19.3                          35.8
-10         10                      7.14                         60.5
+ 1          1                      0.14                         46.3
+ 2          2                      3.41                         86.8
+ 3          3                     25.0                          56.7
+ 4          4                     20.5                          53.4
+ 5          5                      6.15                         63.3
+ 6          6                     14.0                          93.3
+ 7          7                     18.0                          43.9
+ 8          8                     30                            50.7
+ 9          9                     15.1                          81.5
+10         10                     24.9                          64.6
 # ℹ 1,753 more rows</code></pre>
 </div>
 </div>
-<p>The cheating party’s average vote share if all stations were monitored is 15.1%.</p>
+<p>The cheating party’s average vote share if all stations were monitored is 15.65%.</p>
 <p>In R:</p>
 <div class="cell">
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sim_election_monitoring</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">cheating_party_monitoring</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 15.10326</code></pre>
+<pre><code>[1] 15.64657</code></pre>
 </div>
 </div>
-<p>And its average vote share if no stations were monitored is a whopping 59.48%.</p>
+<p>And its average vote share if no stations were monitored is a whopping 60.07%.</p>
 <p>In R:</p>
 <div class="cell">
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sim_election_monitoring</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">cheating_party_no_monitoring</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 59.47736</code></pre>
+<pre><code>[1] 60.07096</code></pre>
 </div>
 </div>
-<p>We can conclude from these parallel worlds that, on average, election monitors caused a 44.37% reduction in the cheating party’s vote share at any given polling station.</p>
+<p>We can conclude from these parallel worlds that, on average, election monitors caused a 44.42% reduction in the cheating party’s vote share at any given polling station.</p>
 <p>Again, we can’t split the world into two parallel worlds for our political science experiments. Instead we need to find an appropriate proxy for those counter-factual vote shares. The best way to do this is using a <strong>randomized experiment</strong> (also sometimes referred to as a <strong>randomized control trial</strong>).</p>
 <p>The ultimate goal is to find two groups that are, on average, identical prior to the treatment. Then, once we treat one of the groups, we can infer that any differences between these two previously identical groups were <em>caused by</em> our treatment.</p>
 <p>The best way to do this is to randomly assign individual actors to a <strong>treatment</strong> or <strong>control group</strong>. Here, we randomly decide whether each given polling station will be monitored. Above, I used R to do this (using the <code><a href="https://rdrr.io/r/stats/Binomial.html">rbinom()</a></code> function). Those stations that will be monitored make up the <strong>treatment group</strong>. Those that will not be monitored make up the <strong>control group</strong>.</p>
@@ -429,20 +469,20 @@ Don’t take my word for it
 <pre><code># A tibble: 1,000 × 2
       id height
    &lt;int&gt;  &lt;dbl&gt;
- 1     1   171.
- 2     2   174.
- 3     3   166.
- 4     4   160.
- 5     5   174.
- 6     6   161.
- 7     7   171.
- 8     8   168.
- 9     9   184.
-10    10   167.
+ 1     1   177.
+ 2     2   175.
+ 3     3   162.
+ 4     4   174.
+ 5     5   173.
+ 6     6   167.
+ 7     7   157.
+ 8     8   176.
+ 9     9   171.
+10    10   170.
 # ℹ 990 more rows</code></pre>
 </div>
 </div>
-<p>These 1,000 have heights ranging from 147 cm to a towering 190 cm. Let’s take a look at them:</p>
+<p>These 1,000 have heights ranging from 149 cm to a towering 189 cm. Let’s take a look at them:</p>
 <div class="cell">
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">sim_heights</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">height</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -450,7 +490,10 @@ Don’t take my word for it
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Height (cm)"</span>,</span>
 <span>       y <span class="op">=</span> <span class="st">"Count"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="02-experiments_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="960"></p>
+<div>
+<figure class="figure"><p><img src="02-experiments_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Let’s split this group up entirely randomly:</p>
@@ -465,16 +508,16 @@ Don’t take my word for it
 # Rowwise: 
       id height assignment
    &lt;int&gt;  &lt;dbl&gt;      &lt;int&gt;
- 1     1   171.          0
- 2     2   174.          1
- 3     3   166.          0
- 4     4   160.          1
- 5     5   174.          1
- 6     6   161.          1
- 7     7   171.          0
- 8     8   168.          1
- 9     9   184.          0
-10    10   167.          1
+ 1     1   177.          1
+ 2     2   175.          1
+ 3     3   162.          0
+ 4     4   174.          1
+ 5     5   173.          0
+ 6     6   167.          0
+ 7     7   157.          1
+ 8     8   176.          0
+ 9     9   171.          0
+10    10   170.          1
 # ℹ 990 more rows</code></pre>
 </div>
 </div>
@@ -544,16 +587,16 @@ Don’t take my word for it
 <pre><code># A tibble: 1,763 × 4
    station_id monitored cheating_party_monitoring cheating_party_no_monitoring
         &lt;int&gt;     &lt;int&gt;                     &lt;dbl&gt;                        &lt;dbl&gt;
- 1          1         1                     12.7                          NA  
- 2          2         0                     NA                            49.0
- 3          3         0                     NA                            61.8
- 4          4         1                      7.84                         NA  
- 5          5         0                     NA                            49.2
- 6          6         0                     NA                            96.5
- 7          7         0                     NA                            83.7
- 8          8         1                     24.1                          NA  
- 9          9         0                     NA                            35.8
-10         10         0                     NA                            60.5
+ 1          1         1                      0.14                         NA  
+ 2          2         0                     NA                            86.8
+ 3          3         1                     25.0                          NA  
+ 4          4         1                     20.5                          NA  
+ 5          5         0                     NA                            63.3
+ 6          6         0                     NA                            93.3
+ 7          7         0                     NA                            43.9
+ 8          8         1                     30                            NA  
+ 9          9         1                     15.1                          NA  
+10         10         0                     NA                            64.6
 # ℹ 1,753 more rows</code></pre>
 </div>
 </div>
@@ -568,7 +611,7 @@ Don’t take my word for it
 <pre><code># A tibble: 1 × 2
   cheating_party_monitoring cheating_party_no_monitoring
                       &lt;dbl&gt;                        &lt;dbl&gt;
-1                      14.9                         60.0</code></pre>
+1                      15.2                         60.1</code></pre>
 </div>
 </div>
 <p>Then we find the difference between these two vote shares:</p>
@@ -579,10 +622,10 @@ Don’t take my word for it
 <pre><code># A tibble: 1 × 3
   cheating_party_monitoring cheating_party_no_monitoring difference
                       &lt;dbl&gt;                        &lt;dbl&gt;      &lt;dbl&gt;
-1                      14.9                         60.0      -45.0</code></pre>
+1                      15.2                         60.1      -44.9</code></pre>
 </div>
 </div>
-<p>We can say that, on average, election monitors reduced the cheating party’s vote share by 45.05 percentage points. This difference is substantial!<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> It is the difference between a land-slide win and an embarrassing loss.</p>
+<p>We can say that, on average, election monitors reduced the cheating party’s vote share by 44.91 percentage points. This difference is substantial!<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> It is the difference between a land-slide win and an embarrassing loss.</p>
 <p>Experiments are wonderful because they allow us to control which variables change and which are held constant. In turn, this allows us to isolate which variables cause changes to our outcome of interest. However, we cannot always run experiments to test our theories. When this is the case (which it often is), we need to rely on observational data to test whether our theories play out in the real-world.</p>
 </section></section><section id="observational-studies" class="level2"><h2 class="anchored" data-anchor-id="observational-studies">Observational studies</h2>
 <p>Observational studies are attempts to learn about the effect of a change in some variable on our outcome of interest. However, unlike in experiments, we cannot control when or how those variables change. We can only observe and record their changes and corresponding changes to our outcome of interest.</p>
@@ -623,16 +666,16 @@ Tip
 # Rowwise: 
    station_id in_city monitored cheating_party_vote_share
         &lt;int&gt;   &lt;int&gt;     &lt;int&gt;                     &lt;dbl&gt;
- 1          1       1         0                     0.709
- 2          2       1         0                     0.481
- 3          3       1         1                     0.527
- 4          4       1         1                     0.321
- 5          5       1         0                     0.703
- 6          6       0         0                     0.596
- 7          7       1         1                     0.459
- 8          8       1         1                     0.405
- 9          9       1         0                     0.808
-10         10       0         1                     0.224
+ 1          1       0         0                    0.0513
+ 2          2       0         1                    0.0996
+ 3          3       1         0                    0.706 
+ 4          4       1         1                    0.428 
+ 5          5       0         0                    0.0844
+ 6          6       0         0                    0.199 
+ 7          7       1         1                    0.559 
+ 8          8       0         1                    0.162 
+ 9          9       0         0                    0.550 
+10         10       0         0                    0.167 
 # ℹ 1,753 more rows</code></pre>
 </div>
 </div>
@@ -647,11 +690,11 @@ Tip
 <pre><code># A tibble: 2 × 2
   monitored   avg
       &lt;int&gt; &lt;dbl&gt;
-1         0 0.374
-2         1 0.359</code></pre>
+1         0 0.381
+2         1 0.345</code></pre>
 </div>
 </div>
-<p>A relatively small 1% reduction in vote share. But what happens if we control for whether the station was in the city or not?</p>
+<p>A relatively small 4% reduction in vote share. But what happens if we control for whether the station was in the city or not?</p>
 <div class="cell">
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sim_observed_data</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">monitored</span>, <span class="va">in_city</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -664,10 +707,10 @@ Tip
 # Groups:   in_city [2]
   monitored in_city   avg difference
       &lt;int&gt;   &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;     
-1         0       0 0.328 &lt;NA&gt;      
-2         1       0 0.161 -17%      
-3         0       1 0.595 &lt;NA&gt;      
-4         1       1 0.504 -9%       </code></pre>
+1         0       0 0.333 &lt;NA&gt;      
+2         1       0 0.146 -19%      
+3         0       1 0.601 &lt;NA&gt;      
+4         1       1 0.501 -10%      </code></pre>
 </div>
 </div>
 <p>When we compare similar (if not identical) groups, we find a much larger effect. We have attempted to correct for dissimilarities between our groups prior to treatment. In doing so, we get a much better understanding of the role international election monitors play in deterring or preventing election-day fraud.</p>
@@ -678,7 +721,7 @@ Tip
 
 
 
-</section><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+</section><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-hyde2007" class="csl-entry" role="listitem">
 Hyde, Susan D. 2007. <span>“The Observer Effect in International Politics: Evidence from a Natural Experiment.”</span> <em>World Politics</em> 60 (1): 37–63. <a href="http://www.jstor.org/stable/40060180">http://www.jstor.org/stable/40060180</a>.
 </div>
@@ -721,18 +764,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -764,11 +796,50 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
-  function tippyHover(el, contentFn) {
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -778,8 +849,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -791,7 +871,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -835,6 +1038,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -860,6 +1064,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -921,11 +1151,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
-    <div class="nav-footer-left">Content <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> 2024 by <a href="https://www.harrietgoers.com">Harriet Goers</a> <br> All content licensed under a <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> <i class="fa-brands fa-creative-commons-by" aria-label="creative-commons-by"></i> <i class="fa-brands fa-creative-commons-nc" aria-label="creative-commons-nc"></i> <a href="https://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-Non Commercial 4.0 International license (CC BY-NC 4.0)</a></div>   
+    <div class="nav-footer-left">
+<p>Content <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> 2024 by <a href="https://www.harrietgoers.com">Harriet Goers</a> <br> All content licensed under a <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> <i class="fa-brands fa-creative-commons-by" aria-label="creative-commons-by"></i> <i class="fa-brands fa-creative-commons-nc" aria-label="creative-commons-nc"></i> <a href="https://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-Non Commercial 4.0 International license (CC BY-NC 4.0)</a></p>
+</div>   
     <div class="nav-footer-center">
       &nbsp;
-    </div>
-    <div class="nav-footer-right">Made with <i class="fa-brands fa-r-project" aria-label="r-project"></i> and <a href="https://quarto.org/">Quarto</a><br><a href="https://www.andrewheiss.com/teaching/">Heavily inspired by course websites built by Dr Andrew Heiss</a></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/hgoers/GVPT622/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>Made with <i class="fa-brands fa-r-project" aria-label="r-project"></i> and <a href="https://quarto.org/">Quarto</a><br><a href="https://www.andrewheiss.com/teaching/">Heavily inspired by course websites built by Dr Andrew Heiss</a></p>
+</div>
   </div>
 </footer>
 
