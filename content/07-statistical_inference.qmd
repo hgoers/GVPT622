@@ -8,25 +8,7 @@ execute:
   fig-width: 10
 ---
 
-## Readings
-
-### Class
-
-{{< fa book >}} Pollock & Edwards, Chapter 6
-
-### Lab
-
-{{< fa book >}} Pollock & Edwards R Companion, Chapter 6
-
-### Suggested 
-
-{{< fa book >}} [Gelman, Hill, and Vehtari *Regression and Other Stories*](https://users.aalto.fi/~ave/ROS.pdf), Chapter 4
-
-{{< fa book >}}[Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund, *R for Data Science (2e), Chapter 26: Functions*](https://r4ds.hadley.nz/functions)
-
-## Section
-
-### Prerequisites
+## Set up
 
 ```{r}
 #| echo: false
@@ -49,21 +31,21 @@ set.seed(1234)
 
 ### Population and sample
 
-Say we are interested in the proportion of US voters who will vote for Joe Biden in the 2024 general election. We cannot ask all US voters of their intentions. Instead, we ask a sample of the US voting population and infer from that sample the population's intentions. When we generalize from the sample statistic to the parameter we are engaging in statistical inference.
+Say we are interested in the proportion of US voters who will vote for Kamala Harris in the 2024 general election. We cannot ask all US voters of their intentions. Instead, we ask a sample of the US voting population and infer from that sample the population's intentions. When we generalize from the sample statistic to the parameter we are engaging in statistical inference.
 
 ::: callout-note
-The data point of interest among the population is referred to as the **parameter**. Here, it is the proportion of *US voters* who intend to vote for Joe Biden in the 2024 general election. We do *not* know this. 
+The data point of interest among the population is referred to as the **parameter**. Here, it is the proportion of *US voters* who intend to vote for Kamala Harris in the 2024 general election. We do *not* know this.
 
-The data point of interest among the sample is referred to as the **statistic**. Here, it is the proportion of *survey respondents* who intend to vote for Joe Biden in the 2024 general election. We do know this. 
+The data point of interest among the sample is referred to as the **statistic**. Here, it is the proportion of *survey respondents* who intend to vote for Kamala Harris in the 2024 general election. We do know this.
 
 We aim to have a statistic that accurately represents the parameter.
 :::
 
-We want to know how many people intend to vote for Joe Biden. In other words, we want to know whether our survey results reflect the true proportion of the population who intend to vote for him. How can we be confident that our statistic represents the parameter? 
+We want to know how many people intend to vote for Kamala Harris. In other words, we want to know whether our survey results reflect the true proportion of the population who intend to vote for her. How can we be confident that our statistic represents the parameter?
 
-Generally speaking, the more our sample "looks like" our population, the more confident we can be that we have a good statistic. Drawing on probability theory, our sample is increasingly likely to resemble our population with its randomness and size.
+Generally speaking, the more our sample "looks like" our population, the more confident we can be that we have a good statistic. Drawing on probability theory, our sample is increasingly likely to resemble our population with its randomness and size (remember back to our discussion of experiments).
 
-You should strive for a large **pure random sample**. In a pure random sample, every individual within your population is equally likely to be drawn. This is really hard to achieve! Think about normal election surveys. Many are conducted over the phone. There are plenty of people who do not have a landline phone, or do not pick up calls from unknown numbers, or who keep their phones on do not disturb during the day. These people will be harder to contact than those who are sitting by the phone waiting eagerly for a call. Even if you have access to all US voters' phone numbers (never mind that some voters do not have phone numbers) and you take a random sample of those phone numbers and start calling, you still will not get a hold of them all with equal probability.
+You should strive for a large **pure random sample**. In a pure random sample, every individual within your population is equally likely to be drawn. This is really hard to achieve! Think about normal election surveys. Many are conducted over the phone. There are plenty of people who do not have a landline phone, or do not pick up calls from unknown numbers, or who keep their phones on "do not disturb" during the day when many of these calls are made. These people will be harder to contact than those who are sitting by the phone waiting eagerly for a call. Even if you have access to all US voters' phone numbers (never mind that some voters do not have phone numbers) and you take a random sample of those phone numbers and start calling, you still will not get a hold of them all with equal probability.
 
 You should also strive for as large a sample as you can possibly get. More is always better in terms of statistical inference (if not your research budget or time). Remember back to our coin flips last week. The more coin flips we did, the closer we got to the true probability distribution between heads and tails. This principle also holds here.
 
@@ -86,7 +68,7 @@ coin_flip_100 <- sample(possible_outcomes, 100, replace = T, prob = c(0.5, 0.5))
 coin_flip_100
 ```
 
-We know that the true probability of the fair coin landing on heads is 0.5. Therefore, if we flip a fair coin 100 times, we should get 50 heads. However, we also know from last week that these random draws are a bit noisy: we can get proportions that do not reflect the underlying probability of 0.5. What did we get in this draw? 
+We know that the true probability of the fair coin landing on heads is 0.5. Therefore, if we flip a fair coin 100 times, we should get 50 heads. However, we also know from last week that these random draws are a bit noisy: we can get proportions that do not reflect the underlying probability of 0.5. What did we get in this draw?
 
 ```{r}
 table(coin_flip_100)
@@ -121,17 +103,17 @@ ggplot(results, aes(x = n_heads)) +
        y = "Count of trials")
 ```
 
-The most common outcome of these 1,000,000 100-coin-flip trials is our true underlying proportion: $Pr(H, T) = \{0.5, 0.5\}$. The next most common outcomes are very close to that true underlying proportion. If I were to select a trial *at random* from those 1,000,000 we just conducted, I am most likely to get one that resulted in 50% heads or very close to 50% heads. This is because there are many more trials that resulted in and around 50% heads than did not. 
+The most common outcome of these 1,000,000 100-coin-flip trials is our true underlying proportion: $Pr(H, T) = \{0.5, 0.5\}$. The next most common outcomes are very close to that true underlying proportion. If I were to select a trial *at random* from those 1,000,000 we just conducted, I am most likely to get one that resulted in 50% heads or very close to 50% heads. This is because there are many more trials that resulted in and around 50% heads than did not.
 
 We do get some trials in which we draw many more or far fewer than our expected 50 heads. We have some as low as `r min(results$n_heads)` heads and some as large as `r max(results$n_heads)` heads. But again, the number of heads recorded in most of our trials are clustered around our expected 50. The average number of heads drawn in all of our trials is `r mean(results$n_heads)` heads which is really, really close to our known parameter of 0.5 or 50%. Yay!
 
-So, even with representative and large samples you will get some error. That's okay. As long as the mean of the sampling distribution of an infinite number of identical trials would equal the true population parameter, we have an **unbiased statistic** that we can use to infer things about our population of interest. Here, each of the outcomes of our trials - including those ones that resulted in `r min(results$n_heads)` heads and `r max(results$n_heads)` heads - are unbiased statistics *because* the mean of infinite identical trials would be 50 heads.  
+So, even with representative and large samples you will get some error. That's okay. As long as the mean of the sampling distribution of an infinite number of identical trials would equal the true population parameter, we have an **unbiased statistic** that we can use to infer things about our population of interest. Here, each of the outcomes of our trials - including those ones that resulted in `r min(results$n_heads)` heads and `r max(results$n_heads)` heads - are unbiased statistics *because* the mean of infinite identical trials would be 50 heads.
 
 ### Sampling distributions
 
 Let's move on from coin flips. Suppose that we want to know how many Americans identify as Democrats. We will return to the American National Election Survey to answer this question.
 
-This survey asks respondents whether they identify as a Democrat (this binary variable takes on 0 if not and 1 if they do). Let's look at these data for our first five survey respondents: 
+This survey asks respondents whether they identify as a Democrat (this binary variable takes on 0 if not and 1 if they do). Let's look at these data for our first five survey respondents:
 
 ```{r}
 nes |> 
@@ -139,7 +121,7 @@ nes |>
   head(5)
 ```
 
-Let's very cheekily **pretend** that this is a complete survey of the entire voting population of America. That way, we can **pretend** that we know the true proportion of US voters (our population of interest) who identify as Democrats (our parameter).
+Let's very cheekily **pretend** that this is a complete survey of the entire voting population of America. That way, we can *pretend* that we know the true proportion of US voters (our population of interest) who identify as Democrats (our parameter).
 
 What is that proportion?
 
@@ -158,7 +140,7 @@ nes_sample <- nes |>
   slice_sample(n = 3000)
 ```
 
-We have taken a random sample of 3,000 individuals (or `r percent(3000 / nrow(nes))` of our population of `r comma(nrow(nes))` voters). Every voter (member of our population) had an equal probability of being picked for this sample.
+We have taken a pure random sample of 3,000 individuals (or `r percent(3000 / nrow(nes))` of our population of `r comma(nrow(nes))` voters). Every voter (member of our population) had an equal probability of being picked for this sample.
 
 What proportion of this sample identify as Democrats?
 
@@ -213,9 +195,9 @@ ggplot(nes_samples_1000, aes(x = prop_dem)) +
        y = "Count of trials")
 ```
 
-On average, `r mean(nes_samples_1000$prop_dem) |> percent(accuracy = 0.01)` of US voters in our 1,000 samples of 3,000 US voters identified as Democrats. This is shown by the pink line in the graph above. Our (cheeky) population proportion is `r tabyl(nes, dem) |> filter(dem == 1) |> pull(percent) |> percent(accuracy = 0.01)` (shown by the blue line in the graph above). Yay! These are very, very close to each other and we only did 1,000 samples. If took more and more samples, the average proportion of respondents who identify as Democrats in those trials would get increasingly close to our population's proportion of Democrats. In fact, theoretically, if we took an infinite number of samples from these `r nrow(nes) |> comma()` observations, the average of the proportion of individuals who identify as Democrats in each of those infinite samples would equal *exactly* the population's proportion: `r tabyl(nes, dem) |> filter(dem == 1) |> pull(percent) |> percent(accuracy = 0.01)`. Further, we know that the proportions found in each of those trials would be normally distributed around that mean, with the most common outcomes sitting at or very close to the mean.    
+On average, `r mean(nes_samples_1000$prop_dem) |> percent(accuracy = 0.01)` of US voters in our 1,000 samples of 3,000 US voters identified as Democrats. This is shown by the pink line in the graph above. Our (cheeky) population proportion is `r tabyl(nes, dem) |> filter(dem == 1) |> pull(percent) |> percent(accuracy = 0.01)` (shown by the blue line in the graph above). Yay! These are very, very close to each other and we only did 1,000 samples. If took more and more samples, the average proportion of respondents who identify as Democrats in those trials would get increasingly close to our population's proportion of Democrats. In fact, theoretically, if we took an infinite number of samples from these `r nrow(nes) |> comma()` observations, the average of the proportion of individuals who identify as Democrats in each of those infinite samples would equal *exactly* the population's proportion: `r tabyl(nes, dem) |> filter(dem == 1) |> pull(percent) |> percent(accuracy = 0.01)`. Further, we know that the proportions found in each of those trials would be normally distributed around that mean, with the most common outcomes sitting at or very close to the mean.
 
-As long as our sample of our population is large and randomly drawn, we know enough about its shape and central point to use it to infer what is going on in the population. ***When your sample is large and representative (see randomly drawn)***, your sampling distribution will be near normally distributed. The center will be at (or very, very close to) the population mean. This is called the **Central Limit Theorem**. This theorem suggests that statistics (including means, proportions, counts) from large and randomly drawn samples are very good approximations of the underlying (and often unobservable) population parameter.
+As long as our sample of our population is large and randomly drawn, we know enough about its shape and central point to use it to infer what is going on in the population. ***When your sample is large and representative** (read: randomly drawn)*, your sampling distribution will be approximately Normally distributed. The center will be at (or very, very close to) the population mean. This is called the **Central Limit Theorem**. This theorem suggests that statistics (including means, proportions, counts) from large and randomly drawn samples are very good approximations of the underlying (and often unobservable) population parameter.
 
 ### Inferring from a single "trial"
 
@@ -275,7 +257,7 @@ For normally distributed data:
 
 -   Approximately 99.7% of the data fall within three standard deviations of the mean (the light blue).
 
-So, if we assume that the statistic we get from our large and representative sample is our "best guess" at the population parameter, we can center our theoretical sampling distribution around this point. We know that these data are normally distributed. We can use what we know about normal distributions to identify the boundaries around which we are confident some proportion of all statistics from an infinite number of identically drawn samples would fall. 
+So, if we assume that the statistic we get from our large and representative sample is our "best guess" at the population parameter, we can center our theoretical sampling distribution around this point. We know that these data are normally distributed. We can use what we know about normal distributions to identify the boundaries around which we are confident some proportion of all statistics from an infinite number of identically drawn samples would fall.
 
 Let's make this more concrete by going back to a single random sample of 3,000 respondents from the NES survey. Let's draw that sample:
 
@@ -286,11 +268,11 @@ nes_sample <- sample_n(nes, 3000) |>
 head(nes_sample)
 ```
 
-In this sample, `r tabyl(nes_sample, dem) |> filter(dem == 1) |> pull(percent) |> percent(accuracy = 0.01)` of respondents identify as Democrats. This is our best guess at our parameter of interest: the proportion of US voters who identify as Democrats. 
+In this sample, `r tabyl(nes_sample, dem) |> filter(dem == 1) |> pull(percent) |> percent(accuracy = 0.01)` of respondents identify as Democrats. This is our best guess at our parameter of interest: the proportion of US voters who identify as Democrats.
 
-Using what we know from above, what would our distribution of proportions look like if this was not the (average) proportion drawn from one trial but instead it was the average proportion drawn from an infinite number of identical trials? Well, those proportions would be normally distributed around that center point. To fill in that blank, we need one additional piece of information: the standard deviation (or spread) of those points around that center point. 
+Using what we know from above, what would our distribution of proportions look like if this was not the (average) proportion drawn from one trial but instead it was the average proportion drawn from an infinite number of identical trials? Well, those proportions would be normally distributed around that center point. To fill in that blank, we need one additional piece of information: the standard deviation (or spread) of those points around that center point.
 
-::: {.callout-note}
+::: callout-note
 When we are looking at the standard deviation of the sampling distribution, we refer to it as the **standard error**.
 :::
 
@@ -300,7 +282,7 @@ $$
 se(\hat{p}) = \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}
 $$
 
-Where $\hat{p}$ is the sample proportion (here: `r tabyl(nes_sample, dem) |> filter(dem == 1) |> pull(percent) |> round(3)`). 
+Where $\hat{p}$ is the sample proportion (here: `r tabyl(nes_sample, dem) |> filter(dem == 1) |> pull(percent) |> round(3)`).
 
 ```{r}
 p_hat <- tabyl(nes_sample, dem) |> 
@@ -312,7 +294,7 @@ se <- sqrt((p_hat * (1 - p_hat)) / n)
 se
 ```
 
-Now, let's use this information to draw many different hypothetical proportions of respondents who identify as Democrats in many different hypothetical samples. 
+Now, let's use this information to draw many different hypothetical proportions of respondents who identify as Democrats in many different hypothetical samples.
 
 ```{r}
 ggplot(tibble(x = rnorm(1e6, mean = p_hat, sd = se)), aes(x = x)) + 
@@ -322,7 +304,7 @@ ggplot(tibble(x = rnorm(1e6, mean = p_hat, sd = se)), aes(x = x)) +
        caption = "Median and mean shown with point. One and two standard deviations are shown by the black bars.")
 ```
 
-So, if our sample is large and random and we were to draw it many different times (here, 1,000,000 times), we would get a sampling distribution of proportions that resembles the one presented above. This variation is due to random error. There is nothing wrong with our research design or sampling method. 
+So, if our sample is large and random and we were to draw it many different times (here, 1,000,000 times), we would get a sampling distribution of proportions that resembles the one presented above. This variation is due to random error. There is nothing wrong with our research design or sampling method.
 
 We can use what we know about normal distributions to say that approximately 68% of these hypothetical proportions of people who identify as Democrats fall within one standard deviation of the mean, or:
 
@@ -334,7 +316,7 @@ upper_68 <- p_hat + 1 * se
 upper_68
 ```
 
-These boundaries are marked by the thick black line on the graph above. 
+These boundaries are marked by the thick black line on the graph above.
 
 Also, approximately 95% of these hypothetical proportions of people who identify as Democrats fall within 1.96 standard deviations of the mean, or:
 
@@ -346,7 +328,7 @@ upper_95 <- p_hat + 1.96 * se
 upper_95
 ```
 
-These boundaries are marked by the thinner black line on the graph above. 
+These boundaries are marked by the thinner black line on the graph above.
 
 We are putting a lot of stead in our single sample. That's okay as long as your sample is *large and representative*. Over these past few weeks we have discussed in sometimes painful detail why we can make some of the assumptions on which we rely. But, at the end of the day, you are the expert. You have explored your data with a critical eye. You have read everything you possibly can about this topic. You might have even gone out in the field and gotten your hands dirty. The more you know about your subject matter, the better you will be able to detect whether something strange is going on with your sample and your findings. This is so important. The strength of your empirical analysis is built on these foundations.
 
@@ -388,21 +370,21 @@ Moving from 100 to 1,000 observations in your sample dramatically decreases your
 
 ### Hypthesis testing
 
-Generally speaking, we want to make some statement about what is going on in the world. For example, does trade dependence between states reduce the likelihood that those states will go to war with one another? Does election day voter registration increase the number of people who vote in elections in the US? Does party identification shape your views on abortion? 
+Generally speaking, we want to make some statement about what is going on in the world. For example, does trade dependence between states reduce the likelihood that those states will go to war with one another? Does election day voter registration increase the number of people who vote in elections in the US? Does party identification shape your views on abortion?
 
-We can answer these questions by proposing and testing hypotheses, or measurable and observable statements about a population. For example, state dyads with high levels of trade dependence go to war with each other less frequently than state dyads with low levels of trade dependence. Election day voter registration increases the number of people who vote in an election. 
+We can answer these questions by proposing and testing hypotheses, or measurable and observable statements about a population. For example, state dyads with high levels of trade dependence go to war with each other less frequently than state dyads with low levels of trade dependence. Election day voter registration increases the number of people who vote in an election.
 
 We can use statistical tests of our data to test these hypotheses. Do we see support for our hypothesis in our data? How confident can we be that the differences identified in the data are meaningful and not just the product of random error?
 
 Frequentist statistics provides us with a means of answering that latter question. It asks you to imagine a world in which your hypothesis is wrong: there is no effect of trade dependence on the prevalence of war, or no effect of election-day registration on the number of people who vote.
 
-To build our intuition for this approach, let's consider a simple question: do more than zero Democrats support access to abortions with no conditions. 
+To build our intuition for this approach, let's consider a simple question: do more than zero Democrats support access to abortions with no conditions.
 
-::: {.callout-note}
-More interesting hypotheses are often framed as difference-of-means or difference-of-proportions tests. We will get to those next week. 
+::: callout-note
+More interesting hypotheses are often framed as difference-of-means or difference-of-proportions tests. We will get to those next week.
 :::
 
-To test this hypothesis, you you go out and you get a large, random sample from your population. Happily, we have access to the NES, which asked asked `r nrow(nes) |> comma()` US adults with which party they identified and the conditions under which they think abortions should be allowed. Here are the first five respondents' answers:  
+To test this hypothesis, you you go out and you get a large, random sample from your population. Happily, we have access to the NES, which asked asked `r nrow(nes) |> comma()` US adults with which party they identified and the conditions under which they think abortions should be allowed. Here are the first five respondents' answers:
 
 ```{r}
 nes |> 
@@ -420,7 +402,6 @@ nes_sample <- nes |>
 tabyl(nes_sample, abortion_always)
 ```
 
-
 ```{r}
 #| echo: false
 
@@ -430,7 +411,7 @@ prop_dems_always <- nes_sample |>
   pull(percent)
 ```
 
-Our sample found that `r percent(prop_dems_always)` of Democrats think abortions should always be allowed. It looks like we have found support for our hypothesis. But what if this is just random noise? How can we be confident that this represents the true number of Democrats in the population who support unconditional access to abortions? 
+Our sample found that `r percent(prop_dems_always)` of Democrats think abortions should always be allowed. It looks like we have found support for our hypothesis. But what if this is just random noise? How can we be confident that this represents the true number of Democrats in the population who support unconditional access to abortions?
 
 Assuming that our sample is large and representative of the population, we can build out the hypothetical distribution of the proportion of Democrats who state their support for access to abortions without conditions in many hypothetical identically drawn samples of our population:
 
@@ -444,9 +425,9 @@ ggplot(tibble(x = rnorm(1e6, mean = prop_dems_always, sd = se)), aes(x = x)) +
        caption = "Median and mean shown with point. One and two standard deviations are shown by the black bars.")
 ```
 
-But how can we be sure that this difference is not just random error or noise? Let's return to our statistical test. Imagine a world in which you are wrong: zero percent of Democrats support unconditional access to abortions. If this **null hypothesis** is true, how likely would we be take a large and random sample of our population and find that `r percent(prop_dems_always)` of democrats within that population support unconditional access to abortions? 
+But how can we be sure that this difference is not just random error or noise? Let's return to our statistical test. Imagine a world in which you are wrong: zero percent of Democrats support unconditional access to abortions. If this **null hypothesis** is true, how likely would we be take a large and random sample of our population and find that `r percent(prop_dems_always)` of democrats within that population support unconditional access to abortions?
 
-Let's add this null world to our findings: 
+Let's add this null world to our findings:
 
 ```{r}
 ggplot(tibble(x = rnorm(1e6, mean = prop_dems_always, sd = se)), aes(x = x)) + 

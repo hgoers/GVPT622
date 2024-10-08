@@ -145,7 +145,7 @@ window.Quarto = {
 <link rel="stylesheet" href="../html/custom.css">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-sidebar docked nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -167,7 +167,7 @@ window.Quarto = {
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../content/01-introduction.html"> 
+    <a class="nav-link active" href="../content/01-introduction.html" aria-current="page"> 
 <span class="menu-text">Content</span></a>
   </li>  
 </ul>
@@ -176,25 +176,105 @@ window.Quarto = {
 </div>
       </div> <!-- /container-fluid -->
     </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/01-introduction.html">Course</a></li><li class="breadcrumb-item"><a href="../content/07-statistical_inference.html">Hypothesis Testing I</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Course</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/01-introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/02-descriptive_statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Descriptive Statistics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/02-experiments.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Research Design</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/03-bivariate_relationships.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Relationships Between Two Variables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/05-applications.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Applications &amp; Review</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/06-probability_theory.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Probability Theory</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/07-statistical_inference.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Hypothesis Testing I</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Additional resources</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resources/quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to Quarto and markdown</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#readings" id="toc-readings" class="nav-link active" data-scroll-target="#readings">Readings</a>
+  <li><a href="#set-up" id="toc-set-up" class="nav-link active" data-scroll-target="#set-up">Set up</a>
   <ul>
-  <li><a href="#class" id="toc-class" class="nav-link" data-scroll-target="#class">Class</a></li>
-  <li><a href="#lab" id="toc-lab" class="nav-link" data-scroll-target="#lab">Lab</a></li>
-  <li><a href="#suggested" id="toc-suggested" class="nav-link" data-scroll-target="#suggested">Suggested</a></li>
-  </ul></li>
-  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section">Section</a>
-  <ul>
-  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites">Prerequisites</a></li>
   <li><a href="#population-and-sample" id="toc-population-and-sample" class="nav-link" data-scroll-target="#population-and-sample">Population and sample</a></li>
   <li><a href="#sampling-error" id="toc-sampling-error" class="nav-link" data-scroll-target="#sampling-error">Sampling error</a></li>
   <li><a href="#sampling-distributions" id="toc-sampling-distributions" class="nav-link" data-scroll-target="#sampling-distributions">Sampling distributions</a></li>
@@ -209,7 +289,7 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/01-introduction.html">Course</a></li><li class="breadcrumb-item"><a href="../content/07-statistical_inference.html">Hypothesis Testing I</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Hypothesis Testing I</h1>
 </div>
@@ -228,26 +308,8 @@ window.Quarto = {
 </header>
 
 
-<section id="readings" class="level2">
-<h2 class="anchored" data-anchor-id="readings">Readings</h2>
-<section id="class" class="level3">
-<h3 class="anchored" data-anchor-id="class">Class</h3>
-<p><i class="fa-solid fa-book" aria-label="book"></i> Pollock &amp; Edwards, Chapter 6</p>
-</section>
-<section id="lab" class="level3">
-<h3 class="anchored" data-anchor-id="lab">Lab</h3>
-<p><i class="fa-solid fa-book" aria-label="book"></i> Pollock &amp; Edwards R Companion, Chapter 6</p>
-</section>
-<section id="suggested" class="level3">
-<h3 class="anchored" data-anchor-id="suggested">Suggested</h3>
-<p><i class="fa-solid fa-book" aria-label="book"></i> <a href="https://users.aalto.fi/~ave/ROS.pdf">Gelman, Hill, and Vehtari <em>Regression and Other Stories</em></a>, Chapter 4</p>
-<p><i class="fa-solid fa-book" aria-label="book"></i><a href="https://r4ds.hadley.nz/functions">Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund, <em>R for Data Science (2e), Chapter 26: Functions</em></a></p>
-</section>
-</section>
-<section id="section" class="level2">
-<h2 class="anchored" data-anchor-id="section">Section</h2>
-<section id="prerequisites" class="level3">
-<h3 class="anchored" data-anchor-id="prerequisites">Prerequisites</h3>
+<section id="set-up" class="level2">
+<h2 class="anchored" data-anchor-id="set-up">Set up</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
@@ -259,10 +321,9 @@ window.Quarto = {
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
 <section id="population-and-sample" class="level3">
 <h3 class="anchored" data-anchor-id="population-and-sample">Population and sample</h3>
-<p>Say we are interested in the proportion of US voters who will vote for Joe Biden in the 2024 general election. We cannot ask all US voters of their intentions. Instead, we ask a sample of the US voting population and infer from that sample the population’s intentions. When we generalize from the sample statistic to the parameter we are engaging in statistical inference.</p>
+<p>Say we are interested in the proportion of US voters who will vote for Kamala Harris in the 2024 general election. We cannot ask all US voters of their intentions. Instead, we ask a sample of the US voting population and infer from that sample the population’s intentions. When we generalize from the sample statistic to the parameter we are engaging in statistical inference.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -273,14 +334,14 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The data point of interest among the population is referred to as the <strong>parameter</strong>. Here, it is the proportion of <em>US voters</em> who intend to vote for Joe Biden in the 2024 general election. We do <em>not</em> know this.</p>
-<p>The data point of interest among the sample is referred to as the <strong>statistic</strong>. Here, it is the proportion of <em>survey respondents</em> who intend to vote for Joe Biden in the 2024 general election. We do know this.</p>
+<p>The data point of interest among the population is referred to as the <strong>parameter</strong>. Here, it is the proportion of <em>US voters</em> who intend to vote for Kamala Harris in the 2024 general election. We do <em>not</em> know this.</p>
+<p>The data point of interest among the sample is referred to as the <strong>statistic</strong>. Here, it is the proportion of <em>survey respondents</em> who intend to vote for Kamala Harris in the 2024 general election. We do know this.</p>
 <p>We aim to have a statistic that accurately represents the parameter.</p>
 </div>
 </div>
-<p>We want to know how many people intend to vote for Joe Biden. In other words, we want to know whether our survey results reflect the true proportion of the population who intend to vote for him. How can we be confident that our statistic represents the parameter?</p>
-<p>Generally speaking, the more our sample “looks like” our population, the more confident we can be that we have a good statistic. Drawing on probability theory, our sample is increasingly likely to resemble our population with its randomness and size.</p>
-<p>You should strive for a large <strong>pure random sample</strong>. In a pure random sample, every individual within your population is equally likely to be drawn. This is really hard to achieve! Think about normal election surveys. Many are conducted over the phone. There are plenty of people who do not have a landline phone, or do not pick up calls from unknown numbers, or who keep their phones on do not disturb during the day. These people will be harder to contact than those who are sitting by the phone waiting eagerly for a call. Even if you have access to all US voters’ phone numbers (never mind that some voters do not have phone numbers) and you take a random sample of those phone numbers and start calling, you still will not get a hold of them all with equal probability.</p>
+<p>We want to know how many people intend to vote for Kamala Harris. In other words, we want to know whether our survey results reflect the true proportion of the population who intend to vote for her. How can we be confident that our statistic represents the parameter?</p>
+<p>Generally speaking, the more our sample “looks like” our population, the more confident we can be that we have a good statistic. Drawing on probability theory, our sample is increasingly likely to resemble our population with its randomness and size (remember back to our discussion of experiments).</p>
+<p>You should strive for a large <strong>pure random sample</strong>. In a pure random sample, every individual within your population is equally likely to be drawn. This is really hard to achieve! Think about normal election surveys. Many are conducted over the phone. There are plenty of people who do not have a landline phone, or do not pick up calls from unknown numbers, or who keep their phones on “do not disturb” during the day when many of these calls are made. These people will be harder to contact than those who are sitting by the phone waiting eagerly for a call. Even if you have access to all US voters’ phone numbers (never mind that some voters do not have phone numbers) and you take a random sample of those phone numbers and start calling, you still will not get a hold of them all with equal probability.</p>
 <p>You should also strive for as large a sample as you can possibly get. More is always better in terms of statistical inference (if not your research budget or time). Remember back to our coin flips last week. The more coin flips we did, the closer we got to the true probability distribution between heads and tails. This principle also holds here.</p>
 </section>
 <section id="sampling-error" class="level3">
@@ -392,7 +453,7 @@ HEADS TAILS
 5   5533   0</code></pre>
 </div>
 </div>
-<p>Let’s very cheekily <strong>pretend</strong> that this is a complete survey of the entire voting population of America. That way, we can <strong>pretend</strong> that we know the true proportion of US voters (our population of interest) who identify as Democrats (our parameter).</p>
+<p>Let’s very cheekily <strong>pretend</strong> that this is a complete survey of the entire voting population of America. That way, we can <em>pretend</em> that we know the true proportion of US voters (our population of interest) who identify as Democrats (our parameter).</p>
 <p>What is that proportion?</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tabyl</span>(nes, dem)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -410,7 +471,7 @@ HEADS TAILS
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(caseid, dem) <span class="sc">|&gt;</span> </span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">3000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>We have taken a random sample of 3,000 individuals (or 51% of our population of 5,916 voters). Every voter (member of our population) had an equal probability of being picked for this sample.</p>
+<p>We have taken a pure random sample of 3,000 individuals (or 51% of our population of 5,916 voters). Every voter (member of our population) had an equal probability of being picked for this sample.</p>
 <p>What proportion of this sample identify as Democrats?</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tabyl</span>(nes_sample, dem)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -491,7 +552,7 @@ HEADS TAILS
 </div>
 </div>
 <p>On average, 39.85% of US voters in our 1,000 samples of 3,000 US voters identified as Democrats. This is shown by the pink line in the graph above. Our (cheeky) population proportion is 39.86% (shown by the blue line in the graph above). Yay! These are very, very close to each other and we only did 1,000 samples. If took more and more samples, the average proportion of respondents who identify as Democrats in those trials would get increasingly close to our population’s proportion of Democrats. In fact, theoretically, if we took an infinite number of samples from these 5,916 observations, the average of the proportion of individuals who identify as Democrats in each of those infinite samples would equal <em>exactly</em> the population’s proportion: 39.86%. Further, we know that the proportions found in each of those trials would be normally distributed around that mean, with the most common outcomes sitting at or very close to the mean.</p>
-<p>As long as our sample of our population is large and randomly drawn, we know enough about its shape and central point to use it to infer what is going on in the population. <strong><em>When your sample is large and representative (see randomly drawn)</em></strong>, your sampling distribution will be near normally distributed. The center will be at (or very, very close to) the population mean. This is called the <strong>Central Limit Theorem</strong>. This theorem suggests that statistics (including means, proportions, counts) from large and randomly drawn samples are very good approximations of the underlying (and often unobservable) population parameter.</p>
+<p>As long as our sample of our population is large and randomly drawn, we know enough about its shape and central point to use it to infer what is going on in the population. <em><strong>When your sample is large and representative</strong> (read: randomly drawn)</em>, your sampling distribution will be approximately Normally distributed. The center will be at (or very, very close to) the population mean. This is called the <strong>Central Limit Theorem</strong>. This theorem suggests that statistics (including means, proportions, counts) from large and randomly drawn samples are very good approximations of the underlying (and often unobservable) population parameter.</p>
 </section>
 <section id="inferring-from-a-single-trial" class="level3">
 <h3 class="anchored" data-anchor-id="inferring-from-a-single-trial">Inferring from a single “trial”</h3>
