@@ -99,7 +99,7 @@ ggplot(gapminder_df, aes(x = gdp_per_cap, y = life_exp)) +
   scale_x_continuous(labels = label_dollar())
 ```
 
-There seems to be a good case that there is a strong relationship between a country's GDP per capita (wealth) and its average life expectancy (health). It appears that we expect citizens that live in countries that have larger GPD per capita to live longer, on average. But this relationship is not linear (a straight line drawn through them will not summarise this very well). 
+There seems to be a good case that there is a strong relationship between a country's GDP per capita (wealth) and its average life expectancy (health). It appears that we expect citizens that live in countries that have larger GPD per capita to live longer, on average. But this relationship is not linear (a straight line drawn through them will not summarise this very well).
 
 Because we want to explore linear relationships at this stage of the course, we will look at the logged GDP per capita variable:
 
@@ -126,8 +126,8 @@ Now we need some way of measuring the strength of the relationship. In other wor
 
 -   Strength: how closely are these values tied to one another. Measured from 0 to \|1\|, with values closer to 0 indicating a very weak relationship and values closer to \|1\| indicating a very strong relationship.
 
-::: {.callout-tip}
-What are those funny looking \|s? They represent the absolute value, which is shorthand for the number regardless of its sign. To demonstrate, \|1\| is the absolute value of 1 and -1. 
+::: callout-tip
+What are those funny looking \|s? They represent the absolute value, which is shorthand for the number regardless of its sign. To demonstrate, \|1\| is the absolute value of 1 and -1.
 :::
 
 -   Direction: do both $X$ and $Y$ change in the same direction? Positive correlations show that when $X$ increases (decreases), so does $Y$. Negative correlations show that when $X$ increases (decreases), $Y$ decreases (increases). In other words, they move in different directions.
@@ -670,4 +670,3 @@ nes |>
 ```
 
 As expected, Democrats appear to respond least favourably to the Republican Party, followed by Independents, and Republicans. This is demonstrated by both the mean comparison table and density plots.
-

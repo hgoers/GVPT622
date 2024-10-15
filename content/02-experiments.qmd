@@ -142,7 +142,7 @@ sim_heights <- tibble(
 sim_heights
 ```
 
-These 1,000 have heights ranging from `r round(min(sim_heights$height))` cm to a towering `r round(max(sim_heights$height))` cm. Let's take a look at them: 
+These 1,000 have heights ranging from `r round(min(sim_heights$height))` cm to a towering `r round(max(sim_heights$height))` cm. Let's take a look at them:
 
 ```{r}
 ggplot(sim_heights, aes(x = height)) + 
@@ -205,8 +205,7 @@ map(1:1000, random_assignments) |>
 In theory, if we did this an infinite number of times, those averages would be identical.
 :::
 
-
-Remember, our goal is to create two groups of polling stations that are, on average, identical prior to the treatment. We can do this by randomly assigning each station to be monitored or not. 
+Remember, our goal is to create two groups of polling stations that are, on average, identical prior to the treatment. We can do this by randomly assigning each station to be monitored or not.
 
 This allows us to treat the cheating party's average vote share across all monitored stations as indicative of its vote share across all stations if they were all monitored. Similarly, we can treat the cheating party's average vote share across all non-monitored stations as indicative of its vote share across all stations if none were monitored. The difference between these two average vote shares is our **average treatment effect**. In other words, the difference between the average vote share across monitored stations and that across non-monitored stations represents the effect of international monitoring on election-day fraud. This method is call the **difference-of-means** test.
 
@@ -241,22 +240,22 @@ Experiments are wonderful because they allow us to control which variables chang
 
 ## Observational studies
 
-Observational studies are attempts to learn about the effect of a change in some variable on our outcome of interest. However, unlike in experiments, we cannot control when or how those variables change. We can only observe and record their changes and corresponding changes to our outcome of interest. 
+Observational studies are attempts to learn about the effect of a change in some variable on our outcome of interest. However, unlike in experiments, we cannot control when or how those variables change. We can only observe and record their changes and corresponding changes to our outcome of interest.
 
-Generally, you cannot make causal statements about findings made using observational studies. For example, if election monitors were not assigned randomly to polling stations in the 2003 Armenian Presidential elections, Hyde could not claim that these monitors *caused*, on average, a reducing in vote share for the cheating party. Instead, she could only claim that monitors were *associated with* a reduction in vote share for the cheating party. 
+Generally, you cannot make causal statements about findings made using observational studies. For example, if election monitors were not assigned randomly to polling stations in the 2003 Armenian Presidential elections, Hyde could not claim that these monitors *caused*, on average, a reducing in vote share for the cheating party. Instead, she could only claim that monitors were *associated with* a reduction in vote share for the cheating party.
 
-Why is this the case? In observational studies, it is rarely the case that our groups (treatment and control) were identical prior to their treatment. For example, imagine if the decision to monitor each polling station was not random. Instead, the international monitoring group made the decision as to whether to monitor a station based on logistical reasons.  
+Why is this the case? In observational studies, it is rarely the case that our groups (treatment and control) were identical prior to their treatment. For example, imagine if the decision to monitor each polling station was not random. Instead, the international monitoring group made the decision as to whether to monitor a station based on logistical reasons.
 
-Imagine that the group (which has limited funds) decides to monitor stations in cities, which are close to transport hubs and have lots of accommodation options. Imagine also that our cheating party actually enjoys a lot of legitimate support in cities. Instead, it directs its limited pool of thugs and ballot-stuffers out to the regions where it anticipates having a very low vote share. 
+Imagine that the group (which has limited funds) decides to monitor stations in cities, which are close to transport hubs and have lots of accommodation options. Imagine also that our cheating party actually enjoys a lot of legitimate support in cities. Instead, it directs its limited pool of thugs and ballot-stuffers out to the regions where it anticipates having a very low vote share.
 
-Here, we would observe that the cheating party receives a high vote share in both monitored and non-monitored stations. It received high levels of support from voters in the city (who voted at stations that were disproportionately likely to be monitored and less likely to be ballot-stuffed) and (ill-gotten) high levels of support from voters in the regions (who voted at stations that were disproportionately less likely to be monitored and more likely to be ballot-stuffed). From this we might conclude that election monitors have no substantial effect on election-day fraud: there is no large difference in the cheating party's vote share between those stations that were monitored and those that were not. 
+Here, we would observe that the cheating party receives a high vote share in both monitored and non-monitored stations. It received high levels of support from voters in the city (who voted at stations that were disproportionately likely to be monitored and less likely to be ballot-stuffed) and (ill-gotten) high levels of support from voters in the regions (who voted at stations that were disproportionately less likely to be monitored and more likely to be ballot-stuffed). From this we might conclude that election monitors have no substantial effect on election-day fraud: there is no large difference in the cheating party's vote share between those stations that were monitored and those that were not.
 
-However, we have not actually tested our theory! Not all is lost with observational data. We just need to be very careful about controlling for those variables that might be influencing both our treatment (monitored or not) and outcome (vote share for the cheating party). 
+However, we have not actually tested our theory! Not all is lost with observational data. We just need to be very careful about controlling for those variables that might be influencing both our treatment (monitored or not) and outcome (vote share for the cheating party).
 
-Let's create some data to illustrate this point. 
+Let's create some data to illustrate this point.
 
-::: {.callout-tip}
-I will discuss the various methods I am using to generate these data in class. For now, you can note that I make the cheating party's vote share at stations increasingly small under the following conditions: from stations that are in the city and not monitored, in the city and monitored, in the regions and not monitored, and in the regions and monitored. 
+::: callout-tip
+I will discuss the various methods I am using to generate these data in class. For now, you can note that I make the cheating party's vote share at stations increasingly small under the following conditions: from stations that are in the city and not monitored, in the city and monitored, in the regions and not monitored, and in the regions and monitored.
 :::
 
 ```{r}
@@ -274,7 +273,7 @@ sim_observed_data <- tibble(station_id = 1:1763,
 sim_observed_data
 ```
 
-What is the difference in average vote shares between stations that were monitored and those that were not? 
+What is the difference in average vote shares between stations that were monitored and those that were not?
 
 ```{r}
 avg_diff_observed <- sim_observed_data |> 
@@ -284,7 +283,7 @@ avg_diff_observed <- sim_observed_data |>
 avg_diff_observed
 ```
 
-A relatively small `r avg_diff_observed |> mutate(diff = avg - lead(avg)) |> drop_na() |> pull(diff) |> scales::percent()` reduction in vote share. But what happens if we control for whether the station was in the city or not? 
+A relatively small `r avg_diff_observed |> mutate(diff = avg - lead(avg)) |> drop_na() |> pull(diff) |> scales::percent()` reduction in vote share. But what happens if we control for whether the station was in the city or not?
 
 ```{r}
 sim_observed_data |> 
@@ -295,13 +294,12 @@ sim_observed_data |>
   mutate(difference = scales::percent(avg - lag(avg)))
 ```
 
-When we compare similar (if not identical) groups, we find a much larger effect. We have attempted to correct for dissimilarities between our groups prior to treatment. In doing so, we get a much better understanding of the role international election monitors play in deterring or preventing election-day fraud. 
+When we compare similar (if not identical) groups, we find a much larger effect. We have attempted to correct for dissimilarities between our groups prior to treatment. In doing so, we get a much better understanding of the role international election monitors play in deterring or preventing election-day fraud.
 
 ## Conclusion
 
-At the end of the day, we are attempting to prove that our theories of how a change in some variable - for example, international election monitoring - causes a change in some outcome of interest - here, election-day fraud. We can only do this when we identify two groups (our treatment and control) that are identical to each other except for the treatment. 
+At the end of the day, we are attempting to prove that our theories of how a change in some variable - for example, international election monitoring - causes a change in some outcome of interest - here, election-day fraud. We can only do this when we identify two groups (our treatment and control) that are identical to each other except for the treatment.
 
-In absence of our ability to create parallel worlds, our best shot at this is through randomized experiments. When we assign our subjects to be treated (monitored) or stay as controls (not monitored) in a completely random way, we end up with two groups that are identical prior to the treatment. We can then confidently say that our treatment *caused* the difference between the average outcome in our two groups. 
+In absence of our ability to create parallel worlds, our best shot at this is through randomized experiments. When we assign our subjects to be treated (monitored) or stay as controls (not monitored) in a completely random way, we end up with two groups that are identical prior to the treatment. We can then confidently say that our treatment *caused* the difference between the average outcome in our two groups.
 
-Oftentimes, we cannot run experiments to test our theories. Instead, we must rely on observational studies. We use careful analysis to ensure that we get as close to identical groups as we can prior to their treatment. We can then look at the average differences between these carefully constructed groups to glean whether our outcome of interest is substantially different (on average) between those that were treated and those that were not. 
-
+Oftentimes, we cannot run experiments to test our theories. Instead, we must rely on observational studies. We use careful analysis to ensure that we get as close to identical groups as we can prior to their treatment. We can then look at the average differences between these carefully constructed groups to glean whether our outcome of interest is substantially different (on average) between those that were treated and those that were not.

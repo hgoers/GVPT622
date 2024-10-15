@@ -8,25 +8,19 @@ execute:
   fig-width: 10
 ---
 
-## Readings
+## Set up
 
-### Class
+::: {.callout-tip collapse="true"}
+## Installing packages
 
-{{< fa book >}} Pollock & Edwards, Chapter 7
-
-### Lab
-
-{{< fa book >}} Pollock & Edwards R Companion, Chapter 7
-
-## Section
-
-### Prerequisites
+If you have not already done so, please install or update these packages by running the following in your console:
 
 ```{r}
-#| eval: false
+#| eval: false 
 
 install.packages("infer")
 ```
+:::
 
 ```{r}
 library(tidyverse)
@@ -51,7 +45,7 @@ Do richer countries win more medals in the summer Olympics than poorer countries
 
 3.  Some threshold by which we will determine whether a country has a high income or not.
 
-Let's collect those data. To start, we can get data on all athletes who have competed in the Olympics from 1896 to 2016.
+Let's collect these data. To start, we can get data on all athletes who have competed in the Olympics from 1896 to 2016.
 
 ```{r}
 olympics_df <- read_csv("https://raw.githubusercontent.com/cosmoduende/r-olympic-games/main/datasets/athleteEvents.csv")
@@ -146,7 +140,9 @@ ggplot(medals_gdp_df, aes(x = medals_won, y = income_level, fill = income_level)
   geom_boxplot() + 
   theme_minimal() +
   theme(legend.position = "none") + 
-  scale_fill_discrete(type = c("#D88C9A", "#8bc5ed"))
+  scale_fill_discrete(type = c("#D88C9A", "#8bc5ed")) + 
+  labs(x = "Number of medals won",
+       y = NULL)
 ```
 
 ```{r}
