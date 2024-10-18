@@ -385,28 +385,28 @@ Installing packages
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Only look at the most recent year (2016)</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(Year) <span class="sc">|&gt;</span> </span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Include more general country code</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">iso3c =</span> <span class="fu">countrycode</span>(Team, <span class="st">"country.name"</span>, <span class="st">"iso3c"</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Filter out individuals who didn't win a medal</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(Medal) <span class="sc">|&gt;</span> </span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Count the number of medals won by each country (team) that year</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(iso3c, <span class="at">name =</span> <span class="st">"medals_won"</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">iso3c =</span> <span class="fu">countrycode</span>(Team, <span class="st">"country.name"</span>, <span class="st">"iso3c"</span>),</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">Medal =</span> <span class="fu">if_else</span>(<span class="fu">is.na</span>(Medal), <span class="dv">0</span>, <span class="dv">1</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Count the number of medals won by each country (team) that year</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(iso3c) <span class="sc">|&gt;</span> </span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">medals_won =</span> <span class="fu">sum</span>(Medal))</span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>olympic_medals_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 85 × 2
+<pre><code># A tibble: 205 × 2
    iso3c medals_won
-   &lt;chr&gt;      &lt;int&gt;
- 1 ARE            1
- 2 ARG           22
- 3 ARM            4
- 4 AUS           82
- 5 AUT            2
- 6 AZE           18
- 7 BDI            1
- 8 BEL           21
- 9 BGR            7
-10 BHR            2
-# ℹ 75 more rows</code></pre>
+   &lt;chr&gt;      &lt;dbl&gt;
+ 1 ABW            0
+ 2 AFG            0
+ 3 AGO            0
+ 4 ALB            0
+ 5 AND            0
+ 6 ARE            1
+ 7 ARG           22
+ 8 ARM            4
+ 9 ASM            0
+10 ATG            0
+# ℹ 195 more rows</code></pre>
 </div>
 </div>
 <p>We now have a count of all medals won by each country that competed in the 2016 Summer Olympics. Let’s have a look at the shape of those data:</p>
@@ -422,7 +422,7 @@ Installing packages
 </tr>
 <tr class="even">
 <td style="text-align: left;">Number of rows</td>
-<td style="text-align: left;">85</td>
+<td style="text-align: left;">205</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Number of columns</td>
@@ -482,11 +482,11 @@ Installing packages
 <tr class="odd">
 <td style="text-align: left;">iso3c</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">0.99</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">3</td>
 <td style="text-align: right;">3</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">84</td>
+<td style="text-align: right;">204</td>
 <td style="text-align: right;">0</td>
 </tr>
 </tbody>
@@ -526,12 +526,12 @@ Installing packages
 <td style="text-align: left;">medals_won</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">23.8</td>
-<td style="text-align: right;">41.61</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">8</td>
-<td style="text-align: right;">22</td>
+<td style="text-align: right;">9.87</td>
+<td style="text-align: right;">29.17</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">5</td>
 <td style="text-align: right;">264</td>
 <td style="text-align: left;">▇▁▁▁▁</td>
 </tr>
@@ -539,7 +539,7 @@ Installing packages
 </table>
 </div>
 </div>
-<p>85 countries competed in the 2016 Summer Olympics. On average, they won 23.8 medals. Every country won at least one medal. The US won the most medals, with an astonishing 264 medals. These data are heavily skewed to the right, with the majority of countries winning a small number of medals.</p>
+<p>205 countries competed in the 2016 Summer Olympics. On average, they won 9.9 medals. Every country won at least one medal. The US won the most medals, with an astonishing 264 medals. These data are heavily skewed to the right, with the majority of countries winning a small number of medals.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(olympic_medals_df, <span class="fu">aes</span>(<span class="at">x =</span> medals_won)) <span class="sc">+</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span> </span>
@@ -610,20 +610,20 @@ Installing packages
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>medals_gdp_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 81 × 4
-   iso3c medals_won     gdp income_level 
-   &lt;chr&gt;      &lt;int&gt;   &lt;dbl&gt; &lt;ord&gt;        
- 1 ARE            1 3.69e11 High         
- 2 ARG           22 5.58e11 High         
- 3 ARM            4 1.05e10 Medium or low
- 4 AUS           82 1.21e12 High         
- 5 AUT            2 3.96e11 High         
- 6 AZE           18 3.79e10 Medium or low
- 7 BDI            1 2.64e 9 Medium or low
- 8 BEL           21 4.76e11 High         
- 9 BGR            7 5.40e10 Medium or low
-10 BHR            2 3.23e10 Medium or low
-# ℹ 71 more rows</code></pre>
+<pre><code># A tibble: 197 × 4
+   iso3c medals_won           gdp income_level 
+   &lt;chr&gt;      &lt;dbl&gt;         &lt;dbl&gt; &lt;ord&gt;        
+ 1 ABW            0   2983635196. Medium or low
+ 2 AFG            0  18116572395. Medium or low
+ 3 AGO            0  52761617226. Medium or low
+ 4 ALB            0  11861199831. Medium or low
+ 5 AND            0   2896610480. Medium or low
+ 6 ARE            1 369255326236. High         
+ 7 ARG           22 557532320663. High         
+ 8 ARM            4  10546136236. Medium or low
+ 9 ASM            0    671000000  Medium or low
+10 ATG            0   1489692593. Medium or low
+# ℹ 187 more rows</code></pre>
 </div>
 </div>
 <p>Did high-income countries win more medals at the 2016 Summer Olympics than medium- or low-income countries?</p>
@@ -669,8 +669,8 @@ Installing packages
 <pre><code># A tibble: 2 × 4
   income_level  n_countries avg_medals diff_means
   &lt;ord&gt;               &lt;int&gt;      &lt;dbl&gt;      &lt;dbl&gt;
-1 Medium or low          35       9.06      -27.6
-2 High                   46      36.7        NA  </code></pre>
+1 Medium or low         144       2.20      -29.6
+2 High                   53      31.8        NA  </code></pre>
 </div>
 </div>
 <p>It certainly looks like high-income countries won more medals on average rather than medium- and low-income countries. This difference looks pretty substantial, but we still need to confirm that it is not due to random error.</p>
@@ -694,10 +694,10 @@ Installing packages
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>diff_means</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] -27.63851</code></pre>
+<pre><code>[1] -29.64767</code></pre>
 </div>
 </div>
-<p>On average, high-income countries won 27.6 more medals than medium- and low-income countries.</p>
+<p>On average, high-income countries won 29.6 more medals than medium- and low-income countries.</p>
 </section>
 <section id="step-2-define-the-null-hypothesis" class="level4">
 <h4 class="anchored" data-anchor-id="step-2-define-the-null-hypothesis">Step 2: Define the null hypothesis</h4>
@@ -737,21 +737,21 @@ Note
 <pre><code>Response: medals_won (numeric)
 Explanatory: income_level (factor)
 Null Hypothesis: independence
-# A tibble: 405,000 × 3
+# A tibble: 985,000 × 3
 # Groups:   replicate [5,000]
    medals_won income_level  replicate
         &lt;dbl&gt; &lt;fct&gt;             &lt;int&gt;
- 1          8 High                  1
- 2          2 High                  1
- 3         41 Medium or low         1
- 4          7 High                  1
- 5          2 High                  1
- 6          4 Medium or low         1
- 7        113 Medium or low         1
- 8         82 High                  1
- 9          4 Medium or low         1
-10         69 Medium or low         1
-# ℹ 404,990 more rows</code></pre>
+ 1          0 Medium or low         1
+ 2          0 Medium or low         1
+ 3          1 Medium or low         1
+ 4          0 Medium or low         1
+ 5          1 Medium or low         1
+ 6         36 High                  1
+ 7         47 High                  1
+ 8          8 Medium or low         1
+ 9          0 Medium or low         1
+10          0 Medium or low         1
+# ℹ 984,990 more rows</code></pre>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -809,7 +809,7 @@ Note
 </section>
 <section id="step-4-compute-the-test-statistic-for-each-of-these-null-worlds" class="level4">
 <h4 class="anchored" data-anchor-id="step-4-compute-the-test-statistic-for-each-of-these-null-worlds">Step 4: Compute the test statistic for each of these null worlds</h4>
-<p>Remember, we are interested in the difference in the average number of medals won by high-income countries and medium- and low-income countries. In our sample, we found a difference of 27.6 medals.</p>
+<p>Remember, we are interested in the difference in the average number of medals won by high-income countries and medium- and low-income countries. In our sample, we found a difference of 29.6 medals.</p>
 <p>We now need to calculate that difference for each of our samples from our simulated null world. In this world, we would expect there to be no difference, but because of random sampling error we are likely to occasionally see some years in which high-income countries win some more medals than medium- and low-income countries, and some years where the inverse is the case. As you can see from the graph below, our simulated null world reflects this: in most of our random samples of the null world, there is no difference in average medal counts. Other samples have some differences, and very few have large differences.</p>
 <p>We can calculate this difference using <code>infer::calculate()</code>:</p>
 <div class="cell">
@@ -833,7 +833,7 @@ Note
 <section id="step-5-work-out-whether-our-sample-could-plausibly-exist-in-this-null-world" class="level4">
 <h4 class="anchored" data-anchor-id="step-5-work-out-whether-our-sample-could-plausibly-exist-in-this-null-world">Step 5: Work out whether our sample could plausibly exist in this null world</h4>
 <p>We now have a good idea of the distribution of medals between high-income countries and medium- and low-income countries in a null world in which there was no difference between these groups other than that created by random chance.</p>
-<p>How likely would we be to see our sample difference of means of 27.6 medals in this null world? Well, first let’s grab our commonly used 95% confidence interval:</p>
+<p>How likely would we be to see our sample difference of means of 29.6 medals in this null world? Well, first let’s grab our commonly used 95% confidence interval:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>boostrapped_confint <span class="ot">&lt;-</span> <span class="fu">get_confidence_interval</span>(income_diffs_null)</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>boostrapped_confint</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -841,7 +841,7 @@ Note
 <pre><code># A tibble: 1 × 2
   lower_ci upper_ci
      &lt;dbl&gt;    &lt;dbl&gt;
-1    -17.0     18.6</code></pre>
+1    -9.95     8.12</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -857,13 +857,13 @@ Note
 </div>
 </div>
 </div>
-<p>These boundaries capture 95% of the differences between the number of medals won by high- and medium- and low-income countries in our random samples from our null world. Only 5% of the differences found in our 5,000 samples sit outside that shaded area. This equates to 250 statistics: 125 sitting below -16.97 medals and 125 sitting above 18.65. In other words, in only 2.5% of our samples, medium- and low-income countries won 16.97 or more medals more than high-income countries and in only 2.5% of our samples, high-income countries won 18.65 or more medals more than medium- and low-income countries.</p>
+<p>These boundaries capture 95% of the differences between the number of medals won by high- and medium- and low-income countries in our random samples from our null world. Only 5% of the differences found in our 5,000 samples sit outside that shaded area. This equates to 250 statistics: 125 sitting below -9.95 medals and 125 sitting above 8.12. In other words, in only 2.5% of our samples, medium- and low-income countries won 9.95 or more medals more than high-income countries and in only 2.5% of our samples, high-income countries won 8.12 or more medals more than medium- and low-income countries.</p>
 <p>How did we get that confidence interval? These are the 2.5th percentile and 97.5th percentile of the simulated statistics:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(income_diffs_null<span class="sc">$</span>stat, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     2.5%     97.5% 
--16.97267  18.64720 </code></pre>
+-9.954121  8.117119 </code></pre>
 </div>
 </div>
 <p>This makes sense! We want to work out the boundary within which 95% of our data fall. So, we just find that directly. I am treating this as a two tailed interval, so we need to account for the remaining 5% of data on both sides of the distribution so we look at the 2.5% and 97.5% boundaries.</p>
@@ -872,7 +872,7 @@ Note
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(income_diffs_null<span class="sc">$</span>stat, <span class="at">probs =</span> <span class="fl">0.05</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       5% 
--14.75901 </code></pre>
+-8.431191 </code></pre>
 </div>
 </div>
 <div class="cell">
@@ -902,7 +902,7 @@ Note
 <p>Because we are working with actual data points, we don’t have to worry about finding a theoretically-derived confidence interval. We just need to find the boundaries within which 95% of those actual data fall. It’s always a good thing when you don’t have to learn a new formula!</p>
 </div>
 </div>
-<p>How plausible that, given all of this, we would be able to draw a sample from this null world that would have a difference of means of -27.6 medals?</p>
+<p>How plausible that, given all of this, we would be able to draw a sample from this null world that would have a difference of means of -29.6 medals?</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize</span>(income_diffs_null) <span class="sc">+</span> </span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shade_confidence_interval</span>(boostrapped_confint, <span class="at">color =</span> <span class="st">"#8bc5ed"</span>, <span class="at">fill =</span> <span class="st">"#85d9d2"</span>) <span class="sc">+</span> </span>
@@ -918,7 +918,7 @@ Note
 </div>
 </div>
 </div>
-<p>It is <em>highly</em> unlikely that we would be able to draw a sample from our population and find a difference of 27.6 medals if there were, in fact, no differences between the average number of medals won by high-income countries and medium- and low-income countries. The graph above illustrates this well. Therefore, we can confidently state that we reject the null hypothesis of no difference. How confidently? To answer this we need to ask one more question of our data.</p>
+<p>It is <em>highly</em> unlikely that we would be able to draw a sample from our population and find a difference of 29.6 medals if there were, in fact, no differences between the average number of medals won by high-income countries and medium- and low-income countries. The graph above illustrates this well. Therefore, we can confidently state that we reject the null hypothesis of no difference. How confidently? To answer this we need to ask one more question of our data.</p>
 <p>Our hypothesis is directional: we think that richer countries win more medals than medium- and low-income countries on average. Therefore, we can use a one-tailed test.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -941,11 +941,11 @@ Tip
 <pre><code># A tibble: 1 × 2
   p_value p_value_clean
     &lt;dbl&gt; &lt;chr&gt;        
-1  0.0002 &lt;0.001       </code></pre>
+1       0 &lt;0.001       </code></pre>
 </div>
 </div>
-<p>This function uses the randomization-based null distribution to calculate the proportion of those simulated statistics that were less than our observed statistic of 27.6 medals. It found none.</p>
-<p>We can reject that null hypothesis with a very high level of confidence. If there were really no relationship between income levels and medal tallies, the probability that we would see a statistic as or more extreme than 27.6 medals is less than 0.001.</p>
+<p>This function uses the randomization-based null distribution to calculate the proportion of those simulated statistics that were less than our observed statistic of 29.6 medals. It found none.</p>
+<p>We can reject that null hypothesis with a very high level of confidence. If there were really no relationship between income levels and medal tallies, the probability that we would see a statistic as or more extreme than 29.6 medals is less than 0.001.</p>
 </section>
 <section id="two-sample-t-tests" class="level4">
 <h4 class="anchored" data-anchor-id="two-sample-t-tests">Two sample t-tests</h4>
@@ -965,16 +965,16 @@ t = \frac{(\bar{x_1} - \bar{x_2})}{\sqrt(\frac{s^2_1}{n_1} + \frac{s^2_2}{n_2})}
     Welch Two Sample t-test
 
 data:  medals_won by income_level
-t = -3.4656, df = 50.007, p-value = 0.001095
+t = -4.2576, df = 52.652, p-value = 8.544e-05
 alternative hypothesis: true difference in means between group Medium or low and group High is not equal to 0
 95 percent confidence interval:
- -43.65682 -11.62020
+ -43.61688 -15.67845
 sample estimates:
 mean in group Medium or low          mean in group High 
-                   9.057143                   36.695652 </code></pre>
+                   2.201389                   31.849057 </code></pre>
 </div>
 </div>
-<p>This t-test provides the same answer as our simulation-based test: we are very, very unlikely to be able to pull out a sample from our population that had such a large difference of means if there was, in fact, no difference between these two groups. The p-value from this test - 0.0010953 - is very, very small.</p>
+<p>This t-test provides the same answer as our simulation-based test: we are very, very unlikely to be able to pull out a sample from our population that had such a large difference of means if there was, in fact, no difference between these two groups. The p-value from this test - 8.5443^{-5} - is very, very small.</p>
 
 
 </section>

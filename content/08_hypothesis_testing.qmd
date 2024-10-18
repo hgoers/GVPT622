@@ -59,11 +59,11 @@ olympic_medals_df <- olympics_df |>
   # Only look at the most recent year (2016)
   slice_max(Year) |> 
   # Include more general country code
-  mutate(iso3c = countrycode(Team, "country.name", "iso3c")) |> 
-  # Filter out individuals who didn't win a medal
-  drop_na(Medal) |> 
+  mutate(iso3c = countrycode(Team, "country.name", "iso3c"),
+         Medal = if_else(is.na(Medal), 0, 1)) |> 
   # Count the number of medals won by each country (team) that year
-  count(iso3c, name = "medals_won")
+  group_by(iso3c) |> 
+  summarise(medals_won = sum(Medal))
 
 olympic_medals_df
 ```

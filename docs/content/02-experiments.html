@@ -346,16 +346,16 @@ Note
 <pre><code># A tibble: 1,763 × 3
    station_id cheating_party_monitoring cheating_party_no_monitoring
         &lt;int&gt;                     &lt;dbl&gt;                        &lt;dbl&gt;
- 1          1                     24.3                          82.3
- 2          2                     12.8                          85.8
- 3          3                     23.2                          79.2
- 4          4                     34.5                          64.9
- 5          5                      3.87                         78.4
- 6          6                      9.54                         63.6
- 7          7                     12.4                          47.6
- 8          8                     10.1                          66.0
- 9          9                      4.33                         48.8
-10         10                     19.4                          33.8
+ 1          1                     10.9                          36.2
+ 2          2                      8.44                         61.2
+ 3          3                     21.1                          61.9
+ 4          4                     23.4                          55.3
+ 5          5                     19.5                          72.0
+ 6          6                      9.78                         51.6
+ 7          7                      9.76                         62.2
+ 8          8                     27.4                          51.0
+ 9          9                     21.1                          59.0
+10         10                     31.3                          45.5
 # ℹ 1,753 more rows</code></pre>
 </div>
 </div>
@@ -367,16 +367,16 @@ Note
 <pre><code># A tibble: 1,763 × 4
    station_id cheating_party_monitoring cheating_party_no_monitoring difference
         &lt;int&gt;                     &lt;dbl&gt;                        &lt;dbl&gt;      &lt;dbl&gt;
- 1          1                     24.3                          82.3      -58.0
- 2          2                     12.8                          85.8      -73  
- 3          3                     23.2                          79.2      -55.9
- 4          4                     34.5                          64.9      -30.4
- 5          5                      3.87                         78.4      -74.6
- 6          6                      9.54                         63.6      -54.0
- 7          7                     12.4                          47.6      -35.3
- 8          8                     10.1                          66.0      -55.9
- 9          9                      4.33                         48.8      -44.4
-10         10                     19.4                          33.8      -14.4
+ 1          1                     10.9                          36.2      -25.3
+ 2          2                      8.44                         61.2      -52.7
+ 3          3                     21.1                          61.9      -40.8
+ 4          4                     23.4                          55.3      -31.9
+ 5          5                     19.5                          72.0      -52.5
+ 6          6                      9.78                         51.6      -41.8
+ 7          7                      9.76                         62.2      -52.4
+ 8          8                     27.4                          51.0      -23.6
+ 9          9                     21.1                          59.0      -37.9
+10         10                     31.3                          45.5      -14.3
 # ℹ 1,753 more rows</code></pre>
 </div>
 </div>
@@ -397,16 +397,16 @@ Note
 <pre><code># A tibble: 1,763 × 4
    station_id monitored cheating_party_monitoring cheating_party_no_monitoring
         &lt;int&gt;     &lt;int&gt;                     &lt;dbl&gt;                        &lt;dbl&gt;
- 1          1         1                     24.3                          NA  
- 2          2         1                     12.8                          NA  
- 3          3         1                     23.2                          NA  
- 4          4         0                     NA                            64.9
- 5          5         1                      3.87                         NA  
- 6          6         1                      9.54                         NA  
- 7          7         1                     12.4                          NA  
- 8          8         0                     NA                            66.0
- 9          9         1                      4.33                         NA  
-10         10         0                     NA                            33.8
+ 1          1         1                     10.9                          NA  
+ 2          2         0                     NA                            61.2
+ 3          3         0                     NA                            61.9
+ 4          4         0                     NA                            55.3
+ 5          5         1                     19.5                          NA  
+ 6          6         0                     NA                            51.6
+ 7          7         1                      9.76                         NA  
+ 8          8         1                     27.4                          NA  
+ 9          9         0                     NA                            59.0
+10         10         0                     NA                            45.5
 # ℹ 1,753 more rows</code></pre>
 </div>
 </div>
@@ -420,40 +420,40 @@ Note
 <pre><code># A tibble: 1,763 × 3
    station_id cheating_party_monitoring cheating_party_no_monitoring
         &lt;int&gt;                     &lt;dbl&gt;                        &lt;dbl&gt;
- 1          1                     24.3                          82.3
- 2          2                     12.8                          85.8
- 3          3                     23.2                          79.2
- 4          4                     34.5                          64.9
- 5          5                      3.87                         78.4
- 6          6                      9.54                         63.6
- 7          7                     12.4                          47.6
- 8          8                     10.1                          66.0
- 9          9                      4.33                         48.8
-10         10                     19.4                          33.8
+ 1          1                     10.9                          36.2
+ 2          2                      8.44                         61.2
+ 3          3                     21.1                          61.9
+ 4          4                     23.4                          55.3
+ 5          5                     19.5                          72.0
+ 6          6                      9.78                         51.6
+ 7          7                      9.76                         62.2
+ 8          8                     27.4                          51.0
+ 9          9                     21.1                          59.0
+10         10                     31.3                          45.5
 # ℹ 1,753 more rows</code></pre>
 </div>
 </div>
-<p>The cheating party’s average vote share if all stations were monitored is 15.48%.</p>
+<p>The cheating party’s average vote share if all stations were monitored is 15.79%.</p>
 <p>In R:</p>
 <div class="cell">
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sim_election_monitoring</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">cheating_party_monitoring</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 15.47966</code></pre>
+<pre><code>[1] 15.78589</code></pre>
 </div>
 </div>
-<p>And its average vote share if no stations were monitored is a whopping 60.53%.</p>
+<p>And its average vote share if no stations were monitored is a whopping 60.08%.</p>
 <p>In R:</p>
 <div class="cell">
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sim_election_monitoring</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">cheating_party_no_monitoring</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 60.52889</code></pre>
+<pre><code>[1] 60.0817</code></pre>
 </div>
 </div>
-<p>We can conclude from these parallel worlds that, on average, election monitors caused a 45.05% reduction in the cheating party’s vote share at any given polling station.</p>
+<p>We can conclude from these parallel worlds that, on average, election monitors caused a 44.3% reduction in the cheating party’s vote share at any given polling station.</p>
 <p>Again, we can’t split the world into two parallel worlds for our political science experiments. Instead we need to find an appropriate proxy for those counter-factual vote shares. The best way to do this is using a <strong>randomized experiment</strong> (also sometimes referred to as a <strong>randomized control trial</strong>).</p>
 <p>The ultimate goal is to find two groups that are, on average, identical prior to the treatment. Then, once we treat one of the groups, we can infer that any differences between these two previously identical groups were <em>caused by</em> our treatment.</p>
 <p>The best way to do this is to randomly assign individual actors to a <strong>treatment</strong> or <strong>control group</strong>. Here, we randomly decide whether each given polling station will be monitored. Above, I used R to do this (using the <code><a href="https://rdrr.io/r/stats/Binomial.html">rbinom()</a></code> function). Those stations that will be monitored make up the <strong>treatment group</strong>. Those that will not be monitored make up the <strong>control group</strong>.</p>
@@ -481,20 +481,20 @@ Don’t take my word for it
 <pre><code># A tibble: 1,000 × 2
       id height
    &lt;int&gt;  &lt;dbl&gt;
- 1     1   163.
- 2     2   164.
- 3     3   173.
- 4     4   158.
- 5     5   161.
- 6     6   183.
- 7     7   165.
- 8     8   169.
- 9     9   171.
-10    10   164.
+ 1     1   181.
+ 2     2   172.
+ 3     3   165.
+ 4     4   175.
+ 5     5   171.
+ 6     6   171.
+ 7     7   175.
+ 8     8   165.
+ 9     9   159.
+10    10   176.
 # ℹ 990 more rows</code></pre>
 </div>
 </div>
-<p>These 1,000 have heights ranging from 151 cm to a towering 187 cm. Let’s take a look at them:</p>
+<p>These 1,000 have heights ranging from 151 cm to a towering 190 cm. Let’s take a look at them:</p>
 <div class="cell">
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">sim_heights</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">height</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -520,16 +520,16 @@ Don’t take my word for it
 # Rowwise: 
       id height assignment
    &lt;int&gt;  &lt;dbl&gt;      &lt;int&gt;
- 1     1   163.          0
- 2     2   164.          1
- 3     3   173.          0
- 4     4   158.          1
- 5     5   161.          0
- 6     6   183.          1
- 7     7   165.          1
- 8     8   169.          0
- 9     9   171.          1
-10    10   164.          0
+ 1     1   181.          0
+ 2     2   172.          0
+ 3     3   165.          1
+ 4     4   175.          1
+ 5     5   171.          0
+ 6     6   171.          1
+ 7     7   175.          0
+ 8     8   165.          1
+ 9     9   159.          0
+10    10   176.          1
 # ℹ 990 more rows</code></pre>
 </div>
 </div>
@@ -599,16 +599,16 @@ Don’t take my word for it
 <pre><code># A tibble: 1,763 × 4
    station_id monitored cheating_party_monitoring cheating_party_no_monitoring
         &lt;int&gt;     &lt;int&gt;                     &lt;dbl&gt;                        &lt;dbl&gt;
- 1          1         1                     24.3                          NA  
- 2          2         1                     12.8                          NA  
- 3          3         1                     23.2                          NA  
- 4          4         0                     NA                            64.9
- 5          5         1                      3.87                         NA  
- 6          6         1                      9.54                         NA  
- 7          7         1                     12.4                          NA  
- 8          8         0                     NA                            66.0
- 9          9         1                      4.33                         NA  
-10         10         0                     NA                            33.8
+ 1          1         1                     10.9                          NA  
+ 2          2         0                     NA                            61.2
+ 3          3         0                     NA                            61.9
+ 4          4         0                     NA                            55.3
+ 5          5         1                     19.5                          NA  
+ 6          6         0                     NA                            51.6
+ 7          7         1                      9.76                         NA  
+ 8          8         1                     27.4                          NA  
+ 9          9         0                     NA                            59.0
+10         10         0                     NA                            45.5
 # ℹ 1,753 more rows</code></pre>
 </div>
 </div>
@@ -623,7 +623,7 @@ Don’t take my word for it
 <pre><code># A tibble: 1 × 2
   cheating_party_monitoring cheating_party_no_monitoring
                       &lt;dbl&gt;                        &lt;dbl&gt;
-1                      15.5                         60.2</code></pre>
+1                      15.9                         59.8</code></pre>
 </div>
 </div>
 <p>Then we find the difference between these two vote shares:</p>
@@ -634,10 +634,10 @@ Don’t take my word for it
 <pre><code># A tibble: 1 × 3
   cheating_party_monitoring cheating_party_no_monitoring difference
                       &lt;dbl&gt;                        &lt;dbl&gt;      &lt;dbl&gt;
-1                      15.5                         60.2      -44.7</code></pre>
+1                      15.9                         59.8      -43.9</code></pre>
 </div>
 </div>
-<p>We can say that, on average, election monitors reduced the cheating party’s vote share by 44.71 percentage points. This difference is substantial!<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> It is the difference between a land-slide win and an embarrassing loss.</p>
+<p>We can say that, on average, election monitors reduced the cheating party’s vote share by 43.92 percentage points. This difference is substantial!<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> It is the difference between a land-slide win and an embarrassing loss.</p>
 <p>Experiments are wonderful because they allow us to control which variables change and which are held constant. In turn, this allows us to isolate which variables cause changes to our outcome of interest. However, we cannot always run experiments to test our theories. When this is the case (which it often is), we need to rely on observational data to test whether our theories play out in the real-world.</p>
 </section></section><section id="observational-studies" class="level2"><h2 class="anchored" data-anchor-id="observational-studies">Observational studies</h2>
 <p>Observational studies are attempts to learn about the effect of a change in some variable on our outcome of interest. However, unlike in experiments, we cannot control when or how those variables change. We can only observe and record their changes and corresponding changes to our outcome of interest.</p>
@@ -678,16 +678,16 @@ Tip
 # Rowwise: 
    station_id in_city monitored cheating_party_vote_share
         &lt;int&gt;   &lt;int&gt;     &lt;int&gt;                     &lt;dbl&gt;
- 1          1       0         0                    0.576 
- 2          2       0         0                    0.0576
- 3          3       0         0                    0.390 
- 4          4       0         0                    0.273 
- 5          5       0         0                    0.216 
- 6          6       0         1                    0.0451
- 7          7       0         0                    0.248 
- 8          8       0         0                    0.0789
- 9          9       1         1                    0.337 
-10         10       0         1                    0.178 
+ 1          1       1         1                    0.359 
+ 2          2       1         1                    0.588 
+ 3          3       1         1                    0.711 
+ 4          4       1         1                    0.794 
+ 5          5       0         1                    0.263 
+ 6          6       0         0                    0.0900
+ 7          7       0         0                    0.527 
+ 8          8       0         0                    0.151 
+ 9          9       1         1                    0.611 
+10         10       1         0                    0.558 
 # ℹ 1,753 more rows</code></pre>
 </div>
 </div>
@@ -702,11 +702,11 @@ Tip
 <pre><code># A tibble: 2 × 2
   monitored   avg
       &lt;int&gt; &lt;dbl&gt;
-1         0 0.374
-2         1 0.358</code></pre>
+1         0 0.387
+2         1 0.359</code></pre>
 </div>
 </div>
-<p>A relatively small 2% reduction in vote share. But what happens if we control for whether the station was in the city or not?</p>
+<p>A relatively small 3% reduction in vote share. But what happens if we control for whether the station was in the city or not?</p>
 <div class="cell">
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sim_observed_data</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">monitored</span>, <span class="va">in_city</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -719,10 +719,10 @@ Tip
 # Groups:   in_city [2]
   monitored in_city   avg difference
       &lt;int&gt;   &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;     
-1         0       0 0.324 &lt;NA&gt;      
-2         1       0 0.156 -17%      
-3         0       1 0.607 &lt;NA&gt;      
-4         1       1 0.501 -11%      </code></pre>
+1         0       0 0.336 &lt;NA&gt;      
+2         1       0 0.145 -19%      
+3         0       1 0.609 &lt;NA&gt;      
+4         1       1 0.515 -9%       </code></pre>
 </div>
 </div>
 <p>When we compare similar (if not identical) groups, we find a much larger effect. We have attempted to correct for dissimilarities between our groups prior to treatment. In doing so, we get a much better understanding of the role international election monitors play in deterring or preventing election-day fraud.</p>
