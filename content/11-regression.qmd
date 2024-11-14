@@ -8,17 +8,7 @@ execute:
   fig-width: 10
 ---
 
-## Readings
-
-### Class
-
-{{< fa book >}} Pollock & Edwards, Chapter 8
-
-### Lab
-
-{{< fa book >}} Pollock & Edwards R Companion, Chapter 8
-
-## Section
+### Set up
 
 ```{r}
 #| eval: false

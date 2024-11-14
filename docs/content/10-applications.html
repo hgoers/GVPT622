@@ -264,6 +264,12 @@ window.Quarto = {
  <span class="menu-text">Applications &amp; Midterm Exam Review II</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/11-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Regression</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -293,7 +299,7 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section">Section</a>
+  <li><a href="#set-up" id="toc-set-up" class="nav-link active" data-scroll-target="#set-up">Set up</a>
   <ul>
   <li><a href="#a-single-mean" id="toc-a-single-mean" class="nav-link" data-scroll-target="#a-single-mean">A single mean</a>
   <ul class="collapse">
@@ -335,8 +341,8 @@ window.Quarto = {
 </header>
 
 
-<section id="section" class="level2">
-<h2 class="anchored" data-anchor-id="section">Section</h2>
+<section id="set-up" class="level2">
+<h2 class="anchored" data-anchor-id="set-up">Set up</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"peacesciencer"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -1226,7 +1232,9 @@ SE_{D_p} = \sqrt{\hat{p}(1-\hat{p})(\frac{1}{n_1} + \frac{1}{n_2})}
 <p>Let’s look at this same question, but ask whether democracy shared between countries in a dyad significantly effects the number of defense alliances held by them.</p>
 <p>First, we need to find the observed count of defense alliances split between democratic and non-democratic dyads:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb114"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="fu">datasummary_crosstab</span>(cow_defense <span class="sc">~</span> dem_dyad, <span class="at">data =</span> alliance_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb114"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="fu">datasummary_crosstab</span>(cow_defense <span class="sc">~</span> dem_dyad, </span>
+<span id="cb114-2"><a href="#cb114-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">statistic =</span> <span class="dv">1</span> <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> N <span class="sc">+</span> <span class="fu">Percent</span>(<span class="st">"col"</span>),</span>
+<span id="cb114-3"><a href="#cb114-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">data =</span> alliance_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table caption-top table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
@@ -1248,10 +1256,10 @@ SE_{D_p} = \sqrt{\hat{p}(1-\hat{p})(\frac{1}{n_1} + \frac{1}{n_2})}
 </tr>
 <tr class="even">
 <td style="text-align: left;"></td>
-<td style="text-align: left;">% row</td>
-<td style="text-align: right;">73.5</td>
-<td style="text-align: right;">26.5</td>
-<td style="text-align: right;">100.0</td>
+<td style="text-align: left;">% col</td>
+<td style="text-align: right;">95.6</td>
+<td style="text-align: right;">90.6</td>
+<td style="text-align: right;">94.2</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">1</td>
@@ -1262,10 +1270,10 @@ SE_{D_p} = \sqrt{\hat{p}(1-\hat{p})(\frac{1}{n_1} + \frac{1}{n_2})}
 </tr>
 <tr class="even">
 <td style="text-align: left;"></td>
-<td style="text-align: left;">% row</td>
-<td style="text-align: right;">55.0</td>
-<td style="text-align: right;">45.0</td>
-<td style="text-align: right;">100.0</td>
+<td style="text-align: left;">% col</td>
+<td style="text-align: right;">4.4</td>
+<td style="text-align: right;">9.4</td>
+<td style="text-align: right;">5.8</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">All</td>
@@ -1276,9 +1284,9 @@ SE_{D_p} = \sqrt{\hat{p}(1-\hat{p})(\frac{1}{n_1} + \frac{1}{n_2})}
 </tr>
 <tr class="even">
 <td style="text-align: left;"></td>
-<td style="text-align: left;">% row</td>
-<td style="text-align: right;">72.4</td>
-<td style="text-align: right;">27.6</td>
+<td style="text-align: left;">% col</td>
+<td style="text-align: right;">100.0</td>
+<td style="text-align: right;">100.0</td>
 <td style="text-align: right;">100.0</td>
 </tr>
 </tbody>
