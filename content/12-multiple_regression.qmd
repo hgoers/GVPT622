@@ -9,17 +9,7 @@ execute:
 bibliography: references.bib
 ---
 
-## Readings
-
-### Class
-
-{{< fa book >}} Pollock & Edwards, Chapter 9
-
-### Lab
-
-{{< fa book >}} Pollock & Edwards R Companion, Chapter 9
-
-## Section
+## Set up
 
 ```{r}
 #| eval: false
