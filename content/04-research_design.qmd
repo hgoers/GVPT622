@@ -139,7 +139,7 @@ We will start slowly by retrieving the first 10 rows of this data set. Therefore
 
 -   `page=x`: `page=1`.
 
-Adding these into our base URL creates the following request URL: 
+Adding these into our base URL creates the following request URL:
 
 ```{r}
 ucdp_url <- "https://ucdpapi.pcr.uu.se/api/ucdpprioconflict/23.1?pagesize=10&page=1"
@@ -194,7 +194,7 @@ The data set is stored in the `Results` object. You can have a look at it by run
 results_raw$Result
 ```
 
-This is a JSON object, which can be a bit difficult to work with. It is much easier to work with a tibble or data frame. To convert this JSON object to a tibble, we can use `tibble::enframe()` and `tidyr::unnest_wider()` (both of which are loaded with `tidyverse`. 
+This is a JSON object, which can be a bit difficult to work with. It is much easier to work with a tibble or data frame. To convert this JSON object to a tibble, we can use `tibble::enframe()` and `tidyr::unnest_wider()` (both of which are loaded with `tidyverse`.
 
 ```{r}
 results_df <- enframe(results_raw$Result) |> 
@@ -205,15 +205,15 @@ results_df
 
 Cool! We now have the first 10 rows of the UCDP/PRIO Armed Conflict Data Set.
 
-You can do more precise requests with APIs. For example, you can request data for specific countries or time frames. This can be very useful when you are working with big data because it can allow you to work in memory by segmenting your analysis. 
+You can do more precise requests with APIs. For example, you can request data for specific countries or time frames. This can be very useful when you are working with big data because it can allow you to work in memory by segmenting your analysis.
 
-#### Web scraping 
+#### Web scraping
 
-Another useful method for collecting data from the internet is web scraping. Web scraping allows you to extract data from a website. I am going to very quickly introduce you to this process and some useful R packages for performing web scraping. Again, this will be a very cursory introduction that aims to provide you with the tools to build up this skill if you need it. 
+Another useful method for collecting data from the internet is web scraping. Web scraping allows you to extract data from a website. I am going to very quickly introduce you to this process and some useful R packages for performing web scraping. Again, this will be a very cursory introduction that aims to provide you with the tools to build up this skill if you need it.
 
-The best package for web scraping in R is [`rvest`](https://rvest.tidyverse.org/). We can use this package to *harvest* data from the web. 
+The best package for web scraping in R is [`rvest`](https://rvest.tidyverse.org/). We can use this package to *harvest* data from the web.
 
-First, let's load `rvest` into our current R session: 
+First, let's load `rvest` into our current R session:
 
 ```{r}
 library(rvest)
@@ -223,7 +223,7 @@ Let's practice by creating a data set of all of the UNSC resolutions passed this
 
 ![](img/unsc.png)
 
-This table includes some very useful information for anyone interested in looking at UNSC behaviour over time. It provides the unique resolution ID, the data of adoption, and a brief title or description of the resolution. We are going to use `rvest` and friends to read that information into R so that we can analyze it. 
+This table includes some very useful information for anyone interested in looking at UNSC behaviour over time. It provides the unique resolution ID, the data of adoption, and a brief title or description of the resolution. We are going to use `rvest` and friends to read that information into R so that we can analyze it.
 
 The first step you need to do is to read in the web page:
 
@@ -231,19 +231,19 @@ The first step you need to do is to read in the web page:
 unsc_res <- read_html("https://www.un.org/securitycouncil/content/resolutions-adopted-security-council-2023")
 ```
 
-Web pages are (generally) HTML files. HTML is a markup language that is the standard format for documents displayed in web browsers. 
+Web pages are (generally) HTML files. HTML is a markup language that is the standard format for documents displayed in web browsers.
 
-We can have a look at this HTML file: 
+We can have a look at this HTML file:
 
 ```{r}
 unsc_res
 ```
 
-I am not about to teach you yet another scripting language. All you need to know is that HTML documents are *highly* structured. We can use this structure to point R to the specific part of the document that we want to scrape. 
+I am not about to teach you yet another scripting language. All you need to know is that HTML documents are *highly* structured. We can use this structure to point R to the specific part of the document that we want to scrape.
 
 Here is a basic example of HTML (from the [`rvest` documentation](https://rvest.tidyverse.org/articles/rvest.html#html-basics)):
 
-```
+```         
 <html>
 <head>
   <title>Page title</title>
@@ -255,40 +255,40 @@ Here is a basic example of HTML (from the [`rvest` documentation](https://rvest.
 </body>
 ```
 
-HTML is hierarchical: all elements are nested within one another, providing them with a place within the documentation. 
+HTML is hierarchical: all elements are nested within one another, providing them with a place within the documentation.
 
-All HTML elements are contained within two tags: a start tag (`<tag>`) and corresponding end tag (`</tag>`). These tags can have attributes that can group them together. 
+All HTML elements are contained within two tags: a start tag (`<tag>`) and corresponding end tag (`</tag>`). These tags can have attributes that can group them together.
 
-For example, the above HTML code includes a heading (`<h1>`) that includes an `id` attribute `'first'`. The text of the heading - *A heading* - is contained within the heading tag. We know where the heading ends because it closes out with a `</h1>` tag. 
+For example, the above HTML code includes a heading (`<h1>`) that includes an `id` attribute `'first'`. The text of the heading - *A heading* - is contained within the heading tag. We know where the heading ends because it closes out with a `</h1>` tag.
 
-Here, we want to scrape the table that contains all the useful information about the resolutions. We need to find the part of the HTML document that contains that table. 
+Here, we want to scrape the table that contains all the useful information about the resolutions. We need to find the part of the HTML document that contains that table.
 
 Head back to the web page. We are looking at the rendered HTML. We need to find where in this document the table is located. To do this, right click anywhere in the table and select *Inspect*.
 
 ![](img/unsc2.png)
 
-A new window will pop up on the side of your web page that shows you the raw HTML language that is generating this web page. 
+A new window will pop up on the side of your web page that shows you the raw HTML language that is generating this web page.
 
 ![](img/unsc3.png)
 
-This can look a bit weird if you have not come across HTML before, but it can be easy to work with. Scroll your mouse across different lines in that raw HTML window. You will see the corresponding parts of the rendered page light up. 
+This can look a bit weird if you have not come across HTML before, but it can be easy to work with. Scroll your mouse across different lines in that raw HTML window. You will see the corresponding parts of the rendered page light up.
 
 ![](img/unsc4.png)
 
-Scroll until you have highlighted the whole table. You will be on a line that reads: `<table class="table table-striped table-sm">`. 
+Scroll until you have highlighted the whole table. You will be on a line that reads: `<table class="table table-striped table-sm">`.
 
 ![](img/unsc5.png)
 
-Without getting too into the HTML weeds, this is the code used to generate the table. It includes a couple of unique identifiers that are useful for web scraping. Here, we are going to use the unique `class` of this table. 
+Without getting too into the HTML weeds, this is the code used to generate the table. It includes a couple of unique identifiers that are useful for web scraping. Here, we are going to use the unique `class` of this table.
 
-The class is `table table-striped table-sm`. When providing that to `httr2::html_element()` (which is function we use to select that part of the HTML document), we need to replace those spaces with full stops: 
+The class is `table table-striped table-sm`. When providing that to `httr2::html_element()` (which is function we use to select that part of the HTML document), we need to replace those spaces with full stops:
 
 ```{r}
 unsc_res |> 
   html_element("table.table-striped.table-sm")
 ```
 
-We have filtered the whole HTML document to only the table we want to select. We don't want to work with this table in HTML. Let's convert it into a data frame. We can use the very helpful `httr2::html_table()` function to extract this tabular data and convert it:  
+We have filtered the whole HTML document to only the table we want to select. We don't want to work with this table in HTML. Let's convert it into a data frame. We can use the very helpful `httr2::html_table()` function to extract this tabular data and convert it:
 
 ```{r}
 unsc_res |> 
@@ -296,7 +296,7 @@ unsc_res |>
   html_table()
 ```
 
-Awesome! We now have a table of all of the resolutions passed by the UNSC this year. Let's clean it up a bit: 
+Awesome! We now have a table of all of the resolutions passed by the UNSC this year. Let's clean it up a bit:
 
 ```{r}
 unsc_res_df <- unsc_res |> 
@@ -309,5 +309,4 @@ unsc_res_df <- unsc_res |>
 unsc_res_df
 ```
 
-For more information on web-scraping, I recommend reading the [*Web scraping 101* article](https://rvest.tidyverse.org/articles/rvest.html) in the `rvest` documentation. 
-
+For more information on web-scraping, I recommend reading the [*Web scraping 101* article](https://rvest.tidyverse.org/articles/rvest.html) in the `rvest` documentation.
