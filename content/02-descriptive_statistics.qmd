@@ -519,7 +519,7 @@ The box in the graph above displays the 25th percentile, the median, and the 75t
 
 ### Outliers
 
-Note that some countries' expenditure are displayed as dots. The box plot above is providing you with a bit more information than the five number summary alone. If the data include values that fall outside of the IQR, they are displayed as dots. These are (very rule of thumb, take with a grain of salt, please rely on your theory and data generation process instead!) candidates for **outliers**.
+Note that some countries' expenditure are displayed as dots. The box plot above is providing you with a bit more information than the five number summary alone. If the data include values that fall outside of 1.5 times the IQR, they are displayed as dots. These are (very rule of thumb, take with a grain of salt, please rely on your theory and data generation process instead!) candidates for **outliers**.
 
 **Outliers** fall so far away from the majority of the other values that they should be examined closely and perhaps excluded from your analysis. As discussed above, they can distort your mean. They do not, however, distort your median.
 

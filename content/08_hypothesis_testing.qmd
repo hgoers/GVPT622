@@ -367,7 +367,8 @@ Where $\bar{x_i}$ is the statistic (for example, mean) calculated from group $i$
 We can easily perform the t-test in R:
 
 ```{r}
-t_test_medals <- t.test(medals_won ~ income_level, data = medals_gdp_df)
+t_test_medals <- t.test(medals_won ~ income_level, var.equal = T, 
+                        data = medals_gdp_df)
 t_test_medals
 ```
 

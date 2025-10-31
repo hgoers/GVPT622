@@ -511,13 +511,13 @@ Is the proportion of democratic dyads with defense alliances greater than that o
 
 ```{r}
 alliance_df <- create_dyadyears(directed = F, subset_years = 2010) |> 
-  add_cow_alliance() |> 
+  add_atop_alliance() |> 
   add_democracy() |> 
   transmute(ccode1, 
             ccode2, 
-            cow_defense, 
+            atop_defense, 
             dem_dyad = if_else(polity21 > 5 & polity22 > 5, 1, 0)) |> 
-  drop_na(cow_defense, dem_dyad)
+  drop_na(atop_defense, dem_dyad)
 
 alliance_df
 ```
@@ -528,7 +528,7 @@ What proportion of democratic and non-democratic dyads have defense alliances?
 alliance_summary <- alliance_df |> 
   group_by(dem_dyad) |> 
   summarise(n = n(),
-            n_defense = sum(cow_defense)) |> 
+            n_defense = sum(atop_defense)) |> 
   mutate(prop = n_defense / n,
          diff_prop = prop - lag(prop))
 
@@ -659,7 +659,7 @@ Let's look at this same question, but ask whether democracy shared between count
 First, we need to find the observed count of defense alliances split between democratic and non-democratic dyads:
 
 ```{r}
-datasummary_crosstab(cow_defense ~ dem_dyad, 
+datasummary_crosstab(atop_defense ~ dem_dyad, 
                      statistic = 1 ~ 1 + N + Percent("col"),
                      data = alliance_df)
 ```
@@ -668,7 +668,7 @@ What would our cross tab look like if democratic dyads had no effect on the numb
 
 ```{r}
 # Calculate the observed count for each category
-obs_values <- count(alliance_df, cow_defense, dem_dyad, name = "obs_n")
+obs_values <- count(alliance_df, atop_defense, dem_dyad, name = "obs_n")
 obs_values
 
 # Calculate the total number of dyads that are democratic or non-democratic
@@ -676,7 +676,7 @@ dem_dyad_totals <- count(alliance_df, dem_dyad, name = "dem_dyad_total")
 dem_dyad_totals
 
 # Calculate the total number of defense alliances
-alliance_totals <- count(alliance_df, cow_defense, name = "defense_total")
+alliance_totals <- count(alliance_df, atop_defense, name = "defense_total")
 alliance_totals
 
 # Work out your observed counts
@@ -714,5 +714,5 @@ Yes! We are highly unlikely to see such large differences of counts if being a d
 #### Chi-square test shortcut
 
 ```{r}
-chisq.test(alliance_df$cow_defense, alliance_df$dem_dyad)
+chisq.test(alliance_df$atop_defense, alliance_df$dem_dyad)
 ```
